@@ -29,7 +29,12 @@ in
   boot.cleanTmpDir = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot.kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=Intel Generic
+    options snd-hda-intel dmic_detect=0
+    options probe_mask=1
+  '';
   # boot.blacklistedKernelModules = [ "i915" ];
   networking.hostName = "pain"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
@@ -120,7 +125,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" ]; 
     shell = pkgs.fish;
   };
 
