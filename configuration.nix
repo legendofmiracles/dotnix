@@ -126,6 +126,10 @@ in
 
   programs.neovim.defaultEditor = true;
 
+  environment.sessionVariables = {
+    "NIXOS_CONFIG" = "/home/nix/dotnix/configuration.nix";
+  };
+
   programs.fish.enable = true;
 
   environment.variables = {
