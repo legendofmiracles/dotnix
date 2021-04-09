@@ -264,7 +264,7 @@ end
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
     fish_prompt = ''
-            set -l last_pipestatus $pipestatus
+    set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
     set -l normal (set_color normal)
 
@@ -295,11 +295,11 @@ end
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" (set_color $fish_color_status) (set_color $bold_flag $fish_color_status) $last_pipestatus)
 
     # echo -n -s (set_color $fish_color_user) "$USER" $normal @ (set_color $color_host) (prompt_hostname) $normal ' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
-    set -l nix_shell_info (
-      if test -n "$IN_NIX_SHELL"
-        echo -n "<nix-shell> "
-      end
-    )
+  set -l nix_shell_info (
+    if test -n "$IN_NIX_SHELL"
+      echo -n "<nix-shell> "
+    end
+  )
   #  set last_status $status
 
   printf '%s' $nix_shell_info
@@ -309,7 +309,8 @@ end
 
   printf '%s ' (__fish_git_prompt)
   set_color FF217C
-  echo -n "> "
+  printf '%s' $prompt_status
+  printf "> "
   set_color normal
       '';
   };
