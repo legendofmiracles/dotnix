@@ -13,7 +13,7 @@
   }];
   # programs.fish.vendor.completions.enable = true;
   programs.fish.shellAbbrs = {
-    c = "sudo vim /etc/nixos/configuration.nix";
+    c = "vim ~/dotnix/configuration.nix";
     r = "sudo nixos-rebuild switch";
     ch = "vim ~/.config/nixpkgs/";
     rh = "home-manager switch";
