@@ -75,6 +75,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     gimp
     qmk
     legendary-gl
+    pavucontrol
     # Last line
   ];
 

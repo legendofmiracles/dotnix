@@ -262,8 +262,8 @@ end
 
   programs.fish.functions = {
     bne = ''
-      sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/.config/nixpkgs/home.nix'';
-      fish_prompt = ''
+      sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
+    fish_prompt = ''
             set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
     set -l normal (set_color normal)
