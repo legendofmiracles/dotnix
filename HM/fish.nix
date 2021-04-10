@@ -2,19 +2,29 @@
 
 {
   programs.fish.enable = true;
-  programs.fish.plugins = [{
-    name = "z";
-    src = pkgs.fetchFromGitHub {
-      owner = "jethrokuan";
-      repo = "z";
-      rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
-      sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
-    };
-  }];
+  programs.fish.plugins = [
+    {
+      name = "z";
+      src = pkgs.fetchFromGitHub {
+        owner = "jethrokuan";
+        repo = "z";
+        rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
+        sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+      };
+    }
+    {
+      name = "fish-async-prompt";
+      src = pkgs.fetchFromGitHub {
+        owner = "acomagu";
+        repo = "fish-async-prompt";
+        rev = "v1.2.0";
+        sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+      };
+    } 
+  ];
   # programs.fish.vendor.completions.enable = true;
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/configuration.nix";
-    r = "sudo nixos-rebuild switch";
     ch = "vim ~/.config/nixpkgs/";
     rh = "home-manager switch";
     s = "manix";
@@ -261,6 +271,9 @@ end
   '';
 
   programs.fish.functions = {
+    r = ''
+      git -C (dirname $NIXOS_CONFIG) diff configuration.nix hardware-configuration.nix; sudo nixos-rebuild switch
+      '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
     fish_prompt = ''
