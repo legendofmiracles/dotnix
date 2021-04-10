@@ -73,9 +73,9 @@ with import ./shell-scripts.nix { inherit pkgs; };
     cowsay
     feh
     gimp
-    qmk
     legendary-gl
     pavucontrol
+    xorg.xev
     # Last line
   ];
 

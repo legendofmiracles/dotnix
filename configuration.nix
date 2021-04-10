@@ -19,6 +19,7 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./secrets.nix
+      ./udev.nix
     ];
 
   # enables unfree (please don't kill me stallman)
