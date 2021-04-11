@@ -9,14 +9,23 @@
     coc-rust-analyzer
     vim-nix
     auto-pairs
-    vim-signify
-    airline
+    {
+      plugin = gitgutter;
+      config = ''
+        highlight clear SignColumn
+        let g:gitgutter_set_sign_backgrounds = 1
+      '';
+    }
+    {
+      plugin = airline;
+      config = ''
+        let g:airline_powerline_fonts = 1
+      '';
+    }
     fugitive
     fzf-vim
-    nerdcommenter
-    LanguageTool-nvim
     colorizer
-    surround
+    # surround
     {
       plugin = vim-which-key;
       config = ''
@@ -50,13 +59,14 @@
   ];
 
   programs.neovim.extraConfig = ''
-    set nocompatible
     set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
     set autoindent
     set showmatch
     set mouse=a
     set spell
     set nu rnu
+    " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
+    nnoremap <Return> o<Esc>
     syntax on
     syntax enable
     set updatetime=100
@@ -72,6 +82,10 @@
     if (has("termguicolors"))
       set termguicolors
     endif
+    " color of lines and line
+    highlight LineNr guifg=#FF217C
+    " highlight CursorLine guifg=#FF217C
+
     " when copying/cutting strip it from newlines
     autocmd TextYankPost * let @@ = trim(@@)
     " Put plugins and dictionaries in this dir (also on Windows)

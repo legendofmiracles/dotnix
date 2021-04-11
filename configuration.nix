@@ -64,7 +64,7 @@ in
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ ];
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  services.xserver.xkbVariant = "colemak";
+  # services.xserver.xkbVariant = "colemak";
   # hardware.nvidiaOptimus.disable = true;
   # services.xserver.displayManager.startx.enable = true;
 
