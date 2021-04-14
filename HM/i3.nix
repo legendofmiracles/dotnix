@@ -25,12 +25,12 @@ in
     extraConfig = ''
       [colors]
       ; background = ''${xrdb:background}
-      background = #07090C
+      background = ${drbg}
       background-alt = #444444
       ; foreground = 
-      foreground = #dfdfdf
+      foreground = ${fg}
       foreground-alt = ''${xrdb:color7}
-      primary = #FF217C
+      primary = ${pink}
       secondary = #0000ff
       alert = #ffff00
 
@@ -119,29 +119,29 @@ in
 
       label-discharging = %percentage%%
 
-       label-full = %{F#ff217c}%{F-} 100%
+      label-full = %{F${pink}}%{F-} 100%
 
-      ramp-capacity-0 =%{F#ff217c}%{F-} 
-      ramp-capacity-1 =%{F#ff217c}%{F-} 
-      ramp-capacity-2 =%{F#ff217c}%{F-} 
-      ramp-capacity-3 =%{F#ff217c}%{F-} 
-      ramp-capacity-4 =%{F#ff217c}%{F-} 
+      ramp-capacity-0 =%{F${pink}}%{F-} 
+      ramp-capacity-1 =%{F${pink}}%{F-} 
+      ramp-capacity-2 =%{F${pink}}%{F-} 
+      ramp-capacity-3 =%{F${pink}}%{F-} 
+      ramp-capacity-4 =%{F${pink}}%{F-} 
 
       bar-capacity-width = 10
 
-      animation-charging-0 =%{F#ff217c}%{F-} 
-      animation-charging-1 =%{F#ff217c}%{F-} 
-      animation-charging-2 =%{F#ff217c}%{F-} 
-      animation-charging-3 =%{F#ff217c}%{F-} 
-      animation-charging-4 =%{F#ff217c}%{F-} 
+      animation-charging-0 =%{F${pink}}%{F-} 
+      animation-charging-1 =%{F${pink}}%{F-} 
+      animation-charging-2 =%{F${pink}}%{F-} 
+      animation-charging-3 =%{F${pink}}%{F-} 
+      animation-charging-4 =%{F${pink}}%{F-} 
       ; Framerate in milliseconds
       animation-charging-framerate = 500
 
-      animation-discharging-0 =%{F#ff217c}%{F-} 
-      animation-discharging-1 =%{F#ff217c}%{F-} 
-      animation-discharging-2 =%{F#ff217c}%{F-} 
-      animation-discharging-3 =%{F#ff217c}%{F-} 
-      animation-discharging-4 =%{F#ff217c}%{F-} 
+      animation-discharging-0 =%{F${pink}}%{F-} 
+      animation-discharging-1 =%{F${pink}}%{F-} 
+      animation-discharging-2 =%{F${pink}}%{F-} 
+      animation-discharging-3 =%{F${pink}}%{F-} 
+      animation-discharging-4 =%{F${pink}}%{F-} 
 
       animation-discharging-framerate = 500
 
@@ -154,11 +154,11 @@ in
 
       format-volume = <ramp-volume> <label-volume>
 
-      label-muted = %{F#ff217c}%{F-} off
+      label-muted = %{F${pink}}%{F-} off
 
-      ramp-volume-0 =%{F#ff217c}%{F-} 
-      ramp-volume-1 =%{F#ff217c}%{F-} 
-      ramp-volume-2 =%{F#ff217c}%{F-} 
+      ramp-volume-0 =%{F${pink}}%{F-} 
+      ramp-volume-1 =%{F${pink}}%{F-} 
+      ramp-volume-2 =%{F${pink}}%{F-} 
 
       click-right = pavucontrol &
 
@@ -170,20 +170,20 @@ in
 
       menu-0-0 ="|"
       menu-0-0-exec =
-      menu-0-1 ="%{F#ff217c}%{F-}"
+      menu-0-1 ="%{F${pink}}%{F-}"
       menu-0-1-exec = systemctl suspend 
-      menu-0-2 = "%{F#ff217c}%{F-}"
+      menu-0-2 = "%{F${pink}}%{F-}"
       menu-0-2-exec = reboot
-      menu-0-3 = "%{F#ff217c}%{F-}"
+      menu-0-3 = "%{F${pink}}%{F-}"
       menu-0-3-exec = shutdown now
-      menu-0-4 = "%{F#ff217c}%{F-}"
+      menu-0-4 = "%{F${pink}}%{F-}"
       menu-0-4-exec = loginctl lock-session 
 
       format =<menu>  <label-toggle>
 
-      label-open = "%{F#ff217c}%{F-}"
+      label-open = "%{F${pink}}%{F-}"
 
-      label-close = "%{F#ff217c}%{F-}"
+      label-close = "%{F${pink}}%{F-}"
 
 
       label-separator = "  "
@@ -206,7 +206,7 @@ in
       label-mode-foreground = #000
 
       label-focused = %index%
-      label-focused-background = #ff217c
+      label-focused-background = ${pink}
       label-focused-underline = ''${colors.primary}
       label-focused-padding = 2
 
@@ -241,8 +241,6 @@ in
       # Use Mouse+$mod to drag floating windows to their wanted position
       floating_modifier $mod
 
-      #bindsym $mod+z exec lock
-
       # start a terminal
       bindsym $mod+Return exec alacritty
 
@@ -257,18 +255,18 @@ in
       bindsym $mod+c exec "rofi -show calc"
 
       bindsym $mod+h focus left
-      bindsym $mod+j focus down
+      bindsym $mod+n focus down
       # change focus
-      bindsym $mod+k focus up
-      bindsym $mod+l focus right
+      bindsym $mod+e focus up
+      bindsym $mod+i focus right
 
       bindsym $mod+Shift+h move left
-      bindsym $mod+Shift+j move down
-      bindsym $mod+Shift+k move up
-      bindsym $mod+Shift+l move right
+      bindsym $mod+Shift+n move down
+      bindsym $mod+Shift+e move up
+      bindsym $mod+Shift+i move right
 
       # split in horizontal orientation
-      bindsym $mod+b split h
+      bindsym $mod+f split h
 
       # split in vertical orientation
       bindsym $mod+v split v
@@ -277,9 +275,9 @@ in
       bindsym $mod+t fullscreen toggle
 
       # change container layout (stacked, tabbed, toggle split)
-      bindsym $mod+Shift+s layout stacking
-      bindsym $mod+control+s layout tabbed
-      bindsym $mod+s layout toggle split
+      #bindsym $mod+Shift+s layout stacking
+      #bindsym $mod+control+s layout tabbed
+      #bindsym $mod+s layout toggle split
 
       # toggle tiling / floating
       bindsym $mod+Shift+space floating toggle

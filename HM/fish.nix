@@ -29,7 +29,7 @@
     rh = "home-manager switch";
     s = "manix";
     sf = "manix \"\" | grep '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\" | xargs manix";
-    ls = "lsd";
+    ls = "ls --color";
     rm = "rm -v";
     cp = "cp -v";
     mv = "mv -v";

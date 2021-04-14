@@ -25,7 +25,7 @@
     fugitive
     fzf-vim
     colorizer
-    # surround
+    surround
     {
       plugin = vim-which-key;
       config = ''
@@ -59,7 +59,39 @@
   ];
 
   programs.neovim.extraConfig = ''
-    set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+     set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+"noremap d g
+"noremap e k
+"noremap f e
+"noremap g t
+"noremap i l
+"noremap j y
+"noremap k n
+"noremap l u
+"noremap n j
+"noremap o p
+"noremap p r
+"noremap r s
+"noremap s d
+"noremap t f
+"noremap u i
+"noremap y o
+"noremap D G
+"noremap E K
+"noremap F E
+"noremap G T
+"noremap I L
+"noremap J Y
+"noremap K N
+"noremap L U
+"noremap N J
+"noremap O P
+"noremap P R
+"noremap R S
+"noremap S D.
+"noremap T F
+"noremap U I
+"noremap Y O
     set autoindent
     set showmatch
     set mouse=a

@@ -57,6 +57,7 @@ in
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
+  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -136,6 +137,8 @@ in
     "NIXOS_CONFIG" = "/home/nix/dotnix/configuration.nix";
   };
 
+  #programs.neovim.defaultEditor = true;
+
   programs.fish.enable = true;
 
   environment.variables = {
@@ -155,6 +158,7 @@ in
     pciutils
     libnotify
     zip
+    man-pages
     # tor-browser-bundle-bin
   ];
 

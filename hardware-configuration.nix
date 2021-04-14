@@ -22,7 +22,7 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
       fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" "noatime" ];
+      options = [ "subvol=home" "compress=zstd:9" "noatime" ];
     };
 
   fileSystems."/games" =

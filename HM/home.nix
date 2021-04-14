@@ -32,7 +32,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     lolcat
     manix
     bat
-    lsd
     tree
     # i know.. microsoft's font ;-;
     cascadia-code
@@ -46,7 +45,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     file
     rnix-lsp
     mpv
-    minecraft
     clojure
     unzip
     ytfzf
@@ -76,8 +74,13 @@ with import ./shell-scripts.nix { inherit pkgs; };
     legendary-gl
     pavucontrol
     xorg.xev
+    multimc
     # Last line
   ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 
   programs.git.enable = true;
   programs.git.userName = "legendofmiracles";
