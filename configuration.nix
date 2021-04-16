@@ -63,14 +63,11 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   # services.xserver.xkbVariant = "colemak";
   # hardware.nvidiaOptimus.disable = true;
-  # services.xserver.displayManager.startx.enable = true;
 
-  services.xserver.displayManager.lightdm.enable = false;
-  services.xserver.desktopManager.xfce.enable = false;
   services.xserver.displayManager.startx.enable = true;
 
 
@@ -165,6 +162,8 @@ in
   nix = {
    package = pkgs.nixFlakes;
    extraOptions = ''
+     keep-outputs = true
+     keep-derivations = true
      experimental-features = nix-command flakes
    '';
   };
@@ -174,6 +173,7 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.allowSFTP = true;
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;

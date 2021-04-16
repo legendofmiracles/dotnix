@@ -45,7 +45,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     file
     rnix-lsp
     mpv
-    clojure
     unzip
     ytfzf
     ungoogled-chromium
@@ -75,6 +74,28 @@ with import ./shell-scripts.nix { inherit pkgs; };
     pavucontrol
     xorg.xev
     multimc
+    jq
+#    (st.overrideAttrs (oldAttrs: rec {
+#      patches = [
+#      (fetchpatch {
+#        url = "https://st.suckless.org/patches/scrollback/st-scrollback-0.8.4.diff";
+#        sha256 = "sha256-bGRSALFWVuk4yoYON8AIxn4NmDQthlJQVAsLp9fcVG0=";
+#      })
+#(fetchpatch {
+#        url = "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-0.8.2.diff";
+#        sha256 = "sha256-iKxKadaL/2SRauayLiRGOGilNE1C5c/FjDmssBrFZmo=";
+#      })
+#(fetchpatch {
+#        url = "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-0.8.diff";
+#        sha256 = "sha256-YYuJk1SgQeSTD8n7DsptMVvtgi4TRknfy8Fx7RUQY4Q=";
+#      })
+#(fetchpatch {
+#        url = "https://st.suckless.org/patches/ligatures/0.8.3/st-ligatures-scrollback-20200430-0.8.3.diff";
+#        sha256 = "sha256-gO6KSsmnns2gD3LTCiKSOJ/vlqg2r0lZ9AoNf9AidX8=";
+#      })
+#      ];
+#    }))
+    grit
     # Last line
   ];
 

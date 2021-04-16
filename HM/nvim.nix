@@ -7,6 +7,7 @@
     undotree
     coc-nvim
     coc-rust-analyzer
+    vimspector
     vim-nix
     auto-pairs
     {
