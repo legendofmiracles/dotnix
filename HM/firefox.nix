@@ -1033,146 +1033,146 @@
 
         '';
         extraConfig = ''
-//          // PREF: Disable leaking network/browser connection information via Javascript // Network Information API provides general information about the system's connection type (WiFi, cellular, etc.) // https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API
-//          // https://wicg.github.io/netinfo/#privacy-considerations
-//          // https://bugzilla.mozilla.org/show_bug.cgi?id=960426
-//          user_pref("dom.netinfo.enabled",        false); 
-//
-//          // PREF: Don't reveal your internal IP when WebRTC is enabled (Firefox >= 42)
-//          // https://wiki.mozilla.org/Media/WebRTC/Privacy
-//          // https://github.com/beefproject/beef/wiki/Module%3A-Get-Internal-IP-WebRTC
-//          user_pref("media.peerconnection.ice.default_address_only",  true); // Firefox 42-51
-//          user_pref("media.peerconnection.ice.no_host",      true); // Firefox >= 52
-//
-//
-//          // PREF: Disable pinging URIs specified in HTML <a> ping= attributes
-//          // http://kb.mozillazine.org/Browser.send_pings
-//          user_pref("browser.send_pings",          false);
-//
-//          // PREF: Disable Extension recommendations (Firefox >= 65)
-//          // https://support.mozilla.org/en-US/kb/extension-recommendations
-//          user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr",  false);
-//
-//          // PREF: Disable Mozilla telemetry/experiments
-//          // https://wiki.mozilla.org/Platform/Features/Telemetry
-//          // https://wiki.mozilla.org/Privacy/Reviews/Telemetry
-//          // https://wiki.mozilla.org/Telemetry
-//          // https://www.mozilla.org/en-US/legal/privacy/firefox.html#telemetry
-//          // https://support.mozilla.org/t5/Firefox-crashes/Mozilla-Crash-Reporter/ta-p/1715
-//          // https://wiki.mozilla.org/Security/Reviews/Firefox6/ReviewNotes/telemetry
-//          // https://gecko.readthedocs.io/en/latest/browser/experiments/experiments/manifest.html
-//          // https://wiki.mozilla.org/Telemetry/Experiments
-//          // https://support.mozilla.org/en-US/questions/1197144
-//          // https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/internals/preferences.html#id1
-//          user_pref("toolkit.telemetry.enabled",        false);
-//          user_pref("toolkit.telemetry.unified",        false);
-//          user_pref("toolkit.telemetry.archive.enabled",      false);
-//          user_pref("experiments.supported",        false);
-//          user_pref("experiments.enabled",        false);
-//          user_pref("experiments.manifest.uri",        "");
-//
-//          // PREF: Disallow Necko to do A/B testing
-//          // https://trac.torproject.org/projects/tor/ticket/13170
-//          user_pref("network.allow-experiments",        false);
-//
-//          // PREF: Disable sending Firefox crash reports to Mozilla servers
-//          // https://wiki.mozilla.org/Breakpad
-//          // http://kb.mozillazine.org/Breakpad
-//          // https://dxr.mozilla.org/mozilla-central/source/toolkit/crashreporter
-//          // https://bugzilla.mozilla.org/show_bug.cgi?id=411490
-//          // A list of submitted crash reports can be found at about:crashes
-//          user_pref("breakpad.reportURL",          "");
-//
-//          // PREF: Disable sending reports of tab crashes to Mozilla (about:tabcrashed), don't nag user about unsent crash reports
-//          // https://hg.mozilla.org/mozilla-central/file/tip/browser/app/profile/firefox.js
-//          user_pref("browser.tabs.crashReporting.sendReport",    false);
-//          user_pref("browser.crashReports.unsubmittedCheck.enabled",  false);
-//
-//          // PREF: Disable FlyWeb (discovery of LAN/proximity IoT devices that expose a Web interface)
-//          // https://wiki.mozilla.org/FlyWeb
-//          // https://wiki.mozilla.org/FlyWeb/Security_scenarios
-//          // https://docs.google.com/document/d/1eqLb6cGjDL9XooSYEEo7mE-zKQ-o-AuDTcEyNhfBMBM/edit
-//          // http://www.ghacks.net/2016/07/26/firefox-flyweb
-//          // changed
-//          user_pref("dom.flyweb.enabled",          true);
-//
-//          // PREF: Disable the UITour backend
-//          // https://trac.torproject.org/projects/tor/ticket/19047#comment:3
-//          // changed
-//          user_pref("browser.uitour.enabled",        true);
-//
-//          // PREF: Enable Firefox Tracking Protection
-//          // https://wiki.mozilla.org/Security/Tracking_protection
-//          // https://support.mozilla.org/en-US/kb/tracking-protection-firefox
-//          // https://support.mozilla.org/en-US/kb/tracking-protection-pbm
-//          // https://kontaxis.github.io/trackingprotectionfirefox/
-//          // https://feeding.cloud.geek.nz/posts/how-tracking-protection-works-in-firefox/
-//          user_pref("privacy.trackingprotection.enabled",      true);
-//          user_pref("privacy.trackingprotection.pbmode.enabled",    true);
-//
-//          // PREF: Enable Firefox's anti-fingerprinting mode ("resist fingerprinting" or RFP) (Tor Uplift project)
-//          // https://wiki.mozilla.org/Security/Tor_Uplift/Tracking
-//          // https://bugzilla.mozilla.org/show_bug.cgi?id=1333933
-//          // https://wiki.mozilla.org/Security/Fingerprinting
-//          // NOTICE: RFP breaks some keyboard shortcuts used in certain websites (see #443)
-//          // NOTICE: RFP changes your time zone
-//          user_pref("privacy.resistFingerprinting",      true);
-//
-//          // PREF: Disable collection/sending of the health report (healthreport.sqlite*)
-//          // https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
-//          // https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html
-//          user_pref("datareporting.healthreport.uploadEnabled",    false);
-//          user_pref("datareporting.healthreport.service.enabled",    false);
-//          user_pref("datareporting.policy.dataSubmissionEnabled",    false);
-//          // "Allow Firefox to make personalized extension recommendations"
-//          user_pref("browser.discovery.enabled",        false);
-//
-//          // PREF: Disable Shield/Heartbeat/Normandy (Mozilla user rating telemetry)
-//          // https://wiki.mozilla.org/Advocacy/heartbeat
-//          // https://trac.torproject.org/projects/tor/ticket/19047
-//          // https://trac.torproject.org/projects/tor/ticket/18738
-//          // https://wiki.mozilla.org/Firefox/Shield
-//          // https://github.com/mozilla/normandy
-//          // https://support.mozilla.org/en-US/kb/shield
-//          // https://bugzilla.mozilla.org/show_bug.cgi?id=1370801
-//          //user_pref("app.normandy.enabled", false);
-//          //user_pref("app.normandy.api_url", "");
-//          user_pref("extensions.shield-recipe-client.enabled",    false);
-//          user_pref("app.shield.optoutstudies.enabled",      false);
-//
-//          // PREF: Disable Firefox Hello metrics collection
-//          // https://groups.google.com/d/topic/mozilla.dev.platform/nyVkCx-_sFw/discussion
-//          user_pref("loop.logDomains",          false);
-//
-//          // PREF: Disable querying Google Application Reputation database for downloaded binary files
-//          // https://www.mozilla.org/en-US/firefox/39.0/releasenotes/
-//          // https://wiki.mozilla.org/Security/Application_Reputation
-//          user_pref("browser.safebrowsing.downloads.remote.enabled",  false);
-//
-//          // PREF: Disable Pocket
-//          // https://support.mozilla.org/en-US/kb/save-web-pages-later-pocket-firefox
-//          // https://github.com/pyllyukko/user.js/issues/143
-//          user_pref("browser.pocket.enabled",        false);
-//          user_pref("extensions.pocket.enabled",        false);
-//
-//          // PREF: Disable "Recommended by Pocket" in Firefox Quantum
-//          user_pref("browser.newtabpage.activity-stream.feeds.section.topstories",  false);
-//
-//          // PREF: Accept Only 1st Party Cookies
-//          // http://kb.mozillazine.org/Network.cookie.cookieBehavior#1
-//          // NOTICE: Blocking 3rd-party cookies breaks a number of payment gateways
-//          // CIS 2.5.1
-//          //user_pref("network.cookie.cookieBehavior",      1);
-//
-//          // PREF: Spoof User-agent (disabled)
-            user_pref("general.useragent.override",        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36");
-            user_pref("general.appname.override",        "Chrome");
-//          //user_pref("general.appversion.override",      "5.0 (Windows)");
-//          //user_pref("general.platform.override",        "Win32");
-//          //user_pref("general.oscpu.override",        "Windows NT 6.1");
-//
-//          // PREF: Do not check if Firefox is the default browser
-//          user_pref("browser.shell.checkDefaultBrowser",      false); 
+          // PREF: Disable leaking network/browser connection information via Javascript // Network Information API provides general information about the system's connection type (WiFi, cellular, etc.) // https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API
+          // https://wicg.github.io/netinfo/#privacy-considerations
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=960426
+          user_pref("dom.netinfo.enabled",        false); 
+
+          // PREF: Don't reveal your internal IP when WebRTC is enabled (Firefox >= 42)
+          // https://wiki.mozilla.org/Media/WebRTC/Privacy
+          // https://github.com/beefproject/beef/wiki/Module%3A-Get-Internal-IP-WebRTC
+          user_pref("media.peerconnection.ice.default_address_only",  true); // Firefox 42-51
+          user_pref("media.peerconnection.ice.no_host",      true); // Firefox >= 52
+
+
+          // PREF: Disable pinging URIs specified in HTML <a> ping= attributes
+          // http://kb.mozillazine.org/Browser.send_pings
+          user_pref("browser.send_pings",          false);
+
+          // PREF: Disable Extension recommendations (Firefox >= 65)
+          // https://support.mozilla.org/en-US/kb/extension-recommendations
+          user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr",  false);
+
+          // PREF: Disable Mozilla telemetry/experiments
+          // https://wiki.mozilla.org/Platform/Features/Telemetry
+          // https://wiki.mozilla.org/Privacy/Reviews/Telemetry
+          // https://wiki.mozilla.org/Telemetry
+          // https://www.mozilla.org/en-US/legal/privacy/firefox.html#telemetry
+          // https://support.mozilla.org/t5/Firefox-crashes/Mozilla-Crash-Reporter/ta-p/1715
+          // https://wiki.mozilla.org/Security/Reviews/Firefox6/ReviewNotes/telemetry
+          // https://gecko.readthedocs.io/en/latest/browser/experiments/experiments/manifest.html
+          // https://wiki.mozilla.org/Telemetry/Experiments
+          // https://support.mozilla.org/en-US/questions/1197144
+          // https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/internals/preferences.html#id1
+          user_pref("toolkit.telemetry.enabled",        false);
+          user_pref("toolkit.telemetry.unified",        false);
+          user_pref("toolkit.telemetry.archive.enabled",      false);
+          user_pref("experiments.supported",        false);
+          user_pref("experiments.enabled",        false);
+          user_pref("experiments.manifest.uri",        "");
+
+          // PREF: Disallow Necko to do A/B testing
+          // https://trac.torproject.org/projects/tor/ticket/13170
+          user_pref("network.allow-experiments",        false);
+
+          // PREF: Disable sending Firefox crash reports to Mozilla servers
+          // https://wiki.mozilla.org/Breakpad
+          // http://kb.mozillazine.org/Breakpad
+          // https://dxr.mozilla.org/mozilla-central/source/toolkit/crashreporter
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=411490
+          // A list of submitted crash reports can be found at about:crashes
+          user_pref("breakpad.reportURL",          "");
+
+          // PREF: Disable sending reports of tab crashes to Mozilla (about:tabcrashed), don't nag user about unsent crash reports
+          // https://hg.mozilla.org/mozilla-central/file/tip/browser/app/profile/firefox.js
+          user_pref("browser.tabs.crashReporting.sendReport",    false);
+          user_pref("browser.crashReports.unsubmittedCheck.enabled",  false);
+
+          // PREF: Disable FlyWeb (discovery of LAN/proximity IoT devices that expose a Web interface)
+          // https://wiki.mozilla.org/FlyWeb
+          // https://wiki.mozilla.org/FlyWeb/Security_scenarios
+          // https://docs.google.com/document/d/1eqLb6cGjDL9XooSYEEo7mE-zKQ-o-AuDTcEyNhfBMBM/edit
+          // http://www.ghacks.net/2016/07/26/firefox-flyweb
+          // changed
+          user_pref("dom.flyweb.enabled",          true);
+
+          // PREF: Disable the UITour backend
+          // https://trac.torproject.org/projects/tor/ticket/19047#comment:3
+          // changed
+          user_pref("browser.uitour.enabled",        true);
+
+          // PREF: Enable Firefox Tracking Protection
+          // https://wiki.mozilla.org/Security/Tracking_protection
+          // https://support.mozilla.org/en-US/kb/tracking-protection-firefox
+          // https://support.mozilla.org/en-US/kb/tracking-protection-pbm
+          // https://kontaxis.github.io/trackingprotectionfirefox/
+          // https://feeding.cloud.geek.nz/posts/how-tracking-protection-works-in-firefox/
+          user_pref("privacy.trackingprotection.enabled",      true);
+          user_pref("privacy.trackingprotection.pbmode.enabled",    true);
+
+          // PREF: Enable Firefox's anti-fingerprinting mode ("resist fingerprinting" or RFP) (Tor Uplift project)
+          // https://wiki.mozilla.org/Security/Tor_Uplift/Tracking
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=1333933
+          // https://wiki.mozilla.org/Security/Fingerprinting
+          // NOTICE: RFP breaks some keyboard shortcuts used in certain websites (see #443)
+          // NOTICE: RFP changes your time zone
+          user_pref("privacy.resistFingerprinting",      true);
+
+          // PREF: Disable collection/sending of the health report (healthreport.sqlite*)
+          // https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
+          // https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html
+          user_pref("datareporting.healthreport.uploadEnabled",    false);
+          user_pref("datareporting.healthreport.service.enabled",    false);
+          user_pref("datareporting.policy.dataSubmissionEnabled",    false);
+          // "Allow Firefox to make personalized extension recommendations"
+          user_pref("browser.discovery.enabled",        false);
+
+          // PREF: Disable Shield/Heartbeat/Normandy (Mozilla user rating telemetry)
+          // https://wiki.mozilla.org/Advocacy/heartbeat
+          // https://trac.torproject.org/projects/tor/ticket/19047
+          // https://trac.torproject.org/projects/tor/ticket/18738
+          // https://wiki.mozilla.org/Firefox/Shield
+          // https://github.com/mozilla/normandy
+          // https://support.mozilla.org/en-US/kb/shield
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=1370801
+          //user_pref("app.normandy.enabled", false);
+          //user_pref("app.normandy.api_url", "");
+          user_pref("extensions.shield-recipe-client.enabled",    false);
+          user_pref("app.shield.optoutstudies.enabled",      false);
+
+          // PREF: Disable Firefox Hello metrics collection
+          // https://groups.google.com/d/topic/mozilla.dev.platform/nyVkCx-_sFw/discussion
+          user_pref("loop.logDomains",          false);
+
+          // PREF: Disable querying Google Application Reputation database for downloaded binary files
+          // https://www.mozilla.org/en-US/firefox/39.0/releasenotes/
+          // https://wiki.mozilla.org/Security/Application_Reputation
+          user_pref("browser.safebrowsing.downloads.remote.enabled",  false);
+
+          // PREF: Disable Pocket
+          // https://support.mozilla.org/en-US/kb/save-web-pages-later-pocket-firefox
+          // https://github.com/pyllyukko/user.js/issues/143
+          user_pref("browser.pocket.enabled",        false);
+          user_pref("extensions.pocket.enabled",        false);
+
+          // PREF: Disable "Recommended by Pocket" in Firefox Quantum
+          user_pref("browser.newtabpage.activity-stream.feeds.section.topstories",  false);
+
+          // PREF: Accept Only 1st Party Cookies
+          // http://kb.mozillazine.org/Network.cookie.cookieBehavior#1
+          // NOTICE: Blocking 3rd-party cookies breaks a number of payment gateways
+          // CIS 2.5.1
+          //user_pref("network.cookie.cookieBehavior",      1);
+
+          // PREF: Spoof User-agent (disabled)
+          user_pref("general.useragent.override",        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36");
+          user_pref("general.appname.override",        "Chrome");
+          //user_pref("general.appversion.override",      "5.0 (Windows)");
+          //user_pref("general.platform.override",        "Win32");
+          //user_pref("general.oscpu.override",        "Windows NT 6.1");
+
+          // PREF: Do not check if Firefox is the default browser
+          user_pref("browser.shell.checkDefaultBrowser",      false); 
           ''; 
         }; 
       }; 

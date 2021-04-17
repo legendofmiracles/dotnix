@@ -63,7 +63,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" "modeset" ];
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   # services.xserver.xkbVariant = "colemak";
   # hardware.nvidiaOptimus.disable = true;
@@ -72,15 +72,15 @@ in
 
 
   hardware.nvidia.prime = {
-    offload.enable = false;
+    offload.enable = true;
 
-    intelBusId = "PCI:00:02:0";
+    intelBusId = "PCI:0:2:0";
 
-    nvidiaBusId = "PCI:01:00:0";
+    nvidiaBusId = "PCI:1:0:0";
 
   };
 
-  #hardware.enableAllFirmware = true;
+  hardware.enableAllFirmware = true;
   #hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   # hardware.nvidia.nvidiaPersistenced = true;
@@ -156,6 +156,7 @@ in
     libnotify
     zip
     man-pages
+    nvidia-offload
     # tor-browser-bundle-bin
   ];
 

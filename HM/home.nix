@@ -136,19 +136,19 @@ with import ./shell-scripts.nix { inherit pkgs; };
     };
     font = {
       normal = {
-        family = "Cascadia Mono PL";
+        family = "Cascadia Code PL";
         style = "Regular";
       };
       bold = {
-        family = "Cascadia Mono PL";
+        family = "Cascadia Code PL";
         style = "Bold";
       };
       italic = {
-        family = "Cascadia Mono PL";
+        family = "Cascadia Code PL";
         style = "Italic";
       };
       bold_italic = {
-        family = "Cascadia Mono PL";
+        family = "Cascadia Code PL";
         style = "Bold Italic";
       };
       size = 8;

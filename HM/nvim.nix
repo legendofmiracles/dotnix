@@ -10,6 +10,7 @@
     vimspector
     vim-nix
     auto-pairs
+    # vim-processing
     {
       plugin = gitgutter;
       config = ''
@@ -118,6 +119,10 @@
     " color of lines and line
     highlight LineNr guifg=#FF217C
     " highlight CursorLine guifg=#FF217C
+
+    " this shows trailing whitespaces
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
 
     " when copying/cutting strip it from newlines
     autocmd TextYankPost * let @@ = trim(@@)
