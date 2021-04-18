@@ -40,6 +40,9 @@
                     \ 'name':"code-actions",
                     \ 'g' : [ '<Plug>(coc-definition)'    , 'go to definition' ],
                     \ 'r' : [ '<Plug>(coc-references)'    , 'go to references' ],
+                    \ 'n' : [ '<Plug>(coc-rename)'        , 'rename'           ],
+                    \ 'd' : [ ':call Show_documentation()', 'show docs'        ],
+                    \ 'f' : [ '<Plug>(coc-refactor)'      , 'refactor'         ],
                     \}
 
         let g:which_key_map.f = {

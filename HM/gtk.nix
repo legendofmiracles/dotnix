@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let 
+let
   font = "Cascadia Mono PL";
 in
 {
@@ -11,7 +11,7 @@ in
     };
     theme = {
       package = null;
-      name = "oomox-aaa";
+      name = "oo";
     };
   };
 }

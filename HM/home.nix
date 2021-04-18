@@ -6,8 +6,10 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./i3.nix
     ./fish.nix
     ./nvim.nix
+    # ./gtk.nix
   ];
-  xdg.userDirs.enable=false;
+  xdg.userDirs.enable = true;
+  xdg.userDirs.createDirectories = false;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
@@ -141,6 +143,25 @@ with import ./shell-scripts.nix { inherit pkgs; };
       program = "firefox";
     };
   };
+
+  xdg.configFile."gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-theme-name=oomox-aaa
+    gtk-font-name=Cascadia Mono PL 11
+    gtk-application-prefer-dark-theme=false
+    gtk-icon-theme-name=Adwaita
+    gtk-cursor-theme-name=Adwaita
+    gtk-cursor-theme-size=0
+    gtk-toolbar-style=GTK_TOOLBAR_BOTH
+    gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+    gtk-button-images=1
+    gtk-menu-images=1
+    gtk-enable-event-sounds=1
+    gtk-enable-input-feedback-sounds=1
+    gtk-xft-antialias=1
+    gtk-xft-hinting=1
+    gtk-xft-hintstyle=hintfull
+  '';
 
   home.stateVersion = "21.05";
 
