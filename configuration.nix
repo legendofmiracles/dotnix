@@ -138,6 +138,8 @@ in
 
   programs.fish.enable = true;
 
+  programs.fish.vendor.completions.enable = true;
+
   environment.variables = {
     fish_greeting = "";
   };

@@ -848,7 +848,7 @@
             margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;A journaling file system is a file system that keeps track of changes not yet committed to the file system's main part by recording the intentions of such changes in a data structure known as a "journal", which is usually a circular log. In the event of a system crash or power failure, such file systems can be brought back online more quickly with a lower likelihood of becoming corrupted.
             z-index:1;
             position: relative !important;
-          transition: .2s ease .8s;
+          transition: .2s ease .1s;
           }
 
           #TabsToolbar {

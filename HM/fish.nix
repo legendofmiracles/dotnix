@@ -22,7 +22,6 @@
       };
     } 
   ];
-  # programs.fish.vendor.completions.enable = true;
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/configuration.nix";
     ch = "vim ~/.config/nixpkgs/";
