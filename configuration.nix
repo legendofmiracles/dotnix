@@ -140,6 +140,7 @@ in
     zip
     man-pages
     nvidia-offload
+    agenix.defaultPackage.x86_64-linux
   ];
 
   nix = {

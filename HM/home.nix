@@ -26,6 +26,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     text_from_image
     auto_clicker
     rnix
+    giphsh
 
     htop
     fzf

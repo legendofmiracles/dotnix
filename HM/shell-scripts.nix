@@ -37,14 +37,12 @@ rec {
   rnix = pkgs.writeShellScriptBin "rnix" ''
     bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"
   '';
-#  rofi_pre = pkgs.writeShellScriptBin "rofi_pre" ''
-#export W='#880000bb'
-#export T='#ee00eeee'
-#export D='#ff00ffcc'
-#export C='#ffffff22'
-#export B='#00000000'
-#export V='#bb00bbbb'
-#export W='#880000bb'
-#rofi -modi combi -combi-modi "drun,run,window,file-browser,ssh,keys,emoji,calc" -show combi
-#  '';
+  giphsh = pkgs.writeShellScriptBin "giph.sh" ''
+    if pgrep "ffmpeg" > /dev/null 2>&1; then
+        giph --stop
+    else
+        giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | xclip -selection c && notify-send "Copied to clipboard!"
+    fi
+  '';
+
   }
