@@ -18,7 +18,7 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./secrets.nix
+      ./secrets/pain.nix
       ./udev.nix
     ];
 
