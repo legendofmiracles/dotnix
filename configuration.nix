@@ -18,7 +18,7 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./secrets/pain.nix
+      ./secrets/wifi.nix
       ./udev.nix
     ];
 
@@ -120,7 +120,7 @@ in
   };
 
   environment.sessionVariables = {
-    "NIXOS_CONFIG" = "/home/nix/dotnix/configuration.nix";
+    "NIXOS_CONFIG" = "/home/nix/dotnix";
   };
 
   programs.fish.enable = true;
