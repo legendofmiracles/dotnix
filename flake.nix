@@ -13,7 +13,7 @@
       channels.nixpkgs = {
          input = nixpkgs;
          config = {
-           allowUnfree = false;
+           allowUnfree = true;
         };
       };
 

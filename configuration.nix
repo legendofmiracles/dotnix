@@ -22,9 +22,6 @@ in
       ./udev.nix
     ];
 
-  # enables unfree (please don't kill me stallman)
-  nixpkgs.config.allowUnfree = true;
-
   # Use the systemd-boot EFI boot loader.
   boot.cleanTmpDir = true;
   boot.loader.systemd-boot.enable = true;
