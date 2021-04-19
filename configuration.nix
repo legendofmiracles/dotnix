@@ -23,15 +23,18 @@ in
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.cleanTmpDir = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
-  boot.extraModprobeConfig = ''
-    options snd-hda-intel model=Intel Generic
-    options snd-hda-intel dmic_detect=0
-    options probe_mask=1
-  '';
+  boot = {
+    cleanTmpDir = true;
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelPackages = pkgs.linuxPackages_5_11;
+    kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
+    extraModprobeConfig = ''
+      options snd-hda-intel model=Intel Generic
+      options snd-hda-intel dmic_detect=0
+      options probe_mask=1
+    '';
+  };
 
   networking.hostName = "pain";
   networking.wireless.enable = true;
