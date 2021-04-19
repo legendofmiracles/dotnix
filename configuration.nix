@@ -16,7 +16,6 @@ in
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./secrets/wifi.nix
       ./udev.nix
@@ -140,7 +139,7 @@ in
     zip
     man-pages
     nvidia-offload
-    agenix.defaultPackage.x86_64-linux
+    # agenix.defaultPackage.x86_64-linux
   ];
 
   nix = {
@@ -160,7 +159,7 @@ in
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
 
   system.stateVersion = "21.05";
 }

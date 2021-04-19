@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 
 let
-  wifi = builtins.fromJSON (builtins.readFile ./wifis.json);
+  wifi = builtins.fromJSON (builtins.readFile ../../../../home/nix/dotnix/secrets/wifis.json);
+  # path = builtins.getEnv "NIXOS_CONFIG" + "wifis.json";
 in
 {
-  lib.lists.forEach wifi (
-    x: networking.wireless.networks.${x.name}.psk = ${x.psk}
+  networking.wireless.networks = lib.listToAttrs (lib.lists.forEach wifi (x:
+      {
+        name = x.name;
+        value = { psk = x.psk; };
+      }
     )
+  );
 }

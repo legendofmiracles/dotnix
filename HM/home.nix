@@ -79,6 +79,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     multimc
     jq
     grit
+    qrcp
     # Last line
   ];
 

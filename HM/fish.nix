@@ -20,7 +20,7 @@
         rev = "v1.2.0";
         sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
-    } 
+    }
   ];
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/configuration.nix";
@@ -271,7 +271,7 @@ end
 
   programs.fish.functions = {
     r = ''
-      git -C (dirname $NIXOS_CONFIG) diff configuration.nix hardware-configuration.nix; sudo nixos-rebuild switch --flake $NIXOS_CONFIG
+      git -C (dirname $NIXOS_CONFIG) diff configuration.nix hardware-configuration.nix; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
       '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
