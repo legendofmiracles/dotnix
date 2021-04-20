@@ -1,8 +1,13 @@
 command to link home manager files: fd .nix -x bash -c "ln -s "(pwd)"/{} /home/nix/.config/nixpkgs/{/}"
 
-The secrets.nix file isn't commited and contains wifi passwords, e.g.
-{config, pkgs, lib, ...}:
+The secrets.json file isn't commited and contains wifi passwords, e.g.
+```
+[
+    {
+        "name": "wifi", 
+        "psk": "password"
+    }
 
-{
-  networking.wireless.networks.name.psk = "my super duper save wpa2 password";
-}
+]
+
+```
