@@ -14,6 +14,7 @@ let
   '';
 in
 {
+  nixpkgs.config.allowUnfree = true;
   imports =
     [
       ./hardware-configuration.nix
@@ -21,12 +22,11 @@ in
       ./udev.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
   boot = {
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_5_11;
+    # kernelPackages = pkgs.linuxPackages_5_11;
     kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -58,7 +58,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" "modeset" ];
   # services.xserver.xkbVariant = "colemak";
 
   services.xserver.displayManager.startx.enable = true;
