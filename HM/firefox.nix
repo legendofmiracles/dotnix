@@ -12,6 +12,13 @@
           # "browser.search.defaultenginename" = "DuckDuckGo";
         };
         userChrome = ''
+          // pdf reader
+          #viewerContainer > #viewer > .page > .canvasWrapper > canvas {
+             filter: grayscale(100%);
+             filter: invert(100%);
+          }
+
+
           /*================== Simplify Darkish Purple for Firefox ==================
           Author: dpcdpc11.gumroad.com
           ENJOY!
@@ -1172,16 +1179,16 @@
           //user_pref("general.oscpu.override",        "Windows NT 6.1");
 
           // PREF: Do not check if Firefox is the default browser
-          user_pref("browser.shell.checkDefaultBrowser",      false); 
-          ''; 
-        }; 
-      }; 
+          user_pref("browser.shell.checkDefaultBrowser",      false);
+          '';
+        };
+      };
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [ 
-        browserpass buster-captcha-solver cookie-autodelete 
-        darkreader gesturefy greasemonkey i-dont-care-about-cookies 
-        languagetool privacy-badger sidebery stylus ublock-origin unpaywall 
-        no-pdf-download 
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        browserpass buster-captcha-solver cookie-autodelete
+        darkreader gesturefy greasemonkey i-dont-care-about-cookies
+        languagetool privacy-badger sidebery stylus ublock-origin unpaywall
+        no-pdf-download
       ];
   };
 }

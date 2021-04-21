@@ -5,10 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, agenix }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
       channels.nixpkgs = {
@@ -22,7 +21,6 @@
         pain = {
           modules = [
             ./configuration.nix
-            agenix.nixosModules.age
           ];
         };
       };

@@ -166,5 +166,4 @@ with import ./shell-scripts.nix { inherit pkgs; };
   '';
 
   home.stateVersion = "21.05";
-
 }

@@ -369,7 +369,7 @@ in
 
       bindsym $mod+r mode "resize"
 
-      # splash config       
+      # splash config
       for_window [class="SPLASH"] border none
       for_window [class="SPLASH"] floating enable
       for_window [class="Conky"] border none
