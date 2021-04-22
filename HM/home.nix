@@ -82,6 +82,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     jq
     grit
     qrcp
+    nix-review
     # Last line
   ];
 
