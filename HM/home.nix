@@ -6,8 +6,10 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./i3.nix
     ./fish.nix
     ./nvim.nix
+    /home/nix/dotnix/secrets/variables.nix
     # ./gtk.nix
   ];
+
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = false;
   nixpkgs.config.allowUnfree = true;

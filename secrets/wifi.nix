@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  wifi = builtins.fromJSON (builtins.readFile ../../../../home/nix/dotnix/secrets/wifis.json);
+  wifi = builtins.fromJSON (builtins.readFile /home/nix/dotnix/secrets/wifis.json);
   # path = builtins.getEnv "NIXOS_CONFIG" + "wifis.json";
 in
 {

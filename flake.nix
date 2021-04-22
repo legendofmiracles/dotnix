@@ -4,12 +4,17 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
+
       channels.nixpkgs = {
          input = nixpkgs;
          config = {
@@ -21,8 +26,18 @@
         pain = {
           modules = [
             ./configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.useGlobalPkgs = true;
+              # home-manager.users.nix = import ./HM/home.nix;
+            }
           ];
         };
       };
+
+      sharedOverlays = [
+        nur.overlay
+      ];
     };
 }

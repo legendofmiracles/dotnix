@@ -4,10 +4,21 @@ The secrets.json file isn't commited and contains wifi passwords, e.g.
 ```
 [
     {
-        "name": "wifi", 
+        "name": "wifi",
         "psk": "password"
     }
 
+]
+```
+
+and the variables.nix for environment variables
+
+```
+[
+    {
+        "name": "GITHUB_TOKEN",
+        "value": "iaroisntaoriestioaersnt"
+    }
 ]
 
 ```
