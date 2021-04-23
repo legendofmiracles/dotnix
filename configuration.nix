@@ -63,7 +63,6 @@ in
 
   services.xserver.displayManager.startx.enable = true;
 
-
   hardware.nvidia.prime = {
     offload.enable = true;
 
@@ -111,7 +110,6 @@ in
       };
     };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nix = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" ];

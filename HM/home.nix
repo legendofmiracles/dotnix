@@ -10,6 +10,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     # ./gtk.nix
   ];
 
+  xdg.enable = true;
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = false;
   nixpkgs.config.allowUnfree = true;
@@ -56,7 +57,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     libnotify
     tesseract
     maim
-    rust-analyzer
     hyperfine
     zip
     ffmpeg
@@ -83,6 +83,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     grit
     qrcp
     nix-review
+    nixos-shell
     # Last line
   ];
 
