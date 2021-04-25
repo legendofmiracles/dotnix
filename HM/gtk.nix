@@ -11,7 +11,7 @@ in
     };
     theme = {
       package = null;
-      name = "oo";
+      name = "oomox-aaa";
     };
   };
 }

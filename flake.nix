@@ -2,6 +2,7 @@
   description = "system config";
 
   inputs = {
+    # nixpkgs.url = "github:nixos/nixpkgs/6869845ff1d1252a9b727509213c81b27e10f48c";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     nur = {

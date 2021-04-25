@@ -7,7 +7,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./fish.nix
     ./nvim.nix
     /home/nix/dotnix/secrets/variables.nix
-    # ./gtk.nix
+    ./gtk.nix
   ];
 
   xdg.enable = true;
@@ -150,24 +150,18 @@ with import ./shell-scripts.nix { inherit pkgs; };
     };
   };
 
-  xdg.configFile."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-theme-name=oomox-aaa
-    gtk-font-name=Cascadia Mono PL 11
-    gtk-application-prefer-dark-theme=false
-    gtk-icon-theme-name=Adwaita
-    gtk-cursor-theme-name=Adwaita
-    gtk-cursor-theme-size=0
-    gtk-toolbar-style=GTK_TOOLBAR_BOTH
-    gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
-    gtk-button-images=1
-    gtk-menu-images=1
-    gtk-enable-event-sounds=1
-    gtk-enable-input-feedback-sounds=1
-    gtk-xft-antialias=1
-    gtk-xft-hinting=1
-    gtk-xft-hintstyle=hintfull
-  '';
+  programs.htop = {
+    enable = true;
+    detailedCpuTime = true;
+    showCpuFrequency = true;
+    showCpuUsage = true;
+    showProgramPath = false;
+    showThreadNames = true;
+    meters = {
+      left = [ "AllCPUs" "Memory" "Swap" ];
+      right = [ "Tasks" "LoadAverage" "Uptime" ];
+  };
+};
 
   home.stateVersion = "21.05";
 }

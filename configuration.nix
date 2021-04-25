@@ -26,7 +26,7 @@ in
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    # kernelPackages = pkgs.linuxPackages_5_11;
+    kernelPackages = pkgs.linuxPackages_5_4;
     kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -35,16 +35,19 @@ in
     '';
   };
 
-  networking.hostName = "pain";
-  networking.wireless.enable = true;
+  networking = {
+    hostName = "pain";
+    wireless.enable = true;
+    useDHCP = false;
+    interfaces = {
+      enp8s0.useDHCP = true;
+      wlp0s20f3.useDHCP = true;
+    };
+    nameservers = [ "1.1.1.1" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
-
-  networking.useDHCP = false;
-  networking.interfaces.enp8s0.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
-  networking.nameservers = [ "1.1.1.1" ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -57,11 +60,12 @@ in
   hardware.cpu.intel.updateMicrocode = true;
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" "modeset" ];
-  # services.xserver.xkbVariant = "colemak";
-
-  services.xserver.displayManager.startx.enable = true;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+    displayManager.startx.enable = true;
+    # xkbVariant = "colemak";
+  };
 
   hardware.nvidia.prime = {
     offload.enable = true;
@@ -87,6 +91,8 @@ in
   hardware.pulseaudio.enable = true;
 
   programs.steam.enable = true;
+
+  programs.dconf.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
@@ -120,9 +126,10 @@ in
     "NIXOS_CONFIG" = "/home/nix/dotnix";
   };
 
-  programs.fish.enable = true;
-
-  programs.fish.vendor.completions.enable = true;
+  programs.fish = {
+    enable = true;
+    vendor.completions.enable = true;
+  };
 
   environment.variables = {
     fish_greeting = "";
@@ -131,7 +138,6 @@ in
   environment.systemPackages = with pkgs; [
     cascadia-code
     wget
-    vim
     pciutils
     libnotify
     zip
@@ -161,4 +167,3 @@ in
 
   system.stateVersion = "21.05";
 }
-
