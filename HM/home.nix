@@ -13,12 +13,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
   xdg.enable = true;
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = false;
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
-  };
   services.flameshot.enable = true;
 
   # Let Home Manager install and manage itself.

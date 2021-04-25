@@ -23,7 +23,7 @@
         };
       };
 
-      nixosProfiles = {
+      hosts = {
         pain = {
           modules = [
             ./configuration.nix
@@ -33,6 +33,9 @@
               home-manager.useGlobalPkgs = true;
               # home-manager.users.nix = import ./HM/home.nix;
             }
+             ({ pkgs, ... }: {
+              home-manager.users.nix = import ./HM/home.nix;
+            })
           ];
         };
       };

@@ -33,6 +33,8 @@ in
       options snd-hda-intel dmic_detect=0
       options probe_mask=1
     '';
+    # binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
   networking = {
