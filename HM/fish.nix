@@ -21,10 +21,11 @@
         sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
     }
+    pkgs.fishPlugins.fzf-fish
+    pkgs.fishPlugins.done
   ];
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
-    rh = "home-manager switch";
     s = "manix";
     sf = "manix \"\" | grep '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\" | xargs manix";
     ls = "ls --color";
@@ -270,7 +271,7 @@ end
 
   programs.fish.functions = {
     r = ''
-      git -C $NIXOS_CONFIG diff configuration.nix hardware-configuration.nix flake.nix udev.nix secrets/wifi.nix; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
+      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
       '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
