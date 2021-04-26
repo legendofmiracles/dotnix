@@ -21,8 +21,8 @@
         sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
     }
-    pkgs.fishPlugins.fzf-fish
-    pkgs.fishPlugins.done
+    #pkgs.fishPlugins.fzf-fish
+    #pkgs.fishPlugins.done
   ];
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";

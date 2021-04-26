@@ -47,5 +47,7 @@
       sharedOverlays = [
         nur.overlay
       ];
+
+      hostDefaults.modules = [ utils.nixosModules.saneFlakeDefaults ];
     };
 }

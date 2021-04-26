@@ -54,7 +54,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    # videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
     # xkbVariant = "colemak";
   };
@@ -135,7 +135,6 @@
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true

@@ -23,6 +23,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     text_from_image
     auto_clicker
     rnix
+    nvidia-offload
     giphsh
 
     htop
@@ -112,6 +113,11 @@ with import ./shell-scripts.nix { inherit pkgs; };
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryFlavor = "curses";
+
+  services.dunst.enable = true;
+  #services.dunst.settings = ''
+
+  #'';
 
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
