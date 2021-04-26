@@ -77,7 +77,9 @@ with import ./shell-scripts.nix { inherit pkgs; };
     grit
     qrcp
     nix-review
-    nixos-shell
+    zip
+    libnotify
+    wget
     # Last line
   ];
 

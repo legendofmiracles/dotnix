@@ -4,15 +4,6 @@
 
 { config, pkgs, ... }:
 
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-in
 {
   nixpkgs.config.allowUnfree = true;
   imports =
@@ -33,7 +24,6 @@ in
       options snd-hda-intel dmic_detect=0
       options probe_mask=1
     '';
-    # binfmt.emulatedSystems = [ "aarch64-linux" ];
     # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
@@ -139,12 +129,8 @@ in
 
   environment.systemPackages = with pkgs; [
     cascadia-code
-    wget
     pciutils
-    libnotify
-    zip
     man-pages
-    nvidia-offload
     # agenix.defaultPackage.x86_64-linux
   ];
 

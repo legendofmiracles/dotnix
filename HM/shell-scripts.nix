@@ -44,5 +44,12 @@ rec {
         giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | xclip -selection c && notify-send "Copied to clipboard!"
     fi
   '';
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
 
   }

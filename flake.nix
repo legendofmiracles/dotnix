@@ -10,9 +10,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    rust-nix-templater.url = "github:yusdacra/rust-nix-templater";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, rust-nix-templater }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -27,14 +28,17 @@
         pain = {
           modules = [
             ./configuration.nix
+            # rust-nix-templater.nixosModules.rust-nix-templater
             home-manager.nixosModules.home-manager
             {
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
-              # home-manager.users.nix = import ./HM/home.nix;
             }
              ({ pkgs, ... }: {
               home-manager.users.nix = import ./HM/home.nix;
+              environment.shellAliases = {
+                nix-repl = "nix repl ${inputs.utils.lib.repl}";
+              };
             })
           ];
         };

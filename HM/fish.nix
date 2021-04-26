@@ -23,8 +23,7 @@
     }
   ];
   programs.fish.shellAbbrs = {
-    c = "vim ~/dotnix/configuration.nix";
-    ch = "vim ~/.config/nixpkgs/";
+    c = "vim ~/dotnix/";
     rh = "home-manager switch";
     s = "manix";
     sf = "manix \"\" | grep '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\" | xargs manix";
