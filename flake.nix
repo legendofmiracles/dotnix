@@ -2,8 +2,7 @@
   description = "system config";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/6869845ff1d1252a9b727509213c81b27e10f48c";
-    nh.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
@@ -11,10 +10,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
-    # rust-nix-templater.url = "github:yusdacra/rust-nix-templater";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, rust-nix-templater, nh }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -37,7 +35,7 @@
             ./configuration.nix
             xorg
             udev
-            nh.nixosModules.common.cpu.intel
+            nixos-hardware.nixosModules.common-cpu-intel
             wifi
             home-manager.nixosModules.home-manager
             {
