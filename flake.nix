@@ -20,6 +20,7 @@
          ./udev.nix
          ./secrets/wifi.nix
          ./xorg.nix
+         ./v4l2.nix
        ];
 
       channels.nixpkgs = {
@@ -34,6 +35,7 @@
           modules = with self.nixosModules; [
             ./configuration.nix
             xorg
+            v4l2
             udev
             nixos-hardware.nixosModules.common-cpu-intel
             wifi

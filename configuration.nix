@@ -9,7 +9,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./secrets/wifi.nix
     ];
 
   boot = {
@@ -17,7 +16,7 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     # kernelPackages = pkgs.linuxPackages_5_4;
-    kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
+    kernelModules = [ "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
       options snd-hda-intel dmic_detect=0
