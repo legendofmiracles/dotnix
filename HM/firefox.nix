@@ -1188,7 +1188,7 @@
         browserpass buster-captcha-solver cookie-autodelete
         darkreader gesturefy greasemonkey i-dont-care-about-cookies
         languagetool privacy-badger sidebery stylus ublock-origin unpaywall
-        no-pdf-download
+        no-pdf-download to-deepl refined-github
       ];
   };
 }

@@ -100,6 +100,13 @@ with import ./shell-scripts.nix { inherit pkgs; };
 
   programs.direnv.enable = true;
   programs.direnv.enableNixDirenvIntegration = true;
+  programs.direnv.stdlib = ''
+    use_flake() {
+      watch_file flake.nix
+      watch_file flake.lock
+      eval "$(nix print-dev-env --profile "$(direnv_layout_dir)/flake-profile")"
+    }
+    '';
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
