@@ -10,14 +10,13 @@
     [
       ./hardware-configuration.nix
       ./secrets/wifi.nix
-      ./udev.nix
     ];
 
   boot = {
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_5_4;
     kernelModules = [ "v4l2loopback" "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -51,26 +50,7 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    # videoDrivers = [ "nvidia" ];
-    displayManager.startx.enable = true;
-    # xkbVariant = "colemak";
-  };
-
-  hardware.nvidia.prime = {
-    offload.enable = true;
-
-    intelBusId = "PCI:0:2:0";
-
-    nvidiaBusId = "PCI:1:0:0";
-
-  };
-
-  hardware.enableAllFirmware = true;
-  hardware.opengl.driSupport32Bit = true;
-
+  # hardware.enableAllFirmware = true;
   # Configure keymap in X11
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
@@ -85,18 +65,6 @@
   programs.steam.enable = true;
 
   programs.dconf.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.xserver.config = ''
-    Section "InputClass"
-          Identifier "mouse accel"
-          Driver "libinput"
-          MatchIsPointer "on"
-          Option "AccelProfile" "flat"
-                Option "AccelSpeed" "0"
-              EndSection
-  '';
 
   services.snapper.configs =
     {

@@ -17,6 +17,12 @@
     utils.lib.systemFlake {
       inherit self inputs;
 
+       nixosModules = utils.lib.modulesFromList [
+         ./udev.nix
+         ./secrets/wifi.nix
+         ./xorg.nix
+       ];
+
       channels.nixpkgs = {
          input = nixpkgs;
          config = {
@@ -26,8 +32,11 @@
 
       hosts = {
         pain = {
-          modules = [
+          modules = with self.nixosModules; [
             ./configuration.nix
+            xorg
+            udev
+            wifi
             # rust-nix-templater.nixosModules.rust-nix-templater
             home-manager.nixosModules.home-manager
             {
