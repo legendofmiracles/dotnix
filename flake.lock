@@ -200,15 +200,13 @@
       "locked": {
         "lastModified": 1619291447,
         "narHash": "sha256-YidYHX6Aei1U7VV3ytbeDf+v1POJoEQE7yVIqscNviU=",
-        "owner": "yusdacra",
-        "repo": "rust-nix-templater",
+        "path": "/nix/store/fn5v83g476fvcrxjy1j6w8biarvi2r2x-source",
         "rev": "162f63d7c96a4431402ecf704261d42061456a5f",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "yusdacra",
-        "repo": "rust-nix-templater",
-        "type": "github"
+        "id": "rust-nix-templater",
+        "type": "indirect"
       }
     },
     "rustOverlay": {

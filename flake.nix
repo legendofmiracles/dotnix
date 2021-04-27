@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
-    rust-nix-templater.url = "github:yusdacra/rust-nix-templater";
+    # rust-nix-templater.url = "github:yusdacra/rust-nix-templater";
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, rust-nix-templater }@inputs:
