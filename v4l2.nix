@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, ... }:
 
 {
   boot.kernelModules = [ "v4l2loopback" ];
