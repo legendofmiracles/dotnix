@@ -61,7 +61,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     hyperfine
     obs-studio
     git-lfs
-    ripgrep
+    ripgrep-all
     hack-font
     font-awesome
     nix-index
@@ -81,6 +81,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     zip
     libnotify
     wget
+    nix-index
     # Last line
   ];
 

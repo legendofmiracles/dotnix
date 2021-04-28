@@ -4,7 +4,7 @@
     # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    # videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
     # xkbVariant = "colemak";
   };

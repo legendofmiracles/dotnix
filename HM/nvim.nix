@@ -52,6 +52,11 @@
                     \ 'g' : [ ':Commits'              , 'view commits'     ],
                     \}
 
+        let g:which_key_map.c = {
+                    \ 'name':"Commenting",
+                    \ 'c' : [ ':vnoremap cm :s!^!//! <CR>' , 'comment with //' ],
+                    \}
+
         au VimEnter * call which_key#register('<Space>', "g:which_key_map")
 
         nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
