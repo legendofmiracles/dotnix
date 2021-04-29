@@ -22,7 +22,7 @@
       options probe_mask=1
     '';
     blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
-    # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
+    kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
   networking = {
@@ -109,6 +109,8 @@
     '';
     autoOptimiseStore = true;
     trustedUsers = [ "root" "nix" ];
+    gc.automatic = true;
+    gc.options = "--delete-older-than 3d";
   };
 
   # Enable the OpenSSH daemon.

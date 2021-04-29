@@ -4,6 +4,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
   imports = [
     ./firefox.nix
     ./i3.nix
+    ./proton.nix
     ./fish.nix
     ./nvim.nix
     /home/nix/dotnix/secrets/variables.nix
@@ -170,8 +171,8 @@ with import ./shell-scripts.nix { inherit pkgs; };
     meters = {
       left = [ "AllCPUs" "Memory" "Swap" ];
       right = [ "Tasks" "LoadAverage" "Uptime" ];
+    };
   };
-};
 
   home.stateVersion = "21.05";
 }

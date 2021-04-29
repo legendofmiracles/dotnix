@@ -1,9 +1,10 @@
 {
-  description = "system config";
+  description = "LegendOfMiracles's system config";
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+#    nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
     home-manager.url = "github:nix-community/home-manager";
     nur = {
       url = "github:nix-community/NUR";
