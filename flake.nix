@@ -21,6 +21,7 @@
          ./udev.nix
          ./secrets/wifi.nix
          ./xorg.nix
+         ./HM/proton.nix
          ./v4l2.nix
        ];
 
