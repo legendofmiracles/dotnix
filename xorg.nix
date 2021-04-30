@@ -18,6 +18,8 @@
 
   };
 
+  hardware.nvidiaOptimus.disable = true;
+
   hardware.opengl.driSupport32Bit = true;
 
   # Enable touchpad support (enabled default in most desktopManager).

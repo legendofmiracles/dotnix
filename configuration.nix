@@ -77,7 +77,7 @@
 
   users.users.nix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" ];
+    extraGroups = [ "wheel" "audio" "dialout" ];
     shell = pkgs.fish;
   };
 
