@@ -77,9 +77,11 @@
 
   users.users.nix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "dialout" ];
+    extraGroups = [ "wheel" "audio" "dialout" "libvirtd" ];
     shell = pkgs.fish;
   };
+
+  virtualisation.libvirtd.enable = true;
 
   environment.sessionVariables = {
     "NIXOS_CONFIG" = "/home/nix/dotnix";
@@ -97,6 +99,7 @@
   environment.systemPackages = with pkgs; [
     cascadia-code
     pciutils
+    virt-manager
     man-pages
     # agenix.defaultPackage.x86_64-linux
   ];
