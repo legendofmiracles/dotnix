@@ -115,6 +115,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
   home.homeDirectory = "/home/nix";
 
   programs.password-store.enable = true;
+  programs.password-store.package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
   programs.browserpass.enable = true;
   programs.browserpass.browsers = [ "firefox" ];
 
