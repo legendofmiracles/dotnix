@@ -14,14 +14,14 @@
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    # kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_5_11;
     kernelModules = [ "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
       options snd-hda-intel dmic_detect=0
       options probe_mask=1
     '';
-    blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
+    # blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
     kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 

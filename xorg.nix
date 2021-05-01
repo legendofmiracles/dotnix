@@ -18,6 +18,7 @@
 
   };
 
+  hardware.nvidia.nvidiaPersistenced = true;
   # hardware.nvidiaOptimus.disable = true;
 
   hardware.opengl.driSupport32Bit = true;

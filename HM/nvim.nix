@@ -64,7 +64,7 @@
       '';
     }
     vim-bufferline
-    # coc-pyright
+    coc-pyright
     polyglot
   ];
 
