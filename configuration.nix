@@ -14,7 +14,7 @@
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_5_4;
     kernelModules = [ "snd_hda_intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -65,6 +65,7 @@
 
   programs.dconf.enable = true;
 
+  services.snapper.snapshotInterval = "00/2:00";
   services.snapper.configs =
     {
       home = {

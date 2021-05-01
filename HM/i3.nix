@@ -385,11 +385,11 @@ in
   programs.rofi = {
     package = pkgs.rofi.override { plugins = with pkgs; [ rofi-calc rofi-emoji ]; };
     enable = true;
-    extraConfig = {
-      modi = "combi,calc";
-      combi-modi = "drun,run,window,file-browser,ssh,keys,emoji";
-    };
-    font = "Cascadia Mono PL 10";
+    #extraConfig = {
+    #  modi = "combi,calc";
+    #  combi-modi = "drun,run,window,file-browser,ssh,keys,emoji";
+    #};
+    font = "Cascadia Code 10";
     colors = {
       rows = {
         normal = {

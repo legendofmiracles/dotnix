@@ -13,7 +13,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
 
   xdg.enable = true;
   xdg.userDirs.enable = true;
-  xdg.userDirs.createDirectories = false;
+  # xdg.userDirs.createDirectories = false;
   services.flameshot.enable = true;
 
   # Let Home Manager install and manage itself.
@@ -32,7 +32,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     languagetool
     nixpkgs-fmt
     lolcat
-    manix
+    # manix
     bat
     tree
     # i know.. microsoft's font ;-;
@@ -48,7 +48,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     rnix-lsp
     mpv
     unzip
-    ytfzf
+    # ytfzf
     ungoogled-chromium
     libnotify
     tesseract
@@ -67,7 +67,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     font-awesome
     nix-index
     colorpicker
-    tiramisu
     cowsay
     feh
     gimp
@@ -76,8 +75,8 @@ with import ./shell-scripts.nix { inherit pkgs; };
     xorg.xev
     multimc
     jq
-    grit
-    qrcp
+    # grit
+    # qrcp
     nix-review
     zip
     libnotify
@@ -174,5 +173,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     };
   };
 
-  home.stateVersion = "21.05";
+  # home.stateVersion = "21.05";
+  home.stateVersion = "20.09";
 }

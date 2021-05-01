@@ -3,9 +3,10 @@
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-#    nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
-    home-manager.url = "github:nix-community/home-manager";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
+    home-manager.url = "github:nix-community/home-manager/release-20.09";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +14,7 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, nixpkgs-unstable }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -30,6 +31,10 @@
          config = {
            allowUnfree = true;
         };
+      };
+
+      channels.nixpkgs-unstable = {
+        input = nixpkgs-unstable;
       };
 
       hosts = {

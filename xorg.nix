@@ -4,13 +4,13 @@
     # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-  #  videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
     # xkbVariant = "colemak";
   };
 
   hardware.nvidia.prime = {
-  #  offload.enable = true;
+    offload.enable = true;
 
     intelBusId = "PCI:0:2:0";
 
@@ -18,7 +18,7 @@
 
   };
 
-  hardware.nvidiaOptimus.disable = true;
+  # hardware.nvidiaOptimus.disable = true;
 
   hardware.opengl.driSupport32Bit = true;
 
