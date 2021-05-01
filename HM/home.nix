@@ -82,6 +82,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     libnotify
     wget
     nix-index
+    ripgrep
     # Last line
   ];
 
@@ -171,6 +172,15 @@ with import ./shell-scripts.nix { inherit pkgs; };
     meters = {
       left = [ "AllCPUs" "Memory" "Swap" ];
       right = [ "Tasks" "LoadAverage" "Uptime" ];
+    };
+  };
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      hwdec = "auto-safe";
+      vo = "gpu";
+      profile = "gpu-hq";
     };
   };
 
