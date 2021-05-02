@@ -4,6 +4,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
   imports = [
     ./firefox.nix
     ./i3.nix
+    ./qt.nix
     ./proton.nix
     ./fish.nix
     ./nvim.nix
@@ -83,6 +84,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     wget
     nix-index
     ripgrep
+    xdotool
     # Last line
   ];
 
@@ -184,6 +186,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     };
   };
 
+  news.display = "silent";
   home.stateVersion = "21.05";
   # home.stateVersion = "20.09";
 }
