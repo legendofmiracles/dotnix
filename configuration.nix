@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+    # documentation.enable = false;
+
   boot = {
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;

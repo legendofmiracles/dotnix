@@ -270,9 +270,6 @@ end
   '';
 
   programs.fish.functions = {
-    rclip = ''
-      printf "\$ %s\n%s\n" "$argv" (bash -c "$argv" 2>&1) | tee /dev/stderr | xclip -selection c
-    '';
     r = ''
       git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
     '';

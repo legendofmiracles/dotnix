@@ -82,8 +82,8 @@ rec {
     done
   '';
   rclip = pkgs.writeShellScriptBin "rclip" ''
-    set -x
-    printf "\$ %s\n%s\n" "$@" "$(bash -c '$@' 2>&1)" | tee /dev/stderr | xclip -selection c
+    export NO_COLOR=1
+    printf "> %s\n%s\n" "$*" "$(bash -c "$*" 2>&1)" | tee /dev/stderr | xclip -selection c
   '';
 
   }
