@@ -4,6 +4,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
   imports = [
     ./firefox.nix
     ./i3.nix
+    ./neofetch.nix
     ./qt.nix
     ./proton.nix
     ./fish.nix
@@ -85,6 +86,10 @@ with import ./shell-scripts.nix { inherit pkgs; };
     nix-index
     ripgrep
     xdotool
+    tldr
+    imagemagick
+    asciigraph
+    grex
     # Last line
   ];
 

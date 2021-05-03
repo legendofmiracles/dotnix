@@ -270,11 +270,15 @@ end
   '';
 
   programs.fish.functions = {
+    rclip = ''
+      printf "\$ %s\n%s\n" "$argv" (bash -c "$argv" 2>&1) | tee /dev/stderr | xclip -selection c
+    '';
     r = ''
       git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
-      '';
+    '';
     bne = ''
-      sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix'';
+      sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix
+    '';
     fish_prompt = ''
     set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
