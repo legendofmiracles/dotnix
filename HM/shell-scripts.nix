@@ -51,5 +51,39 @@ rec {
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
+  discord-id = pkgs.writeShellScriptBin "discord-id" ''
+    #  get information related to discord ID
+
+    [[ "$1" -gt 1111111 ]] || exit 1
+
+    ## age
+    # convert to binary, trim useless stuff, and go back to decimal
+    j=$(echo "obase=2; $1" | bc | head -c-23)
+    j=$(echo "ibase=2; $j" | bc)
+    s=''${j%???} ms=''${j#$s}
+
+    # ID + "discord epoch" (2015) -> human readable
+    date=$(date -d @$((s+1420070400)) +"%Y-%m-%d %H:%M:%S").$ms
+
+    ## name/pfp/printing
+    curl -s \
+        -H "Authorization: $DISCORD_TOKEN" \
+        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0" \
+        -X GET \
+    https://discord.com/api/v9/users/"$1" | jq | tr -d '":,' | while read -r fe va; do
+      [[ "$fe" =~ username ]] && user=$va
+      [[ "$fe" =~ discrimi ]] && numb=\#$va
+      [[ "$fe" =~  avatar  ]] && {
+          [[ "$va" = null ]] && continue
+          [[ "$va" =~ ^a_ ]] && ext=.gif || ext=.png
+          pfp=https://cdn.discordapp.com/avatars/$1/$va$ext\?size=1024
+      }
+      [[ "$fe" == '}' ]] && printf '%s\n%s\n%s\n' "$user$numb" "$1 / $date" "$pfp"
+    done
+  '';
+  rclip = pkgs.writeShellScriptBin "rclip" ''
+    set -x
+    printf "\$ %s\n%s\n" "$@" "$(bash -c '$@' 2>&1)" | tee /dev/stderr | xclip -selection c
+  '';
 
   }

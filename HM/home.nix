@@ -28,6 +28,8 @@ with import ./shell-scripts.nix { inherit pkgs; };
     rnix
     nvidia-offload
     giphsh
+    discord-id
+    rclip
 
     htop
     fzf
@@ -90,6 +92,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     imagemagick
     asciigraph
     grex
+    bc
     # Last line
   ];
 
