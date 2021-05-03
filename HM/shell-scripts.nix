@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 rec {
   auto_clicker = pkgs.writeShellScriptBin "auto_clicker" ''
     while :
@@ -92,4 +92,4 @@ rec {
     printf "%s %s\n%s\n" $prompt "$*" "$(bash -c "$*" 2>&1)" | tee /dev/stderr | xclip -selection c
   '';
 
-  }
+}

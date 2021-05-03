@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
@@ -14,25 +15,29 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
       fsType = "btrfs";
       options = [ "subvol=nixos" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
       fsType = "btrfs";
       options = [ "subvol=home" "compress=zstd:9" "noatime" ];
     };
 
   fileSystems."/games" =
-    { device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
       fsType = "btrfs";
-      options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777"];
+      options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A5AB-E355";
+    {
+      device = "/dev/disk/by-uuid/A5AB-E355";
       fsType = "vfat";
     };
 

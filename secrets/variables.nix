@@ -5,10 +5,10 @@ let
 in
 {
   home.sessionVariables = lib.listToAttrs (lib.lists.forEach variables (x:
-      {
-        name = x.name;
-        value = x.value;
-      }
-    )
+    {
+      name = x.name;
+      value = x.value;
+    }
+  )
   );
 }

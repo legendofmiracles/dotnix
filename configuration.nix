@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-    # documentation.enable = false;
+  # documentation.enable = false;
 
   boot = {
     cleanTmpDir = true;

@@ -9,8 +9,8 @@ let
 in
 {
   home.file.proton-ge-custom = {
-      inherit source;
-      recursive = true;
-      target = ".steam/root/compatibilitytools.d/Proton-${version}-GE-2/";
+    inherit source;
+    recursive = true;
+    target = ".steam/root/compatibilitytools.d/Proton-${version}-GE-2/";
   };
 }

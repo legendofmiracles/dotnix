@@ -6,10 +6,10 @@ let
 in
 {
   networking.wireless.networks = lib.listToAttrs (lib.lists.forEach wifi (x:
-      {
-        name = x.name;
-        value = { psk = x.psk; };
-      }
-    )
+    {
+      name = x.name;
+      value = { psk = x.psk; };
+    }
+  )
   );
 }
