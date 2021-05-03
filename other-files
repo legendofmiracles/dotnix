@@ -3939,3 +3939,56 @@ svg.slider-TkfMQL svg {
 }
 /*}*/
 
+
+
+
+
+
+
+
+
+sideberry:
+/* Hide scrollbars */
+body {
+    overflow: hidden;
+}
+
+/* Nav bar on the bottom */
+.NavigationBar {
+    order: 1;
+}
+
+/* Center tabs on the collapsed view */
+.Tab {
+    padding-left: 2px;
+}
+
+/* Border on the right */
+.Sidebar {
+    border-right: solid 1px #1d2021;
+}
+
+/* Don't darken the favicon on hover */
+.Tab:hover .fav {
+    opacity: 1;
+}
+
+/* Audio indicator on the favicon, unclickable */
+.Tab .audio {
+ top:5px;
+ left:8px;
+ z-index:21 !important;
+ pointer-events: none;
+}
+
+.Tab[data-audible] .t-box, .Tab[data-muted] .t-box {
+    transform: none;
+}
+
+/* Overflowing tab titles fading out */
+.t-box {
+    width: 250px;
+}
+
+sideberry settings to import:
+{"containers_v4":{},"panels_v4":[{"type":"bookmarks","id":"bookmarks","cookieStoreId":"bookmarks","name":"Bookmarks","icon":"icon_bookmarks","bookmarks":true,"lockedPanel":false,"skipOnSwitching":false},{"type":"default","id":"firefox-default","name":"Default","icon":"icon_tabs","cookieStoreId":"firefox-default","lockedTabs":false,"lockedPanel":false,"skipOnSwitching":false,"noEmpty":false,"newTabCtx":"none","dropTabCtx":"none","moveTabCtx":"none","moveTabCtxNoChild":true}],"settings":{"version":"4.9.4","nativeScrollbars":false,"selWinScreenshots":true,"tabsCheck":true,"tabsFix":"notify","markWindow":false,"markWindowPreface":"[Sidebery] ","ctxMenuNative":false,"autoHideCtxMenu":"none","ctxMenuRenderInact":true,"ctxMenuIgnoreContainers":"","navBarLayout":"horizontal","navBarInline":true,"hideAddBtn":false,"hideSettingsBtn":false,"navBtnCount":true,"hideEmptyPanels":true,"navMidClickAction":"none","navSwitchPanelsWheel":true,"groupLayout":"grid","skipEmptyPanels":false,"dndTabAct":true,"dndTabActDelay":750,"dndTabActMod":"none","dndExp":"pointer","dndExpDelay":0,"dndExpMod":"none","stateStorage":"global","warnOnMultiTabClose":"collapsed","activateOnMouseUp":true,"activateLastTabOnPanelSwitching":true,"showTabRmBtn":true,"showTabCtx":true,"hideInact":false,"activateAfterClosing":"next","activateAfterClosingPrevRule":"visible","activateAfterClosingNextRule":"tree","activateAfterClosingGlobal":false,"activateAfterClosingNoFolded":true,"activateAfterClosingNoDiscarded":true,"shiftSelAct":true,"askNewBookmarkPlace":false,"tabsRmUndoNote":true,"nativeHighlight":false,"tabsUnreadMark":false,"tabsReloadLimit":5,"tabsReloadLimitNotif":true,"moveNewTabPin":"start","moveNewTabParent":"last_child","moveNewTabParentActPanel":false,"moveNewTab":"end","pinnedTabsPosition":"panel","pinnedTabsList":false,"pinnedAutoGroup":false,"tabsTree":true,"groupOnOpen":true,"tabsTreeLimit":"none","hideFoldedTabs":false,"autoFoldTabs":false,"autoFoldTabsExcept":"none","autoExpandTabs":false,"rmChildTabs":"none","tabsChildCount":true,"tabsLvlDots":false,"discardFolded":false,"discardFoldedDelay":0,"discardFoldedDelayUnit":"sec","tabsTreeBookmarks":true,"treeRmOutdent":"branch","bookmarksPanel":false,"warnOnMultiBookmarkDelete":"collapsed","openBookmarkNewTab":false,"midClickBookmark":"open_new_tab","actMidClickTab":false,"autoCloseBookmarks":false,"autoRemoveOther":false,"highlightOpenBookmarks":false,"activateOpenBookmarkTab":false,"showBookmarkLen":false,"bookmarksRmUndoNote":true,"fontSize":"m","bgNoise":false,"animations":true,"animationSpeed":"fast","theme":"default","style":"dark","sidebarCSS":true,"groupCSS":false,"snapNotify":true,"snapExcludePrivate":false,"snapInterval":0,"snapIntervalUnit":"min","snapLimit":0,"snapLimitUnit":"snap","hScrollThroughPanels":false,"scrollThroughTabs":"none","scrollThroughVisibleTabs":false,"scrollThroughTabsSkipDiscarded":false,"scrollThroughTabsExceptOverflow":true,"scrollThroughTabsCyclic":false,"tabDoubleClick":"none","tabLongLeftClick":"none","tabLongRightClick":"none","tabsPanelLeftClickAction":"none","tabsPanelDoubleClickAction":"tab","tabsPanelRightClickAction":"menu","tabsPanelMiddleClickAction":"tab","syncName":"","syncSaveSettings":false,"syncSaveCtxMenu":false,"syncSaveStyles":false,"syncAutoApply":false},"tabsMenu":[],"bookmarksMenu":[],"cssVars":{"bg":"#0F1318","title_fg":"#FF217C","sub_title_fg":"#FF217C","label_fg":"#FF217C","label_fg_hover":null,"label_fg_active":null,"info_fg":"#FF217C","true_fg":null,"false_fg":null,"active_fg":null,"inactive_fg":null,"favicons_placeholder_bg":null,"btn_bg":null,"btn_bg_hover":null,"btn_bg_active":null,"btn_fg":null,"btn_fg_hover":null,"btn_fg_active":null,"scroll_progress_h":null,"scroll_progress_bg":null,"ctx_menu_font":null,"ctx_menu_bg":null,"ctx_menu_bg_hover":null,"ctx_menu_fg":null,"nav_btn_fg":"#FF217C","nav_btn_width":null,"nav_btn_height":null,"pinned_dock_overlay_bg":null,"pinned_dock_overlay_shadow":null,"tabs_height":null,"tabs_pinned_height":null,"tabs_pinned_width":null,"tabs_indent":null,"tabs_font":null,"tabs_count_font":null,"tabs_fg":null,"tabs_fg_hover":null,"tabs_fg_active":null,"tabs_bg_hover":null,"tabs_bg_active":null,"tabs_activated_bg":"#FF217C","tabs_activated_fg":null,"tabs_selected_bg":"#FF217C","tabs_selected_fg":null,"tabs_border":null,"tabs_activated_border":null,"tabs_selected_border":null,"tabs_shadow":null,"tabs_activated_shadow":null,"tabs_selected_shadow":null,"tabs_lvl_indicator_bg":null,"bookmarks_bookmark_height":null,"bookmarks_folder_height":null,"bookmarks_separator_height":null,"bookmarks_bookmark_font":null,"bookmarks_folder_font":null,"bookmarks_node_title_fg":null,"bookmarks_node_title_fg_hover":null,"bookmarks_node_title_fg_active":null,"bookmarks_node_bg_hover":null,"bookmarks_node_bg_active":null,"bookmarks_folder_closed_fg":null,"bookmarks_folder_closed_fg_hover":null,"bookmarks_folder_closed_fg_active":null,"bookmarks_folder_open_fg":null,"bookmarks_folder_open_fg_hover":null,"bookmarks_folder_open_fg_active":null,"bookmarks_folder_empty_fg":null,"bookmarks_open_bookmark_fg":null},"sidebarCSS":"/* Hide scrollbars */\nbody {\n    overflow: hidden;\n}\n\n/* Nav bar on the bottom */\n.NavigationBar {\n    order: 1;\n}\n\n/* Center tabs on the collapsed view */\n.Tab {\n    padding-left: 2px;\n}\n\n/* Border on the right */\n.Sidebar {\n    border-right: solid 1px #1d2021;\n}\n\n/* Don't darken the favicon on hover */\n.Tab:hover .fav {\n    opacity: 1;\n}\n\n/* Audio indicator on the favicon, unclickable */\n.Tab .audio {\n top:5px;\n left:8px;\n z-index:21 !important;\n pointer-events: none;\n}\n\n.Tab[data-audible] .t-box, .Tab[data-muted] .t-box {\n    transform: none;\n}\n\n/* Overflowing tab titles fading out */\n.t-box {\n    width: 250px;\n}\n\n","groupCSS":"","snapshots_v4":[],"ver":"4.9.4"}
