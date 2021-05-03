@@ -63,7 +63,6 @@
 
       sharedOverlays = [
         nur.overlay
-        
           (final: prev: {
             alacritty = prev.alacritty.overrideAttrs (old: rec {
               src = prev.fetchFromGitHub {

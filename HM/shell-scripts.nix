@@ -83,7 +83,13 @@ rec {
   '';
   rclip = pkgs.writeShellScriptBin "rclip" ''
     export NO_COLOR=1
-    printf "> %s\n%s\n" "$*" "$(bash -c "$*" 2>&1)" | tee /dev/stderr | xclip -selection c
+    if [[ $(id -u) -eq 0 ]]; then
+      prompt="#";
+    else
+      prompt="$";
+    fi
+
+    printf "%s %s\n%s\n" $prompt "$*" "$(bash -c "$*" 2>&1)" | tee /dev/stderr | xclip -selection c
   '';
 
   }
