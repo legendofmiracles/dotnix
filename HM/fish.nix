@@ -270,6 +270,13 @@ end
   '';
 
   programs.fish.functions = {
+    discord-id = ''
+      curl -s \
+           -H "Authorization: $DISCORD_TOKEN" \
+           -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" \
+           -X GET \
+       https://discord.com/api/v9/users/$argv | jq
+    '';
     rclip = ''
       printf "\$ %s\n%s\n" "$argv" (bash -c "$argv" 2>&1) | tee /dev/stderr | xclip -selection c
     '';
