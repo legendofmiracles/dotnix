@@ -54,7 +54,7 @@
   # hardware.enableAllFirmware = true;
   # Configure keymap in X11
   services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.xkbOptions = "f19:ö,f20:ü,f21:ä,a:b";
 
   # Enable CUPS to print documents.
   #services.printing.enable = true;
@@ -107,6 +107,8 @@
     man-pages
     # agenix.defaultPackage.x86_64-linux
   ];
+
+  hardware.keyboard.zsa.enable = true;
 
   nix = {
     extraOptions = ''

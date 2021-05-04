@@ -19,7 +19,6 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        ./udev.nix
         ./secrets/wifi.nix
         ./xorg.nix
         # ./HM/proton.nix
@@ -43,7 +42,6 @@
             ./configuration.nix
             xorg
             v4l2
-            udev
             nixos-hardware.nixosModules.common-cpu-intel
             wifi
             home-manager.nixosModules.home-manager

@@ -152,6 +152,14 @@
             let &undodir = myUndoDir
             set undofile
         endif
+
+      " move to beginning of line
+"      nnoremap H ^
+"      xnoremap H ^
+"      nnoremap L g_
+"      xnoremap L g_
+
+
   '';
   home.file.coc-settings = {
     text = ''
