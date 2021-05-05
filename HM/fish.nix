@@ -26,8 +26,6 @@
   ];
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
-    s = "manix";
-    sf = "manix \"\" | grep '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\" | xargs manix";
     ls = "ls --color";
     rm = "rm -v";
     cp = "cp -v";

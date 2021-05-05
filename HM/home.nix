@@ -9,7 +9,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./proton.nix
     ./fish.nix
     ./nvim.nix
-    /home/nix/dotnix/secrets/variables.nix
+    ${config.home.homeDirectory}/dotnix/secrets/variables.nix
     ./gtk.nix
   ];
 
@@ -36,7 +36,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     languagetool
     nixpkgs-fmt
     lolcat
-    manix
     bat
     tree
     # i know.. microsoft's font ;-;

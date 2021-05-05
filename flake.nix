@@ -39,7 +39,7 @@
       hosts = {
         pain = {
           modules = with self.nixosModules; [
-            ./configuration.nix
+            ./hosts/pain/configuration.nix
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
