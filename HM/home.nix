@@ -3,6 +3,8 @@ with import ./shell-scripts.nix { inherit pkgs; };
 {
   imports = [
     ./firefox.nix
+    ./htop.nix
+    ./mpv.nix
     ./i3.nix
     ./neofetch.nix
     ./qt.nix
@@ -171,27 +173,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     };
   };
 
-  programs.htop = {
-    enable = true;
-    detailedCpuTime = true;
-    showCpuFrequency = true;
-    showCpuUsage = true;
-    showProgramPath = false;
-    showThreadNames = true;
-    meters = {
-      left = [ "AllCPUs" "Memory" "Swap" ];
-      right = [ "Tasks" "LoadAverage" "Uptime" ];
-    };
-  };
-
-  programs.mpv = {
-    enable = true;
-    config = {
-      hwdec = "auto-safe";
-      vo = "gpu";
-      profile = "gpu-hq";
-    };
-  };
 
   news.display = "silent";
   home.stateVersion = "21.05";
