@@ -55,7 +55,7 @@
         set -g __fish_git_prompt_color_invalidstate red
         set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
         set -g __fish_git_prompt_color_cleanstate green
-        cat ~/dots/.cache/wal/sequences
+        # cat ~/dots/.cache/wal/sequences
     # https://github.com/jichu4n/fish-command-timer/blob/master/conf.d/fish_command_timer.fish
     if not set -q fish_command_timer_enabled
       set fish_command_timer_enabled 1

@@ -711,7 +711,7 @@ let config = ''
   # NOTE: 'auto' will pick the best image source for whatever image backend is used.
   #       In ascii mode, distro ascii art will be used and in an image mode, your
   #       wallpaper will be used.
-  # image_source="${config.home.homeDirectory}/Downloads/nix-snowflake.txt"
+  # image_source="''${config.home.homeDirectory}/Downloads/nix-snowflake.txt"
   image_source="auto"
 
 

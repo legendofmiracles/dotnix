@@ -4,6 +4,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
   imports = [
     ./firefox.nix
     ./htop.nix
+    ./alacritty.nix
     ./mpv.nix
     ./i3.nix
     ./neofetch.nix
@@ -11,7 +12,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./proton.nix
     ./fish.nix
     ./nvim.nix
-    ${config.home.homeDirectory}/dotnix/secrets/variables.nix
+    /home/nix/dotnix/secrets/variables.nix
     ./gtk.nix
   ];
 
@@ -94,6 +95,8 @@ with import ./shell-scripts.nix { inherit pkgs; };
     asciigraph
     grex
     bc
+    tmpmail
+    giph
     # Last line
   ];
 
@@ -139,40 +142,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
   #services.dunst.settings = ''
 
   #'';
-
-  programs.alacritty.enable = true;
-  programs.alacritty.settings = {
-    env = {
-      TERM = "xterm-256color";
-    };
-    font = {
-      normal = {
-        family = "Cascadia Code PL";
-        style = "Regular";
-      };
-      bold = {
-        family = "Cascadia Code PL";
-        style = "Bold";
-      };
-      italic = {
-        family = "Cascadia Code PL";
-        style = "Italic";
-      };
-      bold_italic = {
-        family = "Cascadia Code PL";
-        style = "Bold Italic";
-      };
-      size = 8;
-    };
-    cursor = {
-      style = "Underline";
-      unfocused_hollow = true;
-    };
-    mouse.url.launcher = {
-      program = "firefox";
-    };
-  };
-
 
   news.display = "silent";
   home.stateVersion = "21.05";
