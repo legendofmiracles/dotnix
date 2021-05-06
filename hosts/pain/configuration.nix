@@ -85,7 +85,7 @@
     shell = pkgs.fish;
   };
 
-  virtualisation.libvirtd.enable = true;
+  # virtualisation.libvirtd.enable = true;
 
   environment.sessionVariables = {
     "NIXOS_CONFIG" = "/home/nix/dotnix";

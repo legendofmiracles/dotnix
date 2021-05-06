@@ -7,6 +7,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./alacritty.nix
     ./mpv.nix
     ./i3.nix
+    ./pass.nix
     ./neofetch.nix
     ./qt.nix
     ./proton.nix
@@ -128,11 +129,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
   # paths it should manage.
   home.username = "nix";
   home.homeDirectory = "/home/nix";
-
-  programs.password-store.enable = true;
-  programs.password-store.package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
-  programs.browserpass.enable = true;
-  programs.browserpass.browsers = [ "firefox" ];
 
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
