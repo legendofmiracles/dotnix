@@ -24,15 +24,17 @@
   hardware.opengl.driSupport32Bit = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.xserver.config = ''
-    Section "InputClass"
-          Identifier "mouse accel"
-          Driver "libinput"
-          MatchIsPointer "on"
-          Option "AccelProfile" "flat"
-                Option "AccelSpeed" "0"
-              EndSection
-  '';
-
+  services.xserver = {
+    libinput.enable = true;
+    libinput.mouse.accelProfile = "flat";
+    config = ''
+      Section "InputClass"
+            Identifier "mouse accel"
+            Driver "libinput"
+            MatchIsPointer "on"
+            Option "AccelProfile" "flat"
+                  Option "AccelSpeed" "0"
+                EndSection
+    '';
+  };
 }
