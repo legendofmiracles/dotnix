@@ -3,6 +3,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
 {
   imports = [
     ./firefox.nix
+    ./git.nix
     ./htop.nix
     ./alacritty.nix
     ./mpv.nix
@@ -17,14 +18,7 @@ with import ./shell-scripts.nix { inherit pkgs; };
     ./gtk.nix
   ];
 
-  xdg.enable = true;
-  xdg.userDirs.enable = true;
-  xdg.userDirs.createDirectories = false;
-  services.flameshot.enable = true;
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-  home.packages = with pkgs; [
+    home.packages = with pkgs; [
     # custom shell script
     zerox0
     text_from_image
@@ -73,7 +67,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     hack-font
     font-awesome
     nix-index
-    colorpicker
     cowsay
     feh
     gimp
@@ -98,48 +91,15 @@ with import ./shell-scripts.nix { inherit pkgs; };
     bc
     tmpmail
     giph
+    xcolor
     # Last line
   ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
-  programs.git.enable = true;
-  programs.git.userName = "legendofmiracles";
-  programs.git.userEmail = "legendofmiracles@protonmail.com";
-  programs.git.signing.key = "CC50 F82C 985D 2679 0703  AF15 19B0 82B3 DEFE 5451";
-  programs.git.signing.signByDefault = true;
-  programs.git.aliases = {
-    "lg" = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
-    "gud" = "commit -am";
-  };
-
-  programs.direnv.enable = true;
-  programs.direnv.enableNixDirenvIntegration = true;
-  programs.direnv.stdlib = ''
-    use_flake() {
-      watch_file flake.nix
-      watch_file flake.lock
-      eval "$(nix print-dev-env --profile "$(direnv_layout_dir)/flake-profile")"
-    }
-  '';
-
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "nix";
-  home.homeDirectory = "/home/nix";
-
-  programs.gpg.enable = true;
-  services.gpg-agent.enable = true;
-  services.gpg-agent.pinentryFlavor = "curses";
 
   services.dunst.enable = true;
   #services.dunst.settings = ''
 
   #'';
 
-  news.display = "silent";
   home.stateVersion = "21.05";
   # home.stateVersion = "20.09";
 }

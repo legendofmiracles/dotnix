@@ -21,9 +21,21 @@
       nixosModules = utils.lib.modulesFromList [
         ./secrets/wifi.nix
         ./xorg.nix
-        # ./HM/proton.nix
+        ./HM/proton.nix
+        ./HM/i3.nix
+        ./HM/qt.nix
+        ./HM/gtk.nix
+        ./HM/mpv.nix
+        ./HM/fish.nix
+        ./HM/htop.nix
+        ./HM/nvim.nix
+        ./HM/pass.nix
+        ./HM/shell-scripts.nix
+        ./HM/neofetch.nix
+        ./HM/alacritty.nix
+        ./HM/firefox.nix
         ./v4l2.nix
-      ];
+        ];
 
       channels.nixpkgs = {
         input = nixpkgs;
