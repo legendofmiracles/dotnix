@@ -29,13 +29,9 @@ with import ./shell-scripts.nix { inherit pkgs; };
     discord-id
     rclip
 
-    htop
-    fzf
     languagetool
     nixpkgs-fmt
     lolcat
-    bat
-    tree
     # i know.. microsoft's font ;-;
     cascadia-code
     glxinfo
@@ -45,7 +41,6 @@ with import ./shell-scripts.nix { inherit pkgs; };
     weechat
     noisetorch
     pandoc
-    file
     rnix-lsp
     mpv
     unzip
@@ -57,16 +52,13 @@ with import ./shell-scripts.nix { inherit pkgs; };
     hyperfine
     zip
     ffmpeg
-    fd
     lutris
     xorg.xkill
     hyperfine
     obs-studio
     git-lfs
-    ripgrep-all
-    hack-font
-    font-awesome
-    nix-index
+    # hack-font
+    # font-awesome
     cowsay
     feh
     gimp
@@ -78,17 +70,11 @@ with import ./shell-scripts.nix { inherit pkgs; };
     grit
     qrcp
     nix-review
-    zip
     libnotify
-    wget
-    nix-index
-    ripgrep
     xdotool
-    tldr
     imagemagick
     asciigraph
     grex
-    bc
     tmpmail
     giph
     xcolor

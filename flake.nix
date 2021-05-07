@@ -24,6 +24,8 @@
         ./HM/proton.nix
         ./HM/i3.nix
         ./HM/qt.nix
+        ./HM/defaults.nix
+        ./HM/git.nix
         ./HM/gtk.nix
         ./HM/mpv.nix
         ./HM/fish.nix
@@ -35,7 +37,7 @@
         ./HM/alacritty.nix
         ./HM/firefox.nix
         ./v4l2.nix
-        ];
+      ];
 
       channels.nixpkgs = {
         input = nixpkgs;
@@ -51,6 +53,7 @@
       hosts = {
         pain = {
           modules = with self.nixosModules; [
+            # system wide config
             ./hosts/pain/configuration.nix
             xorg
             v4l2
@@ -62,7 +65,89 @@
               home-manager.useGlobalPkgs = true;
             }
             ({ pkgs, ... }: {
-              home-manager.users.nix = import ./HM/home.nix;
+              # home-manager config because
+              home-manager.users.nix = ({ config, pkgs, ... }:
+                with import ./HM/shell-scripts.nix { inherit pkgs; }; {
+                  imports = [
+                    firefox
+                    git
+                    htop
+                    alacritty
+                    mpv
+                    i3
+                    pass
+                    neofetch
+                    qt
+                    proton
+                    fish
+                    nvim
+                    /home/nix/dotnix/secrets/variables.nix
+                    defaults
+                    gtk
+                  ];
+
+                  home.packages = with pkgs; [
+                    # custom shell script
+                    zerox0
+                    text_from_image
+                    auto_clicker
+                    rnix
+                    nvidia-offload
+                    giphsh
+                    discord-id
+                    rclip
+
+                    languagetool
+                    nixpkgs-fmt
+                    lolcat
+                    # i know.. microsoft's font ;-;
+                    cascadia-code
+                    glxinfo
+                    cordless
+                    xclip
+                    ncdu
+                    weechat
+                    noisetorch
+                    pandoc
+                    rnix-lsp
+                    mpv
+                    unzip
+                    ytfzf
+                    ungoogled-chromium
+                    libnotify
+                    tesseract
+                    maim
+                    hyperfine
+                    zip
+                    ffmpeg
+                    lutris
+                    xorg.xkill
+                    hyperfine
+                    obs-studio
+                    git-lfs
+                    cowsay
+                    feh
+                    gimp
+                    legendary-gl
+                    pavucontrol
+                    xorg.xev
+                    multimc
+                    jq
+                    grit
+                    qrcp
+                    nix-review
+                    libnotify
+                    xdotool
+                    imagemagick
+                    asciigraph
+                    grex
+                    tmpmail
+                    giph
+                    xcolor
+
+                    # Last line
+                  ];
+                });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
               };

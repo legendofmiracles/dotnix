@@ -1,6 +1,21 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    htop
+    fzf
+    bat
+    tree
+    wget
+    ripgrep
+    tldr
+    nix-index
+    bc
+    file
+    fd
+    zip
+  ];
+
   xdg.enable = true;
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = false;
