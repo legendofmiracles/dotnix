@@ -78,6 +78,7 @@ in
       }
       vim-bufferline
       coc-pyright
+      /*
       {
         plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
         config = ''
@@ -113,6 +114,7 @@ in
           }
         '';
       }
+
       {
         plugin = nvim-ts-rainbow;
         config = luaConfig ''
@@ -125,19 +127,21 @@ in
           }
         '';
       }
+      */
     ];
     extraConfig = ''
       set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
       set autoindent
       set showmatch
       set mouse=a
-      set spell
+      " set spell
       " hybrid line numbers
       set nu rnu
       " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
       nnoremap <Return> o<Esc>
       syntax on
       syntax enable
+      " syntax off
       set updatetime=100
       let g:languagetool_server_command="languagetool-http-server"
       " When editing a file, always jump to the last cursor position
