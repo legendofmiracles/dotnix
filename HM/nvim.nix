@@ -6,6 +6,7 @@
   };
 
   programs.neovim.enable = true;
+  programs.neovim.package = pkgs.neovim-nightly;
   programs.neovim.withNodeJs = true;
   programs.neovim.plugins = with pkgs.vimPlugins; [
     undotree
@@ -69,7 +70,7 @@
     }
     vim-bufferline
     coc-pyright
-    polyglot
+    nvim-treesitter
   ];
 
   programs.neovim.extraConfig = ''
@@ -149,6 +150,15 @@
     '';
     target = ".config/nvim/coc-settings.json";
   };
+  home.file.".config/nvim/after/queries/nix/injections.scm".text = ''
+    (
+        (app [
+            ((identifier) @_func)
+            (select (identifier) (attrpath (attr_identifier) @_func . ))
+        ]) (indented_string) @bash
+        (#match? @_func "(writeShellScript(Bin)?)")
+    )
+  '';
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
 }

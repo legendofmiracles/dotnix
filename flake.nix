@@ -4,6 +4,7 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
     home-manager.url = "github:nix-community/home-manager";
@@ -14,7 +15,7 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, nixpkgs-unstable }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, neovim-nightly }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -47,7 +48,7 @@
       };
 
       channels.nixpkgs-unstable = {
-        input = nixpkgs-unstable;
+        input = nixpkgs;
       };
 
       hosts = {
@@ -103,13 +104,11 @@
                     # i know.. microsoft's font ;-;
                     cascadia-code
                     glxinfo
-                    cordless
                     xclip
                     ncdu
                     weechat
                     noisetorch
                     pandoc
-                    rnix-lsp
                     mpv
                     unzip
                     ytfzf
@@ -118,7 +117,6 @@
                     tesseract
                     maim
                     hyperfine
-                    zip
                     ffmpeg
                     lutris
                     xorg.xkill
@@ -158,6 +156,7 @@
 
       sharedOverlays = [
         nur.overlay
+        neovim-nightly.overlay
         (final: prev: {
           alacritty = prev.alacritty.overrideAttrs (old: rec {
             src = prev.fetchFromGitHub {
