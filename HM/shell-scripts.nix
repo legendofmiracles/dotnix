@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 rec {
   auto_clicker = pkgs.writeShellScriptBin "auto_clicker" ''
     while :

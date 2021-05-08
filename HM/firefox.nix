@@ -1192,7 +1192,8 @@
       unpaywall
       no-pdf-download
       to-deepl
-      refined-github
+      sponsorblock
+      noscript
     ];
   };
 }
