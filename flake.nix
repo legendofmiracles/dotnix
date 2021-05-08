@@ -23,7 +23,7 @@
         ./secrets/wifi.nix
         ./xorg.nix
         ./HM/proton.nix
-        ./HM/i3.nix
+        ./HM/xorg-hm.nix
         ./HM/qt.nix
         ./HM/defaults.nix
         ./HM/git.nix
@@ -75,7 +75,7 @@
                     htop
                     alacritty
                     mpv
-                    i3
+                    xorg-hm
                     pass
                     neofetch
                     qt

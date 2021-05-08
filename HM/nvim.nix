@@ -71,6 +71,7 @@
     vim-bufferline
     coc-pyright
     nvim-treesitter
+    nvim-treesitter.withPlugins (_: tree-sitter.allGrammars)
   ];
 
   programs.neovim.extraConfig = ''
@@ -127,15 +128,11 @@
         set undofile
     endif
   '';
-  home.file.coc-settings = {
-    text = ''
+  home.file.".config/nvim/coc-settings.json".text = ''
         {
           "languageserver": {
             "nix": {
-              "command": "rnix",
-              "filetypes": [
-                "nix"
-              ]
+              
            }
           },
           "languageserver": {
@@ -148,8 +145,6 @@
         }
       }
     '';
-    target = ".config/nvim/coc-settings.json";
-  };
   home.file.".config/nvim/after/queries/nix/injections.scm".text = ''
     (
         (app [
