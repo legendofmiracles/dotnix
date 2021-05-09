@@ -2,20 +2,21 @@
   description = "LegendOfMiracles's system config";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    nixos-hardware.url = github:NixOS/nixos-hardware;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = github:nix-community/home-manager;
     nur = {
-      url = "github:nix-community/NUR";
+      url = github:nix-community/NUR;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    agenix.url = github:ryantm/agenix;
+    utils.url = github:gytis-ivaskevicius/flake-utils-plus/staging;
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, neovim-nightly }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, neovim-nightly, agenix }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -61,6 +62,7 @@
             nixos-hardware.nixosModules.common-cpu-intel
             wifi
             home-manager.nixosModules.home-manager
+            agenix.nixosModules.age
             {
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;

@@ -38,9 +38,5 @@
   home.username = "nix";
   home.homeDirectory = "/home/nix";
 
-  programs.gpg.enable = true;
-  services.gpg-agent.enable = true;
-  services.gpg-agent.pinentryFlavor = "curses";
-
   news.display = "silent";
 }

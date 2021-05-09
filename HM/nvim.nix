@@ -134,7 +134,7 @@ in
       set autoindent
       set showmatch
       set mouse=a
-      " set spell
+      set spell
       " hybrid line numbers
       set nu rnu
       " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
