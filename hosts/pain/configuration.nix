@@ -12,6 +12,8 @@
 
   # documentation.enable = false;
 
+  age.secrets.wifi.file = ./secrets/wifi.json.age;
+
   boot = {
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;

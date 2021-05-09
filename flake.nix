@@ -21,7 +21,7 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        ./secrets/wifi.nix
+        ./wifi.nix
         ./xorg.nix
         ./HM/proton.nix
         ./HM/xorg-hm.nix
