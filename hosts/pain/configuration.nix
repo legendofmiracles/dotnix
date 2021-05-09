@@ -28,15 +28,14 @@
   };
 
   # evaluates
-  age.secrets.wifi.file = ./secrets/wifi.json.age;
+  age.secrets.wifi.file = ../../secrets/wifi.json.age;
 
   networking = {
     hostName = "pain";
     wireless = {
       enable = true;
       # doesn't eval
-      # networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
-      networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile /home/nix/test.json)) (x:
+      networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
         {
           name = x.name;
           value = { psk = x.psk; };
