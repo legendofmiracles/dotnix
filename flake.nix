@@ -21,7 +21,7 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        ./wifi.nix
+        # ./wifi.nix
         ./xorg.nix
         ./HM/proton.nix
         ./HM/xorg-hm.nix
@@ -60,7 +60,7 @@
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
-            wifi
+            # wifi
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
             {

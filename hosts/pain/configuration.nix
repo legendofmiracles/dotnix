@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -11,8 +11,6 @@
     ];
 
   # documentation.enable = false;
-
-  age.secrets.wifi.file = ./secrets/wifi.json.age;
 
   boot = {
     cleanTmpDir = true;
@@ -29,9 +27,23 @@
     kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
+  # evaluates
+  age.secrets.wifi.file = ./secrets/wifi.json.age;
+
   networking = {
     hostName = "pain";
-    wireless.enable = true;
+    wireless = {
+      enable = true;
+      # doesn't eval
+      # networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
+      networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile /home/nix/test.json)) (x:
+        {
+          name = x.name;
+          value = { psk = x.psk; };
+        }
+      )
+      );
+    };
     useDHCP = false;
     interfaces = {
       enp8s0.useDHCP = true;
