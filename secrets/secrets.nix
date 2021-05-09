@@ -7,4 +7,5 @@ let
 in
 {
   "wifi.json.age".publicKeys = users ++ systems;
+  "variables.age".publicKeys = users ++ systems;
 }

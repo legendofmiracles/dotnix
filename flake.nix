@@ -63,12 +63,14 @@
             network
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
-            {
+            ({ pkgs, ... }: {
+              age.secrets.variables = {
+                file = ./secrets/variables.age;
+                owner = "nix";
+                mode = "0700";
+              };
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
-            }
-            ({ pkgs, ... }: {
-              # home-manager config because
               home-manager.users.nix = ({ config, pkgs, ... }:
                 with import ./HM/shell-scripts.nix { inherit pkgs; }; {
                   imports = [
@@ -84,7 +86,6 @@
                     proton
                     fish
                     nvim
-                    /home/nix/dotnix/secrets/variables.nix
                     defaults
                     gtk
                   ];
