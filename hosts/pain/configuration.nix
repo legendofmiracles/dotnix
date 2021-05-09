@@ -30,26 +30,7 @@
   # evaluates
   age.secrets.wifi.file = ../../secrets/wifi.json.age;
 
-  networking = {
-    hostName = "pain";
-    wireless = {
-      enable = true;
-      # doesn't eval
-      networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
-        {
-          name = x.name;
-          value = { psk = x.psk; };
-        }
-      )
-      );
-    };
-    useDHCP = false;
-    interfaces = {
-      enp8s0.useDHCP = true;
-      wlp0s20f3.useDHCP = true;
-    };
-    nameservers = [ "1.1.1.1" ];
-  };
+  networking.hostName = "pain";
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";

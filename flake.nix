@@ -21,7 +21,6 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        # ./wifi.nix
         ./xorg.nix
         ./HM/proton.nix
         ./HM/xorg-hm.nix
@@ -39,6 +38,7 @@
         ./HM/alacritty.nix
         ./HM/firefox.nix
         ./v4l2.nix
+        ./network.nix
       ];
 
       channels.nixpkgs = {
@@ -60,7 +60,7 @@
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
-            # wifi
+            network
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
             {
