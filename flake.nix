@@ -163,10 +163,10 @@
         self.overlay
       ];
 
-      #packagesBuilder = chanels: {
-      #  inherit (channels.nixpkgs)
-      #    alacritty-ligiatures;
-      #};
+      packagesBuilder = channels: {
+        inherit (channels.nixpkgs)
+          alacritty-ligatures;
+      };
 
       appsBuilder = channels: with channels.nixpkgs; {
         alacritty-ligiatures = utils.lib.mkApp {

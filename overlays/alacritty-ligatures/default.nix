@@ -1,4 +1,4 @@
-{ alacritty }:
+{ alacritty, ... }:
 
 (
   alacritty.overrideAttrs (old: rec {
@@ -33,7 +33,6 @@
         inherit src;
         outputHash = "sha256-Oc5DdthZqSd0Dc6snE3/WAa19+vOe6wkXkR8d6uPWJo=";
     });
-  });
-}
+  })
 )
 
