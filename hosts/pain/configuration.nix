@@ -28,7 +28,7 @@
   };
 
   # evaluates
-  age.secrets.wifi.file = ../../secrets/wifi.json.age;
+  # age.secrets.wifi.file = ../../secrets/wifi.json.age;
 
   networking.hostName = "pain";
 

@@ -4,13 +4,13 @@
   networking = {
     wireless = {
       enable = true;
-      networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
-        {
-          name = x.name;
-          value = { psk = x.psk; };
-        }
-      )
-      );
+      #networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
+      #  {
+      #    name = x.name;
+      #    value = { psk = x.psk; };
+      #  }
+      #)
+      #);
     };
     useDHCP = false;
     interfaces = {
