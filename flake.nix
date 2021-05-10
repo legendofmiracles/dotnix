@@ -169,8 +169,8 @@
       };
 
       appsBuilder = channels: with channels.nixpkgs; {
-        alacritty-ligiatures = utils.lib.mkApp {
-          drv = alacritty-ligiatures;
+        alacritty-ligatures = utils.lib.mkApp {
+          drv = alacritty-ligatures;
           exePath = "/bin/alacritty";
         };
       };

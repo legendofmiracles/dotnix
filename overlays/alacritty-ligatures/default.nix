@@ -1,8 +1,8 @@
-{ alacritty, ... }:
+{ alacritty, fetchFromGitHub, lib, stdenv, ... }:
 
 (
   alacritty.overrideAttrs (old: rec {
-    src = prev.fetchFromGitHub {
+    src = fetchFromGitHub {
       owner = "zenixls2";
       repo = old.pname;
       rev = "3ed043046fc74f288d4c8fa7e4463dc201213500";
@@ -16,7 +16,7 @@
         install -D extra/linux/Alacritty.desktop -t $out/share/applications/
         install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
         strip -S $out/bin/alacritty
-        patchelf --set-rpath "${prev.lib.makeLibraryPath old.buildInputs}:${prev.stdenv.cc.cc.lib}/lib${prev.lib.optionalString prev.stdenv.is64bit "64"}" $out/bin/alacritty
+        patchelf --set-rpath "${lib.makeLibraryPath old.buildInputs}:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"}" $out/bin/alacritty
         installShellCompletion --zsh extra/completions/_alacritty
         installShellCompletion --bash extra/completions/alacritty.bash
         installShellCompletion --fish extra/completions/alacritty.fish

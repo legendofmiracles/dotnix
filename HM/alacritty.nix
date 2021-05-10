@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 
 {
+  programs.alacritty.package = pkgs.alacritty-ligatures;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     env = {
