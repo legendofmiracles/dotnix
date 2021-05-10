@@ -272,7 +272,7 @@
 
   programs.fish.functions = {
     r = ''
-      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG
+      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --flake $NIXOS_CONFIG
     '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix
