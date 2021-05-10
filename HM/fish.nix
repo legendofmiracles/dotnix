@@ -36,7 +36,7 @@
 
   programs.fish.shellInit = ''
         # loads secrets at runtime
-        eval /run/secrets/variables
+        source /run/secrets/variables
 
         set -g __fish_git_prompt_show_informative_status 1
         set -g __fish_git_prompt_hide_untrackedfiles 1

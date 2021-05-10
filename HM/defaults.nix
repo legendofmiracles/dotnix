@@ -13,6 +13,7 @@
     bc
     file
     fd
+    cachix
     zip
   ];
 
