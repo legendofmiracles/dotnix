@@ -13,25 +13,25 @@
     doCheck = false;
 
     postInstall = ''
-        install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-        install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
-        strip -S $out/bin/alacritty
-        patchelf --set-rpath "${lib.makeLibraryPath old.buildInputs}:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"}" $out/bin/alacritty
-        installShellCompletion --zsh extra/completions/_alacritty
-        installShellCompletion --bash extra/completions/alacritty.bash
-        installShellCompletion --fish extra/completions/alacritty.fish
-        install -dm 755 "$out/share/man/man1"
-        gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
-        install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
-        install -dm 755 "$terminfo/share/terminfo/a/"
-        tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
-        mkdir -p $out/nix-support
-        echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-                '';
+      install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+      install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+      strip -S $out/bin/alacritty
+      patchelf --set-rpath "${lib.makeLibraryPath old.buildInputs}:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"}" $out/bin/alacritty
+      installShellCompletion --zsh extra/completions/_alacritty
+      installShellCompletion --bash extra/completions/alacritty.bash
+      installShellCompletion --fish extra/completions/alacritty.fish
+      install -dm 755 "$out/share/man/man1"
+      gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
+      install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
+      install -dm 755 "$terminfo/share/terminfo/a/"
+      tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
+      mkdir -p $out/nix-support
+      echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+    '';
 
     cargoDeps = old.cargoDeps.overrideAttrs (_: {
-        inherit src;
-        outputHash = "sha256-Oc5DdthZqSd0Dc6snE3/WAa19+vOe6wkXkR8d6uPWJo=";
+      inherit src;
+      outputHash = "sha256-Oc5DdthZqSd0Dc6snE3/WAa19+vOe6wkXkR8d6uPWJo=";
     });
   })
 )
