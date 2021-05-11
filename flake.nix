@@ -39,6 +39,14 @@
         ./HM/firefox.nix
         ./v4l2.nix
         ./network.nix
+        ./defaults-nixos.nix
+      ];
+
+      hostDefaults.modules = [
+        utils.nixosModules.saneFlakeDefaults
+        home-manager.nixosModules.home-manager
+        agenix.nixosModules.age
+        self.nixosModules.defaults-nixos
       ];
 
       channels.nixpkgs = {
@@ -61,8 +69,6 @@
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
             network
-            home-manager.nixosModules.home-manager
-            agenix.nixosModules.age
             ({ pkgs, ... }: {
               age.secrets.variables = {
                 file = ./secrets/variables.age;
@@ -175,7 +181,6 @@
         };
       };
 
-      hostDefaults.modules = [ utils.nixosModules.saneFlakeDefaults ];
 
       overlay = import ./overlays;
     };

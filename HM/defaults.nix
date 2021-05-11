@@ -15,6 +15,7 @@
     fd
     cachix
     zip
+    thefuck
   ];
 
   xdg.enable = true;
