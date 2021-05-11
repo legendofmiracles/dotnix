@@ -2,22 +2,26 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 
 {
   imports =
     [
-      ./hardware-configuration.nix
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   # documentation.enable = false;
 
   boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_5_11;
-    kernelModules = [ "snd_hda_intel" ];
+    kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
       options snd-hda-intel dmic_detect=0
@@ -27,8 +31,32 @@
     kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
-  # evaluates
-  # age.secrets.wifi.file = ../../secrets/wifi.json.age;
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=nixos" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/home" =
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=home" "compress=zstd:9" "noatime" ];
+    };
+
+  fileSystems."/games" =
+    {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
+    };
+
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/A5AB-E355";
+      fsType = "vfat";
+    };
 
   networking.hostName = "pain";
 
