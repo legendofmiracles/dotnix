@@ -304,6 +304,8 @@ in
       set $ws9 "9"
       set $ws10 "10"
 
+      bindsym $mod + Tab workspace back_and_forth
+
       # switch to workspace
       bindsym $mod+1 workspace number $ws1
       bindsym $mod+2 workspace number $ws2

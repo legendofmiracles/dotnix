@@ -118,7 +118,6 @@
                     weechat
                     noisetorch
                     pandoc
-                    mpv
                     unzip
                     ytfzf
                     ungoogled-chromium
@@ -152,7 +151,46 @@
                     giph
                     xcolor
 
-                    # Last line
+                  ];
+                });
+              environment.shellAliases = {
+                nix-repl = "nix repl ${inputs.utils.lib.repl}";
+              };
+            })
+          ];
+        };
+        pi = {
+          system = "aarch64-linux";
+          modules = with self.nixosModules; [
+            # system wide config
+            ./hosts/pi/configuration.nix
+            network
+            ({ pkgs, ... }: {
+              age.secrets.variables = {
+                file = ./secrets/variables.age;
+                owner = "nix";
+                mode = "0700";
+              };
+              home-manager.useUserPackages = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.users.nix = ({ config, pkgs, ... }:
+                with import ./HM/shell-scripts.nix { inherit pkgs; }; {
+                  imports = [
+                    git
+                    htop
+                    fish
+                    nvim
+                    defaults
+                  ];
+
+                  home.packages = with pkgs; [
+                    # custom shell script
+                    zerox0
+
+                    nixpkgs-fmt
+                    ncdu
+                    unzip
+                    jq
                   ];
                 });
               environment.shellAliases = {

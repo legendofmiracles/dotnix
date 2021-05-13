@@ -2,6 +2,7 @@
 
 rec {
   auto_clicker = pkgs.writeShellScriptBin "auto_clicker" ''
+    ## Syntax: bash
     while :
     do
       xdotool mousedown $1
@@ -34,9 +35,6 @@ rec {
     curl -sF file="@''${1:--}$type" 'http://0x0.st' \
         | tee /dev/stderr \
         | xclip -r -sel clip
-  '';
-  rnix = pkgs.writeShellScriptBin "rnix" ''
-    bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"
   '';
   giphsh = pkgs.writeShellScriptBin "giph.sh" ''
     if pgrep "ffmpeg" > /dev/null 2>&1; then

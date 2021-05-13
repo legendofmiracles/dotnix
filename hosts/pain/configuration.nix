@@ -96,7 +96,6 @@
     cascadia-code
     pciutils
     virt-manager
-    man-pages
   ];
 
   hardware.keyboard.zsa.enable = true;
