@@ -101,7 +101,6 @@
                     zerox0
                     text_from_image
                     auto_clicker
-                    rnix
                     nvidia-offload
                     giphsh
                     discord-id
