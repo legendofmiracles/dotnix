@@ -109,7 +109,6 @@
                     languagetool
                     nixpkgs-fmt
                     lolcat
-                    # i know.. microsoft's font ;-;
                     cascadia-code
                     glxinfo
                     xclip
@@ -149,7 +148,6 @@
                     tmpmail
                     giph
                     xcolor
-
                   ];
                 });
               environment.shellAliases = {
@@ -208,7 +206,8 @@
 
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
-          alacritty-ligatures;
+          alacritty-ligatures
+          neovim-nightly;
       };
 
       appsBuilder = channels: with channels.nixpkgs; {
@@ -216,6 +215,10 @@
           drv = alacritty-ligatures;
           exePath = "/bin/alacritty";
         };
+        /*nvim-n = utils.lib.mkApp {
+          drv = neovim-nightly;
+          exePath = "/bin/nvim";
+        };*/
       };
 
 
