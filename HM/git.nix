@@ -20,6 +20,12 @@
       advice = {
         detachedHead = false;
       };
+      rebase = {
+        abbreviateCommands = true;
+      };
+      pack = {
+        threads = 0;
+      };
     };
   };
 }
