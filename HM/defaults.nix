@@ -13,7 +13,6 @@
     bc
     file
     fd
-    cachix
     zip
     thefuck
   ];

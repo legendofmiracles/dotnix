@@ -20,7 +20,7 @@
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_5_11;
+    kernelPackages = pkgs.linuxPackages_5_12;
     kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
