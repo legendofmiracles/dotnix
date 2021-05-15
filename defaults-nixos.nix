@@ -55,6 +55,8 @@ let caches = [
     trustedBinaryCaches = caches;
   };
 
+  programs.command-not-found.enable = false;
+
   environment.systemPackages = with pkgs; [
     man-pages
   ];

@@ -109,6 +109,7 @@
                     giphsh
                     discord-id
                     rclip
+                    command-not-found
 
                     languagetool
                     nixpkgs-fmt
