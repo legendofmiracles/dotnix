@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 
+let font = "Cascadia Mono PL"; in
 {
   programs.firefox = {
     enable = true;
@@ -10,6 +11,9 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           # doesn't work anymore
           # "browser.search.defaultenginename" = "DuckDuckGo";
+          "font.name.monospace.x-western" = font;
+          "font.name.sans-serif.x-western" = font;
+          "font.name.serif.x-western" = font;
         };
         userChrome = ''
               // pdf reader
