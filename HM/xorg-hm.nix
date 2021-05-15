@@ -1,11 +1,6 @@
 { pkgs, config, ... }:
 
-let
-  pink = "#FF217C";
-  drbg = "#07090C";
-  bg = "#0F1318";
-  fg = "#F2F3F3";
-in
+with import ./colors.nix { };
 {
   xsession.scriptPath = ".xinitrc";
   xsession.initExtra = "feh .background-image --bg-fill &";
@@ -27,7 +22,7 @@ in
       ; background = ''${xrdb:background}
       background = ${drbg}
       background-alt = #444444
-      ; foreground = 
+      ; foreground =
       foreground = ${fg}
       foreground-alt = ''${xrdb:color7}
       primary = ${pink}
@@ -121,27 +116,27 @@ in
 
       label-full = %{F${pink}}%{F-} 100%
 
-      ramp-capacity-0 =%{F${pink}}%{F-} 
-      ramp-capacity-1 =%{F${pink}}%{F-} 
-      ramp-capacity-2 =%{F${pink}}%{F-} 
-      ramp-capacity-3 =%{F${pink}}%{F-} 
-      ramp-capacity-4 =%{F${pink}}%{F-} 
+      ramp-capacity-0 =%{F${pink}}%{F-}
+      ramp-capacity-1 =%{F${pink}}%{F-}
+      ramp-capacity-2 =%{F${pink}}%{F-}
+      ramp-capacity-3 =%{F${pink}}%{F-}
+      ramp-capacity-4 =%{F${pink}}%{F-}
 
       bar-capacity-width = 10
 
-      animation-charging-0 =%{F${pink}}%{F-} 
-      animation-charging-1 =%{F${pink}}%{F-} 
-      animation-charging-2 =%{F${pink}}%{F-} 
-      animation-charging-3 =%{F${pink}}%{F-} 
-      animation-charging-4 =%{F${pink}}%{F-} 
+      animation-charging-0 =%{F${pink}}%{F-}
+      animation-charging-1 =%{F${pink}}%{F-}
+      animation-charging-2 =%{F${pink}}%{F-}
+      animation-charging-3 =%{F${pink}}%{F-}
+      animation-charging-4 =%{F${pink}}%{F-}
       ; Framerate in milliseconds
       animation-charging-framerate = 500
 
-      animation-discharging-0 =%{F${pink}}%{F-} 
-      animation-discharging-1 =%{F${pink}}%{F-} 
-      animation-discharging-2 =%{F${pink}}%{F-} 
-      animation-discharging-3 =%{F${pink}}%{F-} 
-      animation-discharging-4 =%{F${pink}}%{F-} 
+      animation-discharging-0 =%{F${pink}}%{F-}
+      animation-discharging-1 =%{F${pink}}%{F-}
+      animation-discharging-2 =%{F${pink}}%{F-}
+      animation-discharging-3 =%{F${pink}}%{F-}
+      animation-discharging-4 =%{F${pink}}%{F-}
 
       animation-discharging-framerate = 500
 
@@ -156,9 +151,9 @@ in
 
       label-muted = %{F${pink}}%{F-} off
 
-      ramp-volume-0 =%{F${pink}}%{F-} 
-      ramp-volume-1 =%{F${pink}}%{F-} 
-      ramp-volume-2 =%{F${pink}}%{F-} 
+      ramp-volume-0 =%{F${pink}}%{F-}
+      ramp-volume-1 =%{F${pink}}%{F-}
+      ramp-volume-2 =%{F${pink}}%{F-}
 
       click-right = pavucontrol &
 
@@ -171,13 +166,13 @@ in
       menu-0-0 ="|"
       menu-0-0-exec =
       menu-0-1 ="%{F${pink}}%{F-}"
-      menu-0-1-exec = systemctl suspend 
+      menu-0-1-exec = systemctl suspend
       menu-0-2 = "%{F${pink}}%{F-}"
       menu-0-2-exec = reboot
       menu-0-3 = "%{F${pink}}%{F-}"
       menu-0-3-exec = shutdown now
       menu-0-4 = "%{F${pink}}%{F-}"
-      menu-0-4-exec = loginctl lock-session 
+      menu-0-4-exec = loginctl lock-session
 
       format =<menu>  <label-toggle>
 

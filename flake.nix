@@ -25,6 +25,7 @@
         ./HM/proton.nix
         ./HM/xorg-hm.nix
         ./HM/qt.nix
+        ./HM/dunst.nix
         ./HM/defaults.nix
         ./HM/git.nix
         ./HM/gtk.nix
@@ -40,6 +41,7 @@
         ./v4l2.nix
         ./network.nix
         ./defaults-nixos.nix
+        ./printer.nix
       ];
 
       hostDefaults.modules = [
@@ -69,6 +71,7 @@
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
             network
+            printer
             ({ pkgs, ... }: {
               age.secrets.variables = {
                 file = ./secrets/variables.age;
@@ -84,6 +87,7 @@
                     git
                     htop
                     alacritty
+                    dunst
                     mpv
                     xorg-hm
                     pass

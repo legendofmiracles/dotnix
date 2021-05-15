@@ -47,10 +47,10 @@ let caches = [
       "lom.cachix.org-1:R0BYXkgRm24m+gHUlYzrI2DxwNEOKWXF1/VdYSPCXyQ="
     ];
 
-    /*nixPath = [
-      "nixpkgs=${pkgs}"
-      "home-manager=${home-manager}"
-    ];*/
+    nixPath = [
+      "nixpkgs=${pkgs.path}"
+      # "home-manager=${home-manager}"
+    ];
 
     trustedBinaryCaches = caches;
   };
