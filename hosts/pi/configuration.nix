@@ -32,11 +32,6 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-
   # !!! Adding a swap file is optional, but strongly recommended!
   # swapDevices = [ { device = "/swapfile"; size = 1024; } ];
 }

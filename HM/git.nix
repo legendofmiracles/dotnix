@@ -18,7 +18,7 @@
         rebase = true;
       };
       advice = {
-        detachedHead = false;
+      #  detachedHead = false;
       };
       rebase = {
         abbreviateCommands = true;
