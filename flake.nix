@@ -152,7 +152,7 @@
                     grex
                     tmpmail
                     giph
-                    xcolor
+                    pastel
                   ];
                 });
               environment.shellAliases = {
