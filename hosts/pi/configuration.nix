@@ -7,7 +7,7 @@
 
   #  !!! If your board is a Raspberry Pi 3, select not latest (5.8 at the time)
   #  !!! as it is currently broken (see https://github.com/NixOS/nixpkgs/issues/97064)
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_5_4;
 
   # !!! This is only for ARMv6 / ARMv7. Don't enable this on AArch64, cache.nixos.org works there.
   #nix.binaryCaches = lib.mkForce [ "https://app.cachix.org/cache/thefloweringash-armv7" ];
@@ -31,6 +31,8 @@
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
+  networking.wireless.enable = true;
+  hardware.enableRedistributableFirmware = true;
 
   # !!! Adding a swap file is optional, but strongly recommended!
   # swapDevices = [ { device = "/swapfile"; size = 1024; } ];
