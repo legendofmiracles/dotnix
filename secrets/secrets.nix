@@ -6,6 +6,6 @@ let
   systems = [ system1 ];
 in
 {
-  "wifi.json.age".publicKeys = users ++ systems;
+  "wpa_supplicant.conf.age".publicKeys = users ++ systems;
   "variables.age".publicKeys = users ++ systems;
 }

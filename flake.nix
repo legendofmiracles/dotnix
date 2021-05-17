@@ -78,6 +78,10 @@
                 owner = "nix";
                 mode = "0700";
               };
+              age.secrets.wpa = {
+                file = ./secrets/wpa_supplicant.conf.age;
+                mode = "0700";
+              };
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:

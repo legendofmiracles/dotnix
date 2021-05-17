@@ -36,6 +36,7 @@
 
   programs.fish.shellInit = ''
         # loads secrets at runtime
+        # can this not be hardcoded?
         source /run/secrets/variables
 
         set -g __fish_git_prompt_show_informative_status 1

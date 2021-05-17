@@ -4,13 +4,6 @@
   networking = {
     wireless = {
       enable = true;
-      #networks = lib.listToAttrs (lib.lists.forEach (builtins.fromJSON (builtins.readFile config.age.secrets.wifi.path)) (x:
-      #  {
-      #    name = x.name;
-      #    value = { psk = x.psk; };
-      #  }
-      #)
-      #);
     };
     useDHCP = false;
     interfaces = {
@@ -19,4 +12,5 @@
     };
     nameservers = [ "1.1.1.1" ];
   };
+  environment.etc."wpa_supplicant.conf".source = config.age.secrets.wpa.path;
 }
