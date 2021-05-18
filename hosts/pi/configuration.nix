@@ -28,6 +28,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.permitRootLogin = "yes";
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
@@ -47,5 +48,5 @@
  */
 
   # !!! Adding a swap file is optional, but strongly recommended!
-  # swapDevices = [ { device = "/swapfile"; size = 1024; } ];
+  swapDevices = [ { device = "/swapfile"; size = 8000; } ];
 }
