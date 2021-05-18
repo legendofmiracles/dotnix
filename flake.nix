@@ -5,8 +5,7 @@
     nixos-hardware.url = github:NixOS/nixos-hardware;
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs-cloned.url = "file:/home/nix/nixpkgs/";
+    # nixpkgs-cloned.url = "/home/nix/nixpkgs/";
     home-manager.url = github:nix-community/home-manager;
     nur = {
       url = github:nix-community/NUR;
@@ -227,7 +226,7 @@
         /*nvim-n = utils.lib.mkApp {
           drv = neovim-nightly;
           exePath = "/bin/nvim";
-        };*/
+          };*/
       };
 
 
