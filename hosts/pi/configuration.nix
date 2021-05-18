@@ -31,9 +31,11 @@
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  networking.wireless.enable = true;
+  # networking.wireless.enable = true;
+  networking.hostName = "pi";
   hardware.enableRedistributableFirmware = true;
 
+  /*
   nix = {
     extraOptions = ''
       keep-outputs = true
@@ -42,6 +44,7 @@
     '';
     package = pkgs.nixUnstable;
  };
+ */
 
   # !!! Adding a swap file is optional, but strongly recommended!
   # swapDevices = [ { device = "/swapfile"; size = 1024; } ];
