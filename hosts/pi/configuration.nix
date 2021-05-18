@@ -32,7 +32,7 @@
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  # networking.wireless.enable = true;
+  networking.wireless.enable = true;
   networking.hostName = "pi";
   hardware.enableRedistributableFirmware = true;
 
