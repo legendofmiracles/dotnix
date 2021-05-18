@@ -43,12 +43,15 @@
         ./printer.nix
       ];
 
-      hostDefaults.modules = [
-        utils.nixosModules.saneFlakeDefaults
-        home-manager.nixosModules.home-manager
-        agenix.nixosModules.age
-        self.nixosModules.defaults-nixos
-      ];
+      hostDefaults = {
+        modules = [
+          utils.nixosModules.saneFlakeDefaults
+          home-manager.nixosModules.home-manager
+          agenix.nixosModules.age
+          self.nixosModules.defaults-nixos
+        ];
+        extraArgs = { inherit utils inputs; };
+      };
 
       channels.nixpkgs = {
         input = nixpkgs;
@@ -117,6 +120,7 @@
                     languagetool
                     nixpkgs-fmt
                     lolcat
+                    copyq
                     cascadia-code
                     glxinfo
                     xclip

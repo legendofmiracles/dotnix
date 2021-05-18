@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 let caches = [
   "https://cache.nixos.org"
@@ -35,7 +35,7 @@ let caches = [
 
     gc = {
       automatic = true;
-      options = "--delete-older-than 3d";
+      options = "--delete-older-than 7d";
       dates = "weekly";
     };
 
@@ -49,7 +49,7 @@ let caches = [
 
     nixPath = [
       "nixpkgs=${pkgs.path}"
-      # "home-manager=${home-manager}"
+      "home-manager=${inputs.home-manager}"
     ];
 
     trustedBinaryCaches = caches;

@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     htop
+    manix
     fzf
     bat
     delta

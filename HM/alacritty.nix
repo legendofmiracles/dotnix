@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 
+with import ./colors.nix { };
 {
   programs.alacritty.package = pkgs.alacritty-ligatures;
   programs.alacritty.enable = true;
@@ -34,12 +35,12 @@
       normal = {
         black = "#0f1318";
         red = "#5D6165";
-        green = "#FF217C";
-        yellow = "#FF217C";
-        blue = "#FF217C";
+        green = pink;
+        yellow = pink;
+        blue = pink;
         magenta = "#3F38A4";
-        cyan = "#FF217C";
-        white = "#c1c0c1";
+        cyan = pink;
+        white = fg;
       };
     };
     cursor = {
