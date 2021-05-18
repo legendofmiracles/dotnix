@@ -12,6 +12,7 @@
         sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
     }
+    /*
     {
       name = "fish-async-prompt";
       src = pkgs.fetchFromGitHub {
@@ -21,6 +22,7 @@
         sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
     }
+    */
     #pkgs.fishPlugins.fzf-fish
     #pkgs.fishPlugins.done
   ];
