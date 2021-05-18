@@ -36,7 +36,7 @@
   networking.hostName = "pi";
   hardware.enableRedistributableFirmware = true;
 
-  
+  /*
   nix = {
     extraOptions = ''
       keep-outputs = true
@@ -44,8 +44,8 @@
       experimental-features = nix-command flakes
     '';
     package = pkgs.nixUnstable;
- };
- 
+  };
+  */
 
   # !!! Adding a swap file is optional, but strongly recommended!
   swapDevices = [ { device = "/swapfile"; size = 8000; } ];
