@@ -37,16 +37,16 @@
   hardware.enableRedistributableFirmware = true;
 
   /*
-  nix = {
+    nix = {
     extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-      experimental-features = nix-command flakes
+    keep-outputs = true
+    keep-derivations = true
+    experimental-features = nix-command flakes
     '';
     package = pkgs.nixUnstable;
-  };
+    };
   */
 
   # !!! Adding a swap file is optional, but strongly recommended!
-  swapDevices = [ { device = "/swapfile"; size = 8000; } ];
+  swapDevices = [{ device = "/swapfile"; size = 1024; }];
 }

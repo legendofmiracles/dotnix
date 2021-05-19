@@ -13,15 +13,15 @@
       };
     }
     /*
-    {
+      {
       name = "fish-async-prompt";
       src = pkgs.fetchFromGitHub {
-        owner = "acomagu";
-        repo = "fish-async-prompt";
-        rev = "v1.2.0";
-        sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+      owner = "acomagu";
+      repo = "fish-async-prompt";
+      rev = "v1.2.0";
+      sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
       };
-    }
+      }
     */
     #pkgs.fishPlugins.fzf-fish
     #pkgs.fishPlugins.done

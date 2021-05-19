@@ -49,20 +49,6 @@
           home-manager.nixosModules.home-manager
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
-          ({ pkgs, ... }: {
-              age.secrets.variables = {
-                file = ./secrets/variables.age;
-                owner = "nix";
-                mode = "0700";
-              };
-              age.secrets.wpa = {
-                file = ./secrets/wpa_supplicant.conf.age;
-                mode = "0700";
-              };
-              home-manager.useUserPackages = true;
-              home-manager.useGlobalPkgs = true;
-            }
-          )
         ];
         extraArgs = { inherit utils inputs; };
       };
@@ -180,7 +166,7 @@
             ./hosts/pi/configuration.nix
             network
             ({ pkgs, ... }: {
-                home-manager.users.nix = ({ config, pkgs, ... }:
+              home-manager.users.nix = ({ config, pkgs, ... }:
                 with import ./HM/shell-scripts.nix { inherit pkgs; }; {
                   imports = [
                     git
@@ -197,7 +183,6 @@
                     nixpkgs-fmt
                     ncdu
                     unzip
-                    jq
                   ];
                 });
               environment.shellAliases = {
@@ -230,7 +215,6 @@
           exePath = "/bin/nvim";
           };*/
       };
-
 
       overlay = import ./overlays;
     };
