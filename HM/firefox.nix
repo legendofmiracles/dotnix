@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
-let font = "Cascadia Mono PL"; in
-{
+let font = "Cascadia Mono PL";
+in {
   programs.firefox = {
     enable = true;
     profiles = {
@@ -170,7 +170,7 @@ let font = "Cascadia Mono PL"; in
               .titlebar-button.titlebar-max:hover > .toolbarbutton-icon,
               .titlebar-button.titlebar-restore:hover > .toolbarbutton-icon,
               .titlebar-button.titlebar-close:hover > .toolbarbutton-icon {
-  
+
               }
 
 

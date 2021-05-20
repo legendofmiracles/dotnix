@@ -6,11 +6,8 @@ let
     ${text}
     EOF
   '';
-in
-{
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+in {
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   programs.neovim = {
     enable = true;
@@ -78,55 +75,54 @@ in
       }
       vim-bufferline
       coc-pyright
-      /*
-        {
-        plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
-        config = ''
-        set foldlevel=99
-        set foldmethod=expr
-        set foldexpr=nvim_treesitter#foldexpr()
-        '' + luaConfig ''
-        require'nvim-treesitter.configs'.setup {
-        highlight = {
-        enable = true,
-        },
-        indent = {
-        enable = true,
-        },
-        query_linter = {
-        enable = true,
-        },
-        }
-        '';
-        }
-        {
-        plugin = playground;
-        config = luaConfig ''
-        require "nvim-treesitter.configs".setup {
-        playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25,
-        keymaps = {
-        open = "gt",
-        },
-        }
-        }
-        '';
-        }
+      /* {
+         plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+         config = ''
+         set foldlevel=99
+         set foldmethod=expr
+         set foldexpr=nvim_treesitter#foldexpr()
+         '' + luaConfig ''
+         require'nvim-treesitter.configs'.setup {
+         highlight = {
+         enable = true,
+         },
+         indent = {
+         enable = true,
+         },
+         query_linter = {
+         enable = true,
+         },
+         }
+         '';
+         }
+         {
+         plugin = playground;
+         config = luaConfig ''
+         require "nvim-treesitter.configs".setup {
+         playground = {
+         enable = true,
+         disable = {},
+         updatetime = 25,
+         keymaps = {
+         open = "gt",
+         },
+         }
+         }
+         '';
+         }
 
-        {
-        plugin = nvim-ts-rainbow;
-        config = luaConfig ''
-        require'nvim-treesitter.configs'.setup {
-        rainbow = {
-        enable = true,
-        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-        max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-        }
-        }
-        '';
-        }
+         {
+         plugin = nvim-ts-rainbow;
+         config = luaConfig ''
+         require'nvim-treesitter.configs'.setup {
+         rainbow = {
+         enable = true,
+         extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+         max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+         }
+         }
+         '';
+         }
       */
     ];
     extraConfig = ''
@@ -185,7 +181,6 @@ in
       endif
     '';
   };
-
 
   home.file.".config/nvim/coc-settings.json".text = ''
       {

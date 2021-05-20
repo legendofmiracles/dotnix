@@ -2,30 +2,28 @@
 
 {
   programs.fish.enable = true;
-  programs.fish.plugins = [
-    {
-      name = "z";
-      src = pkgs.fetchFromGitHub {
-        owner = "jethrokuan";
-        repo = "z";
-        rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
-        sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
-      };
-    }
-    /*
-      {
-      name = "fish-async-prompt";
-      src = pkgs.fetchFromGitHub {
-      owner = "acomagu";
-      repo = "fish-async-prompt";
-      rev = "v1.2.0";
+  programs.fish.plugins = [{
+    name = "z";
+    src = pkgs.fetchFromGitHub {
+      owner = "jethrokuan";
+      repo = "z";
+      rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
       sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
-      };
-      }
-    */
-    #pkgs.fishPlugins.fzf-fish
-    #pkgs.fishPlugins.done
-  ];
+    };
+  }
+  /* {
+     name = "fish-async-prompt";
+     src = pkgs.fetchFromGitHub {
+     owner = "acomagu";
+     repo = "fish-async-prompt";
+     rev = "v1.2.0";
+     sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+     };
+     }
+  */
+  #pkgs.fishPlugins.fzf-fish
+  #pkgs.fishPlugins.done
+    ];
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
     ls = "ls --color";
@@ -34,7 +32,8 @@
     mv = "mv -v";
     clip = "xclip -selection c";
     store-alive = "nix-store -q --roots";
-    s = "manix \"\" | grep '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\" | xargs manix";
+    s = ''
+      manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'" | xargs manix'';
     permission = "stat -c%a";
   };
 
@@ -271,12 +270,10 @@
     end
   '';
 
-  programs.fish.promptInit = ''
-
-  '';
+  programs.fish.promptInit = "\n";
 
   programs.fish.functions = {
-    fish_command_not_found = ''command-not-found $argv[1]'';
+    fish_command_not_found = "command-not-found $argv[1]";
     fuck = ''
       set -l fucked_up_command $history[1]
       env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command

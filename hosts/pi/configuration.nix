@@ -1,5 +1,4 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
   # Enables the generation of /boot/extlinux/extlinux.conf
@@ -33,20 +32,23 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
   # networking.wireless.enable = true;
+  networking.interfaces.eth0.useDHCP = true;
   networking.hostName = "pi";
   hardware.enableRedistributableFirmware = true;
 
-  /*
-    nix = {
-    extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-    experimental-features = nix-command flakes
-    '';
-    package = pkgs.nixUnstable;
-    };
+  /* nix = {
+     extraOptions = ''
+     keep-outputs = true
+     keep-derivations = true
+     experimental-features = nix-command flakes
+     '';
+     package = pkgs.nixUnstable;
+     };
   */
 
   # !!! Adding a swap file is optional, but strongly recommended!
-  swapDevices = [{ device = "/swapfile"; size = 1024; }];
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
 }

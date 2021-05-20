@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
-with import ./colors.nix { };
-{
+with import ./colors.nix { }; {
   services.dunst = {
     enable = true;
     settings = {

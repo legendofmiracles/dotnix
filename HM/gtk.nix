@@ -1,14 +1,10 @@
 { config, pkgs, ... }:
 
-let
-  font = "Cascadia Mono PL";
-in
-{
+let font = "Cascadia Mono PL";
+in {
   gtk = {
     enable = true;
-    font = {
-      name = font;
-    };
+    font = { name = font; };
     theme = {
       package = null;
       name = "oomox-aaa";

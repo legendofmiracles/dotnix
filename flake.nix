@@ -2,20 +2,21 @@
   description = "LegendOfMiracles's system config";
 
   inputs = {
-    nixos-hardware.url = github:NixOS/nixos-hardware;
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
-    # nixpkgs-cloned.url = "/home/nix/nixpkgs/";
-    home-manager.url = github:nix-community/home-manager;
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    # nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    nixpkgs.url = "/home/nix/nixpkgs/";
+    home-manager.url = "github:nix-community/home-manager";
     nur = {
-      url = github:nix-community/NUR;
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix.url = github:ryantm/agenix;
-    utils.url = github:gytis-ivaskevicius/flake-utils-plus/staging;
+    agenix.url = "github:ryantm/agenix";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware, neovim-nightly, agenix }@inputs:
+  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
+    , neovim-nightly, agenix }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -55,14 +56,10 @@
 
       channels.nixpkgs = {
         input = nixpkgs;
-        config = {
-          allowUnfree = true;
-        };
+        config = { allowUnfree = true; };
       };
 
-      channels.nixpkgs-unstable = {
-        input = nixpkgs;
-      };
+      channels.nixpkgs-unstable = { input = nixpkgs; };
 
       hosts = {
         pain = {
@@ -75,6 +72,7 @@
             network
             printer
             ({ pkgs, ... }: {
+              services.archi-steam-farm.enable = true;
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
@@ -193,28 +191,24 @@
         };
       };
 
-      sharedOverlays = [
-        nur.overlay
-        neovim-nightly.overlay
-        self.overlay
-      ];
+      sharedOverlays = [ nur.overlay neovim-nightly.overlay self.overlay ];
 
       packagesBuilder = channels: {
-        inherit (channels.nixpkgs)
-          alacritty-ligatures
-          neovim-nightly;
+        inherit (channels.nixpkgs) alacritty-ligatures neovim-nightly;
       };
 
-      appsBuilder = channels: with channels.nixpkgs; {
-        alacritty-ligatures = utils.lib.mkApp {
-          drv = alacritty-ligatures;
-          exePath = "/bin/alacritty";
+      appsBuilder = channels:
+        with channels.nixpkgs; {
+          alacritty-ligatures = utils.lib.mkApp {
+            drv = alacritty-ligatures;
+            exePath = "/bin/alacritty";
+          };
+          /* nvim-n = utils.lib.mkApp {
+             drv = neovim-nightly;
+             exePath = "/bin/nvim";
+             };
+          */
         };
-        /*nvim-n = utils.lib.mkApp {
-          drv = neovim-nightly;
-          exePath = "/bin/nvim";
-          };*/
-      };
 
       overlay = import ./overlays;
     };

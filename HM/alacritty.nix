@@ -1,13 +1,10 @@
 { pkgs, config, ... }:
 
-with import ./colors.nix { };
-{
+with import ./colors.nix { }; {
   programs.alacritty.package = pkgs.alacritty-ligatures;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
-    env = {
-      TERM = "xterm-256color";
-    };
+    env = { TERM = "xterm-256color"; };
     font = {
       normal = {
         family = "Cascadia Code PL";
@@ -47,8 +44,6 @@ with import ./colors.nix { };
       style = "Underline";
       unfocused_hollow = true;
     };
-    mouse.url.launcher = {
-      program = "firefox";
-    };
+    mouse.url.launcher = { program = "firefox"; };
   };
 }

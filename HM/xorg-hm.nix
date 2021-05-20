@@ -1,13 +1,13 @@
 { pkgs, config, ... }:
 
-with import ./colors.nix { };
-{
+with import ./colors.nix { }; {
   xsession.scriptPath = ".xinitrc";
   xsession.initExtra = "feh .background-image --bg-fill &";
   home.file."background-image" = {
     source = pkgs.fetchurl {
       url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";
-      sha512 = "sha512-hoE3RtZHZMBN4fB6Ie4MiPrU+e/slaYVeMPGVJoXew6UadD3dfN1/WvAc4r5EhlajV2e0mhSrQ69GLwStMzFSA==";
+      sha512 =
+        "sha512-hoE3RtZHZMBN4fB6Ie4MiPrU+e/slaYVeMPGVJoXew6UadD3dfN1/WvAc4r5EhlajV2e0mhSrQ69GLwStMzFSA==";
     };
     target = ".background-image";
   };
@@ -380,7 +380,8 @@ with import ./colors.nix { };
     '';
   };
   programs.rofi = {
-    package = pkgs.rofi.override { plugins = with pkgs; [ rofi-calc rofi-emoji ]; };
+    package =
+      pkgs.rofi.override { plugins = with pkgs; [ rofi-calc rofi-emoji ]; };
     enable = true;
     extraConfig = {
       modi = "combi,calc";

@@ -5,16 +5,14 @@
 { config, pkgs, lib, modulesPath, ... }:
 
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   # documentation.enable = false;
 
   boot = {
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
     };
     cleanTmpDir = true;
@@ -31,34 +29,34 @@
     kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-      fsType = "btrfs";
-      options = [ "subvol=nixos" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    fsType = "btrfs";
+    options = [ "subvol=nixos" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd:11" "noatime" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd:11" "noatime" ];
+  };
 
-  fileSystems."/games" =
-    {
-      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-      fsType = "btrfs";
-      options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
-    };
+  fileSystems."/games" = {
+    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+    fsType = "btrfs";
+    options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/A5AB-E355";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/A5AB-E355";
+    fsType = "vfat";
+  };
 
   networking.hostName = "pain";
+  networking.interfaces = {
+    enp8s0.useDHCP = true;
+    wlp0s20f3.useDHCP = true;
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -74,21 +72,25 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  #services.pipewire = {
+  #  enable = true;
+  #  pulse.enable = true;
+  #};
+
   programs.steam.enable = true;
 
   programs.dconf.enable = true;
 
-  services.snapper.configs =
-    {
-      home = {
-        subvolume = "/home";
-        extraConfig = ''
-          ALLOW_USERS="nix"
-          TIMELINE_CREATE="yes"
-          TIMELINE_CLEANUP="yes"
-        '';
-      };
+  services.snapper.configs = {
+    home = {
+      subvolume = "/home";
+      extraConfig = ''
+        ALLOW_USERS="nix"
+        TIMELINE_CREATE="yes"
+        TIMELINE_CLEANUP="yes"
+      '';
     };
+  };
 
   # virtualisation.libvirtd.enable = true;
 

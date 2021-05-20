@@ -1,11 +1,12 @@
 { pkgs, config, lib, inputs, ... }:
 
-let caches = [
-  "https://cache.nixos.org"
-  "https://nix-community.cachix.org"
-  "https://lom.cachix.org"
-]; in
-{
+let
+  caches = [
+    "https://cache.nixos.org"
+    "https://nix-community.cachix.org"
+    "https://lom.cachix.org"
+  ];
+in {
   programs.fish = {
     enable = true;
     vendor.completions.enable = true;
@@ -41,7 +42,7 @@ let caches = [
       experimental-features = nix-command flakes
     '';
 
-    autoOptimiseStore = true;
+    # autoOptimiseStore = true;
 
     trustedUsers = [ "root" "nix" ];
 
@@ -59,19 +60,14 @@ let caches = [
       "lom.cachix.org-1:R0BYXkgRm24m+gHUlYzrI2DxwNEOKWXF1/VdYSPCXyQ="
     ];
 
-    nixPath = [
-      "nixpkgs=${pkgs.path}"
-      "home-manager=${inputs.home-manager}"
-    ];
+    nixPath = [ "nixpkgs=${pkgs.path}" "home-manager=${inputs.home-manager}" ];
 
     trustedBinaryCaches = caches;
   };
 
   programs.command-not-found.enable = false;
 
-  environment.systemPackages = with pkgs; [
-    man-pages
-  ];
+  environment.systemPackages = with pkgs; [ man-pages ];
 
   time.timeZone = "America/Guatemala";
 

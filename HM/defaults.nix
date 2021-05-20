@@ -8,6 +8,7 @@
     bat
     delta
     tree
+    nvd
     up
     wget
     ripgrep
@@ -31,11 +32,10 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.direnv =
-    {
-      enable = true;
-      enableNixDirenvIntegration = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableNixDirenvIntegration = true;
+  };
 
   home.username = "nix";
   home.homeDirectory = "/home/nix";
