@@ -27,6 +27,7 @@
         ./HM/xorg-hm.nix
         ./HM/qt.nix
         ./HM/dunst.nix
+        ./HM/espanso.nix
         ./HM/defaults.nix
         ./HM/git.nix
         ./HM/gtk.nix
@@ -100,6 +101,7 @@
 
               '';
               */
+              #services.espanso.enable = true;
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
@@ -117,6 +119,7 @@
                     qt
                     proton
                     fish
+                    espanso
                     nvim
                     defaults
                     gtk
@@ -147,7 +150,6 @@
                     unzip
                     ytfzf
                     ungoogled-chromium
-                    libnotify
                     tesseract
                     maim
                     hyperfine

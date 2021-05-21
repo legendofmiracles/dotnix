@@ -34,7 +34,7 @@
 
   cargoDeps = old.cargoDeps.overrideAttrs (_: {
     inherit src;
-    outputHash = "sha256-Oc5DdthZqSd0Dc6snE3/WAa19+vOe6wkXkR8d6uPWJo=";
+    outputHash = "sha256-ttnwv8msnGMrC+s/RPK3oXe4u7rxa5m56iDfvCYnCio=";
   });
 }))
 

@@ -10,20 +10,8 @@
       rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
       sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
     };
-  }
-  /* {
-     name = "fish-async-prompt";
-     src = pkgs.fetchFromGitHub {
-     owner = "acomagu";
-     repo = "fish-async-prompt";
-     rev = "v1.2.0";
-     sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
-     };
-     }
-  */
-  #pkgs.fishPlugins.fzf-fish
-  #pkgs.fishPlugins.done
-    ];
+  }];
+
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
     ls = "ls --color";
@@ -284,7 +272,7 @@
       end
     '';
     r = ''
-      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --flake $NIXOS_CONFIG
+      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --flake $NIXOS_CONFIG && ls --color -1 | tail -n 2 | cut -d "-" -f 2 | xargs nvd diff
     '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix

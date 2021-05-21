@@ -69,7 +69,7 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "narHash": "sha256-btf/psYuTRvoQrahHFWjgdhGVbBOF7Y85iRZrl22qcU=",
+        "narHash": "sha256-iicsZP0wjzp1uuvbUQpWUSBuWPP2I2yUHiB9NIDhNhU=",
         "path": "/home/nix/home-manager",
         "type": "path"
       },
@@ -151,8 +151,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "narHash": "sha256-bjt312LA/sxwBDciIfEiD22g6dZpbFcKHdrw3QzB9bE=",
-        "path": "/nix/store/5bgjspx1136gr69dacp1ilx00xpq6q1p-source",
+        "lastModified": 1621288494,
+        "narHash": "sha256-3lQCSw8/J076UwoQhtSVymOibLuojlqF9BAMP6X+/48=",
+        "path": "/nix/store/km4navj5h5v69nhxjxfff1dzfl1ba4jf-source",
+        "rev": "673aea9f84c955c94b105797fdc56007017af4db",
         "type": "path"
       },
       "original": {
@@ -178,11 +180,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1621288494,
-        "narHash": "sha256-3lQCSw8/J076UwoQhtSVymOibLuojlqF9BAMP6X+/48=",
+        "lastModified": 1621552131,
+        "narHash": "sha256-AD/AEXv+QOYAg0PIqMYv2nbGOGTIwfOGKtz3rE+y+Tc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "673aea9f84c955c94b105797fdc56007017af4db",
+        "rev": "d42cd445dde587e9a993cd9434cb43da07c4c5de",
         "type": "github"
       },
       "original": {
@@ -194,11 +196,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1621582416,
-        "narHash": "sha256-Ce1zu5dr60OVW9UX+lxiihLK0IJ/mQjxocvIgra8EvI=",
+        "lastModified": 1621621207,
+        "narHash": "sha256-Rjab0lKOxDP2qLbsPIRJ0AS0Tpz5t7XW+UvejxZCWRw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "06ab4696ede713308e3076dea5bdf58fa4b0c15d",
+        "rev": "915defbd47228157201cafa762573f81c6d58ee1",
         "type": "github"
       },
       "original": {
@@ -223,11 +225,11 @@
         "flake-utils": "flake-utils_2"
       },
       "locked": {
-        "lastModified": 1621458345,
-        "narHash": "sha256-+Ut1Uhks4DhxTi4Ptacwvv3+P5KVP/grHXHGEOVO6/4=",
+        "lastModified": 1621608968,
+        "narHash": "sha256-VN9Zr6xY2gkBxIR538UVzuTECTMaDFds5qgaucZrDIc=",
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "c7ba2eb392bdc5e33038899286382efee37295ad",
+        "rev": "3929c2b70c3b4bb7bacd7f064e4f23f47981654a",
         "type": "github"
       },
       "original": {

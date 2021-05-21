@@ -6,12 +6,13 @@ let
     ${text}
     EOF
   '';
+  package = pkgs.neovim-nightly;
 in {
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionVariables = { EDITOR = "${package}/bin/nvim"; };
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
+    package = package;
     withNodeJs = true;
     plugins = with pkgs.vimPlugins; [
       undotree
