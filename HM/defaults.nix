@@ -8,9 +8,11 @@
     bat
     delta
     tree
-    nvd
+    # nvd
     up
+    nixfmt
     wget
+    rnix-lsp
     ripgrep
     tldr
     nix-index

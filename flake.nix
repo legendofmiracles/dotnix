@@ -3,10 +3,11 @@
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    # nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    nixpkgs.url = "/home/nix/nixpkgs/";
-    home-manager.url = "github:nix-community/home-manager";
+    # nixpkgs.url = "/home/nix/nixpkgs/";
+    # home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "/home/nix/home-manager";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,7 +73,33 @@
             network
             printer
             ({ pkgs, ... }: {
+              /*nixpkgs.config.permittedInsecurePackages = [
+                "ffmpeg-3.4.8"
+              ];
+              documentation.enable = false;
               services.archi-steam-farm.enable = true;
+              programs.cowsay.enable = true;
+              programs.cowsay.cows.giraffe = ''
+    $thoughts
+      $thoughts
+        $thoughts
+              ^__^
+              (oo)
+              (__)\\
+                \\ \\
+                  \\ \\
+                  \\ \\
+                    \\ \\
+                    \\ \\
+                      \\ \\
+                      \\ \\
+                        \\ \\______
+                        \\       )\\/\\/\\
+                          ||-----|
+                          ||    ||
+
+              '';
+              */
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
@@ -130,7 +157,6 @@
                     hyperfine
                     obs-studio
                     git-lfs
-                    cowsay
                     feh
                     gimp
                     legendary-gl

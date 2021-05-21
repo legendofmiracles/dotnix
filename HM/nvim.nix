@@ -22,22 +22,22 @@ in {
       auto-pairs
       # vim-processing
       {
-        plugin = gitgutter;
+        plugin = pkgs.vimPlugins.vim-gitgutter;
         config = ''
           highlight clear SignColumn
           let g:gitgutter_set_sign_backgrounds = 1
         '';
       }
       {
-        plugin = airline;
+        plugin = pkgs.vimPlugins.vim-airline;
         config = ''
           let g:airline_powerline_fonts = 1
         '';
       }
-      fugitive
+      vim-fugitive
       fzf-vim
       colorizer
-      surround
+      vim-surround
       {
         plugin = vim-which-key;
         config = ''
@@ -186,7 +186,10 @@ in {
       {
         "languageserver": {
           "nix": {
-              
+            "command": "rnix-lsp",
+            "filetypes": [
+              "nix"
+            ]
          }
         },
         "languageserver": {
