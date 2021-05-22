@@ -4,6 +4,7 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    # nixpkgs2009.url = github:nixos/nixpkgs/nixos-20.09;
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # nixpkgs.url = "/home/nix/nixpkgs/";
     # home-manager.url = "github:nix-community/home-manager";
@@ -149,7 +150,8 @@
                     pandoc
                     unzip
                     ytfzf
-                    ungoogled-chromium
+                    # nixpkgs2009.legacyPackages.x86_64-linux.ungoogled-chromium
+                    # ungoogled-chromium
                     tesseract
                     maim
                     hyperfine
@@ -231,7 +233,8 @@
             drv = alacritty-ligatures;
             exePath = "/bin/alacritty";
           };
-          /* nvim-n = utils.lib.mkApp {
+          /*
+           nvim-n = utils.lib.mkApp {
              drv = neovim-nightly;
              exePath = "/bin/nvim";
              };

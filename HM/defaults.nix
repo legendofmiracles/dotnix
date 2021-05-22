@@ -8,7 +8,7 @@
     bat
     delta
     tree
-    # nvd
+    nvd
     up
     nixfmt
     wget
