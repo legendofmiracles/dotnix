@@ -272,7 +272,7 @@
       end
     '';
     r = ''
-      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --flake $NIXOS_CONFIG && ls --color=auto -1 /nix/var/nix/profiles | tail -n 2 | xargs nvd diff
+      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --flake $NIXOS_CONFIG && ls --color=auto -1 /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd diff
     '';
     bne = ''
       sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix

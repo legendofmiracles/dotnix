@@ -3,7 +3,7 @@
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs2009.url = github:nixos/nixpkgs/nixos-20.09;
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # nixpkgs.url = "/home/nix/nixpkgs/";
@@ -75,32 +75,32 @@
             network
             printer
             ({ pkgs, ... }: {
-              /*nixpkgs.config.permittedInsecurePackages = [
-                "ffmpeg-3.4.8"
-              ];
-              documentation.enable = false;
-              services.archi-steam-farm.enable = true;
-              programs.cowsay.enable = true;
-              programs.cowsay.cows.giraffe = ''
-    $thoughts
-      $thoughts
-        $thoughts
-              ^__^
-              (oo)
-              (__)\\
-                \\ \\
-                  \\ \\
-                  \\ \\
-                    \\ \\
-                    \\ \\
-                      \\ \\
-                      \\ \\
-                        \\ \\______
-                        \\       )\\/\\/\\
-                          ||-----|
-                          ||    ||
+              /* nixpkgs.config.permittedInsecurePackages = [
+                             "ffmpeg-3.4.8"
+                           ];
+                           documentation.enable = false;
+                           services.archi-steam-farm.enable = true;
+                           programs.cowsay.enable = true;
+                           programs.cowsay.cows.giraffe = ''
+                 $thoughts
+                   $thoughts
+                     $thoughts
+                           ^__^
+                           (oo)
+                           (__)\\
+                             \\ \\
+                               \\ \\
+                               \\ \\
+                                 \\ \\
+                                 \\ \\
+                                   \\ \\
+                                   \\ \\
+                                     \\ \\______
+                                     \\       )\\/\\/\\
+                                       ||-----|
+                                       ||    ||
 
-              '';
+                           '';
               */
               #services.espanso.enable = true;
               home-manager.useUserPackages = true;
@@ -233,8 +233,7 @@
             drv = alacritty-ligatures;
             exePath = "/bin/alacritty";
           };
-          /*
-           nvim-n = utils.lib.mkApp {
+          /* nvim-n = utils.lib.mkApp {
              drv = neovim-nightly;
              exePath = "/bin/nvim";
              };
