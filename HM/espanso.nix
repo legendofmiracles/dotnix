@@ -2,10 +2,22 @@
 
 {
   services.espanso = {
-    # enable = true;
+    enable = true;
+    settings = {
+      matches = [
+        {
+          trigger = "rn";
+          replace = "right now";
+        }
+        {
+          trigger = "btw";
+          replace = "by the way";
+        }
+      ];
+    };
     matches = {
-      trigger = ":hi";
-      replace = "nerd";
+      "tbh" = "to be honest";
+      "ty" = "thank you";
     };
   };
 }

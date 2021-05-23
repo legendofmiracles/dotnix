@@ -6,7 +6,7 @@
     enable = true;
     videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
-    # xkbVariant = "colemak";
+    xkbVariant = "colemak";
   };
 
   hardware.nvidia.prime = {
