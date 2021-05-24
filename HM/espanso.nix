@@ -6,18 +6,28 @@
     settings = {
       matches = [
         {
-          trigger = "rn";
-          replace = "right now";
+          trigger = "ty";
+          replace = "thank you";
+          word = true;
         }
         {
-          trigger = "btw";
-          replace = "by the way";
+          trigger = "rn";
+          replace = "right now";
+          word = true;
         }
       ];
     };
     matches = {
-      "tbh" = "to be honest";
-      "ty" = "thank you";
+      tbh = "to be honest";
+      btw = "by the way";
+      wdym = "what do you mean";
+      ":config" = "https://github.com/legendofmiracles/dotnix/tree/master/";
+      ":homemanager" = "https://nix-community.github.io/home-manager/options.html";
+      ":search" = "https://search.nixos.org/";
+      ftfy = "fixed that for you";
+      irl = "in real life";
+      afaik = "as far as I know";
+      iirc = "if I remember correctly";
     };
   };
 }
