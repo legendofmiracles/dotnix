@@ -27,6 +27,7 @@
       ftfy = "fixed that for you";
       irl = "in real life";
       afaik = "as far as I know";
+      pls = "please";
       iirc = "if I remember correctly";
     };
   };
