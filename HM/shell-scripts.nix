@@ -91,37 +91,42 @@ rec {
     printf "%s %s\n%s\n" $prompt "$*" "$(bash -c "$*" 2>&1)" | tee /dev/stderr | xclip -selection c
   '';
   command-not-found = pkgs.writeShellScriptBin "command-not-found" ''
-        # - do not run when inside Midnight Commander or within a Pipe
-        if [ -n "''${MC_SID-}" ] || ! [ -t 1 ]; then
-            >&2 echo "$1: command not found"
-            return 127
-        fi
+    # do not run when inside Midnight Commander or within a Pipe
+    if [ -n "''${MC_SID-}" ] || ! [ -t 1 ]; then
+    	echo >&2 "$1: command not found"
+    	return 127
+    fi
 
-        toplevel=nixpkgs # nixpkgs should always be available even in NixOS
-        cmd=$1
-        attrs=$(nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$cmd")
-        len=$(echo -n "$attrs" | grep -c "^")
+    toplevel=nixpkgs # nixpkgs should always be available even in NixOS
+    cmd=$1
+    attrs=$(nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$cmd")
+    len=$(echo -n "$attrs" | grep -c "^")
 
-        case $len in
-            0)
-                >&2 echo "$cmd: command not found"
-                ;;
-            1)
-                >&2 cat <<EOF
-    The program '$cmd' is currently not installed. The packages providing it are:
+    case $len in
+    0)
+    	echo >&2 "$cmd: command not found"
+    	;;
+    1)
+    	if [[ $NIX_AUTO_RUN == 1 ]]; then
+    		exec nix run "$toplevel#$(printf ''${attrs} | cut -d "." -f -1)"
+    	fi
+
+    	cat >&2 <<EOF
+    The program '$cmd' is currently not installed. The package providing it are:
     $toplevel.$attrs
     EOF
-                ;;
-            *)
-                >&2 cat <<EOF
+    	;;
+    *)
+    	cat >&2 <<EOF
     The program '$cmd' is currently not installed. The packages providing it are:
     EOF
-                while read attr; do
-                    >&2 echo "  $toplevel.$attr"
-                done <<< "$attrs"
-                ;;
-        esac
+    	while read attr; do
+    		echo >&2 "  $toplevel.$attr"
+    	done <<<"$attrs"
+    	;;
+    esac
 
-        exit 127 # command not found should always exit with 127
+    exit 127 # command not found should always exit with 127
+
   '';
 }

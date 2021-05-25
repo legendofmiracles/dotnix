@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs2009.url = github:nixos/nixpkgs/nixos-20.09;
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay/d59e24f099593fecbb006dc61c475f8a74069d46";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # nixpkgs.url = "/home/nix/nixpkgs/";
     # home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "/home/nix/home-manager";
