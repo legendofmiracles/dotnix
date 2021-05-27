@@ -7,6 +7,7 @@
     videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
     xkbVariant = "colemak";
+    windowManager.herbstluftwm.enable = true;
   };
 
   hardware.nvidia.prime = {
