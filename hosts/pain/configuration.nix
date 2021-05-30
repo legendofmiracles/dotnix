@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, lib, modulesPath, inputs, ... }:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -98,6 +98,7 @@
     cascadia-code
     pciutils
     virt-manager
+    inputs.agenix.packages.agenix
   ];
 
   hardware.keyboard.zsa.enable = true;
