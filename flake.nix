@@ -3,10 +3,10 @@
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs2009.url = github:nixos/nixpkgs/nixos-20.09;
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    nixpkgs.url = "/home/nix/nixpkgs/";
+    # nixpkgs.url = "/home/nix/nixpkgs/";
     # home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "/home/nix/home-manager";
     nur = {
@@ -43,6 +43,7 @@
         ./HM/firefox.nix
         ./v4l2.nix
         ./network.nix
+        ./HM/newsboat.nix
         ./defaults-nixos.nix
         ./printer.nix
         ./fonts.nix
@@ -73,6 +74,7 @@
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
+
             fonts
             network
             printer
@@ -115,6 +117,7 @@
                     pass
                     neofetch
                     qt
+                    newsboat
                     proton
                     fish
                     espanso
