@@ -10,6 +10,7 @@
       defaultFonts = {
         serif = [ "Cascadia Code" ];
         monospace = [ "Cascadia Code" ];
+        sansSerif = [ "Cascadia Code" ];
       };
     };
   };
