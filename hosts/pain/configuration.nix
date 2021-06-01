@@ -98,7 +98,7 @@
     cascadia-code
     pciutils
     virt-manager
-    inputs.agenix.packages.agenix
+
   ];
 
   hardware.keyboard.zsa.enable = true;

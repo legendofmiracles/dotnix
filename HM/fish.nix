@@ -14,7 +14,7 @@
 
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
-    ls = "ls --color";
+    ls = "ls --color --group-directories-first";
     rm = "rm -v";
     cp = "cp -v";
     mv = "mv -v";
