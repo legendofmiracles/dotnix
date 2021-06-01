@@ -95,10 +95,8 @@
   # virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    cascadia-code
     pciutils
     virt-manager
-
   ];
 
   hardware.keyboard.zsa.enable = true;

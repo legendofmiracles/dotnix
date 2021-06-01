@@ -45,6 +45,7 @@
         ./network.nix
         ./defaults-nixos.nix
         ./printer.nix
+        ./fonts.nix
       ];
 
       hostDefaults = {
@@ -72,6 +73,7 @@
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
+            fonts
             network
             printer
             ({ pkgs, ... }: {
