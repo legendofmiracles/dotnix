@@ -22,7 +22,8 @@
       btw = "by the way";
       wdym = "what do you mean";
       ":config" = "https://github.com/legendofmiracles/dotnix/tree/master/";
-      ":homemanager" = "https://nix-community.github.io/home-manager/options.html";
+      ":homemanager" =
+        "https://nix-community.github.io/home-manager/options.html";
       ":search" = "https://search.nixos.org/";
       ftfy = "fixed that for you";
       irl = "in real life";

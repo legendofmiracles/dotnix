@@ -94,10 +94,7 @@
 
   # virtualisation.libvirtd.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    pciutils
-    virt-manager
-  ];
+  environment.systemPackages = with pkgs; [ pciutils virt-manager ];
 
   hardware.keyboard.zsa.enable = true;
 

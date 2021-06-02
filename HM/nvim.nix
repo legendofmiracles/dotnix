@@ -18,7 +18,7 @@ in {
       undotree
       coc-nvim
       coc-rust-analyzer
-      vimspector
+      # vimspector
       vim-nix
       auto-pairs
       # vim-processing
@@ -29,12 +29,13 @@ in {
           let g:gitgutter_set_sign_backgrounds = 1
         '';
       }
-      {
-        plugin = pkgs.vimPlugins.vim-airline;
-        config = ''
-          let g:airline_powerline_fonts = 1
-        '';
-      }
+      /* {
+           plugin = pkgs.vimPlugins.vim-airline;
+           config = ''
+             let g:airline_powerline_fonts = 1
+           '';
+         }
+      */
       vim-fugitive
       fzf-vim
       colorizer
@@ -127,60 +128,75 @@ in {
       */
     ];
     extraConfig = ''
-      set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
-      set autoindent
-      set showmatch
-      set mouse=a
-      set spell
-      " hybrid line numbers
-      set nu rnu
-      " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
-      nnoremap <Return> o<Esc>
-      syntax on
-      syntax enable
-      " syntax off
-      set updatetime=100
-      let g:languagetool_server_command="languagetool-http-server"
-      " When editing a file, always jump to the last cursor position
-      autocmd BufReadPost *
-      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-      \   exe "normal g'\"" |
-      \ endif
-      set expandtab
-      set tabstop=4
-      set timeoutlen=10
-      if (has("termguicolors"))
-        set termguicolors
-      endif
-      " color of lines and line
-      highlight LineNr guifg=#FF217C
-      " highlight CursorLine guifg=#FF217C
+            set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+            set autoindent
+            set showmatch
+            set mouse=a
+            set spell
+            " hybrid line numbers
+            set nu rnu
+            " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
+            nnoremap <Return> o<Esc>
+            syntax on
+            syntax enable
+            " syntax off
+            set updatetime=100
+            let g:languagetool_server_command="languagetool-http-server"
+            " When editing a file, always jump to the last cursor position
+            autocmd BufReadPost *
+            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+            \   exe "normal g'\"" |
+            \ endif
+            set expandtab
+            set tabstop=4
+            set timeoutlen=10
+            if (has("termguicolors"))
+              set termguicolors
+            endif
 
-      " this shows trailing whitespaces
-      highlight ExtraWhitespace ctermbg=red guibg=red
-      match ExtraWhitespace /\s\+$/
+      	  " Display 5 lines above/below the cursor when scrolling with a mouse.
+      	  set scrolloff=5
+      	  " Fixes common backspace problems
+      	  set backspace=indent,eol,start
 
-      " when copying/cutting strip it from newlines
-      autocmd TextYankPost * let @@ = trim(@@)
-      " Put plugins and dictionaries in this dir (also on Windows)
-      " persistent undo
-      let vimDir = '$HOME/.vim'
+            " ctrl + backspace
+            imap <C-BS> <C-W>
 
-      if stridx(&runtimepath, expand(vimDir)) == -1
-        " vimDir is not on runtimepath, add it
-        let &runtimepath.=','.vimDir
-      endif
+            " color of lines and line
+            highlight LineNr guifg=#FF217C
+            " highlight CursorLine guifg=#FF217C
 
-      " Keep undo history across sessions by storing it in a file
-      if has('persistent_undo')
-          let myUndoDir = expand(vimDir . '/undodir')
-          " Create dirs
-          call system('mkdir ' . vimDir)
-          call system('mkdir ' . myUndoDir)
-          let &undodir = myUndoDir
-          set undofile
-      endif
-    '';
+      	  " Speed up scrolling in Vim
+      	  set ttyfast
+
+      	  " Highlight matching pairs of brackets. Use the '%' character to jump between them.
+      	  set matchpairs+=<:>
+
+            " this shows trailing whitespaces
+            highlight ExtraWhitespace ctermbg=red guibg=red
+            match ExtraWhitespace /\s\+$/
+
+            " when copying/cutting strip it from newlines
+            autocmd TextYankPost * let @@ = trim(@@)
+            " Put plugins and dictionaries in this dir (also on Windows)
+            " persistent undo
+            let vimDir = '$HOME/.vim'
+
+            if stridx(&runtimepath, expand(vimDir)) == -1
+              " vimDir is not on runtimepath, add it
+              let &runtimepath.=','.vimDir
+            endif
+
+            " Keep undo history across sessions by storing it in a file
+            if has('persistent_undo')
+                let myUndoDir = expand(vimDir . '/undodir')
+                " Create dirs
+                call system('mkdir ' . vimDir)
+                call system('mkdir ' . myUndoDir)
+                let &undodir = myUndoDir
+                set undofile
+            endif
+          '';
   };
 
   home.file.".config/nvim/coc-settings.json".text = ''

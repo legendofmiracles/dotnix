@@ -4,9 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs2009.url = github:nixos/nixpkgs/nixos-20.09;
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # nixpkgs.url = "/home/nix/nixpkgs/";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     # home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "/home/nix/home-manager";
     nur = {
@@ -47,6 +46,7 @@
         ./defaults-nixos.nix
         ./printer.nix
         ./fonts.nix
+        ./cowsay.nix
       ];
 
       hostDefaults = {
@@ -74,15 +74,15 @@
             xorg
             v4l2
             nixos-hardware.nixosModules.common-cpu-intel
-
+            cowsay
             fonts
             network
             printer
             ({ pkgs, ... }: {
               #          services.archi-steam-farm.enable = true;
-              # programs.cowsay.enable = true;
-              /*
-              rograms.cowsay.cows.giraffe = ''
+              programs.cowsay.enable = true;
+              
+              programs.cowsay.cows.giraffe = ''
                   $thoughts
                    $thoughts
                     $thoughts
@@ -101,7 +101,7 @@
                                   ||----w |
                                   ||     ||
               '';
-              */
+              
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:

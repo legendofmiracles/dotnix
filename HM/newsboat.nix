@@ -10,7 +10,5 @@
     '';
   };
 
-  home.packages = [
-    pkgs.newsboat
-  ];
+  home.packages = [ pkgs.newsboat ];
 }

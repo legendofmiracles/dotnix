@@ -2,7 +2,8 @@
 
 with import ./colors.nix { }; {
   xsession.scriptPath = ".xinitrc";
-  xsession.initExtra = "feh .background-image --bg-fill"; # exec herbstluftwm"; # &; setxkbmap us -variant colemak";
+  xsession.initExtra =
+    "feh .background-image --bg-fill"; # exec herbstluftwm"; # &; setxkbmap us -variant colemak";
   home.file."background-image" = {
     source = pkgs.fetchurl {
       url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";
