@@ -71,26 +71,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    /*assertions = [{
-      # we gotta check this because we write our own cowsay programs into the environment, see above
-      # and the path order can't guarantee that the one defined in this module will be the first
-      assertion = elem "out" (lists.findFirst (x: x == pkgs.cowsay) {meta.outputsToInstall = [];} config.environment.systemPackages).meta.outputsToInstall;
-      message =
-        "You can't have cowsay in the system packages and enable it with programs.cowsay.enable";
-    }];
-    */
-
     environment = {
       systemPackages = with pkgs; [
         (writeShellScriptBin "cowsay" ''
           export COWPATH="/etc/cows:${cfg.package}/share/cows"
-          "${cfg.package}/bin/cowsay" $@
+          exec "${cfg.package}/bin/cowsay" $@
         '')
         (writeShellScriptBin "cowthink" ''
           export COWPATH="/etc/cows:${cfg.package}/share/cows"
-          "${cfg.package}/bin/cowthink" $@
+          exec "${cfg.package}/bin/cowthink" $@
         '')
-        # installs the man pages
+        # only installs the man pages
+        #TODO: is there a way to fix conflicts that could arise when also using nix-env/home-manager/nix-shell/setting another package to install cowsay
         (cowsay.overrideAttrs (oldAttrs: {
           meta = oldAttrs.meta // {
             outputsToInstall = [ "man" ];

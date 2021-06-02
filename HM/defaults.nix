@@ -10,6 +10,7 @@
     tree
     nvd
     up
+    rpg-cli
     nixfmt
     wget
     rnix-lsp

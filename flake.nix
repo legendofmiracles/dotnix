@@ -6,8 +6,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "/home/nix/nixpkgs/";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    # home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "/home/nix/home-manager";
+    home-manager.url = "github:nix-community/home-manager";
+    # home-manager.url = "/home/nix/home-manager";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +26,7 @@
         ./HM/proton.nix
         ./HM/xorg-hm.nix
         ./HM/qt.nix
+        ./espanso-m.nix
         ./HM/dunst.nix
         ./HM/espanso.nix
         ./HM/defaults.nix
@@ -124,6 +125,7 @@
                     nvim
                     defaults
                     gtk
+                    espanso-m
                   ];
 
                   home.packages = with pkgs; [
@@ -146,7 +148,7 @@
                     xclip
                     ncdu
                     weechat
-                    noisetorch
+                    # noisetorch
                     pandoc
                     unzip
                     ytfzf
