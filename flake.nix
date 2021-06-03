@@ -3,21 +3,36 @@
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "/home/nix/nixpkgs/";
+
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    naersk = {
+      url = "github:nmattia/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix.url = "github:ryantm/agenix";
+
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+
+    nixpkgs-mozilla = {
+      url = "github:mozilla/nixpkgs-mozilla";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix }@inputs:
+    , neovim-nightly, agenix, naersk, nixpkgs-mozilla }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -57,7 +72,7 @@
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
         ];
-        extraArgs = { inherit utils inputs; };
+        extraArgs = { inherit utils inputs naersk nixpkgs-mozilla; };
       };
 
       channels.nixpkgs = {
@@ -226,7 +241,7 @@
       sharedOverlays = [ nur.overlay neovim-nightly.overlay self.overlay ];
 
       packagesBuilder = channels: {
-        inherit (channels.nixpkgs) alacritty-ligatures neovim-nightly;
+        inherit (channels.nixpkgs) alacritty-ligatures neovim-nightly; #aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui;
       };
 
       appsBuilder = channels:
@@ -235,6 +250,10 @@
             drv = alacritty-ligatures;
             exePath = "/bin/alacritty";
           };
+          #activitywatch = utils.lib.mkApp {
+          #  drv = aw-qt;
+          #  exePath = "/bin/aw-qt";
+          #};
           /* nvim-n = utils.lib.mkApp {
              drv = neovim-nightly;
              exePath = "/bin/nvim";

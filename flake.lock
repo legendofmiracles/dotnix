@@ -82,6 +82,26 @@
         "type": "github"
       }
     },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1620316130,
+        "narHash": "sha256-sU0VS5oJS1FsHsZsLELAXc7G2eIelVuucRw+q5B1x9k=",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "a3f40fe42cc6d267ff7518fa3199e99ff1444ac4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nmattia",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -153,6 +173,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622555538,
+        "narHash": "sha256-KScrNGh0vyxxcq9FpzZod40GznbyHRXnCmGFo1qZY7w=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "ad227c55c34124cde17b30c9bb28be6cd3c70815",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1622282707,
@@ -217,9 +253,11 @@
       "inputs": {
         "agenix": "agenix",
         "home-manager": "home-manager",
+        "naersk": "naersk",
         "neovim-nightly": "neovim-nightly",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-mozilla": "nixpkgs-mozilla",
         "nur": "nur",
         "utils": "utils"
       }
