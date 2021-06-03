@@ -261,10 +261,10 @@
             cargo = rust;
             rustc = rust;
           };
-          /*
+          
           inherit (prev.callPackages ./overlays/activitywatch { inherit npmlock2nix; })
           aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
-          */
+          
         })
       ];
 
