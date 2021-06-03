@@ -112,7 +112,7 @@ rec {
     	fi
 
     	cat >&2 <<EOF
-    The program '$cmd' is currently not installed. The package providing it are:
+    The program '$cmd' is currently not installed. The package providing it is:
     $toplevel.$attrs
     EOF
     	;;
