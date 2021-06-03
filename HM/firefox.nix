@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 
-let font = "Cascadia Mono PL";
+let font = "Cascadia Code";
 in {
   programs.firefox = {
     enable = true;
