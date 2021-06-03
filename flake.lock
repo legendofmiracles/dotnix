@@ -234,6 +234,22 @@
         "type": "github"
       }
     },
+    "npmlock2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622316091,
+        "narHash": "sha256-Xg2qIEKJr802b6LO8jBkv/KHw5B9NJeg6LDNrpcKKRs=",
+        "owner": "tweag",
+        "repo": "npmlock2nix",
+        "rev": "1499b402eda50976435f5b1b0525dc7d0404900b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tweag",
+        "repo": "npmlock2nix",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1622652230,
@@ -258,6 +274,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-mozilla": "nixpkgs-mozilla",
+        "npmlock2nix": "npmlock2nix",
         "nur": "nur",
         "utils": "utils"
       }

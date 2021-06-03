@@ -29,10 +29,15 @@
       url = "github:mozilla/nixpkgs-mozilla";
       flake = false;
     };
+
+    npmlock2nix = {
+      url = "github:tweag/npmlock2nix";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix, naersk, nixpkgs-mozilla }@inputs:
+    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -72,7 +77,9 @@
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
         ];
-        extraArgs = { inherit utils inputs naersk nixpkgs-mozilla; };
+        extraArgs = {
+          inherit utils inputs naersk nixpkgs-mozilla npmlock2nix;
+        };
       };
 
       channels.nixpkgs = {
@@ -97,27 +104,27 @@
             ({ pkgs, ... }: {
               #          services.archi-steam-farm.enable = true;
               programs.cowsay.enable = true;
-              
+
               programs.cowsay.cows.giraffe = ''
+                $thoughts
+                 $thoughts
                   $thoughts
-                   $thoughts
-                    $thoughts
-                       ^__^
-                       (oo)
-                       (__)
+                     ^__^
+                     (oo)
+                     (__)
+                       \\ \\
+                        \\ \\
                          \\ \\
                           \\ \\
                            \\ \\
                             \\ \\
                              \\ \\
-                              \\ \\
-                               \\ \\
-                                \\ \\______
-                                 \\       )\\/\\/\\
-                                  ||----w |
-                                  ||     ||
+                              \\ \\______
+                               \\       )\\/\\/\\
+                                ||----w |
+                                ||     ||
               '';
-              
+
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
@@ -238,10 +245,33 @@
         };
       };
 
-      sharedOverlays = [ nur.overlay neovim-nightly.overlay self.overlay ];
+      sharedOverlays = [
+        nur.overlay
+        neovim-nightly.overlay
+        self.overlay
+        (final: prev: {
+          naerskUnstable = let
+            nmo = import nixpkgs-mozilla final prev;
+            rust = (nmo.rustChannelOf {
+              date = "2021-01-27";
+              channel = "nightly";
+              sha256 = "447SQnx5OrZVv6Na5xbhiWoaCwIUrB1KskyMOQEDJb8=";
+            }).rust;
+          in naersk.lib.x86_64-linux.override {
+            cargo = rust;
+            rustc = rust;
+          };
+          /*
+          inherit (prev.callPackages ./overlays/activitywatch { inherit npmlock2nix; })
+          aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
+          */
+        })
+      ];
 
       packagesBuilder = channels: {
-        inherit (channels.nixpkgs) alacritty-ligatures neovim-nightly; #aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui;
+        inherit (channels.nixpkgs)
+          alacritty-ligatures neovim-nightly aw-qt aw-core aw-server-rust
+          aw-watcher-afk aw-watcher-window aw-webui;
       };
 
       appsBuilder = channels:

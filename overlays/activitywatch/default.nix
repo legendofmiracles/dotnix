@@ -1,5 +1,6 @@
 { lib
 , fetchFromGitHub
+, pkgs
 , makeWrapper
 , pkg-config
 , perl
@@ -21,19 +22,6 @@ let
     sha256 = "3Sz+Vjn20cfD5UnR3pvevX+icU8l//uNMOkfnRp/+NU=";
     fetchSubmodules = true;
   };
-
-  /*naerskUnstable = let
-    nmo = import nixpkgs-mozilla final prev;
-    rust = (nmo.rustChannelOf {
-      date = "2021-01-27";
-      channel = "nightly";
-      sha256 = "447SQnx5OrZVv6Na5xbhiWoaCwIUrB1KskyMOQEDJb8=";
-    }).rust;
-  in naersk.lib.x86_64-linux.override {
-    cargo = rust;
-    rustc = rust;
-  };*/
-
 
 in
 
@@ -232,7 +220,7 @@ rec {
     };
   };
 
-  aw-server-rust = naerskUnstable.buildPackage {
+  aw-server-rust = pkgs.naerskUnstable.buildPackage {
     name = "aw-server-rust";
     inherit version;
 
