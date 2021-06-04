@@ -12,13 +12,13 @@
 }:
 
 let
-  version = "unstable-2020-04-22";
+  version = "0.10.0";
 
   sources = fetchFromGitHub {
     owner = "ActivityWatch";
     repo = "activitywatch";
-    rev = "d39648092fa8fa1adff0809b2f9bccdde99537af";
-    sha256 = "3Sz+Vjn20cfD5UnR3pvevX+icU8l//uNMOkfnRp/+NU=";
+    rev = "v${version}";
+    sha256 = lib.fakeSha256;
     fetchSubmodules = true;
   };
 

@@ -68,6 +68,7 @@
         ./printer.nix
         ./fonts.nix
         ./cowsay.nix
+        ./HM/aw.nix
       ];
 
       hostDefaults = {
@@ -142,6 +143,7 @@
                     qt
                     newsboat
                     proton
+                    aw
                     fish
                     espanso
                     nvim
