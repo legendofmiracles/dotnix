@@ -190,6 +190,8 @@
                     legendary-gl
                     pavucontrol
                     xorg.xev
+                    # (multimc.override { jdk8 = pkgs.graalvm8; })
+                    cliscord
                     multimc
                     jq
                     grit
@@ -273,10 +275,12 @@
 
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
-          alacritty-ligatures neovim-nightly aw-qt aw-core aw-server-rust
-          aw-watcher-afk aw-watcher-window aw-webui lucky-commit;
+        alacritty-ligatures neovim-nightly
+        # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
+        lucky-commit cliscord;
       };
 
+      /*
       appsBuilder = channels:
         with channels.nixpkgs; {
           alacritty-ligatures = utils.lib.mkApp {
@@ -291,8 +295,8 @@
              drv = neovim-nightly;
              exePath = "/bin/nvim";
              };
-          */
         };
+        */
 
       overlay = import ./overlays;
     };

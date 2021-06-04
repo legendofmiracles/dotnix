@@ -46,8 +46,8 @@ in {
       description = ''
         Set of cows; Backslashes have to be escaped
       '';
-      example = {
-        giraffe = ''
+      example = lib.literalExample ''{
+        giraffe = \'\'
           $thoughts
            $thoughts
             $thoughts
@@ -65,8 +65,8 @@ in {
                          \\       )\\/\\/\\
                           ||----w |
                           ||     ||
-        '';
-      };
+        \'\';
+      };'';
     };
   };
 
