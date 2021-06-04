@@ -262,7 +262,9 @@
             rustc = rust;
           };
           
-          inherit (prev.callPackages ./overlays/activitywatch { inherit npmlock2nix; })
+          npmlock2nix = import npmlock2nix { pkgs = prev; };
+
+          inherit (prev.callPackages ./overlays/activitywatch { })
           aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
           
         })

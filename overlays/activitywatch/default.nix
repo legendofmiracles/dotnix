@@ -7,7 +7,6 @@
 , openssl
 , python3
 , runCommand
-, npmlock2nix
 , libsForQt5
 , xdg-utils
 }:
@@ -328,6 +327,7 @@ rec {
     };
   };
 
+  
   aw-webui =
     let
       webui-src = runCommand "webui-src" {} ''
@@ -342,7 +342,7 @@ rec {
         sed -Ei 's#https://registry.npm.taobao.org/(.+?)/download/#https://registry.npmjs.org/\1/-/#' "$out/package-lock.json"
       '';
     in
-      npmlock2nix.build {
+      pkgs.npmlock2nix.build {
         src = webui-src;
         installPhase = "cp -r dist $out";
       };
