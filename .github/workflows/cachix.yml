@@ -27,6 +27,7 @@ jobs:
       # - run: nix build .#aw-qt -L
     - run: nix build .#aw-core -L
     - run: nix build .#aw-server-rust -L
+    - run: nix build .#lucky-commit -L
 
     # - run: nix build .#neovim-nightly -L
     # - run: nix build .#nixosConfigurations.pain.config.system.build.toplevel -L
