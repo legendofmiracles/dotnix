@@ -143,7 +143,7 @@
                     qt
                     newsboat
                     proton
-                    aw
+                    # aw
                     fish
                     espanso
                     nvim
@@ -172,12 +172,9 @@
                     xclip
                     ncdu
                     weechat
-                    # noisetorch
                     pandoc
                     unzip
                     ytfzf
-                    # nixpkgs2009.legacyPackages.x86_64-linux.ungoogled-chromium
-                    # ungoogled-chromium
                     tesseract
                     maim
                     hyperfine
@@ -189,6 +186,7 @@
                     git-lfs
                     feh
                     gimp
+                    lucky-commit
                     legendary-gl
                     pavucontrol
                     xorg.xev
@@ -196,6 +194,7 @@
                     jq
                     grit
                     qrcp
+                    xcolor
                     nix-review
                     libnotify
                     xdotool
@@ -275,7 +274,7 @@
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
           alacritty-ligatures neovim-nightly aw-qt aw-core aw-server-rust
-          aw-watcher-afk aw-watcher-window aw-webui;
+          aw-watcher-afk aw-watcher-window aw-webui lucky-commit;
       };
 
       appsBuilder = channels:
