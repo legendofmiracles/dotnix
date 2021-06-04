@@ -28,7 +28,7 @@
   programs.fish.shellInit = ''
     # loads secrets at runtime
     # can this not be hardcoded?
-    source /run/secrets/variables
+    posix-source /run/secrets/variables
 
     set -g __fish_git_prompt_show_informative_status 1
     set -g __fish_git_prompt_hide_untrackedfiles 1
@@ -261,6 +261,12 @@
   programs.fish.promptInit = "\n";
 
   programs.fish.functions = {
+    posix-source = ''
+      for i in (cat $argv)
+        set arr (echo $i |tr = \n)
+        set -gx $arr[1] $arr[2]
+      end
+    '';
     fish_command_not_found = "command-not-found $argv[1]";
     fuck = ''
       set -l fucked_up_command $history[1]

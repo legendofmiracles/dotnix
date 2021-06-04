@@ -207,6 +207,27 @@
                     giph
                     pastel
                   ];
+
+                  systemd.user.services.wednesday = {
+                    Unit = { Description = "it's wednesday my dudes"; };
+
+                    Service = {
+                      Type = "oneshot";
+                      EnvironmentFile = "/run/secrets/variables";
+                      ExecStart = "${pkgs.cliscord}/bin/cliscord -s \"Best Server\" -c main -m \"<:wednesday:806483241045196841> It's Wednesday my dudes!\" -t $DISCORD_TOKEN";
+                    };
+                  };
+
+                  systemd.user.timers.wednesday = {
+                    Unit = { Description = "it's wednesday my dudes"; };
+
+                    Timer = {
+                      OnCalendar = "Wed *-*-* 00:00:00";
+                      Unit = "wednesday.service";
+                    };
+
+                    Install = { WantedBy = [ "timers.target" ]; };
+                  };
                 });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
