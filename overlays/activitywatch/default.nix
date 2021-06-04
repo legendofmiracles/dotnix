@@ -18,7 +18,7 @@ let
     owner = "ActivityWatch";
     repo = "activitywatch";
     rev = "v${version}";
-    sha256 = lib.fakeSha256;
+    sha256 = "sha256-MrVbxWwpTIi0hoR2XVlehhcUWUYXdjSOfvPxNK6E6SI=";
     fetchSubmodules = true;
   };
 
