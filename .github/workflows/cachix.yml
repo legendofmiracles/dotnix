@@ -24,7 +24,7 @@ jobs:
     - run: nix build .#aw-watcher-afk -L
     - run: nix build .#aw-watcher-window -L
     - run: nix build .#aw-webui -L
-    - run: nix build .#aw-qt -L
+      # - run: nix build .#aw-qt -L
     - run: nix build .#aw-core -L
     - run: nix build .#aw-server-rust -L
 
