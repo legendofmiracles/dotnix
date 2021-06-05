@@ -192,6 +192,17 @@ with import ./colors.nix { }; {
       margin-top = 0
       margin-bottom = 0
 
+      [module/date]
+      type = internal/date
+
+      ; Seconds to sleep between updates
+      interval = 10.0
+
+      date = %d-%m-%Y%
+      time = %H:%M
+
+      label = %{F#ff217c}%{F-} %date% %time%
+
       [module/i3]
       type = internal/i3
       format = <label-state> <label-mode>

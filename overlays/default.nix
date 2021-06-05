@@ -5,4 +5,5 @@ final: prev: {
     */
   lucky-commit = prev.callPackage ./lucky-commit { };
   cliscord = prev.callPackage ./cliscord { };
+  st-patched = prev.callPackage ./st-patched { };
 }

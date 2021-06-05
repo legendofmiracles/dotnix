@@ -198,12 +198,14 @@
                     qrcp
                     xcolor
                     nix-review
+                    mangohud
                     libnotify
                     xdotool
                     imagemagick
                     asciigraph
                     grex
                     tmpmail
+                    st-patched
                     giph
                     pastel
                   ];
@@ -298,7 +300,7 @@
         inherit (channels.nixpkgs)
         alacritty-ligatures neovim-nightly
         # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-        lucky-commit cliscord;
+        lucky-commit cliscord st-patched;
       };
 
       /*
