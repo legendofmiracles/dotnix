@@ -1,11 +1,9 @@
 layout:
-
+```
 .
 ├── HM - home-manager related configs, can usually be identified by name
 │
-│
 ├── hosts - directory for hosts
-│   │
 │   │
 │   ├── pain - the host "pain"
 │   │
@@ -26,3 +24,4 @@ layout:
 ├── secrets - secrets :flushed:
 │
 └── tests - currently not used.
+```
