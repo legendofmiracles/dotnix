@@ -34,6 +34,8 @@ in {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "dialout" "libvirtd" ];
     shell = pkgs.fish;
+    # hello dear attackers, this is only a default password, and changed immediately after installation
+    initialPassword = "nix";
   };
 
   nix = {

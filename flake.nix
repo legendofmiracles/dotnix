@@ -233,6 +233,7 @@
                 });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
+                mangohud = "LD_LIBRARY_PATH=/run/opengl-driver/lib ${pkgs.mangohud}/bin/mangohud";
               };
             })
           ];
