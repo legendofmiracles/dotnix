@@ -25,3 +25,6 @@ layout:
 │
 └── tests - currently not used.
 ```
+
+To test this configuration on your own PC: `nixos-rebuild build-vm`
+Default username is `nix`, with password: `nix`.

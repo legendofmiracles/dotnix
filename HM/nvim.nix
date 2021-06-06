@@ -48,16 +48,49 @@ in {
            '';
          }
       */
+      {
+        plugin = vim-sneak;
+        config = ''
+          let g:sneak#label = 1
+          map f <Plug>Sneak_s
+          map F <Plug>Sneak_S
+        '';
+      }
       vim-fugitive
       fzf-vim
       colorizer
-      # vim-surround
       {
-        plugin = surround-nvim;
+        plugin = vim-surround;
         config = ''
-
+          " Surround custom mapping for Colemak
+          let g:surround_no_mappings = 1
+          nmap 1  <Plug>Dsurround
+          nmap 2  <Plug>Csurround
+          " nmap 3  <Plug>CSurround
+          nmap 3  <Plug>Ysurround
+          " nmap 5  <Plug>YSurround
+          " entire line
+          nmap 4 <Plug>Yssurround
+          " entire line, but surroundings on other line
+          nmap 5 <Plug>YSsurround
+          "nmap 8 <Plug>YSsurround
+          xmap 6   <Plug>VSurround
+          " xmap 0  <Plug>VgSurround
+          if !exists("g:surround_no_insert_mappings") || ! g:surround_no_insert_mappings
+              if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
+                  imap    <C-S> <Plug>Isurround
+              endif
+              imap      <C-G>s <Plug>Isurround
+              imap      <C-G>S <Plug>ISurround
+          endif
         '';
       }
+      /*{
+        plugin = surround-nvim;
+        config = ''
+          let g:surround_mappings_style = "surround"
+        '';
+      }*/
       {
         plugin = coc-snippets;
         config = ''
