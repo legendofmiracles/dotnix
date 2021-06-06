@@ -6,7 +6,19 @@ let
     ${text}
     EOF
   '';
+
+  surround-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "surround-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "blackCauldron7";
+      repo = "surround.nvim";
+      rev = "43c85b5515c5ef597a0c527f68faa5b5908e9858";
+      sha256 = "1lsmnfif31r6ipfa3sij99riw1s97mh9pzas4i9cqvf0q4vajc0s";
+    };
+  };
+
   package = pkgs.neovim-nightly;
+
 in {
   home.sessionVariables = { EDITOR = "${package}/bin/nvim"; };
 
@@ -39,7 +51,30 @@ in {
       vim-fugitive
       fzf-vim
       colorizer
-      vim-surround
+      # vim-surround
+      {
+        plugin = surround-nvim;
+        config = ''
+
+        '';
+      }
+      {
+        plugin = coc-snippets;
+        config = ''
+          inoremap <silent><expr> <TAB>
+          \ pumvisible() ? coc#_select_confirm() :
+          \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',\'\'])\<CR>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+
+          function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+          endfunction
+
+          let g:coc_snippet_next = '<tab>'
+        '';
+      }
       {
         plugin = vim-which-key;
         config = ''
