@@ -14,6 +14,7 @@
     nixfmt
     wget
     rnix-lsp
+    gh
     ripgrep
     tldr
     nix-index
