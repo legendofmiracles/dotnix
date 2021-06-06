@@ -1065,7 +1065,6 @@ in {
     };
 
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      browserpass
       buster-captcha-solver
       cookie-autodelete
       darkreader

@@ -92,6 +92,8 @@
     };
   };
 
+  programs.noisetorch.enable = true;
+
   # virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [ pciutils virt-manager ];
