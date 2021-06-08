@@ -77,7 +77,10 @@
   #  pulse.enable = true;
   #};
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+  };
 
   programs.dconf.enable = true;
 
@@ -96,7 +99,7 @@
 
   # virtualisation.libvirtd.enable = true;
 
-  environment.systemPackages = with pkgs; [ pciutils virt-manager ];
+  environment.systemPackages = with pkgs; [ pciutils virt-manager (steam.override { extraPkgs = pkgs: [ ibus pipewire.lib ]; }) ];
 
   hardware.keyboard.zsa.enable = true;
 

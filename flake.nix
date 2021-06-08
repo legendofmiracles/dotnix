@@ -288,12 +288,11 @@
             cargo = rust;
             rustc = rust;
           };
-          
+
           npmlock2nix = import npmlock2nix { pkgs = prev; };
 
           inherit (prev.callPackages ./overlays/activitywatch { })
           aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
-          
         })
       ];
 
@@ -301,7 +300,7 @@
         inherit (channels.nixpkgs)
         alacritty-ligatures neovim-nightly
         # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-        lucky-commit cliscord st-patched;
+        lucky-commit cliscord st-patched steam-patched;
       };
 
       /*
