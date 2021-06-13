@@ -1,11 +1,14 @@
 { pkgs, config, lib, inputs, ... }:
 
 let
+  mkCache = name: "https://${name}.cachix.org";
+
   caches = [
-    "https://lom.cachix.org"
+    (mkCache "lom")
     "https://cache.nixos.org"
-    "https://neovim-nightly.cachix.org"
-    "https://nix-community.cachix.org"
+    (mkCache "neovim-nightly")
+    (mkCache "nix-community")
+    (mkCache "veloren-nix")
   ];
 in {
   programs.fish = {
@@ -62,6 +65,7 @@ in {
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "neovim-nightly.cachix.org-1:feIoInHRevVEplgdZvQDjhp11kYASYCE2NGY9hNrwxY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
     ];
 
     nixPath = [ "nixpkgs=${pkgs.path}" "home-manager=${inputs.home-manager}" ];

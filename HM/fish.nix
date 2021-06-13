@@ -279,10 +279,10 @@
     '';
     cd = ''
       if test "$argv" = ""
-        rpg-cli "${config.home.homeDirectory}"
+        rpg-cli cd -- "${config.home.homeDirectory}"
         builtin cd "${config.home.homeDirectory}"
       else
-        rpg-cli "$argv"
+        rpg-cli cd -- "$argv"
         builtin cd "$argv"
       end
     '';

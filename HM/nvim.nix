@@ -67,6 +67,9 @@ in {
           nmap 1  <Plug>Dsurround
           nmap 2  <Plug>Csurround
           " nmap 3  <Plug>CSurround
+
+          " to surround: 3u<something like w><what to surround with>
+          " the u is i normally
           nmap 3  <Plug>Ysurround
           " nmap 5  <Plug>YSurround
           " entire line

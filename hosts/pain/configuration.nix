@@ -99,7 +99,7 @@
 
   # virtualisation.libvirtd.enable = true;
 
-  environment.systemPackages = with pkgs; [ pciutils virt-manager (steam.override { extraPkgs = pkgs: [ ibus pipewire.lib ]; }) ];
+  environment.systemPackages = with pkgs; [ pciutils virt-manager (steam.override { extraPkgs = pkgs: [ ibus pipewire.lib wine winetricks ]; }) ];
 
   hardware.keyboard.zsa.enable = true;
 

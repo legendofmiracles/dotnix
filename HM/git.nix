@@ -17,11 +17,13 @@
         !function git_related() { if git rev-list $1 | grep -q $2 ; then echo "$2 is ancestor of $1" ; elif git rev-list $2 | grep -q $1 ; then echo "$1 is ancestor of $2" ; else echo "$1 unrelated to $2" ; fi } ; git_related $1'';
     };
     extraConfig = {
+      /*
       url = { "ssh://git@github.com" = { insteadOf = "https://github.com"; }; };
       url = { "ssh://git@gitlab.com" = { insteadOf = "https://gitlab.com"; }; };
       url = {
         "ssh://git@bitbucket.org" = { insteadOf = "https://bitbucket.org"; };
       };
+      */
       pull = { rebase = true; };
       advice = {
         #  detachedHead = false;
