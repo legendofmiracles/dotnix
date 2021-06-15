@@ -42,6 +42,7 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
+        ./HM/test.nix
         ./xorg.nix
         ./HM/proton.nix
         ./HM/xorg-hm.nix
@@ -103,7 +104,6 @@
             network
             printer
             ({ pkgs, ... }: {
-              #          services.archi-steam-farm.enable = true;
               programs.cowsay.enable = true;
 
               programs.cowsay.cows.giraffe = ''
@@ -142,6 +142,7 @@
                     neofetch
                     qt
                     newsboat
+                    test
                     proton
                     # aw
                     fish
@@ -171,7 +172,6 @@
                     glxinfo
                     xclip
                     ncdu
-                    weechat
                     pandoc
                     unzip
                     ytfzf

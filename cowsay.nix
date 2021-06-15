@@ -28,13 +28,14 @@ in {
       default = false;
       description = ''
         Whether to enable cowsay.
+        Might conflict with cowsay installed via other means.
       '';
     };
 
     package = mkOption {
       type = types.path;
       description = ''
-        The cowsay version to use.
+        The cowsay package to use.
       '';
       default = pkgs.cowsay;
       example = literalExample "pkgs.cowsay";
@@ -82,7 +83,7 @@ in {
           exec "${cfg.package}/bin/cowthink" $@
         '')
         # only installs the man pages
-        #TODO: is there a way to fix conflicts that could arise when also using nix-env/home-manager/nix-shell/setting another package to install cowsay
+        #TODO: is there a way to fix conflicts that could arise when also using native-package-manager/nix-env/home-manager/nix-shell
         (cowsay.overrideAttrs (oldAttrs: {
           meta = oldAttrs.meta // {
             outputsToInstall = [ "man" ];
