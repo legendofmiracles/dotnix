@@ -14,7 +14,6 @@
 
   programs.fish.shellAbbrs = {
     c = "vim ~/dotnix/";
-    ls = "ls --color --group-directories-first";
     rm = "rm -v";
     cp = "cp -v";
     mv = "mv -v";
@@ -261,6 +260,13 @@
   programs.fish.promptInit = "\n";
 
   programs.fish.functions = {
+    ls = ''
+      command ls "$@"
+      if [ $# -eq 0 ] ; then
+        rpg-cli cd -f .
+        rpg-cli ls
+      fi
+    '';
     posix-source = ''
       for i in (cat $argv)
         set arr (echo $i |tr = \n)

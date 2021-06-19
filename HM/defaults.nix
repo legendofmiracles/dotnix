@@ -38,7 +38,8 @@
 
   programs.direnv = {
     enable = true;
-    enableNixDirenvIntegration = true;
+    nix-direnv.enable = true;
+    nix-direnv.enableFlakes = true;
   };
 
   home.username = "nix";

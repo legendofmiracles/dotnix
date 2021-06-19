@@ -17,6 +17,16 @@ let
     };
   };
 
+  mark-radar = pkgs.vimUtils.buildVimPlugin {
+    name = "mark-radar";
+    src = pkgs.fetchFromGitHub {
+      owner = "winston0410";
+      repo = "mark-radar.nvim";
+      rev = "a557094f6b85cf9870a545680f9b8bd50970aa94";
+      sha256 = "11cqxlhb4287dl9azfa0m5jy1bfl09yy3dp2057k3ilzph6w6zaw";
+    };
+  };
+
   package = pkgs.neovim-nightly;
 
 in {
@@ -64,21 +74,6 @@ in {
         config = ''
           " Surround custom mapping for Colemak
           let g:surround_no_mappings = 1
-          nmap 1  <Plug>Dsurround
-          nmap 2  <Plug>Csurround
-          " nmap 3  <Plug>CSurround
-
-          " to surround: 3u<something like w><what to surround with>
-          " the u is i normally
-          nmap 3  <Plug>Ysurround
-          " nmap 5  <Plug>YSurround
-          " entire line
-          nmap 4 <Plug>Yssurround
-          " entire line, but surroundings on other line
-          nmap 5 <Plug>YSsurround
-          "nmap 8 <Plug>YSsurround
-          xmap 6   <Plug>VSurround
-          " xmap 0  <Plug>VgSurround
           if !exists("g:surround_no_insert_mappings") || ! g:surround_no_insert_mappings
               if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
                   imap    <C-S> <Plug>Isurround
@@ -140,11 +135,26 @@ in {
                       \ 'c' : [ ':vnoremap cm :s!^!//! <CR>' , 'comment with //' ],
                       \}
 
+          let g:which_key_map.s = {
+                      \ 'name':"Surrounding",
+                      \ 'd' : [ '<Plug>Dsurround'                  , 'delete surrounding'   ],
+                      \ 'c' : [ '<Plug>Csurround'                  , 'change surrounding'   ],
+                      \ 'a' : [ '<Plug>Ysurround'                  , 'add surrounding'      ],
+                      \ 'o' : [ '<Plug>Yssurround'                 , 'surround entire line' ],
+                      \ 'O' : [ '<Plug>YSsurround','surround entire line but its on other' ],
+                      \ 'v' : [ '<Plug>VSurround'                  , 'visual surround'      ],
+                      \}
+
           au VimEnter * call which_key#register('<Space>', "g:which_key_map")
 
           nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
           nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
         '';
+      }
+      {
+        # use ` to view all marks
+        plugin = mark-radar;
+        config = luaConfig "require(\"mark-radar\").setup()";
       }
       vim-bufferline
       coc-pyright

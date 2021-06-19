@@ -196,6 +196,7 @@
                     jq
                     grit
                     qrcp
+                    keymapviz
                     xcolor
                     nix-review
                     mangohud
@@ -214,9 +215,11 @@
                     Unit = { Description = "it's wednesday my dudes"; };
 
                     Service = {
-                      Type = "oneshot";
+                      Type = "simple";
                       EnvironmentFile = "/run/secrets/variables";
-                      ExecStart = "${pkgs.cliscord}/bin/cliscord -s \"Best Server\" -c main -m \"<:wednesday:806483241045196841> It's Wednesday my dudes!\" -t $DISCORD_TOKEN";
+                      ExecStart = "${pkgs.cliscord}/bin/cliscord -s \"Best Server\" -c admin -m \"<:wednesday:806483241045196841> It's Wednesday my dudes!\" -t $DISCORD_TOKEN";
+                      Restart = "on-failure";
+                      RestartSec = 10;
                     };
                   };
 
@@ -228,7 +231,7 @@
                       Unit = "wednesday.service";
                     };
 
-                    Install = { WantedBy = [ "timers.target" ]; };
+                    Install = { WantedBy = [ "timers.target" ]; /* After = [ "network-online.target" ]; Wants= [ "network-online.target" ]; */ };
                   };
                 });
               environment.shellAliases = {
@@ -300,7 +303,7 @@
         inherit (channels.nixpkgs)
         alacritty-ligatures neovim-nightly
         # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-        lucky-commit cliscord st-patched steam-patched;
+        lucky-commit cliscord st-patched steam-patched keymapviz;
       };
 
       /*

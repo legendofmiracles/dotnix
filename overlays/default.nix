@@ -7,4 +7,5 @@ final: prev: {
   cliscord = prev.callPackage ./cliscord { };
   st-patched = prev.callPackage ./st-patched { };
   steam-patched = prev.callPackage ./steam { };
+  keymapviz = prev.callPackage ./keymapviz { };
 }
