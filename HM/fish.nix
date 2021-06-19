@@ -13,6 +13,7 @@
   }];
 
   programs.fish.shellAbbrs = {
+    new = "ls -ltr";
     c = "vim ~/dotnix/";
     rm = "rm -v";
     cp = "cp -v";
