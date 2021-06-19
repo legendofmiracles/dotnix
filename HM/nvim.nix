@@ -7,6 +7,7 @@ let
     EOF
   '';
 
+  /*
   surround-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "surround-nvim";
     src = pkgs.fetchFromGitHub {
@@ -16,6 +17,7 @@ let
       sha256 = "1lsmnfif31r6ipfa3sij99riw1s97mh9pzas4i9cqvf0q4vajc0s";
     };
   };
+  */
 
   mark-radar = pkgs.vimUtils.buildVimPlugin {
     name = "mark-radar";
@@ -25,6 +27,17 @@ let
       rev = "a557094f6b85cf9870a545680f9b8bd50970aa94";
       sha256 = "11cqxlhb4287dl9azfa0m5jy1bfl09yy3dp2057k3ilzph6w6zaw";
     };
+  };
+
+  gesture = pkgs.vimUtils.buildVimPlugin {
+    name = "gesture";
+    src = pkgs.fetchFromGitHub {
+      owner = "legendofmiracles";
+      repo = "gesture.nvim";
+      rev = "abf01c2fb64c4b90f64b66f2764a2ff64b2a22e7";
+      sha256 = "19bzhm5qrbg2fl2wibambaf9c0myxapqv3zvqskgi3c28z80ylmv";
+    };
+    doBuild = false;
   };
 
   package = pkgs.neovim-nightly;
@@ -155,6 +168,40 @@ in {
         # use ` to view all marks
         plugin = mark-radar;
         config = luaConfig "require(\"mark-radar\").setup()";
+      }
+      {
+        plugin = gesture;
+        config = ''
+          nnoremap <RightMouse> <Nop>
+          nnoremap <silent> <RightDrag> <Cmd>lua require("gesture").draw()<CR>
+          nnoremap <silent> <RightRelease> <Cmd>lua require("gesture").finish()<CR>
+          ${luaConfig ''
+            local gesture = require('gesture')
+            gesture.register({
+              name = "scroll to bottom",
+              inputs = { gesture.up(), gesture.down() },
+              action = "normal! G"
+            })
+            gesture.register({
+              name = "next buffer",
+              inputs = { gesture.right() },
+              action = "bn"
+            })
+            gesture.register({
+              name = "previous buffer",
+              inputs = { gesture.left() },
+              action = function() -- also can use function
+                vim.cmd("bp")
+              end,
+            })
+            gesture.register({
+              name = "go back",
+              inputs = { gesture.right(), gesture.left() },
+              -- map to `<C-o>` keycode
+              action = [[lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>", true, false, true), "n", true)]]
+            })
+          ''}
+        '';
       }
       vim-bufferline
       coc-pyright
