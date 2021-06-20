@@ -70,17 +70,33 @@
 
   # Enable sound.
   sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = true;
 
+  /*
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    jack.enable = true;
   };
+  */
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
   };
+
+  programs.firejail = {
+    enable = true;
+    wrappedBinaries = {
+      chromium = {
+        executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
+        profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
+      };
+    };
+  };
+
+
+  programs.gamemode.enable = true;
 
   programs.dconf.enable = true;
 

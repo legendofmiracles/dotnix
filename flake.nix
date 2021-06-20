@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "/home/nix/nixpkgs/";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "/home/nix/nixpkgs/";
 
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -166,11 +166,10 @@
 
                     languagetool
                     nixpkgs-fmt
-                    lolcat
-                    copyq
                     cascadia-code
                     glxinfo
                     xclip
+                    cadence
                     ncdu
                     pandoc
                     unzip
@@ -204,11 +203,9 @@
                     xdotool
                     imagemagick
                     asciigraph
-                    grex
                     tmpmail
                     st-patched
                     giph
-                    pastel
                   ];
 
                   systemd.user.services.wednesday = {

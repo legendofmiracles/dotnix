@@ -256,6 +256,8 @@
       # Finally, print output.
       echo -e "$status_str_colored $timing_str_colored"
     end
+
+    rpg-cli cd "$PWD"
   '';
 
   programs.fish.promptInit = "\n";
@@ -286,10 +288,10 @@
     '';
     cd = ''
       if test "$argv" = ""
-        rpg-cli cd -- "${config.home.homeDirectory}"
-        builtin cd "${config.home.homeDirectory}"
+        rpg-cli cd ~/
+        builtin cd ~/
       else
-        rpg-cli cd -- "$argv"
+        rpg-cli cd "$argv"
         builtin cd "$argv"
       end
     '';

@@ -37,7 +37,36 @@ let
       rev = "abf01c2fb64c4b90f64b66f2764a2ff64b2a22e7";
       sha256 = "19bzhm5qrbg2fl2wibambaf9c0myxapqv3zvqskgi3c28z80ylmv";
     };
-    doBuild = false;
+  };
+
+  kommentary = pkgs.vimUtils.buildVimPlugin rec {
+    name = "kommentary";
+    src = pkgs.fetchFromGitHub {
+      owner = "b3nj5m1n";
+      repo = name;
+      rev = "f0b6d75df0a263fc849b0860dc8a27f4bed743db";
+      sha256 = "0z6rcvlgp00hrgjff31vwssrq000pwwak5kw6k1xz2349n01chsa";
+    };
+  };
+
+  luadev = pkgs.vimUtils.buildVimPlugin {
+    name = "luadev";
+    src = pkgs.fetchFromGitHub {
+      owner = "bfredl";
+      repo = "nvim-luadev";
+      rev = "a5f8bc0793acf0005183647f95498fb8a429d703";
+      sha256 = "1a71cg34radsm4aphr7yir1mq7blp8ya80i7chamwm1v3l06xcla";
+    };
+  };
+
+  venn = pkgs.vimUtils.buildVimPlugin {
+    name = "venn";
+    src = pkgs.fetchFromGitHub {
+      owner = "jbyuki";
+      repo = "venn.nvim";
+      rev = "425c9df332b46d8b13bc4e641646a9fb3db9c0c8";
+      sha256 = "0hf8v4c7y55b54na6yyq32d5192fsx9kq7scpp81b6hhi4rqxa88";
+    };
   };
 
   package = pkgs.neovim-nightly;
@@ -51,11 +80,20 @@ in {
     withNodeJs = true;
     plugins = with pkgs.vimPlugins; [
       undotree
+      # luadev
       coc-nvim
+      {
+        plugin = kommentary;
+        config = luaConfig ''
+          vim.g.kommentary_create_default_mappings = false
+        '';
+      }
       coc-rust-analyzer
       # vimspector
       vim-nix
       auto-pairs
+      venn
+      lush-nvim
       # vim-processing
       {
         plugin = pkgs.vimPlugins.vim-gitgutter;
@@ -80,6 +118,7 @@ in {
         '';
       }
       vim-fugitive
+      registers-nvim
       fzf-vim
       colorizer
       {
@@ -143,11 +182,6 @@ in {
                       \ 'g' : [ ':Commits'              , 'view commits'     ],
                       \}
 
-          let g:which_key_map.c = {
-                      \ 'name':"Commenting",
-                      \ 'c' : [ ':vnoremap cm :s!^!//! <CR>' , 'comment with //' ],
-                      \}
-
           let g:which_key_map.s = {
                       \ 'name':"Surrounding",
                       \ 'd' : [ '<Plug>Dsurround'                  , 'delete surrounding'   ],
@@ -178,9 +212,9 @@ in {
           ${luaConfig ''
             local gesture = require('gesture')
             gesture.register({
-              name = "scroll to bottom",
-              inputs = { gesture.up(), gesture.down() },
-              action = "normal! G"
+              name = "uncomment",
+              inputs = { gesture.down() },
+              action = "normal! <Plug>kommentary_line_default"
             })
             gesture.register({
               name = "next buffer",
@@ -203,7 +237,7 @@ in {
           ''}
         '';
       }
-      vim-bufferline
+      # vim-bufferline
       coc-pyright
       /* {
          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
@@ -256,43 +290,43 @@ in {
       */
     ];
     extraConfig = ''
-            set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
-            set autoindent
-            set showmatch
-            set mouse=a
-            set spell
-            " hybrid line numbers
-            set nu rnu
-            " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
-            nnoremap <Return> o<Esc>
-            syntax on
-            syntax enable
-            " syntax off
-            set updatetime=100
-            let g:languagetool_server_command="languagetool-http-server"
-            " When editing a file, always jump to the last cursor position
-            autocmd BufReadPost *
-            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-            \   exe "normal g'\"" |
-            \ endif
-            set expandtab
-            set tabstop=4
-            set timeoutlen=10
-            if (has("termguicolors"))
-              set termguicolors
-            endif
+          set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+          set autoindent
+          set showmatch
+          set mouse=a
+          set spell
+          " hybrid line numbers
+          set nu rnu
+          " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
+          nnoremap <Return> o<Esc>
+          syntax on
+          syntax enable
+          " syntax off
+          set updatetime=100
+          let g:languagetool_server_command="languagetool-http-server"
+          " When editing a file, always jump to the last cursor position
+          autocmd BufReadPost *
+          \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+          \   exe "normal g'\"" |
+          \ endif
+          set expandtab
+          set tabstop=4
+          set timeoutlen=10
+          "if (has("termguicolors"))
+          "  set termguicolors
+          "endif
 
-      	  " Display 5 lines above/below the cursor when scrolling with a mouse.
+      	  " Display 5 lines above/below the cursor when scrolling
       	  set scrolloff=5
       	  " Fixes common backspace problems
       	  set backspace=indent,eol,start
 
-            " ctrl + backspace
-            imap <C-BS> <C-W>
+          " ctrl + backspace
+          imap <C-BS> <C-W>
 
-            " color of lines and line
-            highlight LineNr guifg=#FF217C
-            " highlight CursorLine guifg=#FF217C
+          " color of lines and line
+          " highlight LineNr guifg=#FF217C
+          " highlight CursorLine guifg=#FF217C
 
       	  " Speed up scrolling in Vim
       	  set ttyfast
@@ -300,30 +334,30 @@ in {
       	  " Highlight matching pairs of brackets. Use the '%' character to jump between them.
       	  set matchpairs+=<:>
 
-            " this shows trailing whitespaces
-            highlight ExtraWhitespace ctermbg=red guibg=red
-            match ExtraWhitespace /\s\+$/
+          " this shows trailing whitespaces
+          highlight ExtraWhitespace ctermbg=red guibg=red
+          match ExtraWhitespace /\s\+$/
 
-            " when copying/cutting strip it from newlines
-            autocmd TextYankPost * let @@ = trim(@@)
-            " Put plugins and dictionaries in this dir (also on Windows)
-            " persistent undo
-            let vimDir = '$HOME/.vim'
+          " when copying/cutting strip it from newlines
+          autocmd TextYankPost * let @@ = trim(@@)
+          " Put plugins and dictionaries in this dir (also on Windows)
+          " persistent undo
+          let vimDir = '$HOME/.vim'
 
-            if stridx(&runtimepath, expand(vimDir)) == -1
-              " vimDir is not on runtimepath, add it
-              let &runtimepath.=','.vimDir
-            endif
+          if stridx(&runtimepath, expand(vimDir)) == -1
+            " vimDir is not on runtimepath, add it
+            let &runtimepath.=','.vimDir
+          endif
 
-            " Keep undo history across sessions by storing it in a file
-            if has('persistent_undo')
-                let myUndoDir = expand(vimDir . '/undodir')
-                " Create dirs
-                call system('mkdir ' . vimDir)
-                call system('mkdir ' . myUndoDir)
-                let &undodir = myUndoDir
-                set undofile
-            endif
+          " Keep undo history across sessions by storing it in a file
+          if has('persistent_undo')
+              let myUndoDir = expand(vimDir . '/undodir')
+              " Create dirs
+              call system('mkdir ' . vimDir)
+              call system('mkdir ' . myUndoDir)
+              let &undodir = myUndoDir
+              set undofile
+          endif
 
 
           " statusline
