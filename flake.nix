@@ -2,42 +2,44 @@
   description = "LegendOfMiracles's system config";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.url = github:NixOS/nixos-hardware;
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     # nixpkgs.url = "/home/nix/nixpkgs/";
 
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = github:nix-community/home-manager;
     # home-manager.url = "/home/nix/home-manager";
     nur = {
-      url = "github:nix-community/NUR";
+      url = github:nix-community/NUR;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     naersk = {
-      url = "github:nmattia/naersk";
+      url = github:nmattia/naersk;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix.url = "github:ryantm/agenix";
+    agenix.url = github:ryantm/agenix;
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    utils.url = github:gytis-ivaskevicius/flake-utils-plus/staging;
+
+    osu-nix.url = github:fufexan/osu.nix;
 
     nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
+      url = github:mozilla/nixpkgs-mozilla;
       flake = false;
     };
 
     npmlock2nix = {
-      url = "github:tweag/npmlock2nix";
+      url = github:tweag/npmlock2nix;
       flake = false;
     };
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix }@inputs:
+    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix, osu-nix }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -98,6 +100,7 @@
             ./hosts/pain/configuration.nix
             xorg
             v4l2
+            osu-nix.nixosModules
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
             fonts
@@ -150,6 +153,7 @@
                     xclip
                     cadence
                     ncdu
+                    osu-nix.packages.x86_64-linux.osu
                     pandoc
                     unzip
                     ytfzf

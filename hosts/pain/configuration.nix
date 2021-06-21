@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, modulesPath, inputs, ... }:
 
 {
@@ -70,14 +66,29 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.enable = true;
 
-  /* services.pipewire = {
-       enable = true;
-       pulse.enable = true;
-       jack.enable = true;
-     };
+  
+  services.pipewire = {
+    enable = true;
+    # alsa is optional
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    # needed for osu
+    pulse.enable = true;
+  };
+    /*
+    lowLatency = {
+      enable = true;
+      # defaults (no need to be set unless modified)
+      quantum = 32;
+      rate = 48000;
+    };
+  };
   */
+
+  # make pipewire realtime-capable
+  security.rtkit.enable = true;
 
   programs.steam = {
     enable = true;
@@ -95,6 +106,10 @@
   };
 
   programs.gamemode.enable = true;
+
+  # might break things
+  #security.polkit.enable = false;
+  #security.rtkit.enable = false;
 
   programs.dconf.enable = true;
 
@@ -117,7 +132,7 @@
     pciutils
     virt-manager
     (steam.override {
-      extraPkgs = pkgs: [ ibus pipewire.lib wine winetricks ];
+      extraPkgs = pkgs: [ ibus wine winetricks ];
     })
   ];
 

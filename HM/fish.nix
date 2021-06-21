@@ -26,6 +26,7 @@
   };
 
   programs.fish.shellInit = ''
+    rpg-cli cd "$PWD"
     # loads secrets at runtime
     # can this not be hardcoded?
     posix-source /run/secrets/variables
@@ -257,7 +258,6 @@
       echo -e "$status_str_colored $timing_str_colored"
     end
 
-    rpg-cli cd "$PWD"
   '';
 
   programs.fish.promptInit = "\n";
