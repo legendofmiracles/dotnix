@@ -2,11 +2,7 @@
 
 {
   fonts = {
-    fonts = with pkgs; [
-      cascadia-code
-      font-awesome
-      hack-font
-    ];
+    fonts = with pkgs; [ cascadia-code font-awesome hack-font ];
     fontconfig = {
       enable = true;
       defaultFonts = {

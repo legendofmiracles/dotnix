@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitHub
-, pkgs
-, makeWrapper
-, pkg-config
-, perl
-, openssl
-, python3
-, runCommand
-, libsForQt5
-, xdg-utils
-}:
+{ lib, fetchFromGitHub, pkgs, makeWrapper, pkg-config, perl, openssl, python3
+, runCommand, libsForQt5, xdg-utils }:
 
 let
   version = "unstable-2020-04-22";
@@ -22,11 +12,9 @@ let
     fetchSubmodules = true;
   };
 
-in
+  # I did not try to package the Python server due to issues with poetry2nix I encountered for aw-qt and since there is a Rust server available. The Rust server [requires unstable Rust](https://github.com/ActivityWatch/aw-server-rust/issues/116) preventing us to include it in nixpkgs.
 
-# I did not try to package the Python server due to issues with poetry2nix I encountered for aw-qt and since there is a Rust server available. The Rust server [requires unstable Rust](https://github.com/ActivityWatch/aw-server-rust/issues/116) preventing us to include it in nixpkgs.
-
-rec {
+in rec {
   aw-core = python3.pkgs.buildPythonPackage rec {
     pname = "aw-core";
     inherit version;
@@ -35,9 +23,7 @@ rec {
 
     src = "${sources}/aw-core";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry ];
 
     propagatedBuildInputs = with python3.pkgs; [
       jsonschema
@@ -71,9 +57,7 @@ rec {
 
     src = "${sources}/aw-client";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry ];
 
     propagatedBuildInputs = with python3.pkgs; [
       aw-core
@@ -99,10 +83,7 @@ rec {
       sha256 = "5z3WJUXTflGSR9ljaL+lxRD95mmZozjW0tRHkNwQ+Js=";
     };
 
-    checkInputs = with python3.pkgs; [
-      msgpack
-      nose2
-    ];
+    checkInputs = with python3.pkgs; [ msgpack nose2 ];
 
     checkPhase = ''
       runHook preCheck
@@ -128,9 +109,7 @@ rec {
       sha256 = "2+MEU6G1lqOPni4/qOGtxa8tv2RsoIN61cIFmhb+L/k=";
     };
 
-    checkInputs = [
-      python3.pkgs.nose
-    ];
+    checkInputs = [ python3.pkgs.nose ];
 
     doCheck = false; # tests not available on pypi
 
@@ -160,7 +139,8 @@ rec {
     };
 
     meta = with lib; {
-      description = "Data type for representing time slots with a start and end";
+      description =
+        "Data type for representing time slots with a start and end";
       homepage = "https://github.com/ErikBjare/timeslot";
       maintainers = with maintainers; [ jtojnar ];
       license = licenses.mit;
@@ -182,11 +162,7 @@ rec {
       xdg-utils
     ];
 
-    propagatedBuildInputs = with python3.pkgs; [
-      aw-core
-      pyqt5
-      click
-    ];
+    propagatedBuildInputs = with python3.pkgs; [ aw-core pyqt5 click ];
 
     # Prevent double wrapping
     dontWrapQtApps = true;
@@ -212,7 +188,8 @@ rec {
     '';
 
     meta = with lib; {
-      description = "Tray icon that manages ActivityWatch processes, built with Qt";
+      description =
+        "Tray icon that manages ActivityWatch processes, built with Qt";
       homepage = "https://github.com/ActivityWatch/aw-qt";
       maintainers = with maintainers; [ jtojnar ];
       license = licenses.mpl20;
@@ -225,19 +202,12 @@ rec {
 
     root = "${sources}/aw-server-rust";
 
-    nativeBuildInputs = [
-      pkg-config
-      perl
-    ];
+    nativeBuildInputs = [ pkg-config perl ];
 
-    buildInputs = [
-      openssl
-    ];
+    buildInputs = [ openssl ];
 
     overrideMain = attrs: {
-      nativeBuildInputs = attrs.nativeBuildInputs or [] ++ [
-        makeWrapper
-      ];
+      nativeBuildInputs = attrs.nativeBuildInputs or [ ] ++ [ makeWrapper ];
 
       postFixup = attrs.postFixup or "" + ''
         wrapProgram "$out/bin/aw-server" \
@@ -249,7 +219,8 @@ rec {
     };
 
     meta = with lib; {
-      description = "Cross-platform, extensible, privacy-focused, free and open-source automated time tracker";
+      description =
+        "Cross-platform, extensible, privacy-focused, free and open-source automated time tracker";
       homepage = "https://github.com/ActivityWatch/aw-server-rust";
       maintainers = with maintainers; [ jtojnar ];
       platforms = platforms.linux;
@@ -273,9 +244,7 @@ rec {
       fetchSubmodules = true;
     };
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry ];
 
     propagatedBuildInputs = with python3.pkgs; [
       aw-core
@@ -290,7 +259,8 @@ rec {
     '';
 
     meta = with lib; {
-      description = "Watches keyboard and mouse activity to determine if you are AFK or not (for use with ActivityWatch)";
+      description =
+        "Watches keyboard and mouse activity to determine if you are AFK or not (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-afk";
       maintainers = with maintainers; [ jtojnar ];
       license = licenses.mpl20;
@@ -305,14 +275,9 @@ rec {
 
     src = "${sources}/aw-watcher-window";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry ];
 
-    propagatedBuildInputs = with python3.pkgs; [
-      aw-client
-      xlib
-    ];
+    propagatedBuildInputs = with python3.pkgs; [ aw-client xlib ];
 
     postPatch = ''
       sed -E 's#\bgit = ".+?"#version = "*"#g' -i pyproject.toml
@@ -320,30 +285,28 @@ rec {
     '';
 
     meta = with lib; {
-      description = "Cross-platform window watcher (for use with ActivityWatch)";
+      description =
+        "Cross-platform window watcher (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-window";
       maintainers = with maintainers; [ jtojnar ];
       license = licenses.mpl20;
     };
   };
 
-  
-  aw-webui =
-    let
-      webui-src = runCommand "webui-src" {} ''
-        cp -r "${sources}/aw-server-rust/aw-webui" "$out"
-        chmod +w "$out" "$out/package-lock.json"
+  aw-webui = let
+    webui-src = runCommand "webui-src" { } ''
+      cp -r "${sources}/aw-server-rust/aw-webui" "$out"
+      chmod +w "$out" "$out/package-lock.json"
 
-        # Bypass query string in URL producing invalid derivation name.
-        # https://github.com/nmattia/napalm/issues/30
-        sed -Ei 's#\?cache=0&other_urls[^"]+##' "$out/package-lock.json"
+      # Bypass query string in URL producing invalid derivation name.
+      # https://github.com/nmattia/napalm/issues/30
+      sed -Ei 's#\?cache=0&other_urls[^"]+##' "$out/package-lock.json"
 
-        # Some packages resolved to Taobao registry, which does not seem to get substituted.
-        sed -Ei 's#https://registry.npm.taobao.org/(.+?)/download/#https://registry.npmjs.org/\1/-/#' "$out/package-lock.json"
-      '';
-    in
-      pkgs.npmlock2nix.build {
-        src = webui-src;
-        installPhase = "cp -r dist $out";
-      };
+      # Some packages resolved to Taobao registry, which does not seem to get substituted.
+      sed -Ei 's#https://registry.npm.taobao.org/(.+?)/download/#https://registry.npmjs.org/\1/-/#' "$out/package-lock.json"
+    '';
+  in pkgs.npmlock2nix.build {
+    src = webui-src;
+    installPhase = "cp -r dist $out";
+  };
 }

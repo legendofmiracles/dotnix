@@ -1,6 +1,3 @@
 { steam, ibus, ... }:
 
-(steam.override {
-      extraPkgs = pkgs: [
-        ibus
-];})
+(steam.override { extraPkgs = pkgs: [ ibus ]; })

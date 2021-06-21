@@ -72,12 +72,11 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  /*
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+  /* services.pipewire = {
+       enable = true;
+       pulse.enable = true;
+       jack.enable = true;
+     };
   */
 
   programs.steam = {
@@ -94,7 +93,6 @@
       };
     };
   };
-
 
   programs.gamemode.enable = true;
 
@@ -115,7 +113,13 @@
 
   # virtualisation.libvirtd.enable = true;
 
-  environment.systemPackages = with pkgs; [ pciutils virt-manager (steam.override { extraPkgs = pkgs: [ ibus pipewire.lib wine winetricks ]; }) ];
+  environment.systemPackages = with pkgs; [
+    pciutils
+    virt-manager
+    (steam.override {
+      extraPkgs = pkgs: [ ibus pipewire.lib wine winetricks ];
+    })
+  ];
 
   hardware.keyboard.zsa.enable = true;
 

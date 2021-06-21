@@ -1,6 +1,6 @@
 { st, fetchFromGitHub, lib, stdenv, harfbuzz, ... }:
 
-(st.overrideAttrs(old: rec {
+(st.overrideAttrs (old: rec {
   src = fetchFromGitHub {
     owner = "legendofmiracles";
     repo = old.pname;

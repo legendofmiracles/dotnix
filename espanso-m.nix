@@ -76,7 +76,7 @@ in {
 
       Install = { WantedBy = [ "graphical-session.target" ]; };
 
-#      restartIfChanged = false;
+      #      restartIfChanged = false;
 
       Service = {
         ExecStart = "${cfg.package}/bin/espanso daemon";

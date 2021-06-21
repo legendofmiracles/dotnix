@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "/home/nix/nixpkgs/";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "/home/nix/nixpkgs/";
 
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -104,27 +104,6 @@
             network
             printer
             ({ pkgs, ... }: {
-              programs.cowsay.enable = true;
-
-              programs.cowsay.cows.giraffe = ''
-                $thoughts
-                 $thoughts
-                  $thoughts
-                     ^__^
-                     (oo)
-                     (__)
-                       \\ \\
-                        \\ \\
-                         \\ \\
-                          \\ \\
-                           \\ \\
-                            \\ \\
-                             \\ \\
-                              \\ \\______
-                               \\       )\\/\\/\\
-                                ||----w |
-                                ||     ||
-              '';
 
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
@@ -214,7 +193,8 @@
                     Service = {
                       Type = "simple";
                       EnvironmentFile = "/run/secrets/variables";
-                      ExecStart = "${pkgs.cliscord}/bin/cliscord -s \"Best Server\" -c admin -m \"<:wednesday:806483241045196841> It's Wednesday my dudes!\" -t $DISCORD_TOKEN";
+                      ExecStart = ''
+                        ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c admin -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
                       Restart = "on-failure";
                       RestartSec = 10;
                     };
@@ -228,12 +208,17 @@
                       Unit = "wednesday.service";
                     };
 
-                    Install = { WantedBy = [ "timers.target" ]; /* After = [ "network-online.target" ]; Wants= [ "network-online.target" ]; */ };
+                    Install = {
+                      WantedBy = [
+                        "timers.target"
+                      ]; # After = [ "network-online.target" ]; Wants= [ "network-online.target" ];
+                    };
                   };
                 });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
-                mangohud = "LD_LIBRARY_PATH=/run/opengl-driver/lib ${pkgs.mangohud}/bin/mangohud";
+                mangohud =
+                  "LD_LIBRARY_PATH=/run/opengl-driver/lib ${pkgs.mangohud}/bin/mangohud";
               };
             })
           ];
@@ -292,34 +277,34 @@
           npmlock2nix = import npmlock2nix { pkgs = prev; };
 
           inherit (prev.callPackages ./overlays/activitywatch { })
-          aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
+            aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window
+            aw-webui;
         })
       ];
 
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
-        alacritty-ligatures neovim-nightly
-        # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-        lucky-commit cliscord st-patched steam-patched keymapviz;
+          alacritty-ligatures neovim-nightly
+          # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
+          lucky-commit cliscord st-patched steam-patched keymapviz;
       };
 
-      /*
-      appsBuilder = channels:
-        with channels.nixpkgs; {
-          alacritty-ligatures = utils.lib.mkApp {
-            drv = alacritty-ligatures;
-            exePath = "/bin/alacritty";
-          };
-          #activitywatch = utils.lib.mkApp {
-          #  drv = aw-qt;
-          #  exePath = "/bin/aw-qt";
-          #};
-          /* nvim-n = utils.lib.mkApp {
-             drv = neovim-nightly;
-             exePath = "/bin/nvim";
-             };
-        };
-        */
+      /* appsBuilder = channels:
+         with channels.nixpkgs; {
+           alacritty-ligatures = utils.lib.mkApp {
+             drv = alacritty-ligatures;
+             exePath = "/bin/alacritty";
+           };
+           #activitywatch = utils.lib.mkApp {
+           #  drv = aw-qt;
+           #  exePath = "/bin/aw-qt";
+           #};
+           /* nvim-n = utils.lib.mkApp {
+              drv = neovim-nightly;
+              exePath = "/bin/nvim";
+              };
+         };
+      */
 
       overlay = import ./overlays;
     };

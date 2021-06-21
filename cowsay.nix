@@ -47,27 +47,28 @@ in {
       description = ''
         Set of cows; Backslashes have to be escaped
       '';
-      example = lib.literalExample ''{
-        giraffe = \'\'
-          $thoughts
-           $thoughts
-            $thoughts
-               ^__^
-               (oo)
-               (__)
-                 \\ \\
-                  \\ \\
-                   \\ \\
-                    \\ \\
-                     \\ \\
-                      \\ \\
-                       \\ \\
-                        \\ \\______
-                         \\       )\\/\\/\\
-                          ||----w |
-                          ||     ||
-        \'\';
-      };'';
+      example = lib.literalExample ''
+        {
+                giraffe = \'\'
+                  $thoughts
+                   $thoughts
+                    $thoughts
+                       ^__^
+                       (oo)
+                       (__)
+                         \\ \\
+                          \\ \\
+                           \\ \\
+                            \\ \\
+                             \\ \\
+                              \\ \\
+                               \\ \\
+                                \\ \\______
+                                 \\       )\\/\\/\\
+                                  ||----w |
+                                  ||     ||
+                \'\';
+              };'';
     };
   };
 
@@ -85,9 +86,7 @@ in {
         # only installs the man pages
         #TODO: is there a way to fix conflicts that could arise when also using native-package-manager/nix-env/home-manager/nix-shell
         (cowsay.overrideAttrs (oldAttrs: {
-          meta = oldAttrs.meta // {
-            outputsToInstall = [ "man" ];
-          };
+          meta = oldAttrs.meta // { outputsToInstall = [ "man" ]; };
         }))
       ];
 
