@@ -26,6 +26,7 @@
   };
 
   programs.fish.shellInit = ''
+    printenv PWD
     rpg-cli cd "$PWD"
     # loads secrets at runtime
     # can this not be hardcoded?

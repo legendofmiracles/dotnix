@@ -237,7 +237,7 @@ in {
           ''}
         '';
       }
-      # vim-bufferline
+      vim-bufferline
       coc-pyright
       /* {
          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);

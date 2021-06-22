@@ -1,0 +1,11 @@
+diff --git a/go.mod b/go.mod
+index f89844d..a3dfef1 100644
+--- a/go.mod
++++ b/go.mod
+@@ -4,5 +4,5 @@ go 1.16
+ 
+ require (
+ 	github.com/fsnotify/fsnotify v1.4.9
+-	github.com/radovskyb/watcher v1.0.7
++	github.com/radovskyb/watcher v1.0.7 // indirect
+ )

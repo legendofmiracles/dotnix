@@ -28,6 +28,7 @@
   services.xserver = {
     libinput.enable = true;
     libinput.mouse.accelProfile = "flat";
+    /*
     config = ''
       Section "InputClass"
             Identifier "mouse accel"
@@ -37,5 +38,6 @@
                   Option "AccelSpeed" "0"
                 EndSection
     '';
+    */
   };
 }

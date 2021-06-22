@@ -68,7 +68,6 @@
   sound.enable = true;
   # hardware.pulseaudio.enable = true;
 
-  
   services.pipewire = {
     enable = true;
     # alsa is optional
@@ -76,8 +75,7 @@
     alsa.support32Bit = true;
     # needed for osu
     pulse.enable = true;
-  };
-    /*
+
     lowLatency = {
       enable = true;
       # defaults (no need to be set unless modified)
@@ -85,7 +83,6 @@
       rate = 48000;
     };
   };
-  */
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;

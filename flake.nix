@@ -61,6 +61,7 @@
         ./HM/nvim.nix
         ./HM/pass.nix
         ./HM/shell-scripts.nix
+        ./HM/mori.nix
         ./HM/neofetch.nix
         ./HM/alacritty.nix
         ./HM/firefox.nix
@@ -100,7 +101,7 @@
             ./hosts/pain/configuration.nix
             xorg
             v4l2
-            osu-nix.nixosModules
+            osu-nix.nixosModule
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
             fonts
@@ -117,6 +118,7 @@
                     git
                     htop
                     alacritty
+                    # mori
                     dunst
                     mpv
                     xorg-hm
@@ -153,7 +155,7 @@
                     xclip
                     cadence
                     ncdu
-                    osu-nix.packages.x86_64-linux.osu
+                    (osu-nix.packages.x86_64-linux.osu.override { verbose = true; })
                     pandoc
                     unzip
                     ytfzf
@@ -290,7 +292,7 @@
         inherit (channels.nixpkgs)
           alacritty-ligatures neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-          lucky-commit cliscord st-patched steam-patched keymapviz;
+          lucky-commit cliscord st-patched steam-patched keymapviz mori;
       };
 
       /* appsBuilder = channels:
