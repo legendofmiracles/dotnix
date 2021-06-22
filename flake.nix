@@ -155,7 +155,7 @@
                     xclip
                     cadence
                     ncdu
-                    (osu-nix.packages.x86_64-linux.osu.override { verbose = true; })
+                    (osu-nix.packages.x86_64-linux.osu-stable.override { verbose = true; })
                     pandoc
                     unzip
                     ytfzf
