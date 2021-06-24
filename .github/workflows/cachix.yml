@@ -30,7 +30,8 @@ jobs:
     - run: nix build .#lucky-commit -L
     - run: nix build .#cliscord -L
     - run: nix build .#st-patched -L
-    - run: nix build .#keymapviz
+    - run: nix build .#keymapviz -L
+    - run: nix build .#mori -L
 
     # - run: nix build .#neovim-nightly -L
     # - run: nix build .#nixosConfigurations.pain.config.system.build.toplevel -L

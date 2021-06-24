@@ -24,5 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/somebody1234/cliscord";
     license = licenses.mit;
     maintainers = with maintainers; [ legendofmiracles ];
+    mainProgram = "cliscord";
   };
 }

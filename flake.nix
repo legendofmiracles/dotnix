@@ -118,7 +118,7 @@
                     git
                     htop
                     alacritty
-                    # mori
+                    mori
                     dunst
                     mpv
                     xorg-hm
@@ -200,7 +200,7 @@
                       Type = "simple";
                       EnvironmentFile = "/run/secrets/variables";
                       ExecStart = ''
-                        ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c admin -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
+                        ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c main -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
                       Restart = "on-failure";
                       RestartSec = 10;
                     };

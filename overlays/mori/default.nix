@@ -2,24 +2,21 @@
 
 buildGoModule rec {
   pname = "mori";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "TorchedSammy";
     repo = pname;
     rev = "v${version}";
-    sha256 = "07wz5gjl27bfzpm473l5i01mp9hbhh4q3fg3y3mbps21flmy1890";
+    sha256 = "1n4a5qyza1y3yfllg7ylgizrvk78dgz2ligvdnpr0w2ba4yw967h";
   };
 
-  vendorSha256 = null;
-
-  # patches = [ ./vendor.patch ];
+  vendorSha256 = "sha256-rCv8DFQ21LrsI6gXXWFFA0ogH0c9sT0yZvmO1iEe7hA=";
 
   meta = with lib; {
     description = "Automatically put osu! related archives in their places.";
     homepage = "https://github.com/TorchedSammy/mori";
     license = licenses.bsd3;
     maintainers = with maintainers; [ legendofmiracles ];
-    platforms = platforms.unix;
   };
 }

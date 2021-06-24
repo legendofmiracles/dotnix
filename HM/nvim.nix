@@ -93,7 +93,13 @@ in {
       vim-nix
       auto-pairs
       venn
-      lush-nvim
+      # lush-nvim
+      {
+        plugin = pkgs.vimPlugins.nvim-base16;
+        config = ''
+          
+        '';
+      }
       # vim-processing
       {
         plugin = pkgs.vimPlugins.vim-gitgutter;
