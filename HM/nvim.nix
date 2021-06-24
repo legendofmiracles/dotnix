@@ -1,22 +1,21 @@
 { pkgs, config, ... }:
 
 let
-  luaConfig = text: ''
+  lua = text: ''
     lua << EOF
     ${text}
     EOF
   '';
 
-  /*
-  surround-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "surround-nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "blackCauldron7";
-      repo = "surround.nvim";
-      rev = "43c85b5515c5ef597a0c527f68faa5b5908e9858";
-      sha256 = "1lsmnfif31r6ipfa3sij99riw1s97mh9pzas4i9cqvf0q4vajc0s";
-    };
-  };
+  /* surround-nvim = pkgs.vimUtils.buildVimPlugin {
+       name = "surround-nvim";
+       src = pkgs.fetchFromGitHub {
+         owner = "blackCauldron7";
+         repo = "surround.nvim";
+         rev = "43c85b5515c5ef597a0c527f68faa5b5908e9858";
+         sha256 = "1lsmnfif31r6ipfa3sij99riw1s97mh9pzas4i9cqvf0q4vajc0s";
+       };
+     };
   */
 
   mark-radar = pkgs.vimUtils.buildVimPlugin {
@@ -71,7 +70,7 @@ let
 
   package = pkgs.neovim-nightly;
 
-in {
+in with import ./colors.nix { }; {
   home.sessionVariables = { EDITOR = "${package}/bin/nvim"; };
 
   programs.neovim = {
@@ -84,7 +83,7 @@ in {
       coc-nvim
       {
         plugin = kommentary;
-        config = luaConfig ''
+        config = lua ''
           vim.g.kommentary_create_default_mappings = false
         '';
       }
@@ -96,8 +95,14 @@ in {
       # lush-nvim
       {
         plugin = pkgs.vimPlugins.nvim-base16;
-        config = ''
-          
+        config = lua ''
+            # equilibrium-dark
+            require('base16-colorscheme').setup({
+              base00 = '#16161D', base01 = '#2c313c', base02 = '#3e4451', base03 = '#6c7891',
+              base04 = '#565c64', base05 = '#abb2bf', base06 = '#9a9bb3', base07 = '#c5c8e6',
+              base08 = '#e06c75', base09 = '#d19a66', base0A = '#e5c07b', base0B = '#98c379',
+              base0C = '#56b6c2', base0D = '#0184bc', base0E = '#c678dd', base0F = '#a06949',
+          })
         '';
       }
       # vim-processing
@@ -141,12 +146,13 @@ in {
           endif
         '';
       }
-      /*{
-        plugin = surround-nvim;
-        config = ''
-          let g:surround_mappings_style = "surround"
-        '';
-      }*/
+      /* {
+           plugin = surround-nvim;
+           config = ''
+             let g:surround_mappings_style = "surround"
+           '';
+         }
+      */
       {
         plugin = coc-snippets;
         config = ''
@@ -207,7 +213,7 @@ in {
       {
         # use ` to view all marks
         plugin = mark-radar;
-        config = luaConfig "require(\"mark-radar\").setup()";
+        config = lua ''require("mark-radar").setup()'';
       }
       {
         plugin = gesture;
@@ -215,7 +221,7 @@ in {
           nnoremap <RightMouse> <Nop>
           nnoremap <silent> <RightDrag> <Cmd>lua require("gesture").draw()<CR>
           nnoremap <silent> <RightRelease> <Cmd>lua require("gesture").finish()<CR>
-          ${luaConfig ''
+          ${lua ''
             local gesture = require('gesture')
             gesture.register({
               name = "uncomment",
@@ -251,7 +257,7 @@ in {
          set foldlevel=99
          set foldmethod=expr
          set foldexpr=nvim_treesitter#foldexpr()
-         '' + luaConfig ''
+         '' + lua ''
          require'nvim-treesitter.configs'.setup {
          highlight = {
          enable = true,
@@ -267,7 +273,7 @@ in {
          }
          {
          plugin = playground;
-         config = luaConfig ''
+         config = lua ''
          require "nvim-treesitter.configs".setup {
          playground = {
          enable = true,
@@ -283,7 +289,7 @@ in {
 
          {
          plugin = nvim-ts-rainbow;
-         config = luaConfig ''
+         config = lua ''
          require'nvim-treesitter.configs'.setup {
          rainbow = {
          enable = true,
@@ -296,131 +302,133 @@ in {
       */
     ];
     extraConfig = ''
-          set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
-          set autoindent
-          set showmatch
-          set mouse=a
-          set spell
-          " hybrid line numbers
-          set nu rnu
-          " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
-          nnoremap <Return> o<Esc>
-          syntax on
-          syntax enable
-          " syntax off
-          set updatetime=100
-          let g:languagetool_server_command="languagetool-http-server"
-          " When editing a file, always jump to the last cursor position
-          autocmd BufReadPost *
-          \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-          \   exe "normal g'\"" |
-          \ endif
-          set expandtab
-          set tabstop=4
-          set timeoutlen=10
-          "if (has("termguicolors"))
-          "  set termguicolors
-          "endif
+      set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+      set autoindent
+      set showmatch
+      set mouse=a
+      set spell
+      " hybrid line numbers
+      set nu rnu
+      " new line without insert mode with enter, because when i copy a entire line with yy/dd it strips away the line ending
+      nnoremap <Return> o<Esc>
+      syntax on
+      syntax enable
+      " syntax off
+      set updatetime=100
+      let g:languagetool_server_command="languagetool-http-server"
+      " When editing a file, always jump to the last cursor position
+      autocmd BufReadPost *
+      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+      \   exe "normal g'\"" |
+      \ endif
+      set expandtab
+      set tabstop=4
+      set timeoutlen=10
+      "if (has("termguicolors"))
+      "  set termguicolors
+      "endif
 
-      	  " Display 5 lines above/below the cursor when scrolling
-      	  set scrolloff=5
-      	  " Fixes common backspace problems
-      	  set backspace=indent,eol,start
+      " Display 5 lines above/below the cursor when scrolling
+      set scrolloff=5
+      " Fixes common backspace problems
+      set backspace=indent,eol,start
 
-          " ctrl + backspace
-          imap <C-BS> <C-W>
+      " ctrl + backspace
+      imap <C-BS> <C-W>
 
-          " color of lines and line
-          " highlight LineNr guifg=#FF217C
-          " highlight CursorLine guifg=#FF217C
+      " color of lines and line
+      " highlight LineNr guifg=${pink}
+      " highlight CursorLine guifg=${pink}
 
-      	  " Speed up scrolling in Vim
-      	  set ttyfast
+      " Speed up scrolling in Vim
+      set ttyfast
 
-      	  " Highlight matching pairs of brackets. Use the '%' character to jump between them.
-      	  set matchpairs+=<:>
+      " Highlight matching pairs of brackets. Use the '%' character to jump between them.
+      set matchpairs+=<:>
 
-          " this shows trailing whitespaces
-          highlight ExtraWhitespace ctermbg=red guibg=red
-          match ExtraWhitespace /\s\+$/
+      " this shows trailing whitespaces
+      highlight ExtraWhitespace ctermbg=red guibg=red
+      match ExtraWhitespace /\s\+$/
 
-          " when copying/cutting strip it from newlines
-          autocmd TextYankPost * let @@ = trim(@@)
-          " Put plugins and dictionaries in this dir (also on Windows)
-          " persistent undo
-          let vimDir = '$HOME/.vim'
+      " when copying/cutting strip it from newlines
+      autocmd TextYankPost * let @@ = trim(@@)
+      " Put plugins and dictionaries in this dir (also on Windows)
+      " persistent undo
+      let vimDir = '$HOME/.vim'
 
-          if stridx(&runtimepath, expand(vimDir)) == -1
-            " vimDir is not on runtimepath, add it
-            let &runtimepath.=','.vimDir
-          endif
+      if stridx(&runtimepath, expand(vimDir)) == -1
+        " vimDir is not on runtimepath, add it
+        let &runtimepath.=','.vimDir
+      endif
 
-          " Keep undo history across sessions by storing it in a file
-          if has('persistent_undo')
-              let myUndoDir = expand(vimDir . '/undodir')
-              " Create dirs
-              call system('mkdir ' . vimDir)
-              call system('mkdir ' . myUndoDir)
-              let &undodir = myUndoDir
-              set undofile
-          endif
+      " Keep undo history across sessions by storing it in a file
+      if has('persistent_undo')
+          let myUndoDir = expand(vimDir . '/undodir')
+          " Create dirs
+          call system('mkdir ' . vimDir)
+          call system('mkdir ' . myUndoDir)
+          let &undodir = myUndoDir
+          set undofile
+      endif
 
 
-          " statusline
-          set ls=0
-          ${luaConfig ''
-             local mode_map = {
-                ['n'] = 'normal ',
-                ['no'] = 'n·operator pending ',
-                ['v'] = 'visual ',
-                ['V'] = 'v·line ',
-                [''] = 'v·block ',
-                ['s'] = 'select ',
-                ['S'] = 's·line ',
-                [''] = 's·block ',
-                ['i'] = 'insert ',
-                ['R'] = 'replace ',
-                ['Rv'] = 'v·replace ',
-                ['c'] = 'command ',
-                ['cv'] = 'vim ex ',
-                ['ce'] = 'ex ',
-                ['r'] = 'prompt ',
-                ['rm'] = 'more ',
-                ['r?'] = 'confirm ',
-                ['!'] = 'shell ',
-                ['t'] = 'terminal '
-            }
+      " statusline
+      set ls=0
+      ${
+        lua ''
+           local mode_map = {
+              ['n'] = 'normal ',
+              ['no'] = 'n·operator pending ',
+              ['v'] = 'visual ',
+              ['V'] = 'v·line ',
+              [''] = 'v·block ',
+              ['s'] = 'select ',
+              ['S'] = 's·line ',
+              [''] = 's·block ',
+              ['i'] = 'insert ',
+              ['R'] = 'replace ',
+              ['Rv'] = 'v·replace ',
+              ['c'] = 'command ',
+              ['cv'] = 'vim ex ',
+              ['ce'] = 'ex ',
+              ['r'] = 'prompt ',
+              ['rm'] = 'more ',
+              ['r?'] = 'confirm ',
+              ['!'] = 'shell ',
+              ['t'] = 'terminal '
+          }
 
-            local function mode()
-                local m = vim.api.nvim_get_mode().mode
-                if mode_map[m] == nil then return m end
-                return mode_map[m]
-            end
+          local function mode()
+              local m = vim.api.nvim_get_mode().mode
+              if mode_map[m] == nil then return m end
+              return mode_map[m]
+          end
 
-            vim.api.nvim_exec(
-              [[
-                hi PrimaryBlock   ctermfg=06 ctermbg=00
-                hi SecondaryBlock ctermfg=08 ctermbg=00
-                hi Blanks   ctermfg=07 ctermbg=00
-              ]], false)
+          vim.api.nvim_exec(
+            [[
+              hi PrimaryBlock   ctermfg=06 ctermbg=00
+              hi SecondaryBlock ctermfg=08 ctermbg=00
+              hi Blanks   ctermfg=07 ctermbg=00
+            ]], false)
 
-            local stl = {
-              '%#PrimaryBlock#',
-              mode(),
-              '%#SecondaryBlock#',
-              '%#Blanks#',
-              '%f',
-              '%m',
-              '%=',
-              '%#SecondaryBlock#',
-              '%l,%c ',
-              '%#PrimaryBlock#',
-              '%{&filetype}',
-            }
+          local stl = {
+            '%#PrimaryBlock#',
+            mode(),
+            '%#SecondaryBlock#',
+            '%#Blanks#',
+            '%f',
+            '%m',
+            '%=',
+            '%#SecondaryBlock#',
+            '%l,%c ',
+            '%#PrimaryBlock#',
+            '%{&filetype}',
+          }
 
-            -- vim.o.statusline = table.concat(stl)
-          ''}
-          '';
+          -- vim.o.statusline = table.concat(stl)
+        ''
+      }
+      '';
   };
 
   home.file.".config/nvim/coc-settings.json".text = ''
