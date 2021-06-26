@@ -85,11 +85,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1624516948,
-        "narHash": "sha256-RzFH7vxBCuV+WGW1oUoFS7Ax3UKzxjuvWHPW46Hu0gY=",
+        "lastModified": 1624612706,
+        "narHash": "sha256-HfuNvpN/T8TZrOTyjbLCjI4GqbYuQ5oAWZO/4T2Mj34=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "21ac4c499b181b9171770f79105241e235046a7c",
+        "rev": "0ada50fc9c620f7ad9f7c6ff70bf40514f4400a9",
         "type": "github"
       },
       "original": {
@@ -127,11 +127,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1624473297,
-        "narHash": "sha256-LsE6ZWVO4vT2qH23rd9CwbnBcN8qti0iSBYj2bujG38=",
+        "lastModified": 1624577781,
+        "narHash": "sha256-mD9zQLT4sKNJKZUiborTS83ImnDB94ibxqIh3eaFjYk=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "24e0c16fd6cb33a399772330cb80dfa4c1306284",
+        "rev": "510ed996d2a92de527c70888208e3ad7ce157126",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1624522344,
-        "narHash": "sha256-L2nod2thigdAqjYdqr8J3n6KDnJ6mzJKF5SGU0FYzSM=",
+        "lastModified": 1624608707,
+        "narHash": "sha256-C52MkRew+UWbUpNNLC8WOvnmoUHPlUrrNrzxn3+gwO0=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "c6c93c1d56a2c3b734e95b34fa76d337671ec86e",
+        "rev": "a33d10602f4280add41739d1a874ec17f909887f",
         "type": "github"
       },
       "original": {
@@ -207,10 +207,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1624271441,
-        "narHash": "sha256-26QNDCdRE5mPOWYJrPGpVzgrJ3ZxqvWOONfeMsjryz4=",
-        "path": "/nix/store/g43aqq4h3qfcw0i2fhcn6scg60hr6yj2-source",
-        "rev": "7e567a3d092b7de69cdf5deaeb8d9526de230916",
+        "lastModified": 1624359033,
+        "narHash": "sha256-VUCSle6emCfIwMItRfMuDl2UCUNrN+AXCMV6l1AZM7E=",
+        "path": "/nix/store/21bg9lm40b0n69935f2x9jgfq9lvnq5l-source",
+        "rev": "d2b489b24ae30278ad31e06801c3853b0edbbd9d",
         "type": "path"
       },
       "original": {
@@ -220,11 +220,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1624359033,
-        "narHash": "sha256-VUCSle6emCfIwMItRfMuDl2UCUNrN+AXCMV6l1AZM7E=",
+        "lastModified": 1624447853,
+        "narHash": "sha256-Zn+vTEa3NE9q6z6ytpcNXrr8jV7HvrKRxMYoD2E6DpE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d2b489b24ae30278ad31e06801c3853b0edbbd9d",
+        "rev": "1905f5f2e55e0db0bb6244cfe62cb6c0dbda391d",
         "type": "github"
       },
       "original": {
@@ -236,11 +236,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1624359033,
-        "narHash": "sha256-VUCSle6emCfIwMItRfMuDl2UCUNrN+AXCMV6l1AZM7E=",
+        "lastModified": 1624447853,
+        "narHash": "sha256-Zn+vTEa3NE9q6z6ytpcNXrr8jV7HvrKRxMYoD2E6DpE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d2b489b24ae30278ad31e06801c3853b0edbbd9d",
+        "rev": "1905f5f2e55e0db0bb6244cfe62cb6c0dbda391d",
         "type": "github"
       },
       "original": {
@@ -283,11 +283,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1624517523,
-        "narHash": "sha256-jXULFJWhWqpm3D6qSG6JU55K77wMwBefHxECgAQiGP8=",
+        "lastModified": 1624640396,
+        "narHash": "sha256-VHgBTO6X2cssiqyXO0iCacWtASmw+FjeHysWsROr9o8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "8715c535a65a485b1e9eb1cd1bd5f6acc8f7dc65",
+        "rev": "2ce1be7b943e301951ed9440fb239ac8ece089c8",
         "type": "github"
       },
       "original": {
@@ -351,11 +351,11 @@
         "flake-utils": "flake-utils_2"
       },
       "locked": {
-        "lastModified": 1624187767,
-        "narHash": "sha256-ZJDVJKONAAjnTaE6jsurd22vf3qnO+A94QW4h5MN7cA=",
+        "lastModified": 1624597347,
+        "narHash": "sha256-VkaBwJP9tscBX02iVs0MsKpc2IChHJHP8qA1w84nHT4=",
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "36d9cd23223a2782ed36630d2efcedfb93ea9734",
+        "rev": "5f0106ff765774de60295c0e011363be7bb7b81e",
         "type": "github"
       },
       "original": {

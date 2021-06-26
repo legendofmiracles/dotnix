@@ -14,15 +14,16 @@
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
       options snd-hda-intel dmic_detect=0
       options probe_mask=1
+      options i915 modeset=1 drm.debug=0x14
     '';
-    # blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
-    kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
+    # blacklistedKernelModules = [ "i915" ];
+    # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
   };
 
   fileSystems."/" = {
@@ -131,6 +132,7 @@
     (steam.override {
       extraPkgs = pkgs: [ ibus wine winetricks ];
     })
+
   ];
 
   hardware.keyboard.zsa.enable = true;
