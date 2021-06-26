@@ -70,13 +70,11 @@ in {
     systemd.user.services.espanso = {
       Unit = {
         Description = "Espanso text expander";
-        After = [ "graphical-session-pre.target" ];
+        After = [ "graphical-session-pre.target" "polybar.service" ];
         PartOf = [ "graphical-session.target" ];
       };
 
       Install = { WantedBy = [ "graphical-session.target" ]; };
-
-      #      restartIfChanged = false;
 
       Service = {
         ExecStart = "${cfg.package}/bin/espanso daemon";

@@ -9,4 +9,5 @@ final: prev: {
   steam-patched = prev.callPackage ./steam { };
   keymapviz = prev.callPackage ./keymapviz { };
   mori = prev.callPackage ./mori { };
+  espanso-no-notify = prev.callPackage ./espanso { };
 }

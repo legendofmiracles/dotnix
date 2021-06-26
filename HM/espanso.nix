@@ -3,6 +3,7 @@
 {
   services.espanso = {
     enable = true;
+    # package = pkgs.espanso-no-notify;
     settings = {
       matches = [
         {

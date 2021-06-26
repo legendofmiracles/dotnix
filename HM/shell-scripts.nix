@@ -5,8 +5,8 @@ rec {
     ## Syntax: bash
     while :
     do
-      xdotool mousedown $1
-      xdotool mouseup $1
+      ${pkgs.xdotool}/bin/xdotool mousedown $1
+      ${pkgs.xdotool}/bin/xdotool mouseup $1
       sleep $2
     done
   '';
@@ -19,11 +19,11 @@ rec {
     ${pkgs.tesseract}/bin/tesseract "$IMAGE_FILE" "''${TEXT_FILE//\.txt/}"
     LINES=$(wc -l < $TEXT_FILE)
     if [ "$LINES" -eq 0 ]; then
-        notify-send "ocr" "no text was detected"
+        ${pkgs.libnotify}/bin/notify-send "ocr" "no text was detected"
         exit 1
     fi
     xclip -selection clip < "$TEXT_FILE"
-    notify-send "ocr" "$(cat $TEXT_FILE)"
+    ${pkgs.libnotify}/bin/notify-send "ocr" "$(cat $TEXT_FILE)"
     rm "$TEXT_FILE"
     rm "$IMAGE_FILE"
   '';

@@ -49,8 +49,10 @@
         ./HM/proton.nix
         ./HM/xorg-hm.nix
         ./HM/qt.nix
+        # the module
         ./espanso-m.nix
         ./HM/dunst.nix
+        # my config
         ./HM/espanso.nix
         ./HM/defaults.nix
         ./HM/git.nix
@@ -128,12 +130,14 @@
                     newsboat
                     test
                     proton
-                    # aw
+                    #aw
                     fish
+                    # my config
                     espanso
                     nvim
                     defaults
                     gtk
+                    # the module
                     espanso-m
                   ];
 
@@ -161,8 +165,6 @@
                     jq
                     qrcp
                     nix-review
-                    libnotify
-                    xdotool
                     imagemagick
                     tmpmail
 
@@ -219,7 +221,6 @@
                     git
                     htop
                     fish
-                    # nvim
                     defaults
                   ];
 
@@ -271,7 +272,7 @@
         inherit (channels.nixpkgs)
           alacritty-ligatures neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-          lucky-commit cliscord st-patched steam-patched keymapviz mori;
+          lucky-commit cliscord st-patched steam-patched keymapviz mori espanso-no-notify;
       };
 
       overlay = import ./overlays;

@@ -30,6 +30,7 @@
     xorg.xev
     xcolor
     xclip
+    xdotool
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
