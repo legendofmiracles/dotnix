@@ -2,44 +2,47 @@
   description = "LegendOfMiracles's system config";
 
   inputs = {
-    nixos-hardware.url = github:NixOS/nixos-hardware;
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "/home/nix/nixpkgs/";
 
-    neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
-    home-manager.url = github:nix-community/home-manager;
+    home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
     nur = {
-      url = github:nix-community/NUR;
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     naersk = {
-      url = github:nmattia/naersk;
+      url = "github:nmattia/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix.url = github:ryantm/agenix;
+    agenix.url = "github:ryantm/agenix";
 
-    utils.url = github:gytis-ivaskevicius/flake-utils-plus/staging;
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
 
-    osu-nix.url = github:fufexan/osu.nix;
+    osu-nix.url = "github:fufexan/osu.nix";
 
     nixpkgs-mozilla = {
-      url = github:mozilla/nixpkgs-mozilla;
+      url = "github:mozilla/nixpkgs-mozilla";
       flake = false;
     };
 
     npmlock2nix = {
-      url = github:tweag/npmlock2nix;
+      url = "github:tweag/npmlock2nix";
       flake = false;
     };
+
+    darwin.url = "github:lnl7/nix-darwin";
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix, osu-nix }@inputs:
+    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix, osu-nix
+    , darwin }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -151,9 +154,10 @@
                     discord-id
                     rclip
                     command-not-found
-
                     helvum
-                    (osu-nix.packages.x86_64-linux.osu-stable.override { verbose = true; })
+                    (osu-nix.packages.x86_64-linux.osu-stable.override {
+                      verbose = true;
+                    })
                     ffmpeg
                     lutris
                     obs-studio
@@ -171,37 +175,9 @@
                     keymapviz
                   ];
 
-                  /*systemd.user.services.wednesday = {
-                    Unit = { Description = "it's wednesday my dudes"; };
-
-                    Service = {
-                      Type = "simple";
-                      EnvironmentFile = "/run/secrets/variables";
-                      ExecStart = ''
-                        ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c main -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
-                      Restart = "on-failure";
-                      RestartSec = 10;
-                    };
-                  };
-
-                  systemd.user.timers.wednesday = {
-                    Unit = { Description = "it's wednesday my dudes"; };
-
-                    Timer = {
-                      OnCalendar = "Wed *-*-* 00:00:00";
-                      Unit = "wednesday.service";
-                    };
-
-                    Install = {
-                      WantedBy = [
-                        "timers.target"
-                      ]; # After = [ "network-online.target" ]; Wants= [ "network-online.target" ];
-                    };
-                  };
-                  */
+                  # ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c main -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
                 });
               environment.shellAliases = {
-                nix-repl = "nix repl ${inputs.utils.lib.repl}";
                 mangohud =
                   "LD_LIBRARY_PATH=/run/opengl-driver/lib ${pkgs.mangohud}/bin/mangohud";
               };
@@ -217,12 +193,7 @@
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
                 with import ./HM/shell-scripts.nix { inherit pkgs; }; {
-                  imports = [
-                    git
-                    htop
-                    fish
-                    defaults
-                  ];
+                  imports = [ git htop fish defaults ];
 
                   home.packages = with pkgs; [
                     # custom shell script
@@ -233,11 +204,18 @@
                     unzip
                   ];
                 });
-              environment.shellAliases = {
-                nix-repl = "nix repl ${inputs.utils.lib.repl}";
-              };
             })
           ];
+        };
+        iMac = {
+          system = "x86_64-darwin";
+          modules = with self.nixosModules; [
+            ./hosts/iMac/configuration.nix
+            darwin.darwinModules.simple
+            ({ pkgs, ... }: {
+            })
+          ];
+          output = "darwinConfiguration";
         };
       };
 
@@ -245,26 +223,25 @@
         nur.overlay
         neovim-nightly.overlay
         self.overlay
-        /*
-        (final: prev: {
-          naerskUnstable = let
-            nmo = import nixpkgs-mozilla final prev;
-            rust = (nmo.rustChannelOf {
-              date = "2021-01-27";
-              channel = "nightly";
-              sha256 = "447SQnx5OrZVv6Na5xbhiWoaCwIUrB1KskyMOQEDJb8=";
-            }).rust;
-          in naersk.lib.x86_64-linux.override {
-            cargo = rust;
-            rustc = rust;
-          };
+        /* (final: prev: {
+             naerskUnstable = let
+               nmo = import nixpkgs-mozilla final prev;
+               rust = (nmo.rustChannelOf {
+                 date = "2021-01-27";
+                 channel = "nightly";
+                 sha256 = "447SQnx5OrZVv6Na5xbhiWoaCwIUrB1KskyMOQEDJb8=";
+               }).rust;
+             in naersk.lib.x86_64-linux.override {
+               cargo = rust;
+               rustc = rust;
+             };
 
-          npmlock2nix = import npmlock2nix { pkgs = prev; };
+             npmlock2nix = import npmlock2nix { pkgs = prev; };
 
-          inherit (prev.callPackages ./overlays/activitywatch { })
-            aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window
-            aw-webui;
-        })
+             inherit (prev.callPackages ./overlays/activitywatch { })
+               aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window
+               aw-webui;
+           })
         */
       ];
 
@@ -272,7 +249,8 @@
         inherit (channels.nixpkgs)
           alacritty-ligatures neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-          lucky-commit cliscord st-patched steam-patched keymapviz mori espanso-no-notify;
+          lucky-commit cliscord st-patched steam-patched keymapviz mori
+          espanso-no-notify;
       };
 
       overlay = import ./overlays;

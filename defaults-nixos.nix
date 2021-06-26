@@ -29,9 +29,17 @@ in {
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
 
-  environment.sessionVariables = {
-    NIXOS_CONFIG = "/home/nix/dotnix";
-    fish_greeting = "";
+  environment = {
+    sessionVariables = {
+      NIXOS_CONFIG = "/home/nix/dotnix";
+      fish_greeting = "";
+    };
+
+    systemPackages = with pkgs; [ man-pages ];
+
+    shellAliases = {
+      nix-repl = "nix repl ${inputs.utils.lib.repl}";
+    };
   };
 
   users.users.nix = {
@@ -48,8 +56,6 @@ in {
       keep-derivations = true
       experimental-features = nix-command flakes
     '';
-
-    # autoOptimiseStore = true;
 
     trustedUsers = [ "root" "nix" ];
 
@@ -76,8 +82,6 @@ in {
   };
 
   programs.command-not-found.enable = false;
-
-  environment.systemPackages = with pkgs; [ man-pages ];
 
   time.timeZone = "America/Guatemala";
 
