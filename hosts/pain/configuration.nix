@@ -124,6 +124,8 @@
 
   programs.noisetorch.enable = true;
 
+  # services.fwupd.enable = true;
+
   # virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [

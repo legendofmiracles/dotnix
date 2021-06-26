@@ -193,7 +193,7 @@
                     giph
                   ];
 
-                  systemd.user.services.wednesday = {
+                  /*systemd.user.services.wednesday = {
                     Unit = { Description = "it's wednesday my dudes"; };
 
                     Service = {
@@ -220,6 +220,8 @@
                       ]; # After = [ "network-online.target" ]; Wants= [ "network-online.target" ];
                     };
                   };
+                  */
+                  ./HM/discord-message-sender.nix
                 });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
