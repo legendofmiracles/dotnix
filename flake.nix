@@ -148,49 +148,25 @@
                     rclip
                     command-not-found
 
-                    languagetool
-                    nixpkgs-fmt
-                    cascadia-code
-                    glxinfo
-                    xclip
-                    cadence
-                    ncdu
+                    helvum
                     (osu-nix.packages.x86_64-linux.osu-stable.override { verbose = true; })
-                    pandoc
-                    unzip
-                    ytfzf
-                    tesseract
-                    maim
-                    hyperfine
                     ffmpeg
                     lutris
-                    xorg.xkill
-                    hyperfine
                     obs-studio
-                    git-lfs
-                    feh
                     gimp
                     lucky-commit
                     legendary-gl
                     pavucontrol
-                    xorg.xev
-                    # (multimc.override { jdk8 = pkgs.graalvm8; })
-                    cliscord
                     multimc
                     jq
-                    grit
                     qrcp
-                    keymapviz
-                    xcolor
                     nix-review
-                    mangohud
                     libnotify
                     xdotool
                     imagemagick
-                    asciigraph
                     tmpmail
-                    st-patched
-                    giph
+
+                    keymapviz
                   ];
 
                   /*systemd.user.services.wednesday = {
@@ -221,7 +197,6 @@
                     };
                   };
                   */
-                  ./HM/discord-message-sender.nix
                 });
               environment.shellAliases = {
                 nix-repl = "nix repl ${inputs.utils.lib.repl}";
@@ -269,6 +244,7 @@
         nur.overlay
         neovim-nightly.overlay
         self.overlay
+        /*
         (final: prev: {
           naerskUnstable = let
             nmo = import nixpkgs-mozilla final prev;
@@ -288,6 +264,7 @@
             aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window
             aw-webui;
         })
+        */
       ];
 
       packagesBuilder = channels: {
@@ -296,23 +273,6 @@
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched steam-patched keymapviz mori;
       };
-
-      /* appsBuilder = channels:
-         with channels.nixpkgs; {
-           alacritty-ligatures = utils.lib.mkApp {
-             drv = alacritty-ligatures;
-             exePath = "/bin/alacritty";
-           };
-           #activitywatch = utils.lib.mkApp {
-           #  drv = aw-qt;
-           #  exePath = "/bin/aw-qt";
-           #};
-           /* nvim-n = utils.lib.mkApp {
-              drv = neovim-nightly;
-              exePath = "/bin/nvim";
-              };
-         };
-      */
 
       overlay = import ./overlays;
     };

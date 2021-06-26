@@ -24,6 +24,14 @@
 
   hardware.opengl.driSupport32Bit = true;
 
+  environment.systemPackages = with pkgs; [
+    glxinfo
+    xorg.xkill
+    xorg.xev
+    xcolor
+    xclip
+  ];
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver = {
     libinput.enable = true;

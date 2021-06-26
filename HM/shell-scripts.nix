@@ -13,10 +13,10 @@ rec {
   text_from_image = pkgs.writeShellScriptBin "text_from_image" ''
     TEXT_FILE="/tmp/ocr.txt"
     IMAGE_FILE="/tmp/ocr.png"
-    maim -s "$IMAGE_FILE"
+    ${pkgs.maim}/bin/maim -s "$IMAGE_FILE"
     STATUS=$?
     [ $STATUS -ne 0 ] && exit 1
-    tesseract "$IMAGE_FILE" "''${TEXT_FILE//\.txt/}"
+    ${pkgs.tesseract}/bin/tesseract "$IMAGE_FILE" "''${TEXT_FILE//\.txt/}"
     LINES=$(wc -l < $TEXT_FILE)
     if [ "$LINES" -eq 0 ]; then
         notify-send "ocr" "no text was detected"
@@ -38,9 +38,9 @@ rec {
   '';
   giphsh = pkgs.writeShellScriptBin "giph.sh" ''
     if pgrep "ffmpeg" > /dev/null 2>&1; then
-        giph --stop
+        ${pkgs.giph}/bin/giph --stop
     else
-        giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | xclip -selection c && notify-send "Copied to clipboard!"
+        ${pkgs.giph}/bin/giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | xclip -selection c && notify-send "Copied to clipboard!"
     fi
   '';
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
