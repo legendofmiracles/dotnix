@@ -107,7 +107,7 @@
             xorg
             v4l2
             osu-nix.nixosModule
-home-manager.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
             fonts
@@ -123,6 +123,7 @@ home-manager.nixosModules.home-manager
                     firefox
                     git
                     htop
+                    defaults
                     discord-message-sender
                     alacritty
                     mori
@@ -204,7 +205,7 @@ home-manager.nixosModules.home-manager
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
                 with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
-                  imports = [ git htop fish ];
+                  imports = [ git htop fish defaults ];
 
                   home.packages = with pkgs; [
                     # custom shell script
@@ -274,8 +275,8 @@ home-manager.nixosModules.home-manager
         inherit (channels.nixpkgs)
           alacritty-ligatures neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-          lucky-commit cliscord st-patched steam-patched keymapviz mori
-          espanso-no-notify;
+          lucky-commit cliscord st-patched # steam-patched
+          keymapviz mori espanso-no-notify;
       };
 
       overlay = import ./overlays;
