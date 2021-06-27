@@ -39,16 +39,16 @@ in {
           RestartSec = 10;
         };
       }) cfg;
-      systemd.user.timers = attrsets.mapAttrs' (name: value:
+    systemd.user.timers = attrsets.mapAttrs' (name: value:
       nameValuePair name {
-Unit = { Description = value.desc; };
+        Unit = { Description = value.desc; };
 
-           Timer = {
-             OnCalendar = value.when;
-             Unit = "${name}.service";
-           };
+        Timer = {
+          OnCalendar = value.when;
+          Unit = "${name}.service";
+        };
 
-           Install = { WantedBy = [ "timers.target" ]; };
+        Install = { WantedBy = [ "timers.target" ]; };
       }) cfg;
   };
 }
