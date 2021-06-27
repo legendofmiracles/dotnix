@@ -187,6 +187,14 @@
                       "<:wednesday:806483241045196841> It's Wednesday my dudes!";
                     when = "Wed *-*-* 00:00:00";
                   };
+                  services.discord.update = {
+                    desc = "update timer for creepylove";
+                    server = "lolsu-keks";
+                    channel = "general";
+                    content =
+                      "<@336863335431798785> update!!!11";
+                    when = "Fri *-*-* 00:00:00";
+                  };
                 });
               environment.shellAliases = {
                 mangohud =
