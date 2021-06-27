@@ -84,7 +84,7 @@
       hostDefaults = {
         modules = [
           utils.nixosModules.saneFlakeDefaults
-          home-manager.nixosModules.home-manager
+          defaults
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
         ];
@@ -108,6 +108,7 @@
             xorg
             v4l2
             osu-nix.nixosModule
+home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
             fonts
@@ -140,7 +141,6 @@
                     # my config
                     espanso
                     nvim
-                    defaults
                     gtk
                     # the module
                     espanso-m
@@ -201,10 +201,11 @@
             # system wide config
             ./hosts/pi/configuration.nix
             network
+            home-manager.nixosModules.home-manager
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
                 with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
-                  imports = [ git htop fish defaults ];
+                  imports = [ git htop fish ];
 
                   home.packages = with pkgs; [
                     # custom shell script
@@ -223,6 +224,8 @@
           system = "x86_64-darwin";
           modules = with self.nixosModules; [
             ./hosts/iMac/configuration.nix
+
+            home-manager.darwinModules.home-manager
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
               home-manager.users.test = ({ config, pkgs, ... }:
