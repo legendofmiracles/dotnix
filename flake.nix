@@ -183,7 +183,8 @@
                     desc = "It's wednesday my dudes!";
                     server = "Best Server";
                     channel = "main";
-                    content = "<:wednesday:806483241045196841> It's Wednesday my dudes!";
+                    content =
+                      "<:wednesday:806483241045196841> It's Wednesday my dudes!";
                     when = "Wed *-*-* 00:00:00";
                   };
                 });
@@ -217,29 +218,24 @@
           ];
         };
         iMac = {
-          builder = args: darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
+          builder = args:
+            darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
           system = "x86_64-darwin";
           modules = with self.nixosModules; [
             ./hosts/iMac/configuration.nix
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
               home-manager.users.test = ({ config, pkgs, ... }:
-              with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
-                imports = [
-                  defaults
-                  htop
-                  fish
-                  nvim
-                  git
-                ];
+                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
+                  imports = [ defaults htop fish nvim git ];
 
-                home.packages = with pkgs; [
-                  zerox0
-                  store-path
-                  command-not-found
+                  home.packages = with pkgs; [
+                    zerox0
+                    store-path
+                    command-not-found
 
-                ];
-              });
+                  ];
+                });
             })
           ];
           output = "darwinConfiguration";

@@ -37,9 +37,7 @@ in {
 
     systemPackages = with pkgs; [ man-pages ];
 
-    shellAliases = {
-      nix-repl = "nix repl ${inputs.utils.lib.repl}";
-    };
+    shellAliases = { nix-repl = "nix repl ${inputs.utils.lib.repl}"; };
   };
 
   users.users.nix = {

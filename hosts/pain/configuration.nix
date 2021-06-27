@@ -130,9 +130,7 @@
   environment.systemPackages = with pkgs; [
     pciutils
     virt-manager
-    (steam.override {
-      extraPkgs = pkgs: [ ibus wine winetricks ];
-    })
+    (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ]; })
 
   ];
 
