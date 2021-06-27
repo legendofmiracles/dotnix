@@ -217,7 +217,7 @@
             })
           ];
         };
-        iMac = {
+        Holgers-iMac = {
           builder = args:
             darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
           system = "x86_64-darwin";

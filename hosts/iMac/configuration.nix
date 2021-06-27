@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixUnstable;
+
+  system.stateVersion = 4;
 }
