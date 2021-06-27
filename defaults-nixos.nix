@@ -55,6 +55,7 @@ in {
       experimental-features = nix-command flakes
     '';
 
+    package = pkgs.nixUnstable;
     trustedUsers = [ "root" "nix" ];
 
     gc = {

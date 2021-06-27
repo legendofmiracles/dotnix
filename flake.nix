@@ -69,12 +69,12 @@
         ./HM/mori.nix
         ./HM/neofetch.nix
         ./HM/alacritty.nix
+        ./defaults-nixos.nix
         ./HM/firefox.nix
         ./v4l2.nix
         ./discord-message-sender.nix
         ./network.nix
         ./HM/newsboat.nix
-        ./defaults-nixos.nix
         ./printer.nix
         ./fonts.nix
         ./cowsay.nix
@@ -84,7 +84,6 @@
       hostDefaults = {
         modules = [
           utils.nixosModules.saneFlakeDefaults
-          defaults
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
         ];
