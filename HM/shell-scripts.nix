@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 rec {
   auto_clicker = pkgs.writeShellScriptBin "auto_clicker" ''
@@ -40,7 +40,7 @@ rec {
     if pgrep "ffmpeg" > /dev/null 2>&1; then
         ${pkgs.giph}/bin/giph --stop
     else
-        ${pkgs.giph}/bin/giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | xclip -selection c && notify-send "Copied to clipboard!"
+        ${pkgs.giph}/bin/giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | ${pkgs.libnotify}/bin/xclip -selection c && notify-send "Copied to clipboard!"
     fi
   '';
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
@@ -126,5 +126,8 @@ rec {
 
     exit 127 # command not found should always exit with 127
 
+  '';
+  store-path = pkgs.writeShellScriptBin "store-path" ''
+    echo \"\''${$1}/\" | nix repl "${inputs.utils.lib.repl}" | tail -n2 | sed s/\"//g
   '';
 }

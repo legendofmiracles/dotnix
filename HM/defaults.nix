@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     htop
     manix
+    jq
     fzf
     bat
     delta

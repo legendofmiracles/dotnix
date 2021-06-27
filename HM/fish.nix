@@ -266,6 +266,7 @@
     ls = ''
       command ls "$@"
       if [ $# -eq 0 ] ; then
+        echo lllol
         rpg-cli cd -f .
         rpg-cli ls
       fi
@@ -288,10 +289,10 @@
     '';
     cd = ''
       if test "$argv" = ""
-        rpg-cli cd ~/
+        rpg-cli cd -f ~/ && rpg-cli battle
         builtin cd ~/
       else
-        rpg-cli cd "$argv"
+        rpg-cli cd -f "$argv" && rpg-cli battle
         builtin cd "$argv"
       end
     '';

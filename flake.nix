@@ -71,6 +71,7 @@
         ./HM/alacritty.nix
         ./HM/firefox.nix
         ./v4l2.nix
+        ./discord-message-sender.nix
         ./network.nix
         ./HM/newsboat.nix
         ./defaults-nixos.nix
@@ -117,11 +118,12 @@
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./HM/shell-scripts.nix { inherit pkgs; }; {
+                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [
                     firefox
                     git
                     htop
+                    discord-message-sender
                     alacritty
                     mori
                     dunst
@@ -154,6 +156,8 @@
                     discord-id
                     rclip
                     command-not-found
+                    store-path
+
                     helvum
                     (osu-nix.packages.x86_64-linux.osu-stable.override {
                       verbose = true;
@@ -166,16 +170,22 @@
                     legendary-gl
                     pavucontrol
                     multimc
-                    jq
                     qrcp
                     nix-review
                     imagemagick
                     tmpmail
+                    cliscord
 
                     keymapviz
                   ];
 
-                  # ${pkgs.cliscord}/bin/cliscord -s "Best Server" -c main -m "<:wednesday:806483241045196841> It's Wednesday my dudes!" -t $DISCORD_TOKEN'';
+                  services.discord.wednesday = {
+                    desc = "It's wednesday my dudes!";
+                    server = "Best Server";
+                    channel = "main";
+                    content = "<:wednesday:806483241045196841> It's Wednesday my dudes!";
+                    when = "Wed *-*-* 00:00:00";
+                  };
                 });
               environment.shellAliases = {
                 mangohud =
@@ -192,27 +202,44 @@
             network
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./HM/shell-scripts.nix { inherit pkgs; }; {
+                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [ git htop fish defaults ];
 
                   home.packages = with pkgs; [
                     # custom shell script
                     zerox0
+                    store-path
+                    command-not-found
 
-                    nixpkgs-fmt
-                    ncdu
-                    unzip
                   ];
                 });
             })
           ];
         };
         iMac = {
+          builder = args: darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
           system = "x86_64-darwin";
           modules = with self.nixosModules; [
             ./hosts/iMac/configuration.nix
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
+              home-manager.users.test = ({ config, pkgs, ... }:
+              with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
+                imports = [
+                  defaults
+                  htop
+                  fish
+                  nvim
+                  git
+                ];
+
+                home.packages = with pkgs; [
+                  zerox0
+                  store-path
+                  command-not-found
+
+                ];
+              });
             })
           ];
           output = "darwinConfiguration";
