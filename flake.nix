@@ -5,6 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
     # nixpkgs.url = "/home/nix/nixpkgs/";
 
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
@@ -16,10 +17,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    /*
     naersk = {
       url = "github:nmattia/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    */
 
     agenix.url = "github:ryantm/agenix";
 
@@ -27,21 +30,25 @@
 
     osu-nix.url = "github:fufexan/osu.nix";
 
+    /*
     nixpkgs-mozilla = {
       url = "github:mozilla/nixpkgs-mozilla";
       flake = false;
     };
+    */
 
+    /*
     npmlock2nix = {
       url = "github:tweag/npmlock2nix";
       flake = false;
     };
+    */
 
     darwin.url = "github:lnl7/nix-darwin";
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix, naersk, nixpkgs-mozilla, npmlock2nix, osu-nix
+    , neovim-nightly, agenix, osu-nix
     , darwin }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
@@ -88,7 +95,7 @@
           self.nixosModules.defaults-nixos
         ];
         extraArgs = {
-          inherit utils inputs naersk nixpkgs-mozilla npmlock2nix;
+          inherit utils inputs /* naersk nixpkgs-mozilla npmlock2nix */;
         };
       };
 

@@ -49,11 +49,18 @@ in {
   };
 
   nix = {
-    extraOptions = ''
+    systemFeatures = [
+      "recursive-nix"
+    ];
+
+    extraOptions = lib.mkForce ''
       keep-outputs = true
       keep-derivations = true
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-derivations recursive-nix
     '';
+
+    # turn this off later!!!
+    useSandbox = false;
 
     package = pkgs.nixUnstable;
     trustedUsers = [ "root" "nix" ];

@@ -1,7 +1,11 @@
 { config, pkgs, lib, modulesPath, inputs, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    #(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    #(modulesPath + "/installer/cd-dvd/channel.nix")
+  ];
 
   # documentation.enable = false;
 
@@ -12,9 +16,11 @@
       kernelModules = [ ];
     };
     cleanTmpDir = true;
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -23,6 +29,7 @@
     '';
     # blacklistedKernelModules = [ "i915" ];
     # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
+    kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
   };
 
   fileSystems."/" = {
@@ -54,6 +61,9 @@
     wlp0s20f3.useDHCP = true;
   };
 
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
 
   # hardware.enableAllFirmware = true;
@@ -66,14 +76,14 @@
 
   # Enable sound.
   sound.enable = true;
-  # hardware.pulseaudio.enable = true;
 
   services.pipewire = {
     enable = true;
-    # alsa is optional
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    # needed for osu
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+
     pulse.enable = true;
 
     lowLatency = {
@@ -102,11 +112,7 @@
     };
   };
 
-  programs.gamemode.enable = true;
-
-  # might break things
-  #security.polkit.enable = false;
-  #security.rtkit.enable = false;
+  # programs.gamemode.enable = true;
 
   programs.dconf.enable = true;
 
@@ -130,8 +136,7 @@
   environment.systemPackages = with pkgs; [
     pciutils
     virt-manager
-    (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ]; })
-
+    (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ]; extraProfile = ''unset VK_ICD_FILENAMES''; })
   ];
 
   hardware.keyboard.zsa.enable = true;

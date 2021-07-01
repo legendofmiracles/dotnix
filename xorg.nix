@@ -20,7 +20,7 @@
 
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   hardware.nvidia.nvidiaPersistenced = true;
   # hardware.nvidiaOptimus.disable = true;
