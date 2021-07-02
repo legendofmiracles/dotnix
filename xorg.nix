@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Enable the X11 windowing system.
@@ -36,19 +36,12 @@
     xdotool
   ];
 
-  # Enable touchpad support (enabled default in most desktopManager).
+  # Enable touchpad support
   services.xserver = {
     libinput.enable = true;
     libinput.mouse.accelProfile = "flat";
-    /* config = ''
-         Section "InputClass"
-               Identifier "mouse accel"
-               Driver "libinput"
-               MatchIsPointer "on"
-               Option "AccelProfile" "flat"
-                     Option "AccelSpeed" "0"
-                   EndSection
-       '';
-    */
+    config = lib.mkAfter ''
+      
+    '';
   };
 }
