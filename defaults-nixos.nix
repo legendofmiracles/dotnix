@@ -21,16 +21,16 @@ in {
     variables = {
       file = ./secrets/variables.age;
       owner = "nix";
-      mode = "0700";
+      mode = "0400";
     };
     wpa = {
       file = ./secrets/wpa_supplicant.conf.age;
-      mode = "0700";
+      mode = "0400";
     };
     steam = {
       file = ./secrets/steam.age;
       owner = "nix";
-      mode = "0700";
+      mode = "0444";
     };
   };
 
