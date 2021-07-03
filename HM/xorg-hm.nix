@@ -1,9 +1,13 @@
 { pkgs, config, ... }:
 
 with import ./colors.nix { }; {
-  xsession.scriptPath = ".xinitrc";
-  xsession.initExtra =
-    "${pkgs.feh}/bin/feh .background-image --bg-fill"; # exec herbstluftwm"; # &; setxkbmap us -variant colemak";
+  # xsession.scriptPath = ".xinitrc";
+  xsession.initExtra = ''
+      ${pkgs.feh}/bin/feh .background-image --bg-fill
+      # for nvidia optimus
+      #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
+      #${pkgs.xorg.xrandr}/bin/xrandr --auto
+    '';
   home.file."background-image" = {
     source = pkgs.fetchurl {
       url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";

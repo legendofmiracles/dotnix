@@ -17,15 +17,23 @@ in {
     vendor.completions.enable = true;
   };
 
-  age.secrets.variables = {
-    file = ./secrets/variables.age;
-    owner = "nix";
-    mode = "0700";
+  age.secrets = {
+    variables = {
+      file = ./secrets/variables.age;
+      owner = "nix";
+      mode = "0700";
+    };
+    wpa = {
+      file = ./secrets/wpa_supplicant.conf.age;
+      mode = "0700";
+    };
+    steam = {
+      file = ./secrets/steam.age;
+      owner = "nix";
+      mode = "0700";
+    };
   };
-  age.secrets.wpa = {
-    file = ./secrets/wpa_supplicant.conf.age;
-    mode = "0700";
-  };
+
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
 

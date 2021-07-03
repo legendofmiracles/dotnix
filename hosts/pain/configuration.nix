@@ -61,15 +61,13 @@
     wlp0s20f3.useDHCP = true;
   };
 
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
+  #services.flatpak.enable = true;
+  #xdg.portal.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 
   # hardware.enableAllFirmware = true;
   # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "f19:ö,f20:ü,f21:ä,a:b";
 
   # Enable CUPS to print documents.
   #services.printing.enable = true;
