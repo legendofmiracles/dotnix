@@ -24,7 +24,7 @@ let
   }) cfg.matches);
 
   configText = ''
-    ${builtins.toJSON (cfg.settings // { auto_restart = false; })}
+    ${builtins.toJSON (cfg.settings // { auto_restart = false; show_notifications = false; })}
   '';
   merged = { "espanso/default.yml".text = configText; } // simpleMatches;
 in {
