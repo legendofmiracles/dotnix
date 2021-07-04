@@ -4,13 +4,13 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
     # nixpkgs.url = "/home/nix/nixpkgs/";
 
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
 
-    home-manager.url = "github:nix-community/home-manager/release-21.05";
+    home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
     nur = {
       url = "github:nix-community/NUR";

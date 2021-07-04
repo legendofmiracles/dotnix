@@ -1,9 +1,9 @@
 { pkgs, config, ... }:
 
 with import ./colors.nix { }; {
-  # xsession.scriptPath = ".xinitrc";
+  xsession.scriptPath = ".xinitrc";
   xsession.initExtra = ''
-      ${pkgs.feh}/bin/feh .background-image --bg-fill
+      ${pkgs.feh}/bin/feh ~/.background-image --bg-fill
       # for nvidia optimus
       #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
       #${pkgs.xorg.xrandr}/bin/xrandr --auto

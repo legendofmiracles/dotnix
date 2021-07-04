@@ -4,6 +4,7 @@ with import ./colors.nix { }; {
   programs.alacritty.package = pkgs.alacritty-ligatures;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
+    working_directory = config.home.homeDirectory;
     env = { TERM = "xterm-256color"; };
     font = {
       normal = {

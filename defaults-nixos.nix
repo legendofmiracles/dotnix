@@ -68,7 +68,7 @@ in {
     '';
 
     # turn this off later!!!
-    useSandbox = false;
+    # useSandbox = false;
 
     package = pkgs.nixUnstable;
     trustedUsers = [ "root" "nix" ];

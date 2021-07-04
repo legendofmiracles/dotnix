@@ -6,11 +6,7 @@
 
     videoDrivers = [ "nvidia" ];
 
-    displayManager.lightdm.enable = true;
-
-    windowManager.i3.enable = true;
-
-    windowManager.i3.configFile = "/home/nix/.config/i3/config";
+    displayManager.startx.enable = true;
 
     libinput = {
       enable = true;
@@ -21,15 +17,15 @@
 
   hardware.nvidia = {
     prime = {
-      #offload.enable = true;
-      sync.enable = true;
+      offload.enable = true;
+      #sync.enable = true;
 
       intelBusId = "PCI:0:2:0";
 
       nvidiaBusId = "PCI:1:0:0";
     };
 
-    #nvidiaPersistenced = true;
+    nvidiaPersistenced = true;
 
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
   };

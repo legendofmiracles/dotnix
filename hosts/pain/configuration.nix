@@ -20,7 +20,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_12;
     kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
