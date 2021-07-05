@@ -323,10 +323,17 @@ in with import ./colors.nix { }; {
       \ endif
       set expandtab
       set tabstop=4
-      set timeoutlen=10
+      inoremap st <Esc>
+      set timeoutlen=100
       "if (has("termguicolors"))
       "  set termguicolors
       "endif
+
+      " create missing dirs
+      autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
+
+      " backspace in normal mode for switching back to last used buffer
+      nnoremap <BS> <C-^>
 
       " Display 5 lines above/below the cursor when scrolling
       set scrolloff=5

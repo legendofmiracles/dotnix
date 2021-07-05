@@ -134,7 +134,7 @@
   environment.systemPackages = with pkgs; [
     pciutils
     virt-manager
-    (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ]; extraProfile = ''unset VK_ICD_FILENAMES''; })
+    # (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ];})
   ];
 
   hardware.keyboard.zsa.enable = true;

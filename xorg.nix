@@ -8,6 +8,9 @@
 
     displayManager.startx.enable = true;
 
+    # windowManager.i3.enable = true;
+    # windowManager.i3.configFile = "/home/nix/.config/i3/config";
+
     libinput = {
       enable = true;
       mouse.accelProfile = "flat";

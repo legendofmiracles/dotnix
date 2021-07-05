@@ -10,4 +10,5 @@ final: prev: {
   keymapviz = prev.callPackage ./keymapviz { };
   mori = prev.callPackage ./mori { };
   espanso-no-notify = prev.callPackage ./espanso { };
+  discover = prev.callPackage ./discover { };
 }

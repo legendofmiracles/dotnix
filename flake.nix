@@ -184,6 +184,7 @@
                     cliscord
 
                     keymapviz
+                    #discover
                   ];
 
                   services.discord.wednesday = {
@@ -291,7 +292,7 @@
           alacritty-ligatures neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
-          keymapviz mori espanso-no-notify;
+          keymapviz mori espanso-no-notify discover;
       };
 
       overlay = import ./overlays;
