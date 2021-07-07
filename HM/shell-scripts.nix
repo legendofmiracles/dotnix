@@ -106,6 +106,7 @@ rec {
     	;;
     1)
     	if [[ $NIX_AUTO_RUN == 1 ]]; then
+            set -x
     		exec nix shell "$toplevel#$(printf ''${attrs} | cut -d "." -f -1)" -c $@
     	fi
 

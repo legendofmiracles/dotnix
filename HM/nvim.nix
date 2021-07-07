@@ -68,7 +68,8 @@ let
     };
   };
 
-  package = pkgs.neovim-nightly;
+  #package = pkgs.neovim-nightly;
+  package = pkgs.neovim;
 
 in with import ./colors.nix { }; {
   home.sessionVariables = { EDITOR = "${package}/bin/nvim"; };
@@ -323,7 +324,7 @@ in with import ./colors.nix { }; {
       \ endif
       set expandtab
       set tabstop=4
-      inoremap st <Esc>
+      " inoremap ne <Esc>
       set timeoutlen=100
       "if (has("termguicolors"))
       "  set termguicolors

@@ -16,6 +16,11 @@
           replace = "right now";
           word = true;
         }
+        {
+          trigger = "irl";
+          replace = "in real life";
+          word = true;
+        }
       ];
     };
     matches = {
@@ -28,7 +33,6 @@
         "https://nix-community.github.io/home-manager/options.html";
       ":search" = "https://search.nixos.org/";
       ftfy = "fixed that for you";
-      irl = "in real life";
       afaik = "as far as I know";
       pls = "please";
       iirc = "if I remember correctly";

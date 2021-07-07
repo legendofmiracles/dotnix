@@ -2,53 +2,45 @@
   description = "LegendOfMiracles's system config";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.url = github:NixOS/nixos-hardware;
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
-    # nixpkgs.url = "/home/nix/nixpkgs/";
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
 
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly.url = github:nix-community/neovim-nightly-overlay;
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = github:nix-community/home-manager;
     # home-manager.url = "/home/nix/home-manager";
+
     nur = {
-      url = "github:nix-community/NUR";
+      url = github:nix-community/NUR;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    /*
-    naersk = {
-      url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    */
+    agenix.url = github:ryantm/agenix;
 
-    agenix.url = "github:ryantm/agenix";
+    utils.url = github:gytis-ivaskevicius/flake-utils-plus/staging;
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
-
-    osu-nix.url = "github:fufexan/osu.nix";
+    osu-nix.url = github:fufexan/osu.nix;
 
     /*
     nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
+      url = github:mozilla/nixpkgs-mozilla;
       flake = false;
     };
     */
 
     /*
     npmlock2nix = {
-      url = "github:tweag/npmlock2nix";
+      url = github:tweag/npmlock2nix;
       flake = false;
     };
     */
 
-    darwin.url = "github:lnl7/nix-darwin";
+    darwin.url = github:lnl7/nix-darwin;
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
-    , neovim-nightly, agenix, osu-nix
+    /*, neovim-nightly*/, agenix, osu-nix
     , darwin }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
@@ -103,8 +95,6 @@
         input = nixpkgs;
         config = { allowUnfree = true; };
       };
-
-      channels.nixpkgs-unstable = { input = nixpkgs; };
 
       hosts = {
         pain = {
@@ -263,7 +253,7 @@
 
       sharedOverlays = [
         nur.overlay
-        neovim-nightly.overlay
+        # neovim-nightly.overlay
         self.overlay
         /* (final: prev: {
              naerskUnstable = let
@@ -289,7 +279,7 @@
 
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
-          alacritty-ligatures neovim-nightly
+          alacritty-ligatures # neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
           keymapviz mori espanso-no-notify discover;

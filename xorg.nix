@@ -8,8 +8,9 @@
 
     displayManager.startx.enable = true;
 
-    # windowManager.i3.enable = true;
-    # windowManager.i3.configFile = "/home/nix/.config/i3/config";
+    windowManager.herbstluftwm = {
+      enable = true;
+    };
 
     libinput = {
       enable = true;
@@ -39,7 +40,7 @@
     glxinfo
     xorg.xkill
     xorg.xev
-    xcolor
+    #xcolor
     xclip
     xdotool
   ];

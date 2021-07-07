@@ -8,6 +8,13 @@ with import ./colors.nix { }; {
       #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
       #${pkgs.xorg.xrandr}/bin/xrandr --auto
     '';
+
+    xdg.configFile."herbstluftwm/autostart".text = ''
+      
+    '';
+
+  xsession.windowManager.command = "herbstluftwm";
+
   home.file."background-image" = {
     source = pkgs.fetchurl {
       url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";
@@ -236,7 +243,7 @@ with import ./colors.nix { }; {
   };
   xsession.enable = true;
   xsession.windowManager.i3 = {
-    enable = true;
+    #enable = true;
     config = null;
     extraConfig = ''
       set $mod Mod4

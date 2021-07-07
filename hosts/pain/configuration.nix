@@ -102,12 +102,14 @@
 
   programs.firejail = {
     enable = true;
+    /*
     wrappedBinaries = {
       chromium = {
         executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
         profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
       };
     };
+    */
   };
 
   # programs.gamemode.enable = true;
