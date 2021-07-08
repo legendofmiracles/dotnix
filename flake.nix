@@ -52,7 +52,7 @@
         ./HM/xorg-hm.nix
         ./HM/qt.nix
         # the module
-        ./espanso-m.nix
+        ./modules/espanso-m.nix
         ./HM/dunst.nix
         # my config
         ./HM/espanso.nix
@@ -71,12 +71,12 @@
         ./defaults-nixos.nix
         ./HM/firefox.nix
         ./v4l2.nix
-        ./discord-message-sender.nix
+        ./modules/discord-message-sender.nix
         ./network.nix
         ./HM/newsboat.nix
         ./printer.nix
         ./fonts.nix
-        ./cowsay.nix
+        ./modules/cowsay.nix
         ./HM/aw.nix
       ];
 

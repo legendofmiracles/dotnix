@@ -9,11 +9,15 @@ with import ./colors.nix { }; {
       #${pkgs.xorg.xrandr}/bin/xrandr --auto
     '';
 
-    xdg.configFile."herbstluftwm/autostart".text = ''
-      
-    '';
+    xdg.configFile."herbstluftwm/autostart" = {
+      text = ''
+        #!${pkgs.runtimeShell}
+        Mod=Mod4
+      '';
+      executable = true;
+    };
 
-  xsession.windowManager.command = "herbstluftwm";
+  # xsession.windowManager.command = "herbstluftwm -c \" ~/.config/herbstluftwm/autostart\"";
 
   home.file."background-image" = {
     source = pkgs.fetchurl {
@@ -243,7 +247,7 @@ with import ./colors.nix { }; {
   };
   xsession.enable = true;
   xsession.windowManager.i3 = {
-    #enable = true;
+    enable = true;
     config = null;
     extraConfig = ''
       set $mod Mod4

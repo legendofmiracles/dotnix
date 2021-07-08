@@ -69,14 +69,14 @@ let
   };
 
   #package = pkgs.neovim-nightly;
-  package = pkgs.neovim;
+  #package = pkgs.neovim;
 
 in with import ./colors.nix { }; {
-  home.sessionVariables = { EDITOR = "${package}/bin/nvim"; };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   programs.neovim = {
     enable = true;
-    package = package;
+    #package = package;
     withNodeJs = true;
     plugins = with pkgs.vimPlugins; [
       undotree
@@ -91,6 +91,7 @@ in with import ./colors.nix { }; {
       coc-rust-analyzer
       # vimspector
       vim-nix
+      vim-highlightedyank
       auto-pairs
       venn
       # lush-nvim

@@ -10,7 +10,7 @@ rec {
       sleep $2
     done
   '';
-  text_from_image = pkgs.writeShellScriptBin "text_from_image" ''
+  text_from_image = pkgs.writeShellScriptBin "ocr" ''
     TEXT_FILE="/tmp/ocr.txt"
     IMAGE_FILE="/tmp/ocr.png"
     ${pkgs.maim}/bin/maim -s "$IMAGE_FILE"
@@ -40,7 +40,7 @@ rec {
     if pgrep "ffmpeg" > /dev/null 2>&1; then
         ${pkgs.giph}/bin/giph --stop
     else
-        ${pkgs.giph}/bin/giph -s /tmp/recording.webm && curl -F file=@"/tmp/recording.webm" https://0x0.st | ${pkgs.xclip}/bin/xclip -selection c && ${pkgs.libnotify}/bin/notify-send "Copied to clipboard!"
+        ${pkgs.giph}/bin/giph -s /tmp/recording.gif && curl -F file=@"/tmp/recording.gif" https://0x0.st | ${pkgs.xclip}/bin/xclip -selection c && ${pkgs.libnotify}/bin/notify-send "Copied to clipboard!"
     fi
   '';
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''

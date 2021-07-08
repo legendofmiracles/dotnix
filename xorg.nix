@@ -10,6 +10,7 @@
 
     windowManager.herbstluftwm = {
       enable = true;
+      configFile = "/home/nix/.config/herbstluftwm/autostart";
     };
 
     libinput = {
