@@ -57,9 +57,7 @@ in {
   };
 
   nix = {
-    systemFeatures = [
-      "recursive-nix"
-    ];
+    systemFeatures = [ "recursive-nix" ];
 
     extraOptions = lib.mkForce ''
       keep-outputs = true
