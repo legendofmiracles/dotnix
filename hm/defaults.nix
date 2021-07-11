@@ -15,6 +15,7 @@
     nixfmt
     wget
     rnix-lsp
+    sl
     gh
     ripgrep
     tldr

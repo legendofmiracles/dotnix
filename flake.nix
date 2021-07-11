@@ -44,38 +44,38 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        ./HM/test.nix
+        ./hm/test.nix
         ./xorg.nix
-        ./HM/proton.nix
-        ./HM/xorg-hm.nix
-        ./HM/qt.nix
+        ./hm/proton.nix
+        ./hm/xorg-hm.nix
+        ./hm/qt.nix
         # the module
         ./modules/espanso-m.nix
-        ./HM/dunst.nix
+        ./hm/dunst.nix
         # my config
-        ./HM/espanso.nix
-        ./HM/defaults.nix
-        ./HM/git.nix
-        ./HM/gtk.nix
-        ./HM/mpv.nix
-        ./HM/fish.nix
-        ./HM/htop.nix
-        ./HM/nvim.nix
-        ./HM/pass.nix
-        ./HM/shell-scripts.nix
-        ./HM/mori.nix
-        ./HM/neofetch.nix
-        ./HM/alacritty.nix
+        ./hm/espanso.nix
+        ./hm/defaults.nix
+        ./hm/git.nix
+        ./hm/gtk.nix
+        ./hm/mpv.nix
+        ./hm/fish.nix
+        ./hm/htop.nix
+        ./hm/nvim.nix
+        ./hm/pass.nix
+        ./hm/shell-scripts.nix
+        ./hm/mori.nix
+        ./hm/neofetch.nix
+        ./hm/alacritty.nix
         ./defaults-nixos.nix
-        ./HM/firefox.nix
+        ./hm/firefox.nix
         ./v4l2.nix
         ./modules/discord-message-sender.nix
         ./network.nix
-        ./HM/newsboat.nix
+        ./hm/newsboat.nix
         ./printer.nix
         ./fonts.nix
         ./modules/cowsay.nix
-        ./HM/aw.nix
+        ./hm/aw.nix
       ];
 
       hostDefaults = {
