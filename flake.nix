@@ -114,7 +114,7 @@
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
               home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
+                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [
                     firefox
                     git
@@ -208,7 +208,7 @@
             home-manager.nixosModules.home-manager
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
+                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [ git htop fish defaults ];
 
                   home.packages = with pkgs; [
@@ -233,7 +233,7 @@
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
               home-manager.users.test = ({ config, pkgs, ... }:
-                with import ./HM/shell-scripts.nix { inherit pkgs inputs; }; {
+                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [ defaults htop fish nvim git ];
 
                   home.packages = with pkgs; [

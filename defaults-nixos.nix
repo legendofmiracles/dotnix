@@ -122,4 +122,6 @@ in {
                       ||     ||
     '';
   };
+
+  services.journald.extraConfig = "Storage=volatile";
 }
