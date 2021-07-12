@@ -17,9 +17,10 @@ stdenv.mkDerivation rec {
   doBuild = false;
 
   installPhase = ''
-    install -D nix-autobahn $out/bin
-    install -D fhs-shell $out/bin
-    install -D find-libs $out/bin
+    mkdir -p $out/bin/
+    cp ./nix-autobahn $out/bin/
+    cp ./fhs-shell $out/bin/
+    cp ./find-libs $out/bin/
   '';
 
   meta = with lib; {
