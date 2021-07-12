@@ -11,4 +11,5 @@ final: prev: {
   mori = prev.callPackage ./mori { };
   espanso-no-notify = prev.callPackage ./espanso { };
   discover = prev.callPackage ./discover { };
+  autobahn = prev.callPackage ./autobahn { };
 }

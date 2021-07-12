@@ -5,6 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "/home/nix/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -171,6 +172,7 @@
                     cliscord
 
                     keymapviz
+                    autobahn
                     #discover
                   ];
 
@@ -278,7 +280,7 @@
           alacritty-ligatures # neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
-          keymapviz mori espanso-no-notify discover;
+          keymapviz mori espanso-no-notify discover autobahn;
       };
 
       overlay = import ./overlays;

@@ -123,5 +123,5 @@ in {
     '';
   };
 
-  services.journald.extraConfig = "Storage=volatile";
+  services.journald.extraConfig = "SystemMaxUse=50M";
 }
