@@ -107,7 +107,7 @@
             cowsay
             fonts
             network
-            printer
+            #printer
             ({ pkgs, ... }: {
 
               home-manager.useUserPackages = true;
@@ -154,9 +154,9 @@
                     store-path
 
                     helvum
-                    (osu-nix.packages.x86_64-linux.osu-stable.override {
+                    /*(osu-nix.packages.x86_64-linux.osu-stable.override {
                       verbose = true;
-                    })
+                    })*/
                     ffmpeg
                     lutris
                     obs-studio

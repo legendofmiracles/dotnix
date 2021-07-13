@@ -72,11 +72,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1625909913,
-        "narHash": "sha256-ZP3RCGYwPDu4I5rwLYER2/d4aHFxiMTQ5Ioc89WRTow=",
+        "lastModified": 1626073055,
+        "narHash": "sha256-vocByfpVu6m9zvtJugDvmd6/9iT2HJuG4tmDICKd0lI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9ed7a73ae23f0d905bd098c6ce71c50289d37928",
+        "rev": "775cb20bd4af7781fbf336fb201df02ee3d544bb",
         "type": "github"
       },
       "original": {
@@ -113,6 +113,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-wine-osu": {
+      "locked": {
+        "lastModified": 1621361101,
+        "narHash": "sha256-jH4vlCdaWgTDMeNU/NUJXmSs+xrpBVPWzwb5xzq2aec=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1602411953,
@@ -129,10 +145,10 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1625533413,
-        "narHash": "sha256-D4Dp2qDmY3Y9/Mqxsha/18F0RsH3hPiHafG4bvTz2V4=",
-        "path": "/nix/store/kbs48n741vn04p1r4kq69zxj5wfjr0cw-source",
-        "rev": "036dc0c709650e0c833822307af801f576d67273",
+        "lastModified": 1625874246,
+        "narHash": "sha256-7cGgcysIXz/j/lRpJn7cNJjf0+k7sQ5EuGn62252Svw=",
+        "path": "/nix/store/7aa32jz0nkywhr9lyrz37w444hra9631-source",
+        "rev": "45fc7d4a35c5343e58541a7847f6415654ccbb37",
         "type": "path"
       },
       "original": {
@@ -142,11 +158,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1625874246,
-        "narHash": "sha256-7cGgcysIXz/j/lRpJn7cNJjf0+k7sQ5EuGn62252Svw=",
+        "lastModified": 1626046891,
+        "narHash": "sha256-Zt8saH+hAehXskW0iFAzk+iMillYoFBxvLReYNqGT9E=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "45fc7d4a35c5343e58541a7847f6415654ccbb37",
+        "rev": "d8f8f31af9d77a48220e4e8a301d1e79774cb7d2",
         "type": "github"
       },
       "original": {
@@ -158,11 +174,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1621361101,
-        "narHash": "sha256-jH4vlCdaWgTDMeNU/NUJXmSs+xrpBVPWzwb5xzq2aec=",
+        "lastModified": 1626019149,
+        "narHash": "sha256-0QeLkPoWjTDw9n1fmrwUg9IFIsjuD/YcX/DvMUQtqQw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "73b982e62194a5d85827d87b0851aee06932979f",
+        "rev": "eed20f01e43e94f0adae14e8407e8ef386897060",
         "type": "github"
       },
       "original": {
@@ -173,11 +189,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1626021850,
-        "narHash": "sha256-bFZ7/y7Cq0gRBKSIvy2KEbK+EOzcWt/1yJe+pfK3xdY=",
+        "lastModified": 1626175854,
+        "narHash": "sha256-L5p1wEFqZb5BDJVZ4M+AS/uoildxm0JSjt2bou6SuRw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "22ecb1eca2a89c8e1d72d0a4639a482e28db3ea0",
+        "rev": "2ccfc59e8d7e25d3e19730808c35a6ac58cbad66",
         "type": "github"
       },
       "original": {
@@ -186,18 +202,38 @@
         "type": "github"
       }
     },
+    "oglfPatches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624106954,
+        "narHash": "sha256-PPchKKmTcGqCSMzmOcj2PhTeWcLgfzuCOU/yMAQh6mU=",
+        "owner": "openglfreak",
+        "repo": "wine-tkg-userpatches",
+        "rev": "ff6328a6b5e36dd8a007a7273290aa30ab3164d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openglfreak",
+        "repo": "wine-tkg-userpatches",
+        "rev": "ff6328a6b5e36dd8a007a7273290aa30ab3164d9",
+        "type": "github"
+      }
+    },
     "osu-nix": {
       "inputs": {
         "discord-ipc-bridge": "discord-ipc-bridge",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-wine-osu": "nixpkgs-wine-osu",
+        "oglfPatches": "oglfPatches",
+        "tkgPatches": "tkgPatches",
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1626019471,
-        "narHash": "sha256-7YCn7qWjuwfitpe2afeFCGJ7hMHQsh9Ur4fszlVo2Hg=",
+        "lastModified": 1626023344,
+        "narHash": "sha256-RJSTu+PhaBgs1zdjbOyv3KyPDH03OEKWdXZD/6+Eaak=",
         "owner": "fufexan",
         "repo": "osu.nix",
-        "rev": "be8157bbbfe482bb8e135dd8de654f3779770bf7",
+        "rev": "af3abd8839f937cd4d8d9794313e4da8b31d833d",
         "type": "github"
       },
       "original": {
@@ -216,6 +252,23 @@
         "nur": "nur",
         "osu-nix": "osu-nix",
         "utils": "utils_2"
+      }
+    },
+    "tkgPatches": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624646123,
+        "narHash": "sha256-MjN479YSlyhLt9fxoishGVCuQLg1SRMLF4TWh7cRuIQ=",
+        "owner": "Frogging-Family",
+        "repo": "wine-tkg-git",
+        "rev": "257bfe71c045db0fbbb9f3896f9697068b9f482a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Frogging-Family",
+        "repo": "wine-tkg-git",
+        "rev": "257bfe71c045db0fbbb9f3896f9697068b9f482a",
+        "type": "github"
       }
     },
     "utils": {
