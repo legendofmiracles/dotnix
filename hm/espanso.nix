@@ -28,11 +28,13 @@
             name = "url";
             type = "script";
             params = {
-              args = [(pkgs.writeShellScript "espanso-script" ''
-                echo $NIXOS_CONFIG > /tmp/aoirent
-                cmd=$(${pkgs.git}/bin/git -C $NIXOS_CONFIG rev-parse origin)
-                printf https://github.com/legendofmiracles/dotnix/blob/ && printf $cmd | ${pkgs.gnused}/bin/sed s/\n// && printf /
-              '')];
+              args = [
+                (pkgs.writeShellScript "espanso-script" ''
+                  echo $NIXOS_CONFIG > /tmp/aoirent
+                  cmd=$(${pkgs.git}/bin/git -C $NIXOS_CONFIG rev-parse origin)
+                  printf https://github.com/legendofmiracles/dotnix/blob/ && printf $cmd | ${pkgs.gnused}/bin/sed s/\n// && printf /
+                '')
+              ];
               debug = true;
             };
           }];

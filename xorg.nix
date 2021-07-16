@@ -15,7 +15,10 @@
 
     libinput = {
       enable = true;
-      mouse.accelProfile = "flat";
+      mouse = {
+        accelProfile = "flat";
+        middleEmulation = false;
+      };
     };
   };
 
@@ -49,7 +52,9 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${lib.makeBinPath [pkgs.greetd.tuigreet] }/tuigreet --time --cmd startx";
+        command = "${
+            lib.makeBinPath [ pkgs.greetd.tuigreet ]
+          }/tuigreet --time --cmd startx";
         user = "nix";
       };
     };

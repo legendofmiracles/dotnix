@@ -3,7 +3,13 @@
 with import ./colors.nix { }; {
   xsession.scriptPath = ".xinitrc";
   xsession.initExtra = ''
-    ${pkgs.feh}/bin/feh ~/.background-image --bg-fill
+    ${pkgs.feh}/bin/feh ${
+      pkgs.fetchurl {
+        url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";
+        sha512 =
+          "sha512-hoE3RtZHZMBN4fB6Ie4MiPrU+e/slaYVeMPGVJoXew6UadD3dfN1/WvAc4r5EhlajV2e0mhSrQ69GLwStMzFSA==";
+      }
+    } --bg-fill
     # for nvidia optimus
     #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
     #${pkgs.xorg.xrandr}/bin/xrandr --auto
@@ -19,14 +25,6 @@ with import ./colors.nix { }; {
 
   # xsession.windowManager.command = "herbstluftwm -c \" ~/.config/herbstluftwm/autostart\"";
 
-  home.file."background-image" = {
-    source = pkgs.fetchurl {
-      url = "https://unsplash.com/photos/in9-n0JwgZ0/download?force=true";
-      sha512 =
-        "sha512-hoE3RtZHZMBN4fB6Ie4MiPrU+e/slaYVeMPGVJoXew6UadD3dfN1/WvAc4r5EhlajV2e0mhSrQ69GLwStMzFSA==";
-    };
-    target = ".background-image";
-  };
   services.polybar = {
     enable = true;
     package = pkgs.polybarFull;
