@@ -131,4 +131,20 @@ rec {
   store-path = pkgs.writeShellScriptBin "store-path" ''
     echo \"\''${$1}/\" | nix repl "${inputs.utils.lib.repl}" | tail -n2 | sed s/\"//g
   '';
+  mute = pkgs.writeShellScriptBin "mute" ''
+    sources=$(pamixer --list-sources | /bin/grep -v monitor | /bin/grep -v Sources | cut -d " " -f 1 )
+
+    while IFS= read -r line; do
+        case $(pamixer --get-volume-human --source $line) in
+            muted)
+                ${pkgs.libnotify}/bin/notify-send "unmuted"
+                ;;
+            *)
+                ${pkgs.libnotify}/bin/notify-send "muted"
+                ;;
+        esac
+    done <<< "$sources"
+
+    echo $sources | xargs -I {} pamixer --source {} -t
+  '';
 }

@@ -75,7 +75,7 @@
   # Enable sound.
   sound.enable = true;
 
-  services.pipewire = {
+  /*services.pipewire = {
     enable = true;
     alsa = {
       enable = true;
@@ -90,7 +90,8 @@
       quantum = 32;
       rate = 48000;
     };
-  };
+    };*/
+  hardware.pulseaudio.enable = true;
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;
@@ -102,13 +103,12 @@
 
   programs.firejail = {
     enable = true;
-    /* wrappedBinaries = {
+    wrappedBinaries = {
          chromium = {
            executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
            profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
          };
        };
-    */
   };
 
   # programs.gamemode.enable = true;

@@ -53,7 +53,6 @@
       afaik = "as far as I know";
       pls = "please";
       iirc = "if I remember correctly";
-      typo = "typographical error";
       idk = "I don't know";
     };
   };

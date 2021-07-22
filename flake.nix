@@ -17,7 +17,7 @@
 
     agenix.url = "github:ryantm/agenix";
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     osu-nix.url = "github:fufexan/osu.nix";
 
@@ -152,6 +152,7 @@
                     rclip
                     command-not-found
                     store-path
+                    mute
 
                     helvum
                     (osu-nix.packages.x86_64-linux.osu-stable.override {

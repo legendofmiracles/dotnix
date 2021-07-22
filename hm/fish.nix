@@ -257,6 +257,7 @@
       # Finally, print output.
       echo -e "$status_str_colored $timing_str_colored"
     end
+    date
 
   '';
 

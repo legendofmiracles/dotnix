@@ -7,24 +7,13 @@ let
     EOF
   '';
 
-  /* surround-nvim = pkgs.vimUtils.buildVimPlugin {
-       name = "surround-nvim";
-       src = pkgs.fetchFromGitHub {
-         owner = "blackCauldron7";
-         repo = "surround.nvim";
-         rev = "43c85b5515c5ef597a0c527f68faa5b5908e9858";
-         sha256 = "1lsmnfif31r6ipfa3sij99riw1s97mh9pzas4i9cqvf0q4vajc0s";
-       };
-     };
-  */
-
-  mark-radar = pkgs.vimUtils.buildVimPlugin {
+ mark-radar = pkgs.vimUtils.buildVimPlugin {
     name = "mark-radar";
     src = pkgs.fetchFromGitHub {
       owner = "winston0410";
       repo = "mark-radar.nvim";
-      rev = "a557094f6b85cf9870a545680f9b8bd50970aa94";
-      sha256 = "11cqxlhb4287dl9azfa0m5jy1bfl09yy3dp2057k3ilzph6w6zaw";
+      rev = "d7fb84a670795a5b36b18a5b59afd1d3865cbec7";
+      sha256 = "1y3l2c7h8czhw0b5m25iyjdyy0p4nqk4a3bxv583m72hn4ac8rz9";
     };
   };
 
@@ -95,18 +84,18 @@ in with import ./colors.nix { }; {
       auto-pairs
       venn
       # lush-nvim
-      {
+      /*{
         plugin = pkgs.vimPlugins.nvim-base16;
         config = lua ''
             -- equilibrium-dark
             require('base16-colorscheme').setup({
-              base00 = '#16161D', base01 = '#2c313c', base02 = '#3e4451', base03 = '#6c7891',
-              base04 = '#565c64', base05 = '#abb2bf', base06 = '#9a9bb3', base07 = '#c5c8e6',
-              base08 = '#e06c75', base09 = '#d19a66', base0A = '#e5c07b', base0B = '#98c379',
-              base0C = '#56b6c2', base0D = '#0184bc', base0E = '#c678dd', base0F = '#a06949',
+              base00 = '#faf4ed', base01 = '#fffaf3', base02 = '#f2e9de', base03 = '#9893a5',
+              base04 = '#6e6a86', base05 = '#575279', base06 = '#555169', base07 = '#26233a',
+              base08 = '#1f1d2e', base09 = '#b4637a', base0A = '#ea9d34', base0B = '#d7827e',
+              base0C = '#286983', base0D = '#56949f', base0E = '#907aa9', base0F = '#c5c3ce',
           })
         '';
-      }
+      }*/
       # vim-processing
       {
         plugin = pkgs.vimPlugins.vim-gitgutter;
@@ -132,7 +121,8 @@ in with import ./colors.nix { }; {
       }
       vim-fugitive
       registers-nvim
-      fzf-vim
+      #fzf-vim
+      telescope-nvim
       colorizer
       {
         plugin = vim-surround;
@@ -183,7 +173,7 @@ in with import ./colors.nix { }; {
           let g:which_key_map.n = {
                       \ 'name':"code-actions",
                       \ 'g' : [ '<Plug>(coc-definition)'    , 'go to definition' ],
-                      \ 'r' : [ '<Plug>(coc-references)'    , 'go to references' ],
+                      \ 'a' : [ '<Plug>(coc-references)'    , 'go to references' ],
                       \ 'n' : [ '<Plug>(coc-rename)'        , 'rename'           ],
                       \ 'd' : [ ':call Show_documentation()', 'show docs'        ],
                       \ 'f' : [ '<Plug>(coc-refactor)'      , 'refactor'         ],
@@ -191,9 +181,10 @@ in with import ./colors.nix { }; {
 
           let g:which_key_map.f = {
                       \ 'name':"FZF",
-                      \ 'f' : [ ':Files'                , 'view files'       ],
-                      \ 'c' : [ ':Commands'             , 'view commands'    ],
-                      \ 'g' : [ ':Commits'              , 'view commits'     ],
+                      \ 'a' : [ ':Telescope file_browser' , 'view files'   ],
+                      \ 'f' : [ ':Telescope find_files'   , 'view files'   ],
+                      \ 'g' : [ ':Telescope git_commits'  , 'view commits' ],
+                      \ 'l' : [ ':Telescope live_grep'    , 'live grep'    ],
                       \}
 
           let g:which_key_map.s = {
@@ -202,15 +193,21 @@ in with import ./colors.nix { }; {
                       \ 'c' : [ '<Plug>Csurround'                  , 'change surrounding'   ],
                       \ 'a' : [ '<Plug>Ysurround'                  , 'add surrounding'      ],
                       \ 'o' : [ '<Plug>Yssurround'                 , 'surround entire line' ],
-                      \ 'O' : [ '<Plug>YSsurround','surround entire line but its on other' ],
+                      \ 'O' : [ '<Plug>YSsurround', 'surround entire line but its on other' ],
                       \ 'v' : [ '<Plug>VSurround'                  , 'visual surround'      ],
                       \}
 
           au VimEnter * call which_key#register('<Space>', "g:which_key_map")
 
           nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+          vnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
           nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-        '';
+          '';
+          /*config = lua ''
+            require("which-key").setup {
+
+            }
+          '';*/
       }
       {
         # use ` to view all marks
@@ -342,10 +339,6 @@ in with import ./colors.nix { }; {
       " Fixes common backspace problems
       set backspace=indent,eol,start
 
-      " ctrl + backspace
-      imap <C-BS> <C-W>
-
-      " color of lines and line
       " highlight LineNr guifg=${pink}
       " highlight CursorLine guifg=${pink}
 
@@ -383,6 +376,132 @@ in with import ./colors.nix { }; {
 
       " statusline
       set ls=0
+
+      " colorscheme
+      " File generated by L3af's Nix config
+      " modify in config/theme.nix
+
+      if version > 580
+        hi clear
+        if exists("syntax_on")
+          syntax reset
+        endif
+      endif
+
+      let g:colors_name = "nix"
+
+      if has('nvim')
+        let g:terminal_color_0 = "#232136"
+        let g:terminal_color_1 = "#B4637A"
+        let g:terminal_color_2 = "#569F84"
+        let g:terminal_color_3 = "#EA9D34"
+        let g:terminal_color_4 = "#286983"
+        let g:terminal_color_5 = "#907AA9"
+        let g:terminal_color_6 = "#56959F"
+        let g:terminal_color_7 = "#F2E9DE"
+        let g:terminal_color_8 = "#575279"
+        let g:terminal_color_9 = "#D7827E"
+        let g:terminal_color_10 = "#9CD8C3"
+        let g:terminal_color_11 = "#F6C177"
+        let g:terminal_color_12 = "#CECAED"
+        let g:terminal_color_13 = "#C4A7E7"
+        let g:terminal_color_14 = "#9CCFD8"
+        let g:terminal_color_15 = "#FAF4ED"
+      endif
+
+      if has('terminal')
+        let g:terminal_ansi_colors = [ "#232136", "#B4637A", "#569F84", "#EA9D34", "#286983", "#907AA9", "#56959F", "#F2E9DE", "#575279", "#D7827E", "#9CD8C3", "#F6C177", "#CECAED", "#C4A7E7", "#9CCFD8", "#FAF4ED" ]
+      endif
+
+      hi Bold guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE gui=BOLD cterm=BOLD
+      hi Boolean guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi Character guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi ColorColumn guifg=NONE guibg=#575279 ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi Comment guifg=#9893a5 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi Conceal guifg=#C4A7E7 guibg=#F5E9DA ctermfg=13 ctermbg=0 gui=NONE cterm=NONE
+      hi Conditional guifg=#56959F guibg=NONE ctermfg=6 ctermbg=NONE gui=NONE cterm=NONE
+      hi Constant guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi Cursor guifg=#F5E9DA guibg=#F5E9DA ctermfg=0 ctermbg=7 gui=NONE cterm=NONE
+      hi CursorLine guifg=NONE guibg=#EDD7BD ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi CursorLineNr guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=8 gui=NONE cterm=NONE
+      hi Debug guifg=#575279 guibg=NONE ctermfg=8 ctermbg=NONE gui=NONE cterm=NONE
+      hi Define guifg=#9CCFD8 guibg=NONE ctermfg=14 ctermbg=NONE gui=NONE cterm=NONE
+      hi Delimiter guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi DiffAdd guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi DiffChange guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi DiffDelete guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi Directory guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi Error guifg=#B4637A guibg=NONE ctermfg=1 ctermbg=NONE gui=NONE cterm=NONE
+      hi ErrorMsg guifg=#B4637A guibg=NONE ctermfg=1 ctermbg=NONE gui=NONE cterm=NONE
+      hi Exception guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi Float guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi FoldColumn guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=8 gui=NONE cterm=NONE
+      hi Folded guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=8 gui=NONE cterm=NONE
+      hi Function guifg=#575279 guibg=NONE ctermfg=7 ctermbg=NONE gui=NONE cterm=NONE
+      hi Identifier guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi IncSearch guifg=NONE guibg=#EDD7BD ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi Include guifg=#56959F guibg=NONE ctermfg=6 ctermbg=NONE gui=NONE cterm=NONE
+      hi Integer guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi LineNr guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi Macro guifg=#575279 guibg=NONE ctermfg=7 ctermbg=NONE gui=NONE cterm=NONE
+      hi MatchParen guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE gui=BOLD cterm=BOLD
+      hi ModeMsg guifg=#F6C177 guibg=NONE ctermfg=11 ctermbg=NONE gui=NONE cterm=NONE
+      hi MoreMsg guifg=#F6C177 guibg=NONE ctermfg=11 ctermbg=NONE gui=NONE cterm=NONE
+      hi Noise guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi NonText guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi Normal guifg=#575279 guibg=#F5E9DA ctermfg=7 ctermbg=0 gui=NONE cterm=NONE
+      hi Number guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi Operator guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi Pmenu guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=8 gui=NONE cterm=NONE
+      hi PmenuSbar guifg=NONE guibg=#EDD7BD ctermfg=NONE ctermbg=7 gui=NONE cterm=NONE
+      hi PmenuSel guifg=#EDD7BD guibg=#907AA9 ctermfg=0 ctermbg=7 gui=BOLD cterm=BOLD
+      hi PmenuThumb guifg=NONE guibg=#907AA9 ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi PreProc guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi Question guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi QuickFixLine guifg=NONE guibg=#B4637A ctermfg=NONE ctermbg=1 gui=NONE cterm=NONE
+      hi Quote guifg=#F6C177 guibg=NONE ctermfg=11 ctermbg=NONE gui=NONE cterm=NONE
+      hi Repeat guifg=#9CD8C3 guibg=NONE ctermfg=10 ctermbg=NONE gui=NONE cterm=NONE
+      hi Search guifg=NONE guibg=#EDD7BD ctermfg=NONE ctermbg=8 gui=BOLD cterm=BOLD
+      hi SignColumn guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE gui=NONE cterm=NONE
+      hi Special guifg=#286983 guibg=NONE ctermfg=4 ctermbg=NONE gui=NONE cterm=NONE
+      hi SpecialChar guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi SpecialKey guifg=#D7827E guibg=NONE ctermfg=9 ctermbg=NONE gui=NONE cterm=NONE
+      hi Statement guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi StatusLine guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=0 gui=NONE cterm=NONE
+      hi StatusLineNC guifg=#575279 guibg=#EDD7BD ctermfg=7 ctermbg=0 gui=NONE cterm=NONE
+      hi StorageClass guifg=#9CD8C3 guibg=NONE ctermfg=10 ctermbg=NONE gui=NONE cterm=NONE
+      hi String guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi Structure guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi Substitute guifg=NONE guibg=#F5E9DA ctermfg=NONE ctermbg=7 gui=BOLD cterm=BOLD
+      hi TSFunction guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSKeywordFunc guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSMethod guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSProperty guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSPunctBracket guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSType guifg=#56959F guibg=NONE ctermfg=6 ctermbg=NONE gui=NONE cterm=NONE
+      hi TSVariable guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi TabLine guifg=#EA9D34 guibg=#B4637A ctermfg=3 ctermbg=1 gui=NONE cterm=NONE
+      hi TabLineFill guifg=#575279 guibg=NONE ctermfg=8 ctermbg=NONE gui=NONE cterm=NONE
+      hi TabLineSel guifg=#575279 guibg=NONE ctermfg=8 ctermbg=NONE gui=BOLD cterm=BOLD
+      hi Tag guifg=#9CD8C3 guibg=NONE ctermfg=10 ctermbg=NONE gui=NONE cterm=NONE
+      hi Title guifg=#C4A7E7 guibg=NONE ctermfg=13 ctermbg=NONE gui=NONE cterm=NONE
+      hi Todo guifg=#569F84 guibg=NONE ctermfg=2 ctermbg=NONE gui=NONE cterm=NONE
+      hi TooLong guifg=#575279 guibg=NONE ctermfg=7 ctermbg=NONE gui=NONE cterm=NONE
+      hi Type guifg=#56959F guibg=NONE ctermfg=6 ctermbg=NONE gui=NONE cterm=NONE
+      hi Typedef guifg=#9CD8C3 guibg=NONE ctermfg=10 ctermbg=NONE gui=NONE cterm=NONE
+      hi Underlined guifg=#575279 guibg=NONE ctermfg=7 ctermbg=NONE gui=NONE cterm=NONE
+      hi VertSplit guifg=#F2E9DE guibg=NONE ctermfg=NONE ctermbg=NONE gui=NONE cterm=NONE
+      hi Visual guifg=NONE guibg=#EDD7BD ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi VisualNOS guifg=NONE guibg=#575279 ctermfg=NONE ctermbg=8 gui=NONE cterm=NONE
+      hi WarningMsg guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi WildMenu guifg=#575279 guibg=#9CD8C3 ctermfg=8 ctermbg=10 gui=NONE cterm=NONE
+      hi luaBraces guifg=#9893a5 guibg=NONE ctermfg=15 ctermbg=NONE gui=NONE cterm=NONE
+      hi luaFuncCall guifg=#575279 guibg=NONE ctermfg=7 ctermbg=NONE gui=NONE cterm=NONE
+      hi nixNamespacedBuiltin guifg=#907AA9 guibg=NONE ctermfg=5 ctermbg=NONE gui=NONE cterm=NONE
+      hi nixStringDelimiter guifg=#EA9D34 guibg=NONE ctermfg=3 ctermbg=NONE gui=NONE cterm=NONE
+      hi termColors guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE gui=NONE cterm=NONE
+
+      set termguicolors
       ${lua ''
          local mode_map = {
             ['n'] = 'normal ',
@@ -434,7 +553,8 @@ in with import ./colors.nix { }; {
         }
 
         -- vim.o.statusline = table.concat(stl)
-      ''}
+
+              ''}
     '';
   };
 

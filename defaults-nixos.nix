@@ -57,7 +57,7 @@ in {
   };
 
   nix = {
-    systemFeatures = [ "recursive-nix" ];
+    systemFeatures = [ "recursive-nix" "kvm" "nixos-test" ];
 
     extraOptions = lib.mkForce ''
       keep-outputs = true
@@ -68,7 +68,7 @@ in {
     # turn this off later!!!
     #useSandbox = false;
 
-    package = pkgs.nixUnstable;
+    #package = pkgs.nixUnstable;
     trustedUsers = [ "root" "nix" ];
 
     gc = {
