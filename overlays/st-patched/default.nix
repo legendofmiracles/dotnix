@@ -11,4 +11,6 @@
   doCheck = false;
 
   buildInputs = old.buildInputs ++ [ harfbuzz ];
+
+  lib.maintainers = [ lib.maintainers.legendofmiracles ];
 }))

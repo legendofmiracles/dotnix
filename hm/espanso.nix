@@ -17,11 +17,6 @@
           word = true;
         }
         {
-          trigger = "irl";
-          replace = "in real life";
-          word = true;
-        }
-        {
           trigger = ":config";
           replace = "{{url}}";
           vars = [{
