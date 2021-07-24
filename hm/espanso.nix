@@ -7,11 +7,6 @@
     settings = {
       matches = [
         {
-          trigger = "ty";
-          replace = "thank you";
-          word = true;
-        }
-        {
           trigger = "rn";
           replace = "right now";
           word = true;
@@ -48,7 +43,6 @@
       afaik = "as far as I know";
       pls = "please";
       iirc = "if I remember correctly";
-      idk = "I don't know";
     };
   };
 }

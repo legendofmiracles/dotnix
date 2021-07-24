@@ -164,7 +164,6 @@
                     gimp
                     lucky-commit
                     legendary-gl
-                    st-patched
                     pavucontrol
                     multimc
                     qrcp
