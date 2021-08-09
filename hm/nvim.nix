@@ -324,9 +324,9 @@ in with import ./colors.nix { }; {
       set tabstop=4
       " inoremap ne <Esc>
       set timeoutlen=100
-      "if (has("termguicolors"))
-      "  set termguicolors
-      "endif
+      if (has("termguicolors"))
+        set termguicolors
+      endif
 
       " create missing dirs
       autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
@@ -388,7 +388,8 @@ in with import ./colors.nix { }; {
         endif
       endif
 
-      let g:colors_name = "nix"
+      '';
+      /*let g:colors_name = "nix"
 
       if has('nvim')
         let g:terminal_color_0 = "#232136"
@@ -555,7 +556,7 @@ in with import ./colors.nix { }; {
         -- vim.o.statusline = table.concat(stl)
 
               ''}
-    '';
+    '';*/
   };
 
   home.file.".config/nvim/coc-settings.json".text = ''
@@ -578,6 +579,7 @@ in with import ./colors.nix { }; {
       }
     }
   '';
+
   home.file = {
     ".config/nvim/after/queries/nix/injections.scm".text = ''
       (

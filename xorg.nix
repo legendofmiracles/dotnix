@@ -6,11 +6,11 @@
 
     videoDrivers = [ "nvidia" ];
 
-    displayManager.startx.enable = true;
+    displayManager.lightdm.enable = true;
 
-    windowManager.herbstluftwm = {
+    windowManager.i3 = {
       enable = true;
-      configFile = "/home/nix/.config/herbstluftwm/autostart";
+      #configFile = "/home/nix/.config/herbstluftwm/autostart";
     };
 
     libinput = {
@@ -24,8 +24,8 @@
 
   hardware.nvidia = {
     prime = {
-      offload.enable = true;
-      #sync.enable = true;
+      #offload.enable = true;
+      sync.enable = true;
 
       intelBusId = "PCI:0:2:0";
 
@@ -49,7 +49,7 @@
   ];
 
   services.greetd = {
-    enable = true;
+    #enable = true;
     settings = {
       default_session = {
         command = "${

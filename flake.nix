@@ -19,7 +19,7 @@
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    osu-nix.url = "github:fufexan/osu.nix";
+    #osu-nix.url = "github:fufexan/osu.nix";
 
     /* nixpkgs-mozilla = {
          url = github:mozilla/nixpkgs-mozilla;
@@ -47,6 +47,7 @@
         ./xorg.nix
         ./hm/proton.nix
         ./hm/xorg-hm.nix
+        ./hm/mangohud.nix
         ./hm/qt.nix
         # the module
         ./modules/espanso-m.nix
@@ -101,7 +102,7 @@
             ./hosts/pain/configuration.nix
             xorg
             v4l2
-            osu-nix.nixosModule
+            #osu-nix.nixosModule
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
@@ -116,6 +117,7 @@
                 with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [
                     firefox
+                    mangohud
                     git
                     htop
                     defaults
@@ -154,10 +156,10 @@
                     store-path
                     mute
 
-                    helvum
-                    (osu-nix.packages.x86_64-linux.osu-stable.override {
+                    #helvum
+                    /*(osu-nix.packages.x86_64-linux.osu-stable.override {
                       verbose = true;
-                    })
+                    })*/
                     ffmpeg
                     lutris
                     obs-studio
@@ -193,10 +195,6 @@
                     when = "Fri *-*-* 00:00:00";
                   };
                 });
-              environment.shellAliases = {
-                mangohud =
-                  "LD_LIBRARY_PATH=/run/opengl-driver/lib ${pkgs.mangohud}/bin/mangohud";
-              };
             })
           ];
         };

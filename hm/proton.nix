@@ -1,11 +1,11 @@
 { lib, pkgs, ... }:
 
 let
-  version = "6.12-GE-1";
+  version = "6.14-GE-1";
   source = fetchTarball {
     url =
       "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/Proton-${version}.tar.gz";
-    sha256 = "sha256:0j3ca5qqvj294ax9xpxcm9s70vdkhk1sskn53hq3pcn3p9yr6phq";
+    sha256 = "0hg8fqvyikqzxvma6k0ggma2k8l96q9ss5bpyrv2d11n1g1irfvy";
   };
 in {
   home.file.proton-ge-custom = rec {

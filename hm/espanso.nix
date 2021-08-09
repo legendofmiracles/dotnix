@@ -7,11 +7,6 @@
     settings = {
       matches = [
         {
-          trigger = "rn";
-          replace = "right now";
-          word = true;
-        }
-        {
           trigger = ":config";
           replace = "{{url}}";
           vars = [{
