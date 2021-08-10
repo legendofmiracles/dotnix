@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 with import ./colors.nix { }; {
-  #xsession.scriptPath = ".xinitrc";
+  xsession.scriptPath = ".xinitrc";
   xsession.initExtra = ''
     ${pkgs.feh}/bin/feh ${
       pkgs.fetchurl {

@@ -14,7 +14,6 @@
     rpg-cli
     nixfmt
     wget
-    rnix-lsp
     sl
     gh
     ripgrep

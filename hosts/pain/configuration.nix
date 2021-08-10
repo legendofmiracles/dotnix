@@ -146,7 +146,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "powersave";
 
   system.stateVersion = "21.05";
 }

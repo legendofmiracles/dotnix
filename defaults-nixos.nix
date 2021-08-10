@@ -11,6 +11,7 @@ let
     (mkCache "veloren-nix")
     (mkCache "osu-nix")
   ];
+  TZ = "CST";
 in {
   programs.fish = {
     enable = true;
@@ -52,6 +53,7 @@ in {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "dialout" "libvirtd" ];
     shell = pkgs.fish;
+    description = "Default user, nothing interesting";
     # hello dear attackers, this is only a default password, and changed immediately after installation
     initialPassword = "nix";
   };
@@ -95,7 +97,9 @@ in {
 
   programs.command-not-found.enable = false;
 
-  time.timeZone = "America/Guatemala";
+  time.timeZone = TZ;
+
+  environment.variables = { inherit TZ; };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];

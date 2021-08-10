@@ -6,7 +6,7 @@
 
     videoDrivers = [ "nvidia" ];
 
-    displayManager.lightdm.enable = true;
+    displayManager.startx.enable = true;
 
     windowManager.i3 = {
       enable = true;
@@ -24,8 +24,8 @@
 
   hardware.nvidia = {
     prime = {
-      #offload.enable = true;
-      sync.enable = true;
+      offload.enable = true;
+      #sync.enable = true;
 
       intelBusId = "PCI:0:2:0";
 
@@ -49,7 +49,7 @@
   ];
 
   services.greetd = {
-    #enable = true;
+    enable = true;
     settings = {
       default_session = {
         command = "${

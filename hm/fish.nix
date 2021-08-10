@@ -28,7 +28,7 @@
   programs.fish.shellInit = ''
     rpg-cli cd "$PWD"
     # loads secrets at runtime
-    # can this not be hardcoded?
+    # can this path not be hardcoded?
     posix-source /run/secrets/variables
 
     set -g __fish_git_prompt_show_informative_status 1
