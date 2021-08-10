@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let font = "Cascadia Code";
 in {
@@ -1081,6 +1081,19 @@ in {
       to-deepl
       sponsorblock
       noscript
+      /*
+      (buildFirefoxXpiAddon {
+        pname = "chess";
+        version = "2.0.1";
+        addonId = "{ac1b5818-9b18-470f-91d8-c3a446e9cf87}";
+        url = "https://addons.mozilla.org/firefox/downloads/file/3743188/chessvisionai_chess_position_scanner-2.0.1-fx.xpi";
+        sha256 = "sha256-XPODZepRjwvPC7y2i8ZJFTAtlmsOJakYW56eN3Kw0tw=";
+        meta = with lib;
+      {
+        platforms = platforms.all;
+        };
+      })
+      */
     ];
   };
 }
