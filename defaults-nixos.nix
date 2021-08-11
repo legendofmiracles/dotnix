@@ -11,7 +11,7 @@ let
     (mkCache "veloren-nix")
     (mkCache "osu-nix")
   ];
-  TZ = "CST";
+  TZ = "America/Guatemala";
 in {
   programs.fish = {
     enable = true;

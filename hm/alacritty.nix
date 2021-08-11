@@ -27,18 +27,18 @@ with import ./colors.nix { }; {
     };
     colors = {
       primary = {
-        background = "#0F1318";
-        foreground = "#C1C0C1";
+        background = "0xe1e2e7";
+        foreground = "0x3760bf";
       };
       normal = {
-        black = "#0f1318";
-        red = "#5D6165";
-        green = pink;
-        yellow = pink;
-        blue = pink;
-        magenta = "#3F38A4";
-        cyan = pink;
-        white = fg;
+        black = "0xe9e9ed";
+        red = "0xf52a65";
+        green = "0x587539";
+        yellow = "0x8c6c3e";
+        blue = "0x2e7de9";
+        magenta = "0x9854f1";
+        cyan = "0x007197";
+        white = "0x6172b0";
       };
     };
     cursor = {

@@ -20,7 +20,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_xanmod;
     kernelModules = [ "snd_hda_intel" "kvm-intel" ];
     extraModprobeConfig = ''
       options snd-hda-intel model=Intel Generic
@@ -75,22 +75,23 @@
   # Enable sound.
   sound.enable = true;
 
-  /*services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
+  /* services.pipewire = {
+     enable = true;
+     alsa = {
+       enable = true;
+       support32Bit = true;
+     };
 
-    pulse.enable = true;
+     pulse.enable = true;
 
-    lowLatency = {
-      enable = true;
-      # defaults (no need to be set unless modified)
-      quantum = 32;
-      rate = 48000;
-    };
-    };*/
+     lowLatency = {
+       enable = true;
+       # defaults (no need to be set unless modified)
+       quantum = 32;
+       rate = 48000;
+     };
+     };
+  */
   hardware.pulseaudio.enable = true;
 
   # make pipewire realtime-capable
@@ -104,11 +105,11 @@
   programs.firejail = {
     enable = true;
     wrappedBinaries = {
-         chromium = {
-           executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
-           profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
-         };
-       };
+      chromium = {
+        executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
+        profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
+      };
+    };
   };
 
   programs.gamemode.enable = true;
@@ -146,7 +147,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   system.stateVersion = "21.05";
 }
