@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 with import ./colors.nix { }; {
   xsession.scriptPath = ".xinitrc";
@@ -434,4 +434,30 @@ with import ./colors.nix { }; {
     };
   };
   services.flameshot.enable = true;
+
+  services.xidlehook = {
+    enable = true;
+    not-when-audio = true;
+    timers = [
+      {
+        delay = 60;
+        command = "${pkgs.writeShellScript "lock" ''
+          C='0xe9e922'
+          D='#ff00ffcc'
+          T='#ee00eeee'
+          B='#00000000'
+          V='#bb00bbbb'
+          W='#880000bb'
+
+          ${
+            lib.getBin pkgs.i3lock-color
+          }/bin/i3lock-color --insidever-color=$C --ringver-color=$V --insidewrong-color=$C --ringwrong-color=$W --inside-color=$B --ring-color=$D --line-color=$B --separator-color=$D --verif-color=$T --wrong-color=$T --time-color=$T --date-color=$T --layout-color=$T --keyhl-color=$W  --bshl-color=$W  --screen 1  --blur 5  --clock --indicator --time-str="%H:%M:%S" --date-str="%A, %m %Y" --keylayout 2 --verif-text="Why should i even be checking this password? its wrong anyways." --wrong-text="Nice try ;)" --greeter-text="You want to use the computer? Good luck finding the password..." --greeter-color=$V
+        ''}";
+      }
+      {
+        delay = 300;
+        command = "systemctl suspend";
+      }
+    ];
+  };
 }

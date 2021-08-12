@@ -14,7 +14,32 @@ in {
           "font.name.monospace.x-western" = font;
           "font.name.sans-serif.x-western" = font;
           "font.name.serif.x-western" = font;
+          "browser.safebrowsing.downloads.remote.block_dangerous" = false;
+          "browser.safebrowsing.downloads.remote.block_dangerous_host" = false;
+          "browser.safebrowsing.downloads.remote.block_potentially_unwanted" =
+            false;
+          "browser.safebrowsing.downloads.remote.block_uncommon" = false;
+          "toolkit.telemetry.enabled" = false;
+          "browser.safebrowsing.downloads.remote.url" = false;
+          "browser.safebrowsing.downloads.remote.enabled" = false;
+          "browser.safebrowsing.downloads.enabled" = false;
+          "toolkit.telemetry.unified" = false;
+          "toolkit.telemetry.archive.enabled" = false;
+          "experiments.supported" = false;
+          "experiments.enabled" = false;
+          "experiments.manifest.uri" = "";
+          "datareporting.healthreport.uploadEnabled" = false;
+          "datareporting.healthreport.service.enabled" = false;
+          "datareporting.policy.dataSubmissionEnabled" = false;
+          "browser.discovery.enabled" = false;
+          "extensions.shield-recipe-client.enabled" = false;
+          "app.shield.optoutstudies.enabled" = false;
+          "loop.logDomains" = false;
+          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+          "network.cookie.cookieBehavior" = 1;
+          "browser.shell.checkDefaultBrowser" = false;
         };
+
         userChrome = ''
               // pdf reader
               #viewerContainer > #viewer > .page > .canvasWrapper > canvas {
@@ -1042,24 +1067,6 @@ in {
             border-radius: 3px !important;
           }
 
-        '';
-        extraConfig = ''
-          user_pref("toolkit.telemetry.enabled",        false);
-          user_pref("toolkit.telemetry.unified",        false);
-          user_pref("toolkit.telemetry.archive.enabled",      false);
-          user_pref("experiments.supported",        false);
-          user_pref("experiments.enabled",        false);
-          user_pref("experiments.manifest.uri",        "");
-          user_pref("datareporting.healthreport.uploadEnabled",    false);
-          user_pref("datareporting.healthreport.service.enabled",    false);
-          user_pref("datareporting.policy.dataSubmissionEnabled",    false);
-          user_pref("browser.discovery.enabled",        false);
-          user_pref("extensions.shield-recipe-client.enabled",    false);
-          user_pref("app.shield.optoutstudies.enabled",      false);
-          user_pref("loop.logDomains",          false);
-          user_pref("browser.newtabpage.activity-stream.feeds.section.topstories",  false);
-          user_pref("network.cookie.cookieBehavior",      1);
-          user_pref("browser.shell.checkDefaultBrowser",      false);
         '';
       };
     };

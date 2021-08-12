@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 
 rec {
   auto_clicker = pkgs.writeShellScriptBin "auto_clicker" ''
@@ -146,5 +146,18 @@ rec {
     done <<< "$sources"
 
     echo $sources | xargs -I {} pamixer --source {} -t
+  '';
+  lock = pkgs.writeShellScriptBin "lock" ''
+    # uses i3lock-color
+    C='#ffffff22'
+    D='#ff00ffcc'
+    T='#ee00eeee'
+    B='#00000000'
+    V='#bb00bbbb'
+    W='#880000bb'
+
+    ${
+      lib.getBin pkgs.i3lock-color
+    }/bin/i3lock-color --insidevercolor=$C --ringvercolor=$V --insidewrongcolor=$C --ringwrongcolor=$W --insidecolor=$B --ringcolor=$D --linecolor=$B --separatorcolor=$D --verifcolor=$T --wrongcolor=$T --timecolor=$T --datecolor=$T --layoutcolor=$T --keyhlcolor=$W  --bshlcolor=$W  --screen 1  --blur 5  --clock --indicator --timestr="%H:%M:%S" --datestr="%A, %m %Y" --keylayout 2 --veriftext="Why should i even be checking this password? its wrong anyways." --wrongtext="Nice try ;)" --greetertext="u wanna use the computer? good luck finding the password..." --greetercolor=$V
   '';
 }

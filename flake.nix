@@ -113,8 +113,10 @@
 
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
-              home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
+              home-manager.users.nix = ({ config, pkgs, lib, ... }:
+                with import ./hm/shell-scripts.nix {
+                  inherit pkgs inputs lib;
+                }; {
                   imports = [
                     firefox
                     mangohud
@@ -208,7 +210,9 @@
             home-manager.nixosModules.home-manager
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
+                with import ./hm/shell-scripts.nix {
+                  inherit pkgs inputs lib;
+                }; {
                   imports = [ git htop fish defaults ];
 
                   home.packages = with pkgs; [
