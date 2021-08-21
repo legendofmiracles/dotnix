@@ -17,7 +17,7 @@
     sl
     gh
     ripgrep
-    tldr
+    tealdeer
     nix-index
     bc
     file

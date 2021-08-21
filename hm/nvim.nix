@@ -246,7 +246,7 @@ in with import ./colors.nix { }; {
         '';
       }
       vim-bufferline
-      coc-pyright
+      jedi-vim
       /* {
          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
          config = ''

@@ -129,15 +129,50 @@
 
   programs.noisetorch.enable = true;
 
+  services.logind.lidSwitch = "suspend";
+
+  systemd.services.sleep = {
+    description = "Lock the screen";
+    before = [ "sleep.target" ];
+
+    environment = {
+      DISPLAY=":0";
+    };
+
+
+    serviceConfig = {
+      User = "nix";
+      Type = "forking";
+      ExecStart = "${pkgs.writeShellScript "lock" ''
+        C='0xe9e922'
+        D='#ff00ffcc'
+        T='#ee00eeee'
+        B='#00000000'
+        V='#bb00bbbb'
+        W='#880000bb'
+
+        ${
+          lib.getBin pkgs.i3lock-color
+        }/bin/i3lock-color --insidever-color=$C --ringver-color=$V --insidewrong-color=$C --ringwrong-color=$W --inside-color=$B --ring-color=$D --line-color=$B --separator-color=$D --verif-color=$T --wrong-color=$T --time-color=$T --date-color=$T --layout-color=$T --keyhl-color=$W  --bshl-color=$W  --screen 1  --blur 5  --clock --indicator --time-str="%H:%M:%S" --date-str="%A, %m %Y" --keylayout 2 --verif-text="Why should i even be checking this password? its wrong anyways." --wrong-text="Nice try ;)" --greeter-text="You want to use the computer? Good luck finding the password..." --greeter-color=$V
+      ''}";
+    };
+
+    wantedBy = [ "sleep.target" ];
+  };
+
   # services.fwupd.enable = true;
 
   # virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
     pciutils
+    libimobiledevice
     virt-manager
+    libstrangle
     # (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ];})
   ];
+
+  services.usbmuxd.enable = true;
 
   hardware.keyboard.zsa.enable = true;
 

@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "/home/nix/nixpkgs";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "/home/nix/programming/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -110,6 +110,11 @@
             network
             #printer
             ({ pkgs, ... }: {
+
+              programs.weylus = {
+                enable = true;
+                users = ["nix"];
+              };
 
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
