@@ -246,7 +246,6 @@ in with import ./colors.nix { }; {
         '';
       }
       vim-bufferline
-      jedi-vim
       /* {
          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
          config = ''

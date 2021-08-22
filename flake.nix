@@ -19,7 +19,7 @@
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    #osu-nix.url = "github:fufexan/osu.nix";
+    nix-gaming.url = "github:fufexan/nix-gaming";
 
     /* nixpkgs-mozilla = {
          url = github:mozilla/nixpkgs-mozilla;
@@ -38,7 +38,7 @@
 
   outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
     # , neovim-nightly
-    , agenix, osu-nix, darwin }@inputs:
+    , agenix, nix-gaming, darwin }@inputs:
     utils.lib.systemFlake {
       inherit self inputs;
 
@@ -102,7 +102,7 @@
             ./hosts/pain/configuration.nix
             xorg
             v4l2
-            #osu-nix.nixosModule
+            nix-gaming.nixosModule
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
@@ -113,7 +113,7 @@
 
               programs.weylus = {
                 enable = true;
-                users = ["nix"];
+                users = [ "nix" ];
               };
 
               home-manager.useUserPackages = true;
@@ -163,7 +163,7 @@
                     store-path
                     mute
 
-                    #helvum
+                    helvum
                     /* (osu-nix.packages.x86_64-linux.osu-stable.override {
                          verbose = true;
                        })

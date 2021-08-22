@@ -9,7 +9,7 @@ let
     #(mkCache "neovim-nightly")
     (mkCache "nix-community")
     (mkCache "veloren-nix")
-    (mkCache "osu-nix")
+    (mkCache "nix-gaming")
   ];
   TZ = "America/Guatemala";
 in {
@@ -87,7 +87,7 @@ in {
       #"neovim-nightly.cachix.org-1:feIoInHRevVEplgdZvQDjhp11kYASYCE2NGY9hNrwxY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-      "osu-nix.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+      "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
     ];
 
     nixPath = [ "nixpkgs=${pkgs.path}" "home-manager=${inputs.home-manager}" ];

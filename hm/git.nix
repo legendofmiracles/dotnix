@@ -24,12 +24,14 @@
         "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
     };
     extraConfig = {
-      url = { "ssh://git@github.com" = { insteadOf = [ "https://github.com" "gh" ]; }; };
+      url = {
+        "ssh://git@github.com" = { insteadOf = [ "https://github.com" "gh" ]; };
+      };
       url = { "ssh://git@gitlab.com" = { insteadOf = "https://gitlab.com"; }; };
       url = {
         "ssh://git@bitbucket.org" = { insteadOf = "https://bitbucket.org"; };
       };
-      pull = { rebase = true; };
+      pull = { twohead = "ort"; };
       advice = {
         #  detachedHead = false;
       };

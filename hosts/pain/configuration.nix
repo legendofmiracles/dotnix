@@ -10,6 +10,9 @@
   # documentation.enable = false;
 
   boot = {
+
+    binfmt.emulatedSystems = [ "armv7l-linux" ];
+
     initrd = {
       availableKernelModules =
         [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
@@ -75,23 +78,23 @@
   # Enable sound.
   sound.enable = true;
 
-  /* services.pipewire = {
-     enable = true;
-     alsa = {
-       enable = true;
-       support32Bit = true;
-     };
+  /*services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
 
-     pulse.enable = true;
+    pulse.enable = true;
 
-     lowLatency = {
-       enable = true;
-       # defaults (no need to be set unless modified)
-       quantum = 32;
-       rate = 48000;
-     };
-     };
-  */
+    lowLatency = {
+      enable = true;
+      # defaults (no need to be set unless modified)
+      quantum = 32;
+      rate = 48000;
+    };
+  };*/
+
   hardware.pulseaudio.enable = true;
 
   # make pipewire realtime-capable
@@ -135,10 +138,7 @@
     description = "Lock the screen";
     before = [ "sleep.target" ];
 
-    environment = {
-      DISPLAY=":0";
-    };
-
+    environment = { DISPLAY = ":0"; };
 
     serviceConfig = {
       User = "nix";
