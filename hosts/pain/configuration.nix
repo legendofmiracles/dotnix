@@ -1,22 +1,21 @@
 { config, pkgs, lib, modulesPath, inputs, ... }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+  #imports = [
+    #(modulesPath + "/installer/scan/not-detected.nix")
     #(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     #(modulesPath + "/installer/cd-dvd/channel.nix")
-  ];
+  #];
 
   # documentation.enable = false;
 
   boot = {
 
-    binfmt.emulatedSystems = [ "armv7l-linux" ];
+    #binfmt.emulatedSystems = [ "armv7l-linux" ];
 
     initrd = {
       availableKernelModules =
         [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-      kernelModules = [ ];
     };
     cleanTmpDir = true;
     loader = {
@@ -182,7 +181,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "performance";
 
   system.stateVersion = "21.05";
 }

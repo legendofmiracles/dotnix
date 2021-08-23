@@ -44,9 +44,9 @@ in {
       fish_greeting = "";
     };
 
-    systemPackages = with pkgs; [ man-pages ];
+    systemPackages = with pkgs; [ man-pages fup-repl ];
 
-    shellAliases = { nix-repl = "nix repl ${inputs.utils.lib.repl}"; };
+    #shellAliases = { nix-repl = "nix repl ${inputs.utils.lib.repl}"; };
   };
 
   users.users.nix = {
@@ -61,7 +61,7 @@ in {
   nix = {
     systemFeatures = [ "recursive-nix" "kvm" "nixos-test" ];
 
-    extraOptions = lib.mkForce ''
+    extraOptions = ''
       keep-outputs = true
       keep-derivations = true
       experimental-features = nix-command flakes ca-derivations recursive-nix

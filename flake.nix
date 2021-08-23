@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "/home/nix/programming/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "/home/nix/programming/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -17,7 +17,7 @@
 
     agenix.url = "github:ryantm/agenix";
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
@@ -111,10 +111,10 @@
             #printer
             ({ pkgs, ... }: {
 
-              programs.weylus = {
+              /*programs.weylus = {
                 enable = true;
                 users = [ "nix" ];
-              };
+              };*/
 
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
@@ -139,7 +139,7 @@
                     qt
                     newsboat
                     test
-                    proton
+                    #proton
                     #aw
                     fish
                     # my config
