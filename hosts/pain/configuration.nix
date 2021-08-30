@@ -60,7 +60,7 @@
   networking.hostName = "pain";
   networking.interfaces = {
     enp8s0.useDHCP = true;
-    wlp0s20f3.useDHCP = true;
+    #wlp0s20f3.useDHCP = true;
   };
 
   #services.flatpak.enable = true;

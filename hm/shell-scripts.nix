@@ -160,4 +160,5 @@ rec {
       lib.getBin pkgs.i3lock-color
     }/bin/i3lock-color --insidevercolor=$C --ringvercolor=$V --insidewrongcolor=$C --ringwrongcolor=$W --insidecolor=$B --ringcolor=$D --linecolor=$B --separatorcolor=$D --verifcolor=$T --wrongcolor=$T --timecolor=$T --datecolor=$T --layoutcolor=$T --keyhlcolor=$W  --bshlcolor=$W  --screen 1  --blur 5  --clock --indicator --timestr="%H:%M:%S" --datestr="%A, %m %Y" --keylayout 2 --veriftext="Why should i even be checking this password? its wrong anyways." --wrongtext="Nice try ;)" --greetertext="u wanna use the computer? good luck finding the password..." --greetercolor=$V
   '';
+  yt = pkgs.writeShellScriptBin "yt" ''${pkgs.yt-dlp}/bin/yt-dlp'';
 }

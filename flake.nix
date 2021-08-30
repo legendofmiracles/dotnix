@@ -161,6 +161,7 @@
                     rclip
                     command-not-found
                     store-path
+                    yt
                     mute
 
                     helvum
