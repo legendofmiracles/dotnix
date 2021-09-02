@@ -133,6 +133,7 @@ in with import ./colors.nix { }; {
       registers-nvim
       telescope-nvim
       colorizer
+      haskell-vim
       {
         plugin = vim-surround;
         config = ''
@@ -298,7 +299,9 @@ in with import ./colors.nix { }; {
     ];
     extraConfig = ''
       set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
+
       set autoindent
+
       set showmatch
       set mouse=a
       set spell

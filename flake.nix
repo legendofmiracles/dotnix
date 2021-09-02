@@ -111,10 +111,11 @@
             #printer
             ({ pkgs, ... }: {
 
-              /*programs.weylus = {
-                enable = true;
-                users = [ "nix" ];
-              };*/
+              /* programs.weylus = {
+                   enable = true;
+                   users = [ "nix" ];
+                 };
+              */
 
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;

@@ -2,9 +2,9 @@
 
 {
   #imports = [
-    #(modulesPath + "/installer/scan/not-detected.nix")
-    #(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    #(modulesPath + "/installer/cd-dvd/channel.nix")
+  #(modulesPath + "/installer/scan/not-detected.nix")
+  #(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+  #(modulesPath + "/installer/cd-dvd/channel.nix")
   #];
 
   # documentation.enable = false;
@@ -34,27 +34,26 @@
     kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-    fsType = "btrfs";
-    options = [ "subvol=nixos" "compress=zstd" "noatime" ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-    fsType = "btrfs";
-    options = [ "subvol=home" "compress=zstd:11" "noatime" ];
-  };
-
-  fileSystems."/games" = {
-    device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
-    fsType = "btrfs";
-    options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/A5AB-E355";
-    fsType = "vfat";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=nixos" "compress=zstd" "noatime" ];
+    };
+    "/home" = {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=home" "compress=zstd:11" "noatime" ];
+    };
+    "/games" = {
+      device = "/dev/disk/by-uuid/929d345e-81a3-480c-9029-2aa5414fc8cf";
+      fsType = "btrfs";
+      options = [ "subvol=steam" "compress=zstd" "noatime" "mode=777" ];
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/A5AB-E355";
+      fsType = "vfat";
+    };
   };
 
   networking.hostName = "pain";
@@ -77,22 +76,23 @@
   # Enable sound.
   sound.enable = true;
 
-  /*services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
+  /* services.pipewire = {
+       enable = true;
+       alsa = {
+         enable = true;
+         support32Bit = true;
+       };
 
-    pulse.enable = true;
+       pulse.enable = true;
 
-    lowLatency = {
-      enable = true;
-      # defaults (no need to be set unless modified)
-      quantum = 32;
-      rate = 48000;
-    };
-  };*/
+       lowLatency = {
+         enable = true;
+         # defaults (no need to be set unless modified)
+         quantum = 32;
+         rate = 48000;
+       };
+     };
+  */
 
   hardware.pulseaudio.enable = true;
 
@@ -165,13 +165,14 @@
 
   environment.systemPackages = with pkgs; [
     pciutils
-    libimobiledevice
+    #libimobiledevice
     virt-manager
     libstrangle
     # (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ];})
   ];
 
-  services.usbmuxd.enable = true;
+  # enable if you want to do stuff with ios
+  #services.usbmuxd.enable = true;
 
   hardware.keyboard.zsa.enable = true;
 

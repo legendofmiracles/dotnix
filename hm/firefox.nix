@@ -8,36 +8,57 @@ in {
       legend = {
         isDefault = true;
         settings = {
+          # enable custom userchrome
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
           # doesn't work anymore
-          # "browser.search.defaultenginename" = "DuckDuckGo";
+          #"browser.search.defaultenginename" = "DuckDuckGo";
+
+          # set the font
           "font.name.monospace.x-western" = font;
           "font.name.sans-serif.x-western" = font;
           "font.name.serif.x-western" = font;
+
+          # turn of google safebrowsing (it literally sends a sha sum of everything you download to google)
           "browser.safebrowsing.downloads.remote.block_dangerous" = false;
           "browser.safebrowsing.downloads.remote.block_dangerous_host" = false;
           "browser.safebrowsing.downloads.remote.block_potentially_unwanted" =
             false;
           "browser.safebrowsing.downloads.remote.block_uncommon" = false;
-          "toolkit.telemetry.enabled" = false;
           "browser.safebrowsing.downloads.remote.url" = false;
           "browser.safebrowsing.downloads.remote.enabled" = false;
           "browser.safebrowsing.downloads.enabled" = false;
+
+          # telemetry
+          "toolkit.telemetry.enabled" = false;
           "toolkit.telemetry.unified" = false;
           "toolkit.telemetry.archive.enabled" = false;
-          "experiments.supported" = false;
-          "experiments.enabled" = false;
-          "experiments.manifest.uri" = "";
           "datareporting.healthreport.uploadEnabled" = false;
           "datareporting.healthreport.service.enabled" = false;
           "datareporting.policy.dataSubmissionEnabled" = false;
+
+          # experiments
+          "experiments.supported" = false;
+          "experiments.enabled" = false;
+          "experiments.manifest.uri" = "";
+
           "browser.discovery.enabled" = false;
           "extensions.shield-recipe-client.enabled" = false;
           "app.shield.optoutstudies.enabled" = false;
           "loop.logDomains" = false;
+
+          # iirc hides pocket stories
           "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+
+          # third party cookies
           "network.cookie.cookieBehavior" = 1;
+
+          # default browser
           "browser.shell.checkDefaultBrowser" = false;
+
+          # download location
+          "browser.download.dir" = "/home/nix/downloads";
+          "browser.download.folderList" = 2;
         };
 
         userChrome = ''
