@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "/home/nix/programming/nixpkgs";
+    local-nixpkgs.url = "/home/nix/programming/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -17,7 +17,7 @@
 
     agenix.url = "github:ryantm/agenix";
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
@@ -36,7 +36,8 @@
     darwin.url = "github:lnl7/nix-darwin";
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur, nixos-hardware
+  outputs = { self, nixpkgs, local-nixpkgs, home-manager, utils, nur
+    , nixos-hardware
     # , neovim-nightly
     , agenix, nix-gaming, darwin }@inputs:
     utils.lib.systemFlake {
@@ -109,103 +110,122 @@
             fonts
             network
             #printer
-            ({ pkgs, ... }: {
+            ({ pkgs, ... }:
+              let
+                mkDevelopModule = m: {
+                  disabledModules = [ m ];
+                  imports = [ "${local-nixpkgs}/nixos/modules/${m}" ];
+                };
+              in {
+                # development/testing purposes
+                imports =
+                  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
 
-              /* programs.weylus = {
-                   enable = true;
-                   users = [ "nix" ];
-                 };
-              */
+                /* programs.weylus = {
+                     enable = true;
+                     users = [ "nix" ];
+                   };
+                */
 
-              home-manager.useUserPackages = true;
-              home-manager.useGlobalPkgs = true;
-              home-manager.users.nix = ({ config, pkgs, lib, ... }:
-                with import ./hm/shell-scripts.nix {
-                  inherit pkgs inputs lib;
-                }; {
-                  imports = [
-                    firefox
-                    mangohud
-                    git
-                    htop
-                    defaults
-                    discord-message-sender
-                    alacritty
-                    mori
-                    dunst
-                    mpv
-                    xorg-hm
-                    pass
-                    neofetch
-                    qt
-                    newsboat
-                    test
-                    #proton
-                    #aw
-                    fish
-                    # my config
-                    espanso
-                    nvim
-                    gtk
-                    # the module
-                    espanso-m
-                  ];
-
-                  home.packages = with pkgs; [
-                    # custom shell script
-                    zerox0
-                    text_from_image
-                    auto_clicker
-                    nvidia-offload
-                    giphsh
-                    discord-id
-                    rclip
-                    command-not-found
-                    store-path
-                    yt
-                    mute
-
-                    helvum
-                    /* (osu-nix.packages.x86_64-linux.osu-stable.override {
-                         verbose = true;
-                       })
-                    */
-                    ffmpeg
-                    lutris
-                    obs-studio
-                    gimp
-                    lucky-commit
-                    legendary-gl
-                    pavucontrol
-                    multimc
-                    qrcp
-                    nix-review
-                    imagemagick
-                    tmpmail
-                    cliscord
-
-                    keymapviz
-                    autobahn
-                    #discover
-                  ];
-
-                  services.discord.wednesday = {
-                    desc = "It's wednesday my dudes!";
-                    server = "Best Server";
-                    channel = "main";
-                    content =
-                      "<:wednesday:806483241045196841> It's Wednesday my dudes!";
-                    when = "Wed *-*-* 00:00:00";
+                services.minecraft-server = {
+                  enable = false;
+                  eula = true;
+                  fabric = {
+                    enable = true;
+                    version = "1.16.5";
+                    mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
                   };
-                  services.discord.update = {
-                    desc = "update timer for creepylove";
-                    server = "lolsu-keks";
-                    channel = "general";
-                    content = "<@336863335431798785> update!!!11";
-                    when = "Fri *-*-* 00:00:00";
-                  };
-                });
-            })
+                };
+
+                home-manager.useUserPackages = true;
+                home-manager.useGlobalPkgs = true;
+                home-manager.users.nix = ({ config, pkgs, lib, ... }:
+                  with import ./hm/shell-scripts.nix {
+                    inherit pkgs inputs lib;
+                  }; {
+                    imports = [
+                      firefox
+                      mangohud
+                      git
+                      htop
+                      defaults
+                      discord-message-sender
+                      alacritty
+                      mori
+                      dunst
+                      mpv
+                      xorg-hm
+                      pass
+                      neofetch
+                      qt
+                      newsboat
+                      test
+                      #proton
+                      #aw
+                      fish
+                      # my config
+                      espanso
+                      nvim
+                      gtk
+                      # the module
+                      espanso-m
+                    ];
+
+                    home.packages = with pkgs; [
+                      # custom shell script
+                      zerox0
+                      text_from_image
+                      auto_clicker
+                      nvidia-offload
+                      giphsh
+                      discord-id
+                      rclip
+                      command-not-found
+                      store-path
+                      yt
+                      mute
+
+                      helvum
+                      /* (osu-nix.packages.x86_64-linux.osu-stable.override {
+                           verbose = true;
+                         })
+                      */
+                      ffmpeg
+                      lutris
+                      obs-studio
+                      gimp
+                      lucky-commit
+                      legendary-gl
+                      pavucontrol
+                      multimc
+                      qrcp
+                      nix-review
+                      imagemagick
+                      tmpmail
+                      cliscord
+
+                      keymapviz
+                      autobahn
+                      #discover
+                    ];
+
+                    services.discord.wednesday = {
+                      desc = "It's wednesday my dudes!";
+                      server = "Best Server";
+                      channel = "main";
+                      content =
+                        "<:wednesday:806483241045196841> It's Wednesday my dudes!";
+                      when = "Wed *-*-* 00:00:00";
+                    };
+                    services.discord.update = {
+                      desc = "update timer for creepylove";
+                      server = "lolsu-keks";
+                      channel = "general";
+                      content = "<@336863335431798785> update!!!11";
+                      when = "Fri *-*-* 00:00:00";
+                    };
+                  });
+              })
           ];
         };
         pi = {

@@ -1106,10 +1106,11 @@ in {
       ublock-origin
       unpaywall
       no-pdf-download
-      to-deepl
+      #to-deepl
       sponsorblock
       noscript
-      /* (buildFirefoxXpiAddon {
+      translate-web-pages
+      (buildFirefoxXpiAddon {
            pname = "chess";
            version = "2.0.1";
            addonId = "{ac1b5818-9b18-470f-91d8-c3a446e9cf87}";
@@ -1120,7 +1121,6 @@ in {
            platforms = platforms.all;
            };
          })
-      */
     ];
   };
 }

@@ -130,4 +130,9 @@ in {
   services.journald.extraConfig = "SystemMaxUse=50M";
 
   nixpkgs.config.allowUnfree = true;
+
+  documentation = {
+    nixos.enable = false;
+    info.enable = false;
+  };
 }

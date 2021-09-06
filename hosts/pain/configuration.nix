@@ -56,6 +56,8 @@
     };
   };
 
+  services.ratbagd.enable = false;
+
   networking.hostName = "pain";
   networking.interfaces = {
     enp8s0.useDHCP = true;
@@ -108,7 +110,7 @@
     enable = true;
     wrappedBinaries = {
       chromium = {
-        executable = "${lib.getBin pkgs.ungoogled-chromium}/bin/chromium";
+        executable = "${lib.getBin pkgs.chromium}/bin/chromium";
         profile = "${pkgs.firejail}/etc/firejail/chromium.profile";
       };
     };

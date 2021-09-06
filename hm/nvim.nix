@@ -448,14 +448,12 @@ in with import ./colors.nix { }; {
       {
         "languageserver": {
           "nix": {
-            "command": "rnix-lsp",
+            "command": "${pkgs.rnix-lsp}/bin/rnix-lsp",
             "filetypes": [
               "nix"
             ]
-         }
-        },
-        "languageserver": {
-          "haskell": {
+         },
+        "haskell": {
             "command": "haskell-language-server-wrapper",
             "args": ["--lsp"],
             "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
