@@ -12,4 +12,5 @@ final: prev: {
   espanso-no-notify = prev.callPackage ./espanso { };
   discover = prev.callPackage ./discover { };
   autobahn = prev.callPackage ./autobahn { };
+  present = prev.callPackage ./present { };
 }

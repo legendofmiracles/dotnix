@@ -56,7 +56,7 @@
     };
   };
 
-  services.ratbagd.enable = false;
+  #services.ratbagd.enable = false;
 
   networking.hostName = "pain";
   networking.interfaces = {
