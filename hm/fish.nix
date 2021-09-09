@@ -281,7 +281,7 @@
     fish_command_not_found = "command-not-found $argv";
     fuck = ''
       set -l fucked_up_command $history[1]
-      env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command
+      env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 ${pkgs.thefuck}/bin/thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command
       if [ "$unfucked_command" != "" ]
         eval $unfucked_command
         builtin history delete --exact --case-sensitive -- $fucked_up_command
@@ -299,9 +299,6 @@
     '';
     r = ''
       git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --fast --flake $NIXOS_CONFIG && ls --color=auto -1 /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd diff
-    '';
-    bne = ''
-      sed -i 0,/"# Last line"/{s/"# Last line"/"$argv[1]\n    # Last line"/} ~/dotnix/HM/home.nix
     '';
     fish_prompt = ''
         set -l last_pipestatus $pipestatus

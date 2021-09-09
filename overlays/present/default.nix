@@ -9,7 +9,13 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-l9W5L4LD9qRo3rLBkgd2I/aDaj+ucib5UYg+X4RYg6c=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ click pyyaml pyfiglet asciimatics mistune ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    pyyaml
+    pyfiglet
+    asciimatics
+    mistune
+  ];
 
   pythonImportsCheck = [ "present" ];
 

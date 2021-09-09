@@ -195,7 +195,6 @@
                       obs-studio
                       gimp
                       lucky-commit
-                      legendary-gl
                       pavucontrol
                       multimc
                       qrcp

@@ -23,7 +23,6 @@
     file
     fd
     zip
-    thefuck
   ];
 
   xdg = {
