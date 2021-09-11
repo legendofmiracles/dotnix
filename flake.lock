@@ -5,17 +5,18 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1627822587,
-        "narHash": "sha256-AAFgsVe/ahLh1Ij2o98x6IMxz3Z+Tr97bFwa4nthB1w=",
-        "owner": "ryantm",
-        "repo": "agenix",
-        "rev": "e6752e7b8592502df42066f156165471e62d902d",
-        "type": "github"
+        "lastModified": 1631316605,
+        "narHash": "sha256-bBvrjUS0qfgC4LPFthGJ5E8Fl0f5UvlrCB3o5Bnn9ys=",
+        "ref": "workaround54",
+        "rev": "375a33cd97ada536fd1d24b679ccfd61e2db1af7",
+        "revCount": 83,
+        "type": "git",
+        "url": "file:///home/nix/programming/agenix"
       },
       "original": {
-        "owner": "ryantm",
-        "repo": "agenix",
-        "type": "github"
+        "ref": "workaround54",
+        "type": "git",
+        "url": "file:///home/nix/programming/agenix"
       }
     },
     "darwin": {
@@ -71,11 +72,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1630994117,
-        "narHash": "sha256-48kEZupGc1BKeTDLK1ctgMCxLOaiVt5KLliKf7qwWNM=",
+        "lastModified": 1631134124,
+        "narHash": "sha256-C17wJ2HyuFZllJ/PbpFuuDjkzWvg8np9UIAdSrpuwS0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0dab813748b86c5bde5fdfebcbce4bc184c93b32",
+        "rev": "039f786e609fdb3cfd9c5520ff3791750c3eaebf",
         "type": "github"
       },
       "original": {
@@ -86,13 +87,18 @@
     },
     "local-nixpkgs": {
       "locked": {
-        "narHash": "sha256-Qc1KVavq3Y2R9gnvSaVjnknmg4Ik4cmNXhz8wg7Cvgk=",
-        "path": "/home/nix/programming/nixpkgs",
-        "type": "path"
+        "lastModified": 1630855166,
+        "narHash": "sha256-8EgQ9vwIQg/Q0NwczxSfqc4N6QH+rsA0sdKWa2PNG/0=",
+        "ref": "fabric",
+        "rev": "aa6707113ed2a59a9dbb9bb96d76ef3a440a3aca",
+        "revCount": 312408,
+        "type": "git",
+        "url": "file:///home/nix/programming/nixpkgs"
       },
       "original": {
-        "path": "/home/nix/programming/nixpkgs",
-        "type": "path"
+        "ref": "fabric",
+        "type": "git",
+        "url": "file:///home/nix/programming/nixpkgs"
       }
     },
     "nix-gaming": {
@@ -160,10 +166,10 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1630850248,
-        "narHash": "sha256-OzJi6Olf7mSVhGt3W7qOMVP5Qk1lH60zlHeCcITzfv0=",
-        "path": "/nix/store/wm91hzc8akq56pcygclif1131sh3l1al-source",
-        "rev": "23d5823337f4502dfa17e192d8c53a47cabcb6b4",
+        "lastModified": 1631206977,
+        "narHash": "sha256-o3Dct9aJ5ht5UaTUBzXrRcK1RZt2eG5/xSlWJuUCVZM=",
+        "path": "/nix/store/yfjhaanny02sk592mnw2ddr87qalki49-source",
+        "rev": "4f6d8095fd51954120a1d08ea5896fe42dc3923b",
         "type": "path"
       },
       "original": {
@@ -188,11 +194,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1630938467,
-        "narHash": "sha256-GiSjPKDmFJPaM10lMWhwOrZViAB2kLX6NsHjRSZ/vWE=",
+        "lastModified": 1631206977,
+        "narHash": "sha256-o3Dct9aJ5ht5UaTUBzXrRcK1RZt2eG5/xSlWJuUCVZM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "efcfe3676268c789e78a22b20a94c00227d20bc8",
+        "rev": "4f6d8095fd51954120a1d08ea5896fe42dc3923b",
         "type": "github"
       },
       "original": {
@@ -204,11 +210,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1631036416,
-        "narHash": "sha256-bq+iMiMmwtCM8EMgzIjXdTOptJstw89d5ax49qoMIro=",
+        "lastModified": 1631318136,
+        "narHash": "sha256-/nvfjOkSE2F+ewrxIiDIxwXXr2WMXx3IWMGg37N6eJw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "fcada07ce09876f0fd01776370a8b503fe47fe7a",
+        "rev": "0081d13947a585f1a8454257c5e8da3a9e958f80",
         "type": "github"
       },
       "original": {
@@ -288,11 +294,11 @@
         "flake-utils": "flake-utils_2"
       },
       "locked": {
-        "lastModified": 1630871058,
-        "narHash": "sha256-TAkWqc4b+ssyGb+jf5gcDskGWkPPbgHwzJKs4etU+LU=",
+        "lastModified": 1631138716,
+        "narHash": "sha256-hp+/dyKWtt9p0MD7dNTR1foRWrjcitUp3848OnRQz7w=",
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "afaa6ea2a7a1df5e000325739d98a32025979137",
+        "rev": "51169bf93d010a874bc8fe8ea3dee1c24471b697",
         "type": "github"
       },
       "original": {

@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    local-nixpkgs.url = "/home/nix/programming/nixpkgs";
+    local-nixpkgs.url = "git+file:///home/nix/programming/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -15,7 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix.url = "github:ryantm/agenix";
+    #agenix.url = "github:ryantm/agenix";
+    agenix.url = "git+file:///home/nix/programming/agenix?ref=workaround54";
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
@@ -110,7 +111,7 @@
             fonts
             network
             #printer
-            ({ pkgs, ... }:
+            ({ pkgs, lib, ... }:
               let
                 mkDevelopModule = m: {
                   disabledModules = [ m ];
@@ -126,6 +127,8 @@
                      users = [ "nix" ];
                    };
                 */
+
+                #system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
                 services.minecraft-server = {
                   enable = false;

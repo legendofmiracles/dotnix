@@ -10,7 +10,6 @@
   # documentation.enable = false;
 
   boot = {
-
     #binfmt.emulatedSystems = [ "armv7l-linux" ];
 
     initrd = {
@@ -29,8 +28,8 @@
       options snd-hda-intel dmic_detect=0
       options probe_mask=1
     '';
-    # blacklistedKernelModules = [ "i915" ];
-    # kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
+    #blacklistedKernelModules = [ "i915" ];
+    #kernelParams = [ "rcutree.rcu_idle_gp_delay=1" ];
     kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
   };
 
@@ -68,9 +67,6 @@
   #xdg.portal.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
-
-  # hardware.enableAllFirmware = true;
-  # Configure keymap in X11
 
   # Enable CUPS to print documents.
   #services.printing.enable = true;
@@ -161,9 +157,9 @@
     wantedBy = [ "sleep.target" ];
   };
 
-  # services.fwupd.enable = true;
+  #services.fwupd.enable = true;
 
-  # virtualisation.libvirtd.enable = true;
+  #virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
     pciutils
@@ -176,12 +172,33 @@
   # enable if you want to do stuff with ios
   #services.usbmuxd.enable = true;
 
+  programs.cowsay = {
+    enable = true;
+    cows.giraffe = ''
+      $thoughts
+       $thoughts
+        $thoughts
+           ^__^
+           (oo)
+           (__)
+             \\ \\
+              \\ \\
+               \\ \\
+                \\ \\
+                 \\ \\
+                  \\ \\
+                   \\ \\
+                    \\ \\______
+                     \\       )\\/\\/\\
+                      ||----w |
+                      ||     ||
+    '';
+  };
+
   hardware.keyboard.zsa.enable = true;
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
   powerManagement.cpuFreqGovernor = "performance";

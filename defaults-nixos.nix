@@ -104,30 +104,7 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
 
-  programs.cowsay = {
-    enable = true;
-    cows.giraffe = ''
-      $thoughts
-       $thoughts
-        $thoughts
-           ^__^
-           (oo)
-           (__)
-             \\ \\
-              \\ \\
-               \\ \\
-                \\ \\
-                 \\ \\
-                  \\ \\
-                   \\ \\
-                    \\ \\______
-                     \\       )\\/\\/\\
-                      ||----w |
-                      ||     ||
-    '';
-  };
-
-  services.journald.extraConfig = { SystemMaxUse = "50M"; };
+  services.journald.extraConfig = "SystemMaxUse=50M";
 
   nixpkgs.config.allowUnfree = true;
 
