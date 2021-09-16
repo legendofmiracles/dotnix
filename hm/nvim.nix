@@ -8,7 +8,8 @@ let
   '';
 
   mark-radar = pkgs.vimUtils.buildVimPlugin {
-    name = "mark-radar";
+    pname = "mark-radar";
+    version = "";
     src = pkgs.fetchFromGitHub {
       owner = "winston0410";
       repo = "mark-radar.nvim";
@@ -18,7 +19,8 @@ let
   };
 
   gesture = pkgs.vimUtils.buildVimPlugin {
-    name = "gesture";
+    pname = "gesture";
+    version = "";
     src = pkgs.fetchFromGitHub {
       owner = "legendofmiracles";
       repo = "gesture.nvim";
@@ -28,17 +30,19 @@ let
   };
 
   kommentary = pkgs.vimUtils.buildVimPlugin rec {
-    name = "kommentary";
+    pname = "kommentary";
+    version = "";
     src = pkgs.fetchFromGitHub {
       owner = "b3nj5m1n";
-      repo = name;
+      repo = pname;
       rev = "f0b6d75df0a263fc849b0860dc8a27f4bed743db";
       sha256 = "0z6rcvlgp00hrgjff31vwssrq000pwwak5kw6k1xz2349n01chsa";
     };
   };
 
   luadev = pkgs.vimUtils.buildVimPlugin {
-    name = "luadev";
+    pname = "luadev";
+    version = "";
     src = pkgs.fetchFromGitHub {
       owner = "bfredl";
       repo = "nvim-luadev";
@@ -48,7 +52,8 @@ let
   };
 
   venn = pkgs.vimUtils.buildVimPlugin {
-    name = "venn";
+    pname = "venn";
+    version = "";
     src = pkgs.fetchFromGitHub {
       owner = "jbyuki";
       repo = "venn.nvim";
@@ -99,6 +104,7 @@ in with import ./colors.nix { }; {
            '';
          }
       */
+      indent-blankline-nvim
       {
         plugin = vim-sneak;
         config = ''

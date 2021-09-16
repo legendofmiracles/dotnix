@@ -12,11 +12,10 @@
 
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #agenix.url = "github:ryantm/agenix";
-    agenix.url = "git+file:///home/nix/programming/agenix?ref=workaround54";
+    agenix.url = "github:ryantm/agenix";
 
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
@@ -45,17 +44,19 @@
       inherit self inputs;
 
       nixosModules = utils.lib.modulesFromList [
-        ./hm/test.nix
+        # the modules
+        ./modules/espanso-m.nix
+        ./modules/discord-message-sender.nix
+        ./modules/cowsay.nix
+        #./modules/weylus.nix
+        # my config
         ./xorg.nix
         ./hm/proton.nix
         ./hm/xorg-hm.nix
         ./hm/mangohud.nix
         ./hm/qt.nix
-        # the module
-        ./modules/espanso-m.nix
-        ./hm/dunst.nix
-        # my config
         ./hm/espanso.nix
+        ./hm/dunst.nix
         ./hm/defaults.nix
         ./hm/git.nix
         ./hm/gtk.nix
@@ -71,12 +72,10 @@
         ./defaults-nixos.nix
         ./hm/firefox.nix
         ./v4l2.nix
-        ./modules/discord-message-sender.nix
         ./network.nix
         ./hm/newsboat.nix
         ./printer.nix
         ./fonts.nix
-        ./modules/cowsay.nix
         ./hm/aw.nix
       ];
 
@@ -122,11 +121,10 @@
                 imports =
                   [ (mkDevelopModule "services/games/minecraft-server.nix") ];
 
-                /* programs.weylus = {
+                /*programs.weylus = {
                      enable = true;
                      users = [ "nix" ];
-                   };
-                */
+                   };*/
 
                 #system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
@@ -162,7 +160,6 @@
                       neofetch
                       qt
                       newsboat
-                      test
                       #proton
                       #aw
                       fish

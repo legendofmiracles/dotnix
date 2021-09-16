@@ -74,7 +74,7 @@
   # Enable sound.
   sound.enable = true;
 
-  /* services.pipewire = {
+  services.pipewire = {
        enable = true;
        alsa = {
          enable = true;
@@ -90,9 +90,8 @@
          rate = 48000;
        };
      };
-  */
 
-  hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.enable = true;
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;
@@ -164,14 +163,19 @@
   environment.systemPackages = with pkgs; [
     pciutils
     #libimobiledevice
-    virt-manager
+    #virt-manager
     libstrangle
-    # (steam.override { extraPkgs = pkgs: [ ibus wine winetricks ];})
+    /*(steam.override {
+      extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
+    })*/
   ];
+
+  #virtualisation.docker.enable = true;
 
   # enable if you want to do stuff with ios
   #services.usbmuxd.enable = true;
 
+  /*
   programs.cowsay = {
     enable = true;
     cows.giraffe = ''
@@ -194,6 +198,7 @@
                       ||     ||
     '';
   };
+  */
 
   hardware.keyboard.zsa.enable = true;
 

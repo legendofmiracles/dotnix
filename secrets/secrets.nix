@@ -11,7 +11,6 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH9Iplu28K+DBrpEcTdQ+wS8yNmSaCCvzuhYOspoyWR4";
   systems = [ system1 piSystem ];
 in {
-  "wpa_supplicant.conf.age".publicKeys = users ++ systems;
+  #"wpa_supplicant.conf.age".publicKeys = users ++ systems;
   "variables.age".publicKeys = users ++ systems;
-  "steam.age".publicKeys = users ++ systems;
 }

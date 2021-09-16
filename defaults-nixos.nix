@@ -24,15 +24,15 @@ in {
       owner = "nix";
       mode = "0400";
     };
-    wpa = {
+    /*wpa = {
       file = ./secrets/wpa_supplicant.conf.age;
       mode = "0400";
-    };
-    steam = {
+    };*/
+    /*steam = {
       file = ./secrets/steam.age;
       owner = "nix";
       mode = "0444";
-    };
+    };*/
   };
 
   home-manager.useUserPackages = true;
