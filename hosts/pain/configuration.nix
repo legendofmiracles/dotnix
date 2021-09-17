@@ -121,6 +121,14 @@
     };
   };
 
+  age.secrets = {
+    variables = {
+      file = ./secrets/variables.age;
+      owner = "nix";
+      mode = "0400";
+    };
+  };
+
   programs.noisetorch.enable = true;
 
   services.logind.lidSwitch = "suspend";

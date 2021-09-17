@@ -18,24 +18,24 @@ in {
     vendor.completions.enable = true;
   };
 
+  /*
   age.secrets = {
     variables = {
       file = ./secrets/variables.age;
       owner = "nix";
       mode = "0400";
     };
-    /*wpa = {
+    wpa = {
       file = ./secrets/wpa_supplicant.conf.age;
       mode = "0400";
-    };*/
+    };
     /*steam = {
       file = ./secrets/steam.age;
       owner = "nix";
       mode = "0444";
-    };*/
-  };
+    };
+  };*/
 
-  
   environment = {
     sessionVariables = {
       NIXOS_CONFIG = "/home/nix/dotnix";
@@ -79,7 +79,6 @@ in {
     };
 
     binaryCaches = caches;
-
     binaryCachePublicKeys = [
       "lom.cachix.org-1:R0BYXkgRm24m+gHUlYzrI2DxwNEOKWXF1/VdYSPCXyQ="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
