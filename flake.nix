@@ -36,7 +36,7 @@
     darwin.url = "github:lnl7/nix-darwin";
   };
 
-  outputs = { self, nixpkgs, local-nixpkgs, home-manager, utils, nur
+  outputs = { self, nixpkgs/*, local-nixpkgs*/, home-manager, utils, nur
     , nixos-hardware
     # , neovim-nightly
     , agenix, nix-gaming, darwin }@inputs:

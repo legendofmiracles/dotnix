@@ -84,22 +84,6 @@
         "type": "github"
       }
     },
-    "local-nixpkgs": {
-      "locked": {
-        "lastModified": 1631838948,
-        "narHash": "sha256-jVjr3M9tzE2snslGorwiJwNSHS6ArdLXLHNLT/bRLTQ=",
-        "ref": "fabric",
-        "rev": "c48e109a763cc6424ebbbf64b70b08841ae490d1",
-        "revCount": 312408,
-        "type": "git",
-        "url": "file:///home/nix/programming/nixpkgs"
-      },
-      "original": {
-        "ref": "fabric",
-        "type": "git",
-        "url": "file:///home/nix/programming/nixpkgs"
-      }
-    },
     "nix-gaming": {
       "inputs": {
         "nixpkgs": "nixpkgs_4",
@@ -244,7 +228,6 @@
         "agenix": "agenix",
         "darwin": "darwin",
         "home-manager": "home-manager",
-        "local-nixpkgs": "local-nixpkgs",
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
