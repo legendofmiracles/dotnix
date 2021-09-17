@@ -35,9 +35,7 @@ in {
     };*/
   };
 
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-
+  
   environment = {
     sessionVariables = {
       NIXOS_CONFIG = "/home/nix/dotnix";
