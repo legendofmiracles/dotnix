@@ -56,6 +56,9 @@ in {
     description = "Default user, nothing interesting";
     # hello dear attackers, this is only a default password, and changed immediately after installation
     initialPassword = "nix";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
+    ];
   };
 
   nix = {
@@ -64,17 +67,17 @@ in {
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      experimental-features = nix-command flakes ca-derivations recursive-nix
+      experimental-features = nix-command flakes
     '';
 
     # turn this off later!!!
     #useSandbox = false;
 
-    #package = pkgs.nixUnstable;
+    package = pkgs.nixUnstable;
     trustedUsers = [ "root" "nix" ];
 
     gc = {
-      automatic = true;
+      automatic = false;
       options = "--delete-older-than 7d";
       dates = "weekly";
     };

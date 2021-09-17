@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    local-nixpkgs.url = "git+file:///home/nix/programming/nixpkgs?ref=fabric";
+    #local-nixpkgs.url = "git+file:///home/nix/programming/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -48,6 +48,7 @@
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
+        ./modules/binfmt.nix
         #./modules/weylus.nix
         # my config
         ./xorg.nix
@@ -84,6 +85,7 @@
           utils.nixosModules.saneFlakeDefaults
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
+          #./boot-config.nix
         ];
         extraArgs = {
           inherit utils inputs # naersk nixpkgs-mozilla npmlock2nix
@@ -107,6 +109,7 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             cowsay
+            binfmt
             fonts
             network
             #printer
@@ -118,18 +121,17 @@
                 };
               in {
                 # development/testing purposes
-                imports =
-                  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
+                #imports =
+                #  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
 
                 /*programs.weylus = {
                      enable = true;
                      users = [ "nix" ];
                    };*/
 
-                #system.activationScripts.users.supportsDryActivation = lib.mkForce false;
-
+                /*
                 services.minecraft-server = {
-                  enable = false;
+                  enable = true;
                   eula = true;
                   fabric = {
                     enable = true;
@@ -137,6 +139,7 @@
                     mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
                   };
                 };
+                */
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;
@@ -209,6 +212,11 @@
                       #discover
                     ];
 
+                    services.kdeconnect = {
+                      enable = true;
+                      indicator = true;
+                    };
+
                     services.discord.wednesday = {
                       desc = "It's wednesday my dudes!";
                       server = "Best Server";
@@ -229,11 +237,11 @@
           ];
         };
         pi = {
+          builder = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem;
           system = "aarch64-linux";
           modules = with self.nixosModules; [
             # system wide config
             ./hosts/pi/configuration.nix
-            network
             home-manager.nixosModules.home-manager
             ({ pkgs, ... }: {
               home-manager.users.nix = ({ config, pkgs, ... }:
@@ -245,7 +253,6 @@
                   home.packages = with pkgs; [
                     # custom shell script
                     zerox0
-                    store-path
                     command-not-found
 
                   ];

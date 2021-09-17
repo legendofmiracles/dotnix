@@ -440,7 +440,7 @@ with import ./colors.nix { }; {
     not-when-audio = true;
     timers = [
       {
-        delay = 60;
+        delay = 180;
         command = "${pkgs.writeShellScript "lock" ''
           C='0xe9e922'
           D='#ff00ffcc'

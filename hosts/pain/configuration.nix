@@ -1,13 +1,8 @@
 { config, pkgs, lib, modulesPath, inputs, ... }:
 
 {
-  #imports = [
-  #(modulesPath + "/installer/scan/not-detected.nix")
-  #(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-  #(modulesPath + "/installer/cd-dvd/channel.nix")
-  #];
-
-  # documentation.enable = false;
+  # BINFMT support
+  #qemu-user.aarch64 = true;
 
   boot = {
     #binfmt.emulatedSystems = [ "armv7l-linux" ];
