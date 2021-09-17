@@ -224,7 +224,7 @@
                       #present
                       autobahn
                       #discover
-                      #ab-street
+                      ab-street
                     ];
 
                     services.kdeconnect = {

@@ -42,4 +42,24 @@
     device = "/swapfile";
     size = 1024;
   }];
+
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "pain";
+      systems = [ "x86_64-linux" "aarch64-linux" ];
+      maxJobs = 12;
+      speedFactor = 10;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    }
+  ];
+
+  programs.ssh.extraConfig = ''
+    Host builder
+      HostName 192.168.1.21
+      Port 22
+      User nix-build-user
+      IdentitiesOnly yes
+      IdentityFile /home/nix/.ssh/pi
+  '';
 }

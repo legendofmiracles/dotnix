@@ -17,6 +17,14 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ alsa-lib pango ];
 
+  preBuild = ''
+    echo hi
+    cargo run --bin updater -- --minimal
+    echo bye
+
+    cd game
+  '';
+
   meta = with lib; {
     description = "A traffic simulation game exploring how small changes to roads affect cyclists, transit users, pedestrians, and drivers.";
     homepage = "github.com/a-b-street/abstreet";
