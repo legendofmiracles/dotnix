@@ -205,6 +205,14 @@
                       pavucontrol
                       multimc
                       qrcp
+                      tealdeer
+                      nix-index
+                      bc
+                      nvd
+                      bat
+                      fzf
+                      jq
+                      manix
                       nix-review
                       imagemagick
                       tmpmail

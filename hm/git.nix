@@ -41,8 +41,8 @@
       init = { defaultBranch = "master"; };
       rebase = { abbreviateCommands = true; };
       pack = { threads = 0; };
-      core = { pager = "delta"; };
-      interactive = { diffFilter = "delta --color-only"; };
+      core = { pager = "${pkgs.delta}/bin/delta"; };
+      interactive = { diffFilter = "${pkgs.delta}/bin/delta --color-only"; };
       delta = {
         navigate = true;
         features = "side-by-side line-numbers decorations";

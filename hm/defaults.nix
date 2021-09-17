@@ -2,19 +2,9 @@
 
 {
   home.packages = with pkgs; [
-    htop
-    manix
-    jq
-    fzf
-    bat
-    delta
     tree
-    nvd
     wget
     ripgrep
-    tealdeer
-    nix-index
-    bc
     file
     fd
     zip
