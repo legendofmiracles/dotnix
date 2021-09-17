@@ -13,4 +13,5 @@ final: prev: {
   discover = prev.callPackage ./discover { };
   autobahn = prev.callPackage ./autobahn { };
   present = prev.callPackage ./present { };
+  ab-street = prev.callPackage ./ab-street { };
 }

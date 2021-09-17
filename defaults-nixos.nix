@@ -45,8 +45,6 @@ in {
     };
 
     systemPackages = with pkgs; [ man-pages fup-repl ];
-
-    #shellAliases = { nix-repl = "nix repl ${inputs.utils.lib.repl}"; };
   };
 
   users.users.nix = {

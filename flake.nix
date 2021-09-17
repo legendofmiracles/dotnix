@@ -73,6 +73,7 @@
         ./defaults-nixos.nix
         ./hm/firefox.nix
         ./v4l2.nix
+        ./distributed-build-host.nix
         ./network.nix
         ./hm/newsboat.nix
         ./printer.nix
@@ -109,6 +110,7 @@
             nix-gaming.nixosModule
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
+            distributed-build-host
             cowsay
             binfmt
             fonts
@@ -222,6 +224,7 @@
                       #present
                       autobahn
                       #discover
+                      #ab-street
                     ];
 
                     services.kdeconnect = {
@@ -248,23 +251,15 @@
               })
           ];
         };
+
         pi = {
           builder = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem;
           system = "aarch64-linux";
           modules = with self.nixosModules; [
-            # system wide config
             ./hosts/pi/configuration.nix
-            home-manager.nixosModules.home-manager
-            ({ pkgs, ... }: {
-              home-manager.users.nix = ({ config, pkgs, ... }:
-                with import ./hm/shell-scripts.nix {
-                  inherit pkgs inputs lib;
-                }; {
-                  imports = [ htop defaults ];
-                });
-            })
           ];
         };
+
         Holgers-iMac = {
           builder = args:
             darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
@@ -323,7 +318,7 @@
           alacritty-ligatures # neovim-nightly
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
-          keymapviz mori espanso-no-notify discover autobahn present;
+          keymapviz mori espanso-no-notify discover autobahn present ab-street;
       };
 
       overlay = import ./overlays;
