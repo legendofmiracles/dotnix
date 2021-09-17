@@ -10,12 +10,7 @@
     delta
     tree
     nvd
-    up
-    rpg-cli
-    nixfmt
     wget
-    sl
-    gh
     ripgrep
     tealdeer
     nix-index

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ git-lfs git-open ];
+  home.packages = with pkgs; [ git-lfs git-open gh ];
 
   programs.git = {
     enable = true;

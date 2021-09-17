@@ -5,7 +5,7 @@
   #qemu-user.aarch64 = true;
 
   boot = {
-    #binfmt.emulatedSystems = [ "armv7l-linux" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
 
     initrd = {
       availableKernelModules =

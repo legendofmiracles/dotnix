@@ -100,6 +100,7 @@
 
       hosts = {
         pain = {
+          builder = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem;
           modules = with self.nixosModules; [
             # system wide config
             ./hosts/pain/configuration.nix
@@ -197,7 +198,10 @@
                       lutris
                       obs-studio
                       gimp
+                      rpg-cli
                       lucky-commit
+                      up
+                      nixfmt
                       pavucontrol
                       multimc
                       qrcp
@@ -248,14 +252,7 @@
                 with import ./hm/shell-scripts.nix {
                   inherit pkgs inputs lib;
                 }; {
-                  imports = [ git htop fish defaults ];
-
-                  home.packages = with pkgs; [
-                    # custom shell script
-                    zerox0
-                    command-not-found
-
-                  ];
+                  imports = [ htop defaults ];
                 });
             })
           ];

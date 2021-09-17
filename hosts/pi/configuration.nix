@@ -27,7 +27,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
@@ -37,16 +36,6 @@
   networking.hostName = "pi";
 
   hardware.enableRedistributableFirmware = true;
-
-  /* nix = {
-     extraOptions = ''
-     keep-outputs = true
-     keep-derivations = true
-     experimental-features = nix-command flakes
-     '';
-     package = pkgs.nixUnstable;
-     };
-  */
 
   # !!! Adding a swap file is optional, but strongly recommended!
   swapDevices = [{
