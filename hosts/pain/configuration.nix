@@ -123,7 +123,7 @@
 
   age.secrets = {
     variables = {
-      file = ./secrets/variables.age;
+      file = ../../secrets/variables.age;
       owner = "nix";
       mode = "0400";
     };

@@ -46,7 +46,7 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "pain";
+      hostName = "builder";
       systems = [ "x86_64-linux" "aarch64-linux" ];
       maxJobs = 12;
       speedFactor = 10;

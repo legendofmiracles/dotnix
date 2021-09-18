@@ -1,28 +1,30 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, alsa-lib, python3, gtk3, pango }:
+{ stdenv, lib, gtk3, fetchzip, autoPatchelfHook, xorg, makeWrapper, glib }:
 
-rustPlatform.buildRustPackage rec {
+stdenv.mkDerivation rec {
   pname = "ab-street";
   version = "0.2.58";
 
-  src = fetchFromGitHub {
-    owner = "a-b-street";
-    repo = "abstreet";
-    rev = "v${version}";
-    sha256 = "188m5swii5jjbkh7qm4nq97mmwsgwyccjasw0hp89iqzm1znzh94";
+  src = fetchzip {
+    url = "https://github.com/a-b-street/abstreet/releases/download/v${version}/abstreet_linux_v${lib.strings.stringAsChars (x: if x == "." then "_" else x) version}.zip";
+    sha256 = "sha256-uu24Mn0JpZX5mDkPG8wRAXaYCSYVPmk00uvL0dtsKLQ=";
   };
 
-  cargoSha256 = "sha256-qsp5U4uUj3UvlpUA2iup/nDHJxhns4aYpKBSBuEVFLI=";
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
-  nativeBuildInputs = [ pkg-config python3 gtk3 ];
+  buildInputs = [ gtk3 glib xorg.libX11 ];
 
-  buildInputs = [ alsa-lib pango ];
+  doBuild = false;
 
-  preBuild = ''
-    echo hi
-    cargo run --bin updater -- --minimal
-    echo bye
+  installPhase = ''
+    install -D game/game $out/bin/ab-street
+    wrapProgram $out/bin/game \
+      --suffix LD_LIBRARY_PATH : ${xorg.libX11}/lib/libX11-xcb.so.1
 
-    cd game
+    mkdir $out/tools
+    cp -r tools $out/tools
+
+    mkdir $out/data
+    cp -r data $out/data
   '';
 
   meta = with lib; {
