@@ -15,4 +15,6 @@
   };
 
   nix.trustedUsers = [ "nix-build-user" ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

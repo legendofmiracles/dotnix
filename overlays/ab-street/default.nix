@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -D game/game $out/bin/ab-street
-    wrapProgram $out/bin/game \
+    wrapProgram $out/bin/ab-street \
       --suffix LD_LIBRARY_PATH : ${xorg.libX11}/lib/libX11-xcb.so.1
 
     mkdir $out/tools

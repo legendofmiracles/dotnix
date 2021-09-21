@@ -32,7 +32,6 @@
 
   hardware.enableRedistributableFirmware = true;
 
-  # !!! Adding a swap file is optional, but strongly recommended!
   swapDevices = [{
     device = "/swapfile";
     size = 1024;
@@ -41,7 +40,9 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "builder";
+      hostName = "pain";
+      sshKey = "/home/nix/.ssh/pi";
+      sshUser = "nix-build-user";
       systems = [ "x86_64-linux" "aarch64-linux" ];
       maxJobs = 12;
       speedFactor = 10;
@@ -49,12 +50,48 @@
     }
   ];
 
+  /*
   programs.ssh.extraConfig = ''
     Host builder
-      HostName 192.168.1.21
+      HostName 192.168.1.16
       Port 22
       User nix-build-user
       IdentitiesOnly yes
       IdentityFile /home/nix/.ssh/pi
   '';
+  */
+
+  services.firefox.syncserver = {
+    #enable = true;
+  };
+
+  # use ssh instead
+  /*services.gitDaemon = {
+    enable = true;
+    basePath = "/srv/git";
+  };*/
+
+  users.users.git = {
+    packages = with pkgs;[ git ];
+    home = "/srv/git";
+    createHome = true;
+    isSystemUser = true;
+    group = "git";
+    description = "git ssh user";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
+    ];
+    # needed to not have the account be 'disabled'
+    shell = "${pkgs.git}/bin/git-shell";
+  };
+
+  users.groups.git = {};
+
+  # faster rebuilding
+  documentation = {
+    enable = false;
+    doc.enable = false;
+    man.enable = false;
+    dev.enable = false;
+  };
 }

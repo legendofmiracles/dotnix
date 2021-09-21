@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #local-nixpkgs.url = "git+file:///home/nix/programming/nixpkgs?ref=fabric";
+    #local-nixpkgs.url = "git+file://./nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -224,7 +224,7 @@
                       #present
                       autobahn
                       #discover
-                      ab-street
+                      #ab-street
                     ];
 
                     services.kdeconnect = {
