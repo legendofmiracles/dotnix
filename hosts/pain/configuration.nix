@@ -94,6 +94,11 @@
     remotePlay.openFirewall = true;
   };
 
+  programs.weylus = {
+   enable = true;
+   users = [ "nix" ];
+  };
+
   programs.firejail = {
     enable = true;
     wrappedBinaries = {

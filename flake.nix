@@ -49,7 +49,6 @@
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
         ./modules/binfmt.nix
-        #./modules/weylus.nix
         # my config
         ./xorg.nix
         ./hm/proton.nix
@@ -126,11 +125,7 @@
                 #imports =
                 #  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
 
-                /* programs.weylus = {
-                     enable = true;
-                     users = [ "nix" ];
-                   };
-                */
+
 
                 /* services.minecraft-server = {
                      enable = true;
