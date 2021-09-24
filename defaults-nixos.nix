@@ -18,23 +18,24 @@ in {
     vendor.completions.enable = true;
   };
 
-  /*
   age.secrets = {
     variables = {
       file = ./secrets/variables.age;
       owner = "nix";
       mode = "0400";
     };
-    wpa = {
-      file = ./secrets/wpa_supplicant.conf.age;
-      mode = "0400";
-    };
-    /*steam = {
-      file = ./secrets/steam.age;
-      owner = "nix";
-      mode = "0444";
-    };
-  };*/
+  };
+  /* wpa = {
+         file = ./secrets/wpa_supplicant.conf.age;
+         mode = "0400";
+       };
+       /*steam = {
+         file = ./secrets/steam.age;
+         owner = "nix";
+         mode = "0444";
+       };
+     };
+  */
 
   environment = {
     sessionVariables = {
@@ -91,6 +92,10 @@ in {
     nixPath = [ "nixpkgs=${pkgs.path}" "home-manager=${inputs.home-manager}" ];
 
     trustedBinaryCaches = caches;
+
+    generateRegistryFromInputs = true;
+
+    linkInputs = true;
   };
 
   programs.command-not-found.enable = false;

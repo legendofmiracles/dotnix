@@ -1,14 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    tree
-    wget
-    ripgrep
-    file
-    fd
-    zip
-  ];
+  home.packages = with pkgs; [ tree wget ripgrep file fd zip ];
 
   xdg = {
     enable = true;

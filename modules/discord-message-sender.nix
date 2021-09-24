@@ -26,11 +26,11 @@ in {
   };
 
   config = {
-    systemd.user.services = attrsets.mapAttrs' (name: value:
+    systemd.services = attrsets.mapAttrs' (name: value:
       nameValuePair name {
-        Unit = { Description = value.desc; };
+        description = value.desc;
 
-        Service = {
+        serviceConfig = {
           Type = "simple";
           EnvironmentFile = "/run/secrets/variables";
           ExecStart = ''
@@ -39,16 +39,17 @@ in {
           RestartSec = 10;
         };
       }) cfg;
-    systemd.user.timers = attrsets.mapAttrs' (name: value:
-      nameValuePair name {
-        Unit = { Description = value.desc; };
 
-        Timer = {
+    systemd.timers = attrsets.mapAttrs' (name: value:
+      nameValuePair name {
+        description = value.desc;
+
+        timerConfig = {
           OnCalendar = value.when;
           Unit = "${name}.service";
         };
 
-        Install = { WantedBy = [ "timers.target" ]; };
+        wantedBy = [ "timers.target" ];
       }) cfg;
   };
 }

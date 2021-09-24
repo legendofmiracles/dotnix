@@ -3,6 +3,7 @@ final: prev: {
   /* inherit (prev.callPackages ./activitywatch { inherit npmlock2nix; })
      aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
   */
+  activitywatch = prev.callPackage ./activitywatch { };
   lucky-commit = prev.callPackage ./lucky-commit { };
   cliscord = prev.callPackage ./cliscord { };
   st-patched = prev.callPackage ./st-patched { };

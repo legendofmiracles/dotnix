@@ -68,21 +68,21 @@
   sound.enable = true;
 
   services.pipewire = {
-       enable = true;
-       alsa = {
-         enable = true;
-         support32Bit = true;
-       };
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
 
-       pulse.enable = true;
+    pulse.enable = true;
 
-       lowLatency = {
-         enable = true;
-         # defaults (no need to be set unless modified)
-         quantum = 32;
-         rate = 48000;
-       };
-     };
+    lowLatency = {
+      enable = true;
+      # defaults (no need to be set unless modified)
+      quantum = 32;
+      rate = 48000;
+    };
+  };
 
   #hardware.pulseaudio.enable = true;
 
@@ -116,14 +116,6 @@
         TIMELINE_CREATE="yes"
         TIMELINE_CLEANUP="yes"
       '';
-    };
-  };
-
-  age.secrets = {
-    variables = {
-      file = ../../secrets/variables.age;
-      owner = "nix";
-      mode = "0400";
     };
   };
 
@@ -166,9 +158,10 @@
     #libimobiledevice
     #virt-manager
     libstrangle
-    /*(steam.override {
-      extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
-    })*/
+    /* (steam.override {
+         extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
+       })
+    */
   ];
 
   #virtualisation.docker.enable = true;
@@ -176,29 +169,28 @@
   # enable if you want to do stuff with ios
   #services.usbmuxd.enable = true;
 
-  /*
-  programs.cowsay = {
-    enable = true;
-    cows.giraffe = ''
-      $thoughts
-       $thoughts
-        $thoughts
-           ^__^
-           (oo)
-           (__)
-             \\ \\
-              \\ \\
-               \\ \\
+  /* programs.cowsay = {
+       enable = true;
+       cows.giraffe = ''
+         $thoughts
+          $thoughts
+           $thoughts
+              ^__^
+              (oo)
+              (__)
                 \\ \\
                  \\ \\
                   \\ \\
                    \\ \\
-                    \\ \\______
-                     \\       )\\/\\/\\
-                      ||----w |
-                      ||     ||
-    '';
-  };
+                    \\ \\
+                     \\ \\
+                      \\ \\
+                       \\ \\______
+                        \\       )\\/\\/\\
+                         ||----w |
+                         ||     ||
+       '';
+     };
   */
 
   hardware.keyboard.zsa.enable = true;

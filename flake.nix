@@ -36,14 +36,14 @@
     darwin.url = "github:lnl7/nix-darwin";
   };
 
-  outputs = { self, nixpkgs/*, local-nixpkgs*/, home-manager, utils, nur
-    , nixos-hardware
+  outputs = { self, nixpkgs # , local-nixpkgs
+    , home-manager, utils, nur, nixos-hardware
     # , neovim-nightly
     , agenix, nix-gaming, darwin }@inputs:
-    utils.lib.systemFlake {
+    utils.lib.mkFlake {
       inherit self inputs;
 
-      nixosModules = utils.lib.modulesFromList [
+      nixosModules = utils.lib.exportModules [
         # the modules
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
@@ -83,7 +83,6 @@
 
       hostDefaults = {
         modules = [
-          utils.nixosModules.saneFlakeDefaults
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
           #./boot-config.nix
@@ -127,21 +126,21 @@
                 #imports =
                 #  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
 
-                /*programs.weylus = {
+                /* programs.weylus = {
                      enable = true;
                      users = [ "nix" ];
-                   };*/
+                   };
+                */
 
-                /*
-                services.minecraft-server = {
-                  enable = true;
-                  eula = true;
-                  fabric = {
-                    enable = true;
-                    version = "1.16.5";
-                    mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
-                  };
-                };
+                /* services.minecraft-server = {
+                     enable = true;
+                     eula = true;
+                     fabric = {
+                       enable = true;
+                       version = "1.16.5";
+                       mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
+                     };
+                   };
                 */
 
                 home-manager.useUserPackages = true;
@@ -156,7 +155,6 @@
                       git
                       htop
                       defaults
-                      discord-message-sender
                       alacritty
                       mori
                       dunst
@@ -232,21 +230,6 @@
                       indicator = true;
                     };
 
-                    services.discord.wednesday = {
-                      desc = "It's wednesday my dudes!";
-                      server = "Best Server";
-                      channel = "main";
-                      content =
-                        "<:wednesday:806483241045196841> It's Wednesday my dudes!";
-                      when = "Wed *-*-* 00:00:00";
-                    };
-                    services.discord.update = {
-                      desc = "update timer for creepylove";
-                      server = "lolsu-keks";
-                      channel = "general";
-                      content = "<@336863335431798785> update!!!11";
-                      when = "Fri *-*-* 00:00:00";
-                    };
                   });
               })
           ];
@@ -257,6 +240,7 @@
           system = "aarch64-linux";
           modules = with self.nixosModules; [
             ./hosts/pi/configuration.nix
+            discord-message-sender
           ];
         };
 
@@ -316,6 +300,7 @@
       packagesBuilder = channels: {
         inherit (channels.nixpkgs)
           alacritty-ligatures # neovim-nightly
+          #activitywatch
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
           keymapviz mori espanso-no-notify discover autobahn present ab-street;

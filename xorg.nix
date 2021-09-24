@@ -48,16 +48,17 @@
     xdotool
   ];
 
-  /*services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${
-            lib.makeBinPath [ pkgs.greetd.tuigreet ]
-          }/tuigreet --time --cmd startx";
-        user = "nix";
-      };
-    };
-  };*/
+  /* services.greetd = {
+       enable = true;
+       settings = {
+         default_session = {
+           command = "${
+               lib.makeBinPath [ pkgs.greetd.tuigreet ]
+             }/tuigreet --time --cmd startx";
+           user = "nix";
+         };
+       };
+     };
+  */
 
 }

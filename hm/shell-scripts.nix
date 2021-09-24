@@ -32,7 +32,7 @@ rec {
     type=
     ! [ -t 0 ] || file -ibL "$1" | grep -q '^text/' && type=';type=text/plain'
 
-    curl -sF file="@''${1:--}$type" 'http://0x0.st' \
+    curl -F file="@''${1:--}$type" 'http://0x0.st' \
         | tee /dev/stderr \
         | xclip -r -sel clip
   '';
@@ -129,7 +129,7 @@ rec {
 
   '';
   store-path = pkgs.writeShellScriptBin "store-path" ''
-    echo \"\''${$1}/\" | nix repl "${inputs.utils.lib.repl}" | tail -n2 | sed s/\"//g
+    echo \"\''${$1}/\" | ${pkgs.fup-repl}/bin/repl | tail -n2 | sed s/\"//g
   '';
   mute = pkgs.writeShellScriptBin "mute" ''
     sources=$(pamixer --list-sources | /bin/grep -v monitor | /bin/grep -v Sources | cut -d " " -f 1 )

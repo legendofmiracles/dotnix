@@ -38,27 +38,24 @@
   }];
 
   nix.distributedBuilds = true;
-  nix.buildMachines = [
-    {
-      hostName = "pain";
-      sshKey = "/home/nix/.ssh/pi";
-      sshUser = "nix-build-user";
-      systems = [ "x86_64-linux" "aarch64-linux" ];
-      maxJobs = 12;
-      speedFactor = 10;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-    }
-  ];
+  nix.buildMachines = [{
+    hostName = "pain";
+    sshKey = "/home/nix/.ssh/pi";
+    sshUser = "nix-build-user";
+    systems = [ "x86_64-linux" "aarch64-linux" ];
+    maxJobs = 12;
+    speedFactor = 10;
+    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  }];
 
-  /*
-  programs.ssh.extraConfig = ''
-    Host builder
-      HostName 192.168.1.16
-      Port 22
-      User nix-build-user
-      IdentitiesOnly yes
-      IdentityFile /home/nix/.ssh/pi
-  '';
+  /* programs.ssh.extraConfig = ''
+       Host builder
+         HostName 192.168.1.16
+         Port 22
+         User nix-build-user
+         IdentitiesOnly yes
+         IdentityFile /home/nix/.ssh/pi
+     '';
   */
 
   services.firefox.syncserver = {
@@ -66,13 +63,14 @@
   };
 
   # use ssh instead
-  /*services.gitDaemon = {
-    enable = true;
-    basePath = "/srv/git";
-  };*/
+  /* services.gitDaemon = {
+       enable = true;
+       basePath = "/srv/git";
+     };
+  */
 
   users.users.git = {
-    packages = with pkgs;[ git ];
+    packages = with pkgs; [ git ];
     home = "/srv/git";
     createHome = true;
     isSystemUser = true;
@@ -85,7 +83,7 @@
     shell = "${pkgs.git}/bin/git-shell";
   };
 
-  users.groups.git = {};
+  users.groups.git = { };
 
   # faster rebuilding
   documentation = {
@@ -93,5 +91,19 @@
     doc.enable = false;
     man.enable = false;
     dev.enable = false;
+  };
+  services.discord.wednesday = {
+    desc = "It's wednesday my dudes!";
+    server = "Best Server";
+    channel = "main";
+    content = "<:wednesday:806483241045196841> It's Wednesday my dudes!";
+    when = "Wed *-*-* 00:00:00";
+  };
+  services.discord.update = {
+    desc = "update timer for creepylove";
+    server = "lolsu-keks";
+    channel = "general";
+    content = "<@336863335431798785> update!!!11";
+    when = "Fri *-*-* 00:00:00";
   };
 }

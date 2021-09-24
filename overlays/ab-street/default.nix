@@ -5,7 +5,10 @@ stdenv.mkDerivation rec {
   version = "0.2.58";
 
   src = fetchzip {
-    url = "https://github.com/a-b-street/abstreet/releases/download/v${version}/abstreet_linux_v${lib.strings.stringAsChars (x: if x == "." then "_" else x) version}.zip";
+    url =
+      "https://github.com/a-b-street/abstreet/releases/download/v${version}/abstreet_linux_v${
+        lib.strings.stringAsChars (x: if x == "." then "_" else x) version
+      }.zip";
     sha256 = "sha256-uu24Mn0JpZX5mDkPG8wRAXaYCSYVPmk00uvL0dtsKLQ=";
   };
 
@@ -28,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A traffic simulation game exploring how small changes to roads affect cyclists, transit users, pedestrians, and drivers.";
+    description =
+      "A traffic simulation game exploring how small changes to roads affect cyclists, transit users, pedestrians, and drivers.";
     homepage = "github.com/a-b-street/abstreet";
     license = licenses.asl20;
     maintainers = with maintainers; [ legendofmiracles ];

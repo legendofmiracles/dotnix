@@ -22,9 +22,9 @@
 
       "compare-branches" =
         "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
-        amend = ''
-          !f() { git add $@ && git commit --amend --no-edit }; f $@
-        '';
+      amend = ''
+        !f() { git add $@ && git commit --amend --no-edit }; f $@
+      '';
     };
     extraConfig = {
       url = {
