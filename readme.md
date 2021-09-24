@@ -1,16 +1,6 @@
 layout:
 ```
-.
-├── hm -- all home manager related files
-├── hosts -- host specific configuration
-│   ├── iMac
-│   ├── pain
-│   └── pi
-├── modules -- normal nixos modules, some might be for home-manager
-├── overlays -- varous overlays
-└── secrets -- secrets like environment variables, all encrypted... don't even think about it
-
-.
+dotnix/
 ├── defaults-nixos.nix -- defaults, applied to all hosts
 ├── distributed-build-host.nix -- configuration for enabling cross compilation to my rpi
 ├── flake.lock
