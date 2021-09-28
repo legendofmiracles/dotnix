@@ -115,4 +115,9 @@ in {
     nixos.enable = false;
     info.enable = false;
   };
+
+  networking.hosts = {
+    # https://www.scss.tcd.ie/Doug.Leith/pubs/browser_privacy.pdf
+    "0.0.0.0" = [ "incoming.telemetry.mozilla.org" "push.services.mozilla.com" "safebrowsing.googleapis.com" ];
+  };
 }

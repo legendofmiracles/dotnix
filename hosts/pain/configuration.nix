@@ -154,6 +154,19 @@
     wantedBy = [ "sleep.target" ];
   };
 
+  # enables wake on lan
+  systemd.network.links."50-wol" = {
+    enable = true;
+    matchConfig = {
+      MACAddress = "8c:47:be:15:a7:0f";
+    };
+    linkConfig = {
+      NamePolicy = "kernel database onboard slot path";
+      MACAddressPolicy = "persistent";
+      WakeOnLan = "magic";
+    };
+  };
+
   #services.fwupd.enable = true;
 
   #virtualisation.libvirtd.enable = true;
@@ -204,7 +217,9 @@
 
   networking.firewall.enable = false;
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement = {
+    cpuFreqGovernor = "performance";
+  };
 
   system.stateVersion = "21.05";
 }

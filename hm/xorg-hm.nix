@@ -29,6 +29,8 @@ with import ./colors.nix { }; {
     enable = true;
     package = pkgs.polybarFull;
     script = ''
+      # must sleep so that i3 fully started
+      sleep 1
       polybar eDP1 &
     '';
     extraConfig = ''

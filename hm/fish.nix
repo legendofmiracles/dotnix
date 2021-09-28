@@ -13,6 +13,7 @@
   }];
 
   programs.fish.shellAbbrs = {
+    s = "nix shell nixpkgs#";
     new = "ls -ltr";
     c = "vim ~/dotnix/";
     rm = "rm -v";
@@ -20,7 +21,7 @@
     mv = "mv -v";
     clip = "xclip -selection c";
     store-alive = "nix-store -q --roots";
-    s = ''
+    sf = ''
       manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'" | xargs manix'';
     permission = "stat -c%a";
   };
