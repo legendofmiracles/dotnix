@@ -21,8 +21,6 @@ jobs:
         name: lom
         # If you chose API tokens for write access OR if you have a private cache
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: ls
-    - run: nix flake show .
     - run: nix build .#alacritty-ligatures -L
     #- run: nix build .#aw-watcher-afk -L
     #- run: nix build .#aw-watcher-window -L
