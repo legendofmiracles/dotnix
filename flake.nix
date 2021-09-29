@@ -292,15 +292,17 @@
         */
       ];
 
-      packagesBuilder = channels: {
-        inherit (channels.nixpkgs)
-          alacritty-ligatures # neovim-nightly
+      outputsBuilder = channels: {
+        packages = utils.lib.exportPackages self.overlays channels;
+          /*alacritty-ligatures # neovim-nightly
           #activitywatch
           # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
           lucky-commit cliscord st-patched # steam-patched
           keymapviz mori espanso-no-notify discover autobahn present ab-street;
+          */
       };
 
       overlay = import ./overlays;
+      overlays = utils.lib.exportOverlays { inherit (self) pkgs inputs; };
     };
 }
