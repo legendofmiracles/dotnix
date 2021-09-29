@@ -1119,6 +1119,15 @@ in {
         sha256 = "sha256-XPODZepRjwvPC7y2i8ZJFTAtlmsOJakYW56eN3Kw0tw=";
         meta = with lib; { platforms = platforms.all; };
       })
+      (buildFirefoxXpiAddon {
+        pname = "hn-refined";
+        version = "21.4.20";
+        addonId = "refinedhackernews@mihir.ch";
+        url =
+          "https://addons.mozilla.org/firefox/downloads/file/3762759/refined_hacker_news-21.4.20-an+fx.xpi";
+        sha256 = "sha256-6hhnH1VTdE22UPxy559LzFjxAWoDmA1LohcwPx9wGfw=";
+        meta = with lib; { platforms = platforms.all; };
+      })
     ];
   };
 }
