@@ -52,7 +52,12 @@
 
   networking.hostName = "pain";
   networking.interfaces = {
-    enp8s0.useDHCP = true;
+    enp8s0 = {
+      useDHCP = true;
+      wakeOnLan = {
+        enable = true;
+      };
+    };
     #wlp0s20f3.useDHCP = true;
   };
 
@@ -155,7 +160,7 @@
   };
 
   # enables wake on lan
-  systemd.network.links."50-wol" = {
+  /*systemd.network.links."40-wol" = {
     enable = true;
     matchConfig = {
       MACAddress = "8c:47:be:15:a7:0f";
@@ -165,7 +170,7 @@
       MACAddressPolicy = "persistent";
       WakeOnLan = "magic";
     };
-  };
+  };*/
 
   #services.fwupd.enable = true;
 

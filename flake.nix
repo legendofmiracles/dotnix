@@ -5,7 +5,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #local-nixpkgs.url = "git+file://./nixpkgs?ref=fabric";
+    local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=wol";
+    mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -36,7 +37,7 @@
     darwin.url = "github:lnl7/nix-darwin";
   };
 
-  outputs = { self, nixpkgs # , local-nixpkgs
+  outputs = { self, nixpkgs, local-nixpkgs, mc-local-nixpkgs
     , home-manager, utils, nur, nixos-hardware
     # , neovim-nightly
     , agenix, nix-gaming, darwin }@inputs:
@@ -116,18 +117,20 @@
             #printer
             ({ pkgs, lib, ... }:
               let
-                mkDevelopModule = m: {
+                mkDevelopModule = i: m: {
                   disabledModules = [ m ];
-                  imports = [ "${local-nixpkgs}/nixos/modules/${m}" ];
+                  imports = [ "${i}/nixos/modules/${m}" ];
                 };
               in {
                 # development/testing purposes
-                #imports =
-                #  [ (mkDevelopModule "services/games/minecraft-server.nix") ];
+                imports =
+                  [
+                    (mkDevelopModule local-nixpkgs "tasks/network-interfaces-scripted.nix")
+                    (mkDevelopModule local-nixpkgs "tasks/network-interfaces.nix")
+                    (mkDevelopModule mc-local-nixpkgs "services/games/minecraft-server.nix")
+                  ];
 
-
-
-                /* services.minecraft-server = {
+                services.minecraft-server = {
                      enable = true;
                      eula = true;
                      fabric = {
@@ -136,7 +139,6 @@
                        mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
                      };
                    };
-                */
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;

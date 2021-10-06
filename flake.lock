@@ -71,17 +71,49 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1632838573,
-        "narHash": "sha256-0GJKyDy7YYhN6s0qji+wzwnawvPzuovqfbmVloeYDcI=",
+        "lastModified": 1633492251,
+        "narHash": "sha256-wPC2KZdUMHLMYqcVwBAXvkzsEe/JRpDoDNMqwGVxxug=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "959217e51dbd07d0de6dcbddfbfcb4f2efdc0c1e",
+        "rev": "c100bd0c4b0d90df863205ece373a4b4988455dd",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
+      }
+    },
+    "local-nixpkgs": {
+      "locked": {
+        "lastModified": 1633192525,
+        "narHash": "sha256-0nM0w5ZL17aZN6iMfyYxWCWzrL/q0kFUSyRzdwapuz4=",
+        "ref": "wol",
+        "rev": "1b3274f2656330cac4879aa0ba8a4a75c47a40fc",
+        "revCount": 320181,
+        "type": "git",
+        "url": "file:///home/nix/dotnix/nixpkgs"
+      },
+      "original": {
+        "ref": "wol",
+        "type": "git",
+        "url": "file:///home/nix/dotnix/nixpkgs"
+      }
+    },
+    "mc-local-nixpkgs": {
+      "locked": {
+        "lastModified": 1633494215,
+        "narHash": "sha256-7Pm+pDo1AiVdTE87xgA5+HpEUSd8RyoKXelYzKVtq2U=",
+        "ref": "fabric",
+        "rev": "33137598facabd8a339954dfd4579db744801728",
+        "revCount": 312409,
+        "type": "git",
+        "url": "file:///home/nix/dotnix/nixpkgs"
+      },
+      "original": {
+        "ref": "fabric",
+        "type": "git",
+        "url": "file:///home/nix/dotnix/nixpkgs"
       }
     },
     "nix-gaming": {
@@ -107,11 +139,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1632267580,
-        "narHash": "sha256-AvNXdmaPHYs6idbfgu1H40vEw4Wq15xLAgCnpCN1l1A=",
+        "lastModified": 1632990363,
+        "narHash": "sha256-SNqz+9Vt4yDHqw8u/CMFdzMQTulKoMlVGJdshfcb5O0=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "3cc8c47af31798040ea62499090540413279f832",
+        "rev": "0a8b8054c9920368a3c15e6d766188fdf04b736f",
         "type": "github"
       },
       "original": {
@@ -149,10 +181,10 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1632660378,
-        "narHash": "sha256-sjA8eQlnyDjDLyAyq3XlJmN0nqW0ftl/pb7VnMg86L0=",
-        "path": "/nix/store/mzr7r470gdi10n363c8axn8v5nk1miy4-source",
-        "rev": "31ffc50c571e6683e9ecc9dbcbd4a8e9914b4497",
+        "lastModified": 1633351077,
+        "narHash": "sha256-z38JG4Bb0GtM1aF1pANVdp1dniMP23Yb3HnRoJRy2uU=",
+        "path": "/nix/store/z7qikyiq6zfhxc7k7721z3zcrlpxy9s6-source",
+        "rev": "14aef06d9b3ad1d07626bdbb16083b83f92dc6c1",
         "type": "path"
       },
       "original": {
@@ -177,11 +209,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1632660378,
-        "narHash": "sha256-sjA8eQlnyDjDLyAyq3XlJmN0nqW0ftl/pb7VnMg86L0=",
+        "lastModified": 1633351077,
+        "narHash": "sha256-z38JG4Bb0GtM1aF1pANVdp1dniMP23Yb3HnRoJRy2uU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "31ffc50c571e6683e9ecc9dbcbd4a8e9914b4497",
+        "rev": "14aef06d9b3ad1d07626bdbb16083b83f92dc6c1",
         "type": "github"
       },
       "original": {
@@ -193,11 +225,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1632922805,
-        "narHash": "sha256-tii+JuTTx6pLGJ90EkWc0NgGU1hZLEoJ8CH3uyA9i5E=",
+        "lastModified": 1633493247,
+        "narHash": "sha256-oMGf6j+Bu29oEFl2z6Lz6hlSjZXXZCK0pqxEQl7A5iM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "2522970cd3888df74f0c433cd1bc08442fd126c3",
+        "rev": "84fd69082be2a904f310762a1fa15136f601996c",
         "type": "github"
       },
       "original": {
@@ -228,6 +260,8 @@
         "agenix": "agenix",
         "darwin": "darwin",
         "home-manager": "home-manager",
+        "local-nixpkgs": "local-nixpkgs",
+        "mc-local-nixpkgs": "mc-local-nixpkgs",
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
