@@ -5,11 +5,12 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=wol";
     mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
+
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -37,10 +38,10 @@
     darwin.url = "github:lnl7/nix-darwin";
   };
 
-  outputs = { self, nixpkgs, local-nixpkgs, mc-local-nixpkgs
+  outputs = { self, nixpkgs, mc-local-nixpkgs
     , home-manager, utils, nur, nixos-hardware
     # , neovim-nightly
-    , agenix, nix-gaming, darwin }@inputs:
+    , agenix, nix-gaming, darwin, nixpkgs-wayland }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -96,6 +97,7 @@
       channels.nixpkgs = {
         input = nixpkgs;
         config = { allowUnfree = true; };
+        patches = [ ];
       };
 
       hosts = {
@@ -125,8 +127,6 @@
                 # development/testing purposes
                 imports =
                   [
-                    (mkDevelopModule local-nixpkgs "tasks/network-interfaces-scripted.nix")
-                    (mkDevelopModule local-nixpkgs "tasks/network-interfaces.nix")
                     (mkDevelopModule mc-local-nixpkgs "services/games/minecraft-server.nix")
                   ];
 
@@ -270,6 +270,7 @@
 
       sharedOverlays = [
         nur.overlay
+        nixpkgs-wayland.overlay-egl
         # neovim-nightly.overlay
         self.overlay
         /* (final: prev: {

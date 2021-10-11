@@ -89,7 +89,7 @@
     };
   };
 
-  #hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;

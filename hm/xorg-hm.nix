@@ -415,7 +415,7 @@ with import ./colors.nix { }; {
       combi-modi = "drun,run,window,file-browser,ssh,keys,emoji";
     };
     font = "Cascadia Code 10";
-    colors = {
+    /*colors = {
       rows = {
         normal = {
           background = bg;
@@ -433,7 +433,7 @@ with import ./colors.nix { }; {
         separator = pink;
         border = pink;
       };
-    };
+    };*/
   };
   services.flameshot.enable = true;
 
