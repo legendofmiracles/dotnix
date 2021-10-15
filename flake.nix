@@ -10,8 +10,6 @@
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
 
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-
     nur = {
       url = "github:nix-community/NUR";
       #inputs.nixpkgs.follows = "nixpkgs";
@@ -136,7 +134,7 @@
                      fabric = {
                        enable = true;
                        version = "1.16.5";
-                       mods = [ ./tabtps-fabric-mc1.16.5-1.3.5.jar ];
+                       mods = [ ./tabtps.16.5-1.3.5.jar ];
                      };
                    };
 

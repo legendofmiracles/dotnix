@@ -14,10 +14,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ dune-common opm-common boost blas dune-geometry dune-grid dune-istl ];
 
-  preConfigure = ''
-    dunecontrol all
-  '';
-
   nativeBuildInputs = [
     cmake
     pkg-config
