@@ -1,5 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, freetype, gdk_pixbuf, glib, libglvnd, libnotify
-, SDL2, xlibs }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, freetype
+, gdk_pixbuf
+, glib
+, libglvnd
+, libnotify
+, SDL2
+, xlibs
+, cmake
+, ninja
+, python3
+, pkg-config
+, curl
+, libGLU
+, wavpack
+, sqlite
+, libogg
+, opusfile
+, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   pname = "ddnet";
@@ -9,16 +29,23 @@ stdenv.mkDerivation rec {
     owner = "ddnet";
     repo = pname;
     rev = version;
-    sha256 = "sha256-CHbadglZMdJcnMU3XVv3Kmz/qTMLN4hjZ4UhAaH5RyY=";
-    fetchSubmodules = true;
+    sha256 = "sha256-vJMYPaLK2CK+nbojLstXgxqIUaf7jNynpklFgtIpvGM=";
   };
 
   buildInputs =
-    [ curl freetype gdk_pixbuf glib libglvnd SDL2 xlibs.libX11 libnotify ];
+    [ freetype gdk_pixbuf glib libglvnd SDL2 xlibs.libX11 libnotify python3 curl libGLU wavpack libogg opusfile sqlite ];
 
-  doBuild = false;
+  nativeBuildInputs = [ cmake ninja pkg-config makeWrapper ];
 
-  installPhase = "\n";
+  cmakeFlags = [ "-DAUTOUPDATE=OFF" "-GNinja" ];
+
+  postInstall = ''
+    wrapProgram $out/bin/DDNet \
+    --run "cd $out/share/ddnet/data"
+
+    wrapProgram $out/bin/DDNet-Server \
+    --run "cd $out/share/ddnet/data"
+  '';
 
   meta = with lib; {
     description = "A cooperative racing mod of Teeworlds";

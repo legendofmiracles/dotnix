@@ -16,6 +16,7 @@ final: prev: rec {
   present = prev.callPackage ./present { };
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
+  ddnet = prev.callPackage ./ddnet { };
 
   # freelancing
   opm-common = prev.callPackage ./opm-simulators/common.nix { };
