@@ -21,25 +21,23 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    /* nixpkgs-mozilla = {
-         url = github:mozilla/nixpkgs-mozilla;
-         flake = false;
-       };
-    */
-
-    /* npmlock2nix = {
-         url = github:tweag/npmlock2nix;
-         flake = false;
-       };
-    */
-
     darwin.url = "github:lnl7/nix-darwin";
+
+    /*
+    nix-on-droid = {
+      url = "github:t184256/nix-on-droid/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+    */
   };
 
   outputs = { self, nixpkgs, mc-local-nixpkgs
     , home-manager, utils, nur, nixos-hardware
-    # , neovim-nightly
-    , agenix, nix-gaming, darwin, nixpkgs-wayland }@inputs:
+    # , neovim-nightly, nix-on-droid
+    , agenix, nix-gaming, darwin }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -133,7 +131,7 @@
                      eula = true;
                      fabric = {
                        enable = true;
-                       version = "1.16.5";
+                       minecraftVersion = "1.16.5";
                        mods = [ ./tabtps.16.5-1.3.5.jar ];
                      };
                    };
@@ -268,7 +266,6 @@
 
       sharedOverlays = [
         nur.overlay
-        nixpkgs-wayland.overlay-egl
         # neovim-nightly.overlay
         self.overlay
         /* (final: prev: {
