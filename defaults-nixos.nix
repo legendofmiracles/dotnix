@@ -46,6 +46,10 @@ in {
     systemPackages = with pkgs; [ man-pages fup-repl ];
   };
 
+  services.getty.helpLine = ''
+    \4
+  '';
+
   users.users.nix = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "dialout" "libvirtd" ];

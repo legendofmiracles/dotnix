@@ -127,7 +127,7 @@
                   ];
 
                 services.minecraft-server = {
-                     enable = true;
+                     #enable = true;
                      eula = true;
                      fabric = {
                        enable = true;
