@@ -8,6 +8,7 @@
   # If X.org behaves weirdly (I only saw the cursor) then try increasing this to 256M.
   # On a Raspberry Pi 4 with 4 GB, you should either disable this parameter or increase to at least 64M if you want the USB ports to work.
   boot.kernelParams = [ "cma=32M" ];
+  boot.kernelPackages = pkgs.linuxPackages_5_4;
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
