@@ -415,25 +415,26 @@ with import ./colors.nix { }; {
       combi-modi = "drun,run,window,file-browser,ssh,keys,emoji";
     };
     font = "Cascadia Code 10";
-    /*colors = {
-      rows = {
-        normal = {
-          background = bg;
-          foreground = fg;
-          backgroundAlt = bg;
-          highlight = {
-            background = pink;
-            foreground = fg;
-          };
-        };
+    /* colors = {
+         rows = {
+           normal = {
+             background = bg;
+             foreground = fg;
+             backgroundAlt = bg;
+             highlight = {
+               background = pink;
+               foreground = fg;
+             };
+           };
 
-      };
-      window = {
-        background = bg;
-        separator = pink;
-        border = pink;
-      };
-    };*/
+         };
+         window = {
+           background = bg;
+           separator = pink;
+           border = pink;
+         };
+       };
+    */
   };
   services.flameshot.enable = true;
 

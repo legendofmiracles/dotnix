@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "dune-common";
@@ -11,13 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pIpeev+cc9UnQHpM4OokbAeI/hSgOb7p9NVNgVCXmYI=";
   };
 
+  nativeBuildInputs = [ pkg-config cmake ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
-
-  meta = with lib; {
-    license = licenses.gpl2Only;
-  };
+  meta = with lib; { license = licenses.gpl2Only; };
 }

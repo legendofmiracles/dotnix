@@ -54,9 +54,7 @@
   networking.interfaces = {
     enp8s0 = {
       useDHCP = true;
-      wakeOnLan = {
-        enable = true;
-      };
+      wakeOnLan = { enable = true; };
     };
     #wlp0s20f3.useDHCP = true;
   };
@@ -100,8 +98,8 @@
   };
 
   programs.weylus = {
-   enable = true;
-   users = [ "nix" ];
+    enable = true;
+    users = [ "nix" ];
   };
 
   programs.firejail = {
@@ -160,17 +158,18 @@
   };
 
   # enables wake on lan
-  /*systemd.network.links."40-wol" = {
-    enable = true;
-    matchConfig = {
-      MACAddress = "8c:47:be:15:a7:0f";
-    };
-    linkConfig = {
-      NamePolicy = "kernel database onboard slot path";
-      MACAddressPolicy = "persistent";
-      WakeOnLan = "magic";
-    };
-  };*/
+  /* systemd.network.links."40-wol" = {
+       enable = true;
+       matchConfig = {
+         MACAddress = "8c:47:be:15:a7:0f";
+       };
+       linkConfig = {
+         NamePolicy = "kernel database onboard slot path";
+         MACAddressPolicy = "persistent";
+         WakeOnLan = "magic";
+       };
+     };
+  */
 
   #services.fwupd.enable = true;
 
@@ -222,9 +221,7 @@
 
   networking.firewall.enable = false;
 
-  powerManagement = {
-    cpuFreqGovernor = "performance";
-  };
+  powerManagement = { cpuFreqGovernor = "performance"; };
 
   system.stateVersion = "21.05";
 }

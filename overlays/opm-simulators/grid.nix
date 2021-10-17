@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, dune-common, opm-common, boost, blas, dune-geometry, dune-grid, dune-istl, pkg-config }:
+{ lib, stdenv, fetchFromGitHub, cmake, dune-common, opm-common, boost, blas
+, dune-geometry, dune-grid, dune-istl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "opm-grid";
@@ -12,14 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "1q9xsjwc3jd33qlffzb7vdx7wgww14674nisnvffj60xsn4zaq60";
   };
 
-  buildInputs = [ dune-common opm-common boost blas dune-geometry dune-grid dune-istl ];
+  buildInputs =
+    [ dune-common opm-common boost blas dune-geometry dune-grid dune-istl ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  meta = with lib; {
-    license = licenses.gpl2Plus;
-  };
+  meta = with lib; { license = licenses.gpl2Plus; };
 }

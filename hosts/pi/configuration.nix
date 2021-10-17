@@ -7,8 +7,11 @@
   # !!! Needed for the virtual console to work on the RPi 3, as the default of 16M doesn't seem to be enough.
   # If X.org behaves weirdly (I only saw the cursor) then try increasing this to 256M.
   # On a Raspberry Pi 4 with 4 GB, you should either disable this parameter or increase to at least 64M if you want the USB ports to work.
-  boot.kernelParams = [ "cma=32M" ];
-  boot.kernelPackages = pkgs.linuxPackages_5_4;
+  boot = {
+    kernelParams = [ "cma=32M" ];
+    # workaround for issues with the bootloader
+    kernelPackages = pkgs.linuxPackages_5_4;
+  };
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
@@ -63,28 +66,23 @@
     #enable = true;
   };
 
-  # use ssh instead
-  /* services.gitDaemon = {
-       enable = true;
-       basePath = "/srv/git";
-     };
-  */
-
-  users.users.git = {
-    packages = with pkgs; [ git ];
-    home = "/srv/git";
-    createHome = true;
-    isSystemUser = true;
-    group = "git";
-    description = "git ssh user";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
-    ];
-    # needed to not have the account be 'disabled'
-    shell = "${pkgs.git}/bin/git-shell";
+  # complete git server only with configuring one user
+  users = {
+    users.git = {
+      packages = with pkgs; [ git ];
+      home = "/srv/git";
+      createHome = true;
+      isSystemUser = true;
+      group = "git";
+      description = "git ssh user";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
+      ];
+      # needed to not have the account be 'disabled'
+      shell = "${pkgs.git}/bin/git-shell";
+    };
+    groups.git = { };
   };
-
-  users.groups.git = { };
 
   # faster rebuilding
   documentation = {

@@ -13,16 +13,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ boost ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   postBuild = ''
     make
   '';
 
   meta = with lib; {
-    description = "Common components for OPM, in particular build system (cmake)";
+    description =
+      "Common components for OPM, in particular build system (cmake)";
     homepage = "github.com/OPM/opm-common";
     license = licenses.gpl3;
     maintainers = with maintainers; [ legendofmiracles ];

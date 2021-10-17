@@ -23,19 +23,18 @@
 
     darwin.url = "github:lnl7/nix-darwin";
 
-    /*
-    nix-on-droid = {
-      url = "github:t184256/nix-on-droid/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
+    /* nix-on-droid = {
+         url = "github:t184256/nix-on-droid/master";
+         inputs = {
+           nixpkgs.follows = "nixpkgs";
+           home-manager.follows = "home-manager";
+         };
+       };
     */
   };
 
-  outputs = { self, nixpkgs, mc-local-nixpkgs
-    , home-manager, utils, nur, nixos-hardware
+  outputs = { self, nixpkgs, mc-local-nixpkgs, home-manager, utils, nur
+    , nixos-hardware
     # , neovim-nightly, nix-on-droid
     , agenix, nix-gaming, darwin }@inputs:
     utils.lib.mkFlake {
@@ -119,20 +118,20 @@
                 };
               in {
                 # development/testing purposes
-                imports =
-                  [
-                    (mkDevelopModule mc-local-nixpkgs "services/games/minecraft-server.nix")
-                  ];
+                imports = [
+                  (mkDevelopModule mc-local-nixpkgs
+                    "services/games/minecraft-server.nix")
+                ];
 
                 services.minecraft-server = {
-                     #enable = true;
-                     eula = true;
-                     fabric = {
-                       enable = true;
-                       minecraftVersion = "1.16.5";
-                       mods = [ ./tabtps.16.5-1.3.5.jar ];
-                     };
-                   };
+                  #enable = true;
+                  eula = true;
+                  fabric = {
+                    enable = true;
+                    minecraftVersion = "1.16.5";
+                    mods = [ ./tabtps.16.5-1.3.5.jar ];
+                  };
+                };
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;

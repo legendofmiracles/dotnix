@@ -1,4 +1,6 @@
-{ lib, fetchzip, steam-run, stdenv, makeDesktopItem, copyDesktopItems, runtimeShell, autoPatchelfHook, ffmpeg, glib, pango, xorg, gtk3, mime-types, nss, mesa }:
+{ lib, fetchzip, steam-run, stdenv, makeDesktopItem, copyDesktopItems
+, runtimeShell, autoPatchelfHook, ffmpeg, glib, pango, xorg, gtk3, mime-types
+, nss, mesa }:
 let version = "1.1.14";
 in stdenv.mkDerivation {
   pname = "gdlauncher";
@@ -8,7 +10,7 @@ in stdenv.mkDerivation {
     url =
       "https://github.com/gorilla-devs/GDLauncher/releases/download/v${version}/GDLauncher-linux-setup.zip";
     sha256 = "sha256-xA4t/ZoiZsn2RZokrrKxpcgkL254l4tK1PVM4cgP9dg=";
-    stripRoot=false;
+    stripRoot = false;
   };
 
   doBuild = false;
@@ -28,9 +30,11 @@ in stdenv.mkDerivation {
     patchelf --set-rpath ".:${stdenv.cc.libc}/lib" $out/lib/libffmpeg.so
   '';
 
-  nativeBuildInputs = [ copyDesktopItems autoPatchelfHook xorg.libXdamage xorg.libXcomposite ];
+  nativeBuildInputs =
+    [ copyDesktopItems autoPatchelfHook xorg.libXdamage xorg.libXcomposite ];
 
-  buildInputs = [ ffmpeg glib pango gtk3 mime-types nss xorg.libxshmfence mesa ];
+  buildInputs =
+    [ ffmpeg glib pango gtk3 mime-types nss xorg.libxshmfence mesa ];
 
   desktopItems = makeDesktopItem rec {
     name = "GDLauncher";

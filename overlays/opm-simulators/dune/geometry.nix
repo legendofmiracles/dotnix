@@ -11,14 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BPseYFfx1Nvz0RK3VPAY96lw6HLfpb8aq10BkPxMqz8=";
   };
 
+  nativeBuildInputs = [ pkg-config dune-common cmake ];
 
-  nativeBuildInputs = [
-    pkg-config
-    dune-common
-    cmake
-  ];
-
-  meta = with lib; {
-    license = licenses.gpl2Only;
-  };
+  meta = with lib; { license = licenses.gpl2Only; };
 }

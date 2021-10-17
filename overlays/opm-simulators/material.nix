@@ -13,15 +13,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ boost opm-common dune-common blas ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   postBuild = ''
     make
   '';
 
-  meta = with lib; {
-    license = licenses.gpl2Plus;
-  };
+  meta = with lib; { license = licenses.gpl2Plus; };
 }
