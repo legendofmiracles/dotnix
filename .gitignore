@@ -1,2 +1,4 @@
 secrets/*.json
 nixpkgs/
+result
+result-bin

@@ -46,7 +46,6 @@
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
-        ./modules/binfmt.nix
         # my config
         ./xorg.nix
         ./hm/proton.nix
@@ -109,7 +108,6 @@
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
             cowsay
-            binfmt
             fonts
             network
             #printer
@@ -268,36 +266,10 @@
         nur.overlay
         # neovim-nightly.overlay
         self.overlay
-        /* (final: prev: {
-             naerskUnstable = let
-               nmo = import nixpkgs-mozilla final prev;
-               rust = (nmo.rustChannelOf {
-                 date = "2021-01-27";
-                 channel = "nightly";
-                 sha256 = "447SQnx5OrZVv6Na5xbhiWoaCwIUrB1KskyMOQEDJb8=";
-               }).rust;
-             in naersk.lib.x86_64-linux.override {
-               cargo = rust;
-               rustc = rust;
-             };
-
-             npmlock2nix = import npmlock2nix { pkgs = prev; };
-
-             inherit (prev.callPackages ./overlays/activitywatch { })
-               aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window
-               aw-webui;
-           })
-        */
       ];
 
       outputsBuilder = channels: {
         packages = utils.lib.exportPackages self.overlays channels;
-          /*alacritty-ligatures # neovim-nightly
-          #activitywatch
-          # aw-qt aw-core aw-server-rust aw-watcher-afk aw-watcher-window aw-webui
-          lucky-commit cliscord st-patched # steam-patched
-          keymapviz mori espanso-no-notify discover autobahn present ab-street;
-          */
       };
 
       overlay = import ./overlays;
