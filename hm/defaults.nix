@@ -8,6 +8,7 @@
     userDirs = {
       enable = true;
       createDirectories = false;
+      desktop = "/tmp/desktop";
     };
   };
 

@@ -132,20 +132,20 @@ rec {
     echo \"\''${$1}/\" | ${pkgs.fup-repl}/bin/repl | tail -n2 | sed s/\"//g
   '';
   mute = pkgs.writeShellScriptBin "mute" ''
-    sources=$(pamixer --list-sources | /bin/grep -v monitor | /bin/grep -v Sources | cut -d " " -f 1 )
+    sources=$(${pkgs.pamixer}/bin/pamixer --list-sources | grep -v monitor | grep -v Sources | cut -d " " -f 1 )
 
     while IFS= read -r line; do
-        case $(pamixer --get-volume-human --source $line) in
+        case $(${pkgs.pamixer}/bin/pamixer --get-volume-human --source $line) in
             muted)
-                ${pkgs.libnotify}/bin/notify-send "unmuted"
+                ${pkgs.libnotify}/bin/notify-send -t 300 "unmuted"
                 ;;
             *)
-                ${pkgs.libnotify}/bin/notify-send "muted"
+                ${pkgs.libnotify}/bin/notify-send -t 300 "muted"
                 ;;
         esac
     done <<< "$sources"
 
-    echo $sources | xargs -I {} pamixer --source {} -t
+    echo $sources | xargs -I {} ${pkgs.pamixer}/bin/pamixer --source {} -t
   '';
   lock = pkgs.writeShellScriptBin "lock" ''
     # uses i3lock-color

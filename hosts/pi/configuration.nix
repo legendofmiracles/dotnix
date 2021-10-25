@@ -91,6 +91,7 @@
     man.enable = false;
     dev.enable = false;
   };
+
   services.discord.wednesday = {
     desc = "It's wednesday my dudes!";
     server = "Best Server";
@@ -103,6 +104,6 @@
     server = "lolsu-keks";
     channel = "general";
     content = "<@336863335431798785> update!!!11";
-    when = "Fri *-*-* 00:00:00";
+    when = "*-*-* 00:00:00";
   };
 }

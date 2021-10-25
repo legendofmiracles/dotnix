@@ -43,7 +43,7 @@ in {
       fish_greeting = "";
     };
 
-    systemPackages = with pkgs; [ man-pages fup-repl ];
+    systemPackages = with pkgs; [ man-pages fup-repl git ];
   };
 
   services.getty.helpLine = ''

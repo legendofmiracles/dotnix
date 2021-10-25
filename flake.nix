@@ -91,7 +91,7 @@
       channels.nixpkgs = {
         input = nixpkgs;
         config = { allowUnfree = true; };
-        patches = [ ];
+        #patches = [ ./141920.diff ];
       };
 
       hosts = {

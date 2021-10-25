@@ -59,6 +59,9 @@ in {
           # download location
           "browser.download.dir" = "/home/nix/downloads";
           "browser.download.folderList" = 2;
+
+          # webbrender
+          "gfx.webrender.all" = true;
         };
 
         userChrome = ''

@@ -34,7 +34,7 @@
 
     nvidiaPersistenced = true;
 
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   hardware.opengl.driSupport32Bit = true;
