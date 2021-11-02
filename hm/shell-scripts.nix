@@ -28,7 +28,6 @@ rec {
     rm "$IMAGE_FILE"
   '';
   zerox0 = pkgs.writeShellScriptBin "0x0" ''
-    #!/bin/sh
     type=
     ! [ -t 0 ] || file -ibL "$1" | grep -q '^text/' && type=';type=text/plain'
 

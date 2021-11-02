@@ -1113,6 +1113,7 @@ in {
       sponsorblock
       noscript
       translate-web-pages
+      refined-github
       (buildFirefoxXpiAddon {
         pname = "chess";
         version = "2.0.1";

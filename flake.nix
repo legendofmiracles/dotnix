@@ -135,7 +135,7 @@
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;
-                home-manager.users.nix = ({ config, pkgs, lib, ... }:
+                home-manager.users.nix = { config, pkgs, lib, ... }:
                   with import ./hm/shell-scripts.nix {
                     inherit pkgs inputs lib;
                   }; {
@@ -220,7 +220,7 @@
                       indicator = true;
                     };
 
-                  });
+                  };
               })
           ];
         };
@@ -244,7 +244,7 @@
             home-manager.darwinModules.home-manager
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
-              home-manager.users.test = ({ config, pkgs, ... }:
+              home-manager.users.test = { config, pkgs, ... }:
                 with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [ defaults htop fish nvim git ];
 
@@ -254,7 +254,7 @@
                     command-not-found
 
                   ];
-                });
+                };
             })
           ];
           output = "darwinConfiguration";

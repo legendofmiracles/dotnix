@@ -13,6 +13,7 @@
   }];
 
   programs.fish.shellAbbrs = {
+    curl-lichess = "curl -H 'Authorization: Bearer $LICHESS_TOKEN' https://lichess.org/api/account/preferences";
     s = "nix shell nixpkgs#";
     new = "ls -ltr";
     c = "vim ~/dotnix/";
@@ -261,8 +262,6 @@
     date
 
   '';
-
-  programs.fish.promptInit = "\n";
 
   programs.fish.functions = {
     ls = ''

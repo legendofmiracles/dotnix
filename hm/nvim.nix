@@ -88,6 +88,7 @@ in with import ./colors.nix { }; {
       vim-highlightedyank
       tokyonight-nvim
       auto-pairs
+      nvim-cursorline
       venn
       # vim-processing
       {

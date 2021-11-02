@@ -223,8 +223,10 @@
 
   powerManagement = { cpuFreqGovernor = "performance"; };
 
+  /*
   services.mongodb.enable = true;
   services.redis.enable = true;
+  */
 
   system.stateVersion = "21.05";
 }
