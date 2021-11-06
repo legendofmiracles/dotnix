@@ -62,9 +62,6 @@ let
     };
   };
 
-  #package = pkgs.neovim-nightly;
-  #package = pkgs.neovim;
-
 in with import ./colors.nix { }; {
   home.sessionVariables = { EDITOR = "nvim"; };
 
@@ -76,12 +73,6 @@ in with import ./colors.nix { }; {
       undotree
       # luadev
       coc-nvim
-      {
-        plugin = kommentary;
-        config = lua ''
-          vim.g.kommentary_create_default_mappings = false
-        '';
-      }
       coc-rust-analyzer
       # vimspector
       vim-nix
@@ -153,23 +144,6 @@ in with import ./colors.nix { }; {
               imap      <C-G>s <Plug>Isurround
               imap      <C-G>S <Plug>ISurround
           endif
-        '';
-      }
-      {
-        plugin = coc-snippets;
-        config = ''
-          inoremap <silent><expr> <TAB>
-          \ pumvisible() ? coc#_select_confirm() :
-          \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',\'\'])\<CR>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-
-          function! s:check_back_space() abort
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~# '\s'
-          endfunction
-
-          let g:coc_snippet_next = '<tab>'
         '';
       }
       {

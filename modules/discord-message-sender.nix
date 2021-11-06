@@ -34,7 +34,8 @@ in {
           Type = "simple";
           EnvironmentFile = "/run/secrets/variables";
           ExecStart = ''
-            ${pkgs.cliscord}/bin/cliscord -s "${value.server}" -c "${value.channel}" -m "${value.content}" -t "$DISCORD_TOKEN"'';
+            ${pkgs.runtimeShell} -c '${pkgs.cliscord}/bin/cliscord -s "${value.server}" -c "${value.channel}" -m "${value.content}" -t "$DISCORD_TOKEN"'
+          '';
           Restart = "on-failure";
           RestartSec = 10;
         };

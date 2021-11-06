@@ -22,6 +22,8 @@
     mv = "mv -v";
     clip = "xclip -selection c";
     store-alive = "nix-store -q --roots";
+    zip = "ouch";
+    tar = "ouch";
     sf = ''
       manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'" | xargs manix'';
     permission = "stat -c%a";
@@ -298,7 +300,7 @@
       end
     '';
     r = ''
-      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --fast --flake $NIXOS_CONFIG && ls --color=auto -1 /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd diff
+      git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --fast --flake $NIXOS_CONFIG && ls -v1 /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd diff
     '';
     fish_prompt = ''
         set -l last_pipestatus $pipestatus

@@ -193,16 +193,16 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1635792138,
-        "narHash": "sha256-D79GqaYrwgyM4wvOPbQeKveAHROnVh97F36iSGZO9uA=",
-        "owner": "nixos",
+        "lastModified": 1635524299,
+        "narHash": "sha256-aS2sSVHTfc3nQAwy+YMBQQATJypsgL+JjjuiSjsJkuY=",
+        "owner": "IvarWithoutBones",
         "repo": "nixpkgs",
-        "rev": "b165ce0c4efbb74246714b5c66b6bcdce8cde175",
+        "rev": "b57db886d2d146430e26b22e9e8773375af609ec",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "IvarWithoutBones",
+        "ref": "buildDotnet/archi",
         "repo": "nixpkgs",
         "type": "github"
       }

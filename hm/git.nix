@@ -34,7 +34,7 @@
       url = {
         "ssh://git@bitbucket.org" = { insteadOf = "https://bitbucket.org"; };
       };
-      pull = { twohead = "ort"; };
+      pull = { rebase = true; };
       advice = {
         #  detachedHead = false;
       };

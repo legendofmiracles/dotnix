@@ -52,7 +52,7 @@ in {
 
   users.users.nix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "dialout" "libvirtd" ];
+    extraGroups = [ "wheel" "audio" "dialout" "libvirtd" "asf" ];
     shell = pkgs.fish;
     description = "Default user, nothing interesting";
     # hello dear attackers, this is only a default password, and changed immediately after installation
@@ -63,7 +63,7 @@ in {
   };
 
   nix = {
-    systemFeatures = [ "recursive-nix" "kvm" "nixos-test" ];
+    systemFeatures = [ "recursive-nix" "kvm" "nixos-test" "big-parallel" ];
 
     extraOptions = ''
       keep-outputs = true

@@ -4,7 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs/*-asf*/.url = "github:IvarWithoutBones/nixpkgs/buildDotnet/archi";
     mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -35,13 +36,13 @@
 
   outputs = { self, nixpkgs, mc-local-nixpkgs, home-manager, utils, nur
     , nixos-hardware
-    # , neovim-nightly, nix-on-droid
     , agenix, nix-gaming, darwin }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
 
       nixosModules = utils.lib.exportModules [
         # the modules
+        ./modules/asf.nix
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
@@ -83,15 +84,17 @@
           #./boot-config.nix
         ];
         extraArgs = {
-          inherit utils inputs # naersk nixpkgs-mozilla npmlock2nix
+          inherit utils inputs
           ;
         };
       };
 
-      channels.nixpkgs = {
-        input = nixpkgs;
-        config = { allowUnfree = true; };
-        #patches = [ ./141920.diff ];
+      channels = {
+        nixpkgs = {
+          input = nixpkgs;
+          config = { allowUnfree = true; };
+          #patches = [ ./asf.diff ];
+        };
       };
 
       hosts = {
@@ -106,6 +109,7 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
+            asf
             cowsay
             fonts
             network
@@ -122,6 +126,18 @@
                   (mkDevelopModule mc-local-nixpkgs
                     "services/games/minecraft-server.nix")
                 ];
+
+                services.asf = {
+                  enable = true;
+                  #package = asf.ArchiSteamFarm;
+                  bots = {
+                    legendofmiracles = {
+                      Enabled = true;
+                      SteamLogin = "LegendOfMiracles";
+                      SteamPassword = "sC3TGghDMYLAq32";
+                    };
+                  };
+                };
 
                 services.minecraft-server = {
                   #enable = true;
@@ -204,6 +220,7 @@
                       jq
                       manix
                       nix-review
+                      ouch
                       imagemagick
                       tmpmail
                       cliscord
