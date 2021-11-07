@@ -15,6 +15,7 @@ final: prev: rec {
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
   asus = prev.callPackage ./asus { };
+  test = prev.callPackage ./test.nix { };
 
   # freelancing
   opm-common = prev.callPackage ./opm-simulators/common.nix { };

@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs/*-asf*/.url = "github:IvarWithoutBones/nixpkgs/buildDotnet/archi";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs/*-asf*/.url = "github:IvarWithoutBones/nixpkgs/buildDotnet/archi";
     mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -42,7 +42,7 @@
 
       nixosModules = utils.lib.exportModules [
         # the modules
-        ./modules/asf.nix
+        #./modules/asf.nix
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
@@ -109,7 +109,7 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
-            asf
+            #asf
             cowsay
             fonts
             network
@@ -127,6 +127,7 @@
                     "services/games/minecraft-server.nix")
                 ];
 
+                /*
                 services.asf = {
                   enable = true;
                   #package = asf.ArchiSteamFarm;
@@ -134,10 +135,11 @@
                     legendofmiracles = {
                       Enabled = true;
                       SteamLogin = "LegendOfMiracles";
-                      SteamPassword = "sC3TGghDMYLAq32";
+                      SteamPassword = "";
                     };
                   };
                 };
+                */
 
                 services.minecraft-server = {
                   #enable = true;

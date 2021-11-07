@@ -10,7 +10,7 @@
       rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
       sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
     };
-  }];
+  } /*pkgs.fishPlugins.done*/ ];
 
   programs.fish.shellAbbrs = {
     curl-lichess = "curl -H 'Authorization: Bearer $LICHESS_TOKEN' https://lichess.org/api/account/preferences";

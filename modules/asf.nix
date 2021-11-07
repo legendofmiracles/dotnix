@@ -140,7 +140,11 @@ in {
         }") (attrsets.mapAttrsToList (name: config:
         #  [(pkgs.writeText name config) name]
         #) cfg.bots)}
-        attrsets.mapAttrsToList mkBot cfg.bots
+        ''${concatMapStrings (x: \'\'
+          cat <<EOF
+          ${x}
+          EOF | ${pkgs.jq}/bin/jq '.SteamPassword |= ["$(cat )"] + . + [")"]]'
+        ) attrsets.mapAttrsToList mkBot cfg.bots}
       '';
     };
   };

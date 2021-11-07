@@ -15,7 +15,11 @@ let
 in {
   programs.fish = {
     enable = true;
-    vendor.completions.enable = true;
+    vendor = {
+      completions.enable = true;
+      config.enable = true;
+      functions.enable = true;
+    };
   };
 
   age.secrets = {

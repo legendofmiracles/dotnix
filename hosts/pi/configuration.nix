@@ -113,12 +113,12 @@
     content = "<@568326274653880341> happy birthday! :partying_face:";
     when = "*-11-11 00:00:00";
   };
-  services.discord.cat-facts = {
+  /*services.discord.cat-facts = {
     desc = "almost annoying";
     server = "Best Server";
     channel = "meta";
     content = "<@&905815924601401384> Random cat fact! $(${pkgs.curl}/bin/curl https://catfact.ninja/fact | ${pkgs.jq}/bin/jq -r .fact)";
     when = "*-*-* *:00:00";
-  };
+  };*/
 
 }
