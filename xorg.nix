@@ -39,6 +39,8 @@
 
   hardware.opengl.driSupport32Bit = true;
 
+  hardware.opengl.extraPackages = with pkgs; [ intel-compute-runtime ];
+
   environment.systemPackages = with pkgs; [
     glxinfo
     xorg.xkill
