@@ -17,6 +17,7 @@ let
       # we set it to the password file path, because we will replace it later on
       SteamPassword = c.password;
       Enabled = c.enabled;
+      name = n;
     });
 
 in {
@@ -67,7 +68,8 @@ in {
           };
           password = mkOption {
             type = types.path;
-            description = "Path to a file containig the password. The file must be readable by the <literal>asf</literal> user/group.";
+            description =
+              "Path to a file containig the password. The file must be readable by the <literal>asf</literal> user/group.";
           };
           enabled = mkOption {
             type = types.bool;
@@ -131,20 +133,22 @@ in {
       */
 
       preStart = ''
+        set -x
         # we remove config to have no complexity when creating the required files/directories
         rm -rf config/
         mkdir config
         ln -s ${asf-config} config/ASF.json
-        #''${concatMapStrings (x: "ln -s ${builtins.elemAt x 0} ${
-          builtins.elemAt x 1
-        }") (attrsets.mapAttrsToList (name: config:
-        #  [(pkgs.writeText name config) name]
-        #) cfg.bots)}
-        ''${concatMapStrings (x: \'\'
+        echo -e "${
+          lib.strings.concatStringsSep "\\n"
+          (attrsets.mapAttrsToList mkBot cfg.bots)
+        }" | while read -r line; do
+          name=$(echo $line | jq -r .name)
           cat <<EOF
-          ${x}
-          EOF | ${pkgs.jq}/bin/jq '.SteamPassword |= ["$(cat )"] + . + [")"]]'
-        ) attrsets.mapAttrsToList mkBot cfg.bots}
+          $(echo $line | jq -r del(.name))
+          EOF > config/$name
+          password=$(echo $line | jq -r .SteamPassword)
+          sed -i s/$password/$(cat $password)/ config/$name
+        done
       '';
     };
   };

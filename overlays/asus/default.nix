@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config  ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ udev libclang ];
 
   patchPhase = ''
@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A control daemon, CLI tools, and a collection of crates for interacting with ASUS ROG laptops";
+    description =
+      "A control daemon, CLI tools, and a collection of crates for interacting with ASUS ROG laptops";
     homepage = "https://gitlab.com/asus-linxu/asusctl";
     licenses = licenses.MPL20;
   };

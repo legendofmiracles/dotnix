@@ -4,7 +4,6 @@ final: prev: rec {
      aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
   */
   activitywatch = prev.callPackage ./activitywatch { };
-  lucky-commit = prev.callPackage ./lucky-commit { };
   cliscord = prev.callPackage ./cliscord { };
   st-patched = prev.callPackage ./st-patched { };
   keymapviz = prev.callPackage ./keymapviz { };
@@ -15,7 +14,6 @@ final: prev: rec {
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
   asus = prev.callPackage ./asus { };
-  test = prev.callPackage ./test.nix { };
 
   # freelancing
   opm-common = prev.callPackage ./opm-simulators/common.nix { };

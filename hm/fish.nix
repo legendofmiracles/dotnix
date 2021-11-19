@@ -10,10 +10,12 @@
       rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
       sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
     };
-  } /*pkgs.fishPlugins.done*/ ];
+  } # pkgs.fishPlugins.done
+    ];
 
   programs.fish.shellAbbrs = {
-    curl-lichess = "curl -H 'Authorization: Bearer $LICHESS_TOKEN' https://lichess.org/api/account/preferences";
+    curl-lichess = ''
+      curl -H "Authorization: Bearer $LICHESS_TOKEN" https://lichess.org/api/account/preferences'';
     s = "nix shell nixpkgs#";
     new = "ls -ltr";
     c = "vim ~/dotnix/";
@@ -30,7 +32,15 @@
   };
 
   programs.fish.shellInit = ''
-    rpg-cli cd "$PWD"
+    # run ls on enter if the prompt is empty
+    function __autols --description "Auto ls" --on-event fish_prompt
+      if set -q __noCommand
+            ls
+          end
+      set -g __lastPwd $PWD
+    end
+    bind \r 'set -l cmd (commandline); [ -z "$cmd" ] && set -g __noCommand || set -e __noCommand; commandline -f execute'
+
     # loads secrets at runtime
     # can this path not be hardcoded?
     posix-source /run/secrets/variables
@@ -266,14 +276,6 @@
   '';
 
   programs.fish.functions = {
-    ls = ''
-      command ls "$@"
-      if [ $# -eq 0 ] ; then
-        echo lllol
-        rpg-cli cd -f .
-        rpg-cli ls
-      fi
-    '';
     posix-source = ''
       for i in (cat $argv)
         set arr (echo $i |tr = \n)
@@ -288,15 +290,6 @@
         eval $unfucked_command
         builtin history delete --exact --case-sensitive -- $fucked_up_command
         builtin history merge ^ /dev/null
-      end
-    '';
-    cd = ''
-      if test "$argv" = ""
-        rpg-cli cd -f ~/ && rpg-cli battle
-        builtin cd ~/
-      else
-        rpg-cli cd -f "$argv" && rpg-cli battle
-        builtin cd "$argv"
       end
     '';
     r = ''
@@ -316,6 +309,8 @@
             end
             set suffix '#'
         end
+
+        export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
         # If we're running via SSH, change the host color.
         set -l color_host $fish_color_host

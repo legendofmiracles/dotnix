@@ -35,8 +35,7 @@
   };
 
   outputs = { self, nixpkgs, mc-local-nixpkgs, home-manager, utils, nur
-    , nixos-hardware
-    , agenix, nix-gaming, darwin }@inputs:
+    , nixos-hardware, agenix, nix-gaming, darwin }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -83,10 +82,7 @@
           self.nixosModules.defaults-nixos
           #./boot-config.nix
         ];
-        extraArgs = {
-          inherit utils inputs
-          ;
-        };
+        extraArgs = { inherit utils inputs; };
       };
 
       channels = {
@@ -127,18 +123,17 @@
                     "services/games/minecraft-server.nix")
                 ];
 
-                /*
-                services.asf = {
-                  enable = true;
-                  #package = asf.ArchiSteamFarm;
-                  bots = {
-                    legendofmiracles = {
-                      Enabled = true;
-                      SteamLogin = "LegendOfMiracles";
-                      SteamPassword = "";
-                    };
-                  };
-                };
+                /* services.asf = {
+                     enable = true;
+                     #package = asf.ArchiSteamFarm;
+                     bots = {
+                       legendofmiracles = {
+                         Enabled = true;
+                         SteamLogin = "LegendOfMiracles";
+                         SteamPassword = "";
+                       };
+                     };
+                   };
                 */
 
                 services.minecraft-server = {
@@ -206,7 +201,6 @@
                       lutris
                       obs-studio
                       gimp
-                      rpg-cli
                       lucky-commit
                       up
                       nixfmt
