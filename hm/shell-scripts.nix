@@ -160,4 +160,37 @@ rec {
     }/bin/i3lock-color --insidevercolor=$C --ringvercolor=$V --insidewrongcolor=$C --ringwrongcolor=$W --insidecolor=$B --ringcolor=$D --linecolor=$B --separatorcolor=$D --verifcolor=$T --wrongcolor=$T --timecolor=$T --datecolor=$T --layoutcolor=$T --keyhlcolor=$W  --bshlcolor=$W  --screen 1  --blur 5  --clock --indicator --timestr="%H:%M:%S" --datestr="%A, %m %Y" --keylayout 2 --veriftext="Why should i even be checking this password? its wrong anyways." --wrongtext="Nice try ;)" --greetertext="u wanna use the computer? good luck finding the password..." --greetercolor=$V
   '';
   yt = pkgs.writeShellScriptBin "yt" ''${pkgs.yt-dlp}/bin/yt-dlp "$@"'';
+  hstrace = pkgs.writeShellScriptBin "strace" ''
+    if type realpath > /dev/null; then
+	cd "$(dirname "$(realpath "$0")")" || exit
+    elif uname -s | grep -qsi darwin; then
+        cd "$(dirname "$(readlink "$0")")" || exit
+    else
+        cd "$(dirname "$(readlink -f "$0")")" || exit
+    fi
+
+    string_length=$(($(tput cols)-95))
+    return_col=$(($(tput cols)-55))
+    ${pkgs.strace}/bin/strace -t -f -C -s "$string_length" -y -a $return_col -o \
+          >(${pkgs.sourceHighlight}/bin/source-highlight --failsafe --lang-def ${pkgs.writeText "strace-lang" ''
+            vardef SYSCALL = '\b[a-z0-9_]+(?=\()'
+            vardef CONST = '\b[A-Z_]+\b'
+            vardef PATH ='(?<=\d)<(/[^/]+)+>'
+
+            keyword = $SYSCALL
+            variable = $CONST
+            file = $PATH
+            type = '\.\.\.'
+
+            string delim "\"" "\"" escape "\\"
+            #symbol = "=|+|,|(|)|\|"
+            include "${pkgs.sourceHighlight}/share/source-highlight/symbols.lang"
+
+
+            #cbracket = "\(|\)"
+
+            comment delim "/*" "*/" multiline
+          ''} -f esc --style-file=esc.style >&2 ) \
+        "''${@}"
+  '';
 }

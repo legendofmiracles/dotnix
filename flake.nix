@@ -191,6 +191,7 @@
                       store-path
                       yt
                       mute
+                      hstrace
 
                       helvum
                       /* (osu-nix.packages.x86_64-linux.osu-stable.override {

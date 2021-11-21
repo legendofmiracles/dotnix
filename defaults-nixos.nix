@@ -48,6 +48,8 @@ in {
     };
 
     systemPackages = with pkgs; [ man-pages fup-repl git ];
+
+    defaultPackages = lib.mkForce [ ];
   };
 
   services.getty.helpLine = ''
