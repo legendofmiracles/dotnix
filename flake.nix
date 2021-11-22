@@ -41,7 +41,7 @@
 
       nixosModules = utils.lib.exportModules [
         # the modules
-        #./modules/asf.nix
+        ./modules/asf.nix
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
@@ -105,7 +105,7 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
-            #asf
+            asf
             cowsay
             fonts
             network
@@ -123,18 +123,24 @@
                     "services/games/minecraft-server.nix")
                 ];
 
-                /* services.asf = {
-                     enable = true;
-                     #package = asf.ArchiSteamFarm;
-                     bots = {
-                       legendofmiracles = {
-                         Enabled = true;
-                         SteamLogin = "LegendOfMiracles";
-                         SteamPassword = "";
-                       };
-                     };
-                   };
-                */
+                services.asf = {
+                  enable = true;
+                  bots = {
+                    legendofmiracles = {
+                      enabled = true;
+                      username = "LegendOfMiracles";
+                      password = "/run/secrets/steam";
+                    };
+                    hlgr360 = {
+                      enabled = true;
+                      username = "hlgr360";
+                      password = "/run/secrets/steam-2";
+                    };
+                  };
+                  config = {
+                    SteamOwnerID = "76561198815866999";
+                  };
+                };
 
                 services.minecraft-server = {
                   #enable = true;

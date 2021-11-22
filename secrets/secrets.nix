@@ -11,4 +11,6 @@ let
 in {
   #"wpa_supplicant.conf.age".publicKeys = users ++ systems;
   "variables.age".publicKeys = users ++ systems;
+  "steam.age".publicKeys = users ++ systems;
+  "steam-2.age".publicKeys = users ++ systems;
 }

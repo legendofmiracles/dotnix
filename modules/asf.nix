@@ -4,12 +4,12 @@ with lib;
 
 let
   cfg = config.services.asf;
-  asf-config = pkgs.writeText "ASF.json" builtins.toJSON (cfg.config // {
+  asf-config = pkgs.writeText "ASF.json" (builtins.toJSON (cfg.config // {
     # we disable it because ASF cannot update itself anyways
     # and nixos takes care of restarting the service
     AutoRestart = false;
     UpdateChannel = 0;
-  });
+  }));
 
   mkBot = n: c:
     builtins.toJSON (c.settings // {
@@ -25,10 +25,15 @@ in {
     enable = mkOption {
       type = types.bool;
       description = ''
-        If enabled, starts a Archis Steam Farm service.
+        If enabled, starts the Archis Steam Farm service.
         Any user in the <literal>asf<literal> group can connect to the console with <literal>tmux -S ${cfg.dataDir}/asf.sock attach</literal>
       '';
       default = false;
+    };
+
+    web-ui = {
+      enable = mkEnableOption
+        "Wheter to start the web-ui. This is the preffered way of configuring things such as the steam guard token.";
     };
 
     package = mkOption {
@@ -58,7 +63,7 @@ in {
       default = { };
     };
     bots = mkOption {
-      type = types.attrsOf types.submodule {
+      type = types.attrsOf (types.submodule {
         options = {
           username = mkOption {
             type = types.str;
@@ -82,7 +87,7 @@ in {
             default = { };
           };
         };
-      };
+      });
       description = ''
         Bots name and configuration
       '';
@@ -110,46 +115,65 @@ in {
       groups.asf = { };
     };
 
-    systemd.services.asf = {
-      description = "Archis-Steam-Farm Service";
-      after = [ "network.target" ];
-      path = [ cfg.package ];
+    systemd.services = {
+      asf = {
+        description = "Archis-Steam-Farm Service";
+        after = [ "network.target" ];
+        path = [ cfg.package ];
 
-      serviceConfig = {
-        Type = "simple";
-        WorkingDirectory = cfg.dataDir;
-        #Type = "forking";
-        #GuessMainPID = true;
+        serviceConfig = {
+          User = "asf";
+          Group = "asf";
+          WorkingDirectory = cfg.dataDir;
+          Type = "simple";
+          #GuessMainPID = true;
+          #ExecStart = "${pkgs.tmux}/bin/tmux -S ${cfg.dataDir}/asf.sock new -d '${pkgs.ArchiSteamFarm}/bin/ArchiSteamFarm --path ${cfg.dataDir}'";
 
-        #ExecStart = "${pkgs.tmux}/bin/tmux -S ${cfg.dataDir}/asf.sock new -d ${pkgs.ArchiSteamFarm}/bin/ArchiSteamFarm --path ${cfg.dataDir}";
-        ExecStart =
-          "${pkgs.ArchiSteamFarm}/bin/ArchiSteamFarm --path ${cfg.dataDir}";
+          ExecStart =
+            "ArchiSteamFarm --path ${cfg.dataDir} --service --process-required";
+          PrivateTmp = true;
+        };
+
+        preStart = ''
+          set -x
+          # we remove config to have no complexity when creating the required files/directories
+          rm -rf config/*.json
+          mkdir config || true
+          ln -s ${asf-config} config/ASF.json
+          echo -e '${
+            lib.strings.concatStringsSep "\\n"
+            (attrsets.mapAttrsToList mkBot cfg.bots)
+          }' \
+          | while read -r line; do
+            name="$(${pkgs.jq}/bin/jq -r .name <<< "$line")"
+            password_file="$(${pkgs.jq}/bin/jq -r .SteamPassword <<< "$line")"
+            password="$(< "$password_file")"
+            ${pkgs.jq}/bin/jq -r "del(.name) | .SteamPassword = \"''${password}"\" <<< "$line" > "config/''${name}".json
+          done
+        '';
       };
-      /* postStart = ''
-         sleep 1
-         ${pkgs.coreutils}/bin/chmod 660 ${cfg.dataDir}/asf.sock
-         ${pkgs.coreutils}/bin/chgrp asf ${cfg.dataDir}/asf.sock
-         '';
-      */
+      asf-ui = lib.mkIf config.web-ui.enable {
+        description = "Archi-Steam-Farm web-ui";
 
-      preStart = ''
-        set -x
-        # we remove config to have no complexity when creating the required files/directories
-        rm -rf config/
-        mkdir config
-        ln -s ${asf-config} config/ASF.json
-        echo -e "${
-          lib.strings.concatStringsSep "\\n"
-          (attrsets.mapAttrsToList mkBot cfg.bots)
-        }" | while read -r line; do
-          name=$(echo $line | jq -r .name)
-          cat <<EOF
-          $(echo $line | jq -r del(.name))
-          EOF > config/$name
-          password=$(echo $line | jq -r .SteamPassword)
-          sed -i s/$password/$(cat $password)/ config/$name
-        done
-      '';
+        after = [ "network.target" "asf.service" ];
+
+        path = with pkgs; [ git nodejs ];
+
+        script = ''
+          git clone https://github.com/JustArchiNET/ASF-ui asf-ui
+          cd asf-ui
+          npm i
+          npm start
+        '';
+
+        serviceConfig = {
+          Type = "simple";
+          Restart = "always";
+          User = "asf";
+          Group = "asf";
+          WorkingDirectory = cfg.dataDir;
+        };
+      };
     };
   };
 }

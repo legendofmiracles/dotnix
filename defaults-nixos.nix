@@ -28,18 +28,17 @@ in {
       owner = "nix";
       mode = "0400";
     };
+    steam = {
+      file = ./secrets/steam.age;
+      owner = "asf";
+      mode = "0440";
+    };
+    steam-2 = {
+      file = ./secrets/steam-2.age;
+      owner = "asf";
+      mode = "0440";
+    };
   };
-  /* wpa = {
-         file = ./secrets/wpa_supplicant.conf.age;
-         mode = "0400";
-       };
-       /*steam = {
-         file = ./secrets/steam.age;
-         owner = "nix";
-         mode = "0444";
-       };
-     };
-  */
 
   environment = {
     sessionVariables = {

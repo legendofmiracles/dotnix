@@ -136,10 +136,10 @@ rec {
     while IFS= read -r line; do
         case $(${pkgs.pamixer}/bin/pamixer --get-volume-human --source $line) in
             muted)
-                ${pkgs.libnotify}/bin/notify-send -t 300 "unmuted"
+                ${pkgs.libnotify}/bin/notify-send -t 900 "unmuted"
                 ;;
             *)
-                ${pkgs.libnotify}/bin/notify-send -t 300 "muted"
+                ${pkgs.libnotify}/bin/notify-send -t 900 "muted"
                 ;;
         esac
     done <<< "$sources"
