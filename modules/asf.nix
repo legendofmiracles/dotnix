@@ -31,9 +31,24 @@ in {
       default = false;
     };
 
-    web-ui = {
-      enable = mkEnableOption
-        "Wheter to start the web-ui. This is the preffered way of configuring things such as the steam guard token.";
+    web-ui = mkOption {
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption
+            "Wheter to start the web-ui. This is the preffered way of configuring things such as the steam guard token.";
+
+          package = mkOption {
+            type = types.package;
+            default = pkgs.ASF-ui;
+            description =
+              "Web ui package to use. Contents must be in $out/lib/dist.";
+          };
+        };
+      };
+      default = {
+        enable = true;
+        package = pkgs.ASF-ui;
+      };
     };
 
     package = mkOption {
@@ -119,25 +134,27 @@ in {
       asf = {
         description = "Archis-Steam-Farm Service";
         after = [ "network.target" ];
-        path = [ cfg.package ];
 
         serviceConfig = {
           User = "asf";
           Group = "asf";
           WorkingDirectory = cfg.dataDir;
           Type = "simple";
-          #GuessMainPID = true;
-          #ExecStart = "${pkgs.tmux}/bin/tmux -S ${cfg.dataDir}/asf.sock new -d '${pkgs.ArchiSteamFarm}/bin/ArchiSteamFarm --path ${cfg.dataDir}'";
-
           ExecStart =
-            "ArchiSteamFarm --path ${cfg.dataDir} --service --process-required";
-          PrivateTmp = true;
+            "${cfg.package}/bin/ArchiSteamFarm --service --process-required";
+          #PrivateTmp = true;
+        };
+
+        environment = {
+          ASF_PATH = cfg.dataDir;
         };
 
         preStart = ''
+          pwd
           set -x
           # we remove config to have no complexity when creating the required files/directories
           rm -rf config/*.json
+          rm -rf www
           mkdir config || true
           ln -s ${asf-config} config/ASF.json
           echo -e '${
@@ -150,29 +167,14 @@ in {
             password="$(< "$password_file")"
             ${pkgs.jq}/bin/jq -r "del(.name) | .SteamPassword = \"''${password}"\" <<< "$line" > "config/''${name}".json
           done
+
+          ${if cfg.web-ui.enable then ''
+            mkdir www
+            cp -r ${cfg.web-ui.package}/lib/dist/* www/
+            chmod u+w -R www/
+          '' else
+            ""}
         '';
-      };
-      asf-ui = lib.mkIf config.web-ui.enable {
-        description = "Archi-Steam-Farm web-ui";
-
-        after = [ "network.target" "asf.service" ];
-
-        path = with pkgs; [ git nodejs ];
-
-        script = ''
-          git clone https://github.com/JustArchiNET/ASF-ui asf-ui
-          cd asf-ui
-          npm i
-          npm start
-        '';
-
-        serviceConfig = {
-          Type = "simple";
-          Restart = "always";
-          User = "asf";
-          Group = "asf";
-          WorkingDirectory = cfg.dataDir;
-        };
       };
     };
   };

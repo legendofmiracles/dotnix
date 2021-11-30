@@ -13,7 +13,11 @@ final: prev: rec {
   present = prev.callPackage ./present { };
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
-  asus = prev.callPackage ./asus { };
+
+  web-ui = prev.callPackage ./asf/web-ui { };
+  asf = prev.callPackage ./asf { };
+
+  nix-bisect = prev.callPackage ./nix-bisect { };
 
   # freelancing
   opm-common = prev.callPackage ./opm-simulators/common.nix { };

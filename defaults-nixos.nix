@@ -51,6 +51,7 @@ in {
     defaultPackages = lib.mkForce [ ];
   };
 
+  # print ip address before login prompt
   services.getty.helpLine = ''
     \4
   '';

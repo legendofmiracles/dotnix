@@ -3,6 +3,7 @@
 let font = "Cascadia Code";
 in {
   programs.firefox = {
+    package = pkgs.firefox-bin;
     enable = true;
     profiles = {
       legend = {

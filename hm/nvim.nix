@@ -18,6 +18,20 @@ let
     };
   };
 
+  /*
+  octo = pkgs.vimUtils.buildVimPlugin {
+    pname = "octo";
+    version = "";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "pwntester";
+      repo = "octo.nvim";
+      rev = "848990b8d7f7f28293cfb5a1ad19abf66e27f08a";
+      sha256 = "sha256-+vHclNUot8EPSMhC7x805LGt6oaF4qO3/DbKQ2q6KyY=";
+    };
+  };
+  */
+
   gesture = pkgs.vimUtils.buildVimPlugin {
     pname = "gesture";
     version = "";
@@ -193,6 +207,7 @@ in with import ./colors.nix { }; {
         plugin = mark-radar;
         config = lua ''require("mark-radar").setup()'';
       }
+      #octo
       {
         plugin = gesture;
         config = ''

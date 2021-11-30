@@ -5,7 +5,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs/*-asf*/.url = "github:IvarWithoutBones/nixpkgs/buildDotnet/archi";
     mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -89,7 +88,6 @@
         nixpkgs = {
           input = nixpkgs;
           config = { allowUnfree = true; };
-          #patches = [ ./asf.diff ];
         };
       };
 
@@ -129,17 +127,22 @@
                     legendofmiracles = {
                       enabled = true;
                       username = "LegendOfMiracles";
-                      password = "/run/secrets/steam";
+                      password = "/run/agenix/steam";
                     };
                     hlgr360 = {
                       enabled = true;
                       username = "hlgr360";
-                      password = "/run/secrets/steam-2";
+                      password = "/run/agenix/steam-2";
                     };
                   };
                   config = {
                     SteamOwnerID = "76561198815866999";
                   };
+                  web-ui = {
+                    enable = true;
+                    package = pkgs.web-ui;
+                  };
+                  package = pkgs.asf;
                 };
 
                 services.minecraft-server = {
@@ -165,7 +168,7 @@
                       htop
                       defaults
                       alacritty
-                      mori
+                      #mori
                       dunst
                       mpv
                       xorg-hm
