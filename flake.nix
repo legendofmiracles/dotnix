@@ -127,12 +127,12 @@
                     legendofmiracles = {
                       enabled = true;
                       username = "LegendOfMiracles";
-                      password = "/run/agenix/steam";
+                      passwordFile = "/run/agenix/steam";
                     };
                     hlgr360 = {
                       enabled = true;
                       username = "hlgr360";
-                      password = "/run/agenix/steam-2";
+                      passwordFile = "/run/agenix/steam-2";
                     };
                   };
                   config = {

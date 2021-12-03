@@ -8,6 +8,6 @@
       vo = "gpu";
       profile = "gpu-hq";
     };
-    scripts = with pkgs.mpvScripts; [ ];
+    scripts = with pkgs.mpvScripts; [ cutter ];
   };
 }

@@ -19,6 +19,9 @@ final: prev: rec {
 
   nix-bisect = prev.callPackage ./nix-bisect { };
 
+  nhi = prev.callPackage ./nhi { };
+  nhid = prev.callPackage ./nhi/daemon.nix { };
+
   # freelancing
   opm-common = prev.callPackage ./opm-simulators/common.nix { };
   opm-material = prev.callPackage ./opm-simulators/material.nix {

@@ -1,32 +1,36 @@
+#TODO: edit nixpkgs/nixos/modules/misc/ids.nix
+
 { config, lib, pkgs, ... }:
 
 with lib;
 
 let
-  cfg = config.services.asf;
+  cfg = config.services.archisteamfarm;
   asf-config = pkgs.writeText "ASF.json" (builtins.toJSON (cfg.config // {
     # we disable it because ASF cannot update itself anyways
     # and nixos takes care of restarting the service
     AutoRestart = false;
     UpdateChannel = 0;
+    Headless = true;
   }));
 
   mkBot = n: c:
     builtins.toJSON (c.settings // {
       SteamLogin = if c.username == "" then n else c.username;
-      # we set it to the password file path, because we will replace it later on
-      SteamPassword = c.password;
+      SteamPassword = c.passwordFile;
+      # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
+      PasswordFormat = 4;
       Enabled = c.enabled;
       name = n;
     });
 
 in {
-  options.services.asf = {
+  options.services.archisteamfarm = {
     enable = mkOption {
       type = types.bool;
       description = ''
         If enabled, starts the Archis Steam Farm service.
-        Any user in the <literal>asf<literal> group can connect to the console with <literal>tmux -S ${cfg.dataDir}/asf.sock attach</literal>
+        For configuring the SteamGuard token you will need to use the web-ui, which is enabled by default. On http://127.0.0.1:1242/commands enter <literal>input <BOT> SteamGuard <code from email>. Read more about the command here: https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Commands#input-command. If you disable the web-ui you should still be able to use IPC to set all required runtime values.
       '';
       default = false;
     };
@@ -49,12 +53,16 @@ in {
         enable = true;
         package = pkgs.ASF-ui;
       };
+      example = {
+        enable = false;
+      };
     };
 
     package = mkOption {
       type = types.package;
       default = pkgs.ArchiSteamFarm;
-      description = "Package to use";
+      description =
+        "Package to use. Should always be the latest version, for security reasons and since this module uses very new features.";
     };
 
     dataDir = mkOption {
@@ -69,10 +77,10 @@ in {
         The ASF.json file, all the options are documented here: https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#global-config.
         Do note that AutoRestart is automatically set to false, since nix takes care of updating everything.
         UpdateChannel is also set to 0 for the same reason.
+        Headless is also set to true, since there is no way to provide input via a systemd service.
         You should try to keep ASF up to date since upstream does not provide support for anything but hte latest version and you're exposing yourself to all kinds of issues - as is outlined here: https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#updateperiod
       '';
       example = {
-        Headless = true;
         Statistics = false;
       };
       default = { };
@@ -86,7 +94,7 @@ in {
               "Name of the user to log in. Default is attribute name.";
             default = "";
           };
-          password = mkOption {
+          passwordFile = mkOption {
             type = types.path;
             description =
               "Path to a file containig the password. The file must be readable by the <literal>asf</literal> user/group.";
@@ -109,7 +117,7 @@ in {
       example = {
         exampleBot = {
           username = "alice";
-          password = "/my/super/secret/password";
+          passwordFile = "/my/super/secret/password";
           settings = { SteamParentalCode = "1234"; };
         };
       };
@@ -141,21 +149,35 @@ in {
           WorkingDirectory = cfg.dataDir;
           Type = "simple";
           ExecStart =
-            "${cfg.package}/bin/ArchiSteamFarm --service --process-required";
-          #PrivateTmp = true;
-        };
+            "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required";
 
-        environment = {
-          ASF_PATH = cfg.dataDir;
+          # mostly copied from the default systemd service
+          PrivateTmp = true;
+          LockPersonality = true;
+          PrivateDevices = true;
+          PrivateIPC = true;
+          PrivateMounts = true;
+          PrivateUsers = true;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = "full";
+          RemoveIPC = true;
+          RestrictAddressFamilies = "AF_INET AF_INET6";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
         };
 
         preStart = ''
-          pwd
-          set -x
           # we remove config to have no complexity when creating the required files/directories
-          rm -rf config/*.json
-          rm -rf www
           mkdir config || true
+          rm -r config/*.json
+          rm -r www
           ln -s ${asf-config} config/ASF.json
           echo -e '${
             lib.strings.concatStringsSep "\\n"
@@ -163,15 +185,11 @@ in {
           }' \
           | while read -r line; do
             name="$(${pkgs.jq}/bin/jq -r .name <<< "$line")"
-            password_file="$(${pkgs.jq}/bin/jq -r .SteamPassword <<< "$line")"
-            password="$(< "$password_file")"
-            ${pkgs.jq}/bin/jq -r "del(.name) | .SteamPassword = \"''${password}"\" <<< "$line" > "config/''${name}".json
+            ${pkgs.jq}/bin/jq -r "del(.name)" <<< "$line" > "config/''${name}".json
           done
 
           ${if cfg.web-ui.enable then ''
-            mkdir www
-            cp -r ${cfg.web-ui.package}/lib/dist/* www/
-            chmod u+w -R www/
+            ln -s ${cfg.web-ui.package}/lib/dist www
           '' else
             ""}
         '';

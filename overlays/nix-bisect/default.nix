@@ -3,7 +3,7 @@
 python3.pkgs.buildPythonPackage rec {
   pname = "nix-bisect";
   version = "0.2.0";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "timokau";
     repo = "nix-bisect";
     rev = "v${version}";

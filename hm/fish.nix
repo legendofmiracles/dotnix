@@ -29,6 +29,7 @@
     sf = ''
       manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'" | xargs manix'';
     permission = "stat -c%a";
+    sd = "flameshot gui -r | sed /aborted/d | cliscord --token=\"$DISCORD_TOKEN\" -s -c";
   };
 
   programs.fish.shellInit = ''
