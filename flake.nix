@@ -4,7 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?final-asf";
     mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -103,7 +104,7 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
-            asf
+            #asf
             cowsay
             fonts
             network
@@ -121,7 +122,7 @@
                     "services/games/minecraft-server.nix")
                 ];
 
-                services.asf = {
+                services.archisteamfarm = {
                   enable = true;
                   bots = {
                     legendofmiracles = {
@@ -130,19 +131,19 @@
                       passwordFile = "/run/agenix/steam";
                     };
                     hlgr360 = {
-                      enabled = true;
+                      enabled = false;
                       username = "hlgr360";
                       passwordFile = "/run/agenix/steam-2";
                     };
                   };
-                  config = {
+                  settings = {
                     SteamOwnerID = "76561198815866999";
                   };
                   web-ui = {
                     enable = true;
-                    package = pkgs.web-ui;
+                    #package = pkgs.web-ui;
                   };
-                  package = pkgs.asf;
+                  #package = pkgs.asf;
                 };
 
                 services.minecraft-server = {
@@ -215,7 +216,7 @@
                       up
                       nixfmt
                       pavucontrol
-                      multimc
+                      (multimc.override { msaClientID = "01524508-0110-46fc-b468-362d31ca41e6"; })
                       qrcp
                       tealdeer
                       nix-index
