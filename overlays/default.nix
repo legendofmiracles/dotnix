@@ -14,9 +14,6 @@ final: prev: rec {
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
 
-  web-ui = prev.callPackage ./asf/web-ui { };
-  asf = prev.callPackage ./asf { };
-
   nix-bisect = prev.callPackage ./nix-bisect { };
 
   nhi = prev.callPackage ./nhi { };

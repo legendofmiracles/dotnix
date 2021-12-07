@@ -15,6 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
+  cargoPatches = [ ./cargo.lock.patch ];
+
   buildInputs = [ gtk3 glib xorg.libX11 ];
 
   installPhase = ''

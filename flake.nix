@@ -6,7 +6,7 @@
 
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?final-asf";
-    mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
+    #mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -41,10 +41,10 @@
 
       nixosModules = utils.lib.exportModules [
         # the modules
-        ./modules/asf.nix
         ./modules/espanso-m.nix
         ./modules/discord-message-sender.nix
         ./modules/cowsay.nix
+        ./modules/minecraft.nix
         # my config
         ./xorg.nix
         ./hm/proton.nix
@@ -80,7 +80,6 @@
         modules = [
           agenix.nixosModules.age
           self.nixosModules.defaults-nixos
-          #./boot-config.nix
         ];
         extraArgs = { inherit utils inputs; };
       };
@@ -118,9 +117,12 @@
               in {
                 # development/testing purposes
                 imports = [
-                  (mkDevelopModule mc-local-nixpkgs
+                  /*(mkDevelopModule mc-local-nixpkgs
                     "services/games/minecraft-server.nix")
+                  */
                 ];
+
+                disabledModules = [ "services/games/minecraft-server.nix" ];
 
                 services.archisteamfarm = {
                   enable = true;
@@ -158,7 +160,7 @@
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;
-                home-manager.users.nix = { config, pkgs, lib, ... }:
+                home-manager.users.nix = { pkgs, lib, ... }:
                   with import ./hm/shell-scripts.nix {
                     inherit pkgs inputs lib;
                   }; {
@@ -268,7 +270,7 @@
             home-manager.darwinModules.home-manager
             darwin.darwinModules.simple
             ({ pkgs, ... }: {
-              home-manager.users.test = { config, pkgs, ... }:
+              home-manager.users.test = { pkgs, ... }:
                 with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
                   imports = [ defaults htop fish nvim git ];
 
