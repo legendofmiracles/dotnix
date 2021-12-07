@@ -34,7 +34,7 @@
     */
   };
 
-  outputs = { self, nixpkgs, mc-local-nixpkgs, home-manager, utils, nur
+  outputs = { self, nixpkgs, home-manager, utils, nur
     , nixos-hardware, agenix, nix-gaming, darwin }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
