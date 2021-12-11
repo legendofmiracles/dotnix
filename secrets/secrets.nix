@@ -13,4 +13,5 @@ in {
   "variables.age".publicKeys = users ++ systems;
   "steam.age".publicKeys = users ++ systems;
   "steam-2.age".publicKeys = users ++ systems;
+  "steam-3.age".publicKeys = users ++ systems;
 }

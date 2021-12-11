@@ -296,6 +296,9 @@
     r = ''
       git -C $NIXOS_CONFIG diff; sudo nixos-rebuild switch --fast --flake $NIXOS_CONFIG && ls -v1 /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd diff
     '';
+    earth = ''
+      NIXPKGS_ALLOW_INSECURE=1 nix-shell -p googleearth-pro --run googleearth-pro
+    '';
     fish_prompt = ''
         set -l last_pipestatus $pipestatus
         set -lx __fish_last_status $status # Export for __fish_print_pipestatus.

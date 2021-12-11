@@ -38,6 +38,11 @@ in {
       owner = "asf";
       mode = "0440";
     };
+    steam-3 = {
+      file = ./secrets/steam-3.age;
+      owner = "asf";
+      mode = "0440";
+    };
   };
 
   environment = {
@@ -119,7 +124,12 @@ in {
 
   services.journald.extraConfig = "SystemMaxUse=50M";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "googleearth-pro-7.3.4.8248"
+    ];
+  };
 
   documentation = {
     nixos.enable = false;

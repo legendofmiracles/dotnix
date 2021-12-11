@@ -128,14 +128,19 @@
                   enable = true;
                   bots = {
                     legendofmiracles = {
-                      enabled = true;
                       username = "LegendOfMiracles";
                       passwordFile = "/run/agenix/steam";
                     };
                     hlgr360 = {
                       enabled = false;
-                      username = "hlgr360";
                       passwordFile = "/run/agenix/steam-2";
+                    };
+                    ktya360 = {
+                      passwordFile = "/run/agenix/steam-3";
+                      settings = {
+                        SteamParentalCode = "3952";
+                      };
+                      enabled = false;
                     };
                   };
                   settings = {
@@ -148,7 +153,7 @@
                   #package = pkgs.asf;
                 };
 
-                services.minecraft-server = {
+                /*services.minecraft-server = {
                   #enable = true;
                   eula = true;
                   fabric = {
@@ -156,7 +161,7 @@
                     minecraftVersion = "1.16.5";
                     mods = [ ./tabtps.16.5-1.3.5.jar ];
                   };
-                };
+                };*/
 
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;
