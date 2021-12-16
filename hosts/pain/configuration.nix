@@ -55,12 +55,10 @@
     enp8s0 = {
       useDHCP = true;
       wakeOnLan = { enable = true; };
+      ipv4.addresses = [ { address = "192.168.1.42"; prefixLength = 24; } ];
     };
     #wlp0s20f3.useDHCP = true;
   };
-
-  #services.flatpak.enable = true;
-  #xdg.portal.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -111,8 +109,6 @@
       };
     };
   };
-
-  programs.gamemode.enable = true;
 
   programs.dconf.enable = true;
 

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, nixvim, ... }:
 
 let
   lua = text: ''
@@ -6,31 +6,6 @@ let
     ${text}
     EOF
   '';
-
-  mark-radar = pkgs.vimUtils.buildVimPlugin {
-    pname = "mark-radar";
-    version = "";
-    src = pkgs.fetchFromGitHub {
-      owner = "winston0410";
-      repo = "mark-radar.nvim";
-      rev = "d7fb84a670795a5b36b18a5b59afd1d3865cbec7";
-      sha256 = "1y3l2c7h8czhw0b5m25iyjdyy0p4nqk4a3bxv583m72hn4ac8rz9";
-    };
-  };
-
-  /*
-  octo = pkgs.vimUtils.buildVimPlugin {
-    pname = "octo";
-    version = "";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "pwntester";
-      repo = "octo.nvim";
-      rev = "848990b8d7f7f28293cfb5a1ad19abf66e27f08a";
-      sha256 = "sha256-+vHclNUot8EPSMhC7x805LGt6oaF4qO3/DbKQ2q6KyY=";
-    };
-  };
-  */
 
   gesture = pkgs.vimUtils.buildVimPlugin {
     pname = "gesture";
@@ -40,28 +15,6 @@ let
       repo = "gesture.nvim";
       rev = "abf01c2fb64c4b90f64b66f2764a2ff64b2a22e7";
       sha256 = "19bzhm5qrbg2fl2wibambaf9c0myxapqv3zvqskgi3c28z80ylmv";
-    };
-  };
-
-  kommentary = pkgs.vimUtils.buildVimPlugin rec {
-    pname = "kommentary";
-    version = "";
-    src = pkgs.fetchFromGitHub {
-      owner = "b3nj5m1n";
-      repo = pname;
-      rev = "f0b6d75df0a263fc849b0860dc8a27f4bed743db";
-      sha256 = "0z6rcvlgp00hrgjff31vwssrq000pwwak5kw6k1xz2349n01chsa";
-    };
-  };
-
-  luadev = pkgs.vimUtils.buildVimPlugin {
-    pname = "luadev";
-    version = "";
-    src = pkgs.fetchFromGitHub {
-      owner = "bfredl";
-      repo = "nvim-luadev";
-      rev = "a5f8bc0793acf0005183647f95498fb8a429d703";
-      sha256 = "1a71cg34radsm4aphr7yir1mq7blp8ya80i7chamwm1v3l06xcla";
     };
   };
 
@@ -79,10 +32,157 @@ let
 in with import ./colors.nix { }; {
   home.sessionVariables = { EDITOR = "nvim"; };
 
-  programs.neovim = {
+  programs.nixvim = {
     enable = true;
-    #package = package;
-    withNodeJs = true;
+
+    colorschemes.base16 = {
+      enable = true;
+      colorscheme = "mexico-light";
+    };
+
+    plugins = {
+      undotree.enable = true;
+
+      #nix.enable = true;
+
+      gitgutter = {
+        enable = true;
+        matchBackgrounds = true;
+      };
+
+      specs.enable = true;
+
+      mark-radar.enable = true;
+
+      lsp = {
+        enable = true;
+        servers = {
+          rust-analyzer.enable = true;
+          rnix-lsp.enable = true;
+        };
+      };
+    };
+
+    extraPlugins = with pkgs.vimPlugins; [
+      vim-highlightedyank
+      # highlights the same words in different places
+      nvim-cursorline
+      venn
+      registers-nvim
+      colorizer
+      auto-pairs
+      vim-bufferline
+      {
+        plugin = vim-which-key;
+        config = ''
+          let g:mapleader = "\<Space>"
+          let g:maplocaleader = ','
+
+          let g:which_key_map = {}
+
+          let g:which_key_map.n = {
+                      \ 'name':"code-actions",
+                      \ 'g' : [ '<Plug>(coc-definition)'    , 'go to definition' ],
+                      \ 'a' : [ '<Plug>(coc-references)'    , 'go to references' ],
+                      \ 'n' : [ '<Plug>(coc-rename)'        , 'rename'           ],
+                      \ 'd' : [ ':call Show_documentation()', 'show docs'        ],
+                      \ 'f' : [ '<Plug>(coc-refactor)'      , 'refactor'         ],
+                      \}
+
+          let g:which_key_map.f = {
+                      \ 'name':"FZF",
+                      \ 'a' : [ ':Telescope file_browser' , 'view files'   ],
+                      \ 'f' : [ ':Telescope find_files'   , 'view files'   ],
+                      \ 'g' : [ ':Telescope git_commits'  , 'view commits' ],
+                      \ 'l' : [ ':Telescope live_grep'    , 'live grep'    ],
+                      \}
+
+          let g:which_key_map.s = {
+                      \ 'name':"Surrounding",
+                      \ 'd' : [ '<Plug>Dsurround'                  , 'delete surrounding'   ],
+                      \ 'c' : [ '<Plug>Csurround'                  , 'change surrounding'   ],
+                      \ 'a' : [ '<Plug>Ysurround'                  , 'add surrounding'      ],
+                      \ 'o' : [ '<Plug>Yssurround'                 , 'surround entire line' ],
+                      \ 'O' : [ '<Plug>YSsurround', 'surround entire line but its on other' ],
+                      \ 'v' : [ '<Plug>VSurround'                  , 'visual surround'      ],
+                      \}
+
+          au VimEnter * call which_key#register('<Space>', "g:which_key_map")
+
+          nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+          vnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+          nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+        '';
+      }
+    ];
+
+    options = {
+      langmap = "dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP";
+      autoindent = true;
+      showmatch = true;
+      mouse = "a";
+      spell = true;
+      nu = true;
+      rnu = true;
+      updatetime = 100;
+      expandtab = true;
+      tabstop = 4;
+      timeoutlen = 100;
+      scrolloff = 5;
+      backspace = "indent,eol,start";
+      ttyfast = true;
+      ls = 0;
+    };
+
+    maps = {
+      normalVisualOp.";" = ":";
+      normal = {
+        "<Return>" = "o<Esc>";
+        "<BS>" = "<C-^>";
+      };
+    };
+
+    extraConfigVim = ''
+      " When editing a file, always jump to the last cursor position
+      autocmd BufReadPost *
+      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+      \   exe "normal g'\"" |
+      \ endif
+
+      " create missing dirs
+      autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
+
+      set matchpairs+=<:>
+
+      highlight ExtraWhitespace ctermbg=red guibg=red
+      match ExtraWhitespace /\s\+$/
+
+      " when copying/cutting strip it from newlines
+      autocmd TextYankPost * let @@ = trim(@@)
+      " Put plugins and dictionaries in this dir (also on Windows)
+      " persistent undo
+      let vimDir = '$HOME/.vim'
+
+      if stridx(&runtimepath, expand(vimDir)) == -1
+        " vimDir is not on runtimepath, add it
+        let &runtimepath.=','.vimDir
+      endif
+
+      " Keep undo history across sessions by storing it in a file
+      if has('persistent_undo')
+          let myUndoDir = expand(vimDir . '/undodir')
+          " Create dirs
+          call system('mkdir ' . vimDir)
+          call system('mkdir ' . myUndoDir)
+          let &undodir = myUndoDir
+          set undofile
+      endif
+    '';
+  };
+
+  /*
+  programs.neovim = {
+    #enable = true;
     plugins = with pkgs.vimPlugins; [
       undotree
       # luadev
@@ -109,7 +209,7 @@ in with import ./colors.nix { }; {
              let g:airline_powerline_fonts = 1
            '';
          }
-      */
+
       indent-blankline-nvim
       {
         plugin = vim-sneak;
@@ -243,7 +343,7 @@ in with import ./colors.nix { }; {
         '';
       }
       vim-bufferline
-      /* {
+      {
          plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
          config = ''
          set foldlevel=99
@@ -291,7 +391,7 @@ in with import ./colors.nix { }; {
          }
          '';
          }
-      */
+      
     ];
     extraConfig = ''
       set langmap=dg,ek,fe,gt,il,jy,kn,lu,nj,pr,rs,sd,tf,ui,yo,op,DG,EK,FE,GT,IL,JY,KN,LU,NJ,PR,RS,SD,TF,UI,YO,OP
@@ -383,7 +483,7 @@ in with import ./colors.nix { }; {
       set ls=0
 
     '';
-    /* ${lua ''
+    ${lua ''
             local mode_map = {
                ['n'] = 'normal ',
                ['no'] = 'n·operator pending ',
@@ -437,7 +537,6 @@ in with import ./colors.nix { }; {
 
                  ''}
        '';
-    */
   };
 
   home.file.".config/nvim/coc-settings.json".text = ''
@@ -458,8 +557,8 @@ in with import ./colors.nix { }; {
       }
     }
   '';
-
-  home.file = {
+  */
+  /*home.file = {
     ".config/nvim/after/queries/nix/injections.scm".text = ''
       (
           (app [
@@ -469,7 +568,7 @@ in with import ./colors.nix { }; {
           (#match? @_func "(writeShellScript(Bin)?)")
           ; #!/bin/sh shebang highlighting
           ((indented_string) @bash @_code
-            (#lua-match? @_code "\s*#!\s*/bin/sh"))
+            (#lua-match? @_code "\s*#!\s*//*bin/sh"))
           ; Bash strings
           ((indented_string) @bash @_code
             (#lua-match? @_code "\s*## Syntax: bash"))
@@ -478,7 +577,9 @@ in with import ./colors.nix { }; {
             (#lua-match? @_code "\s*\\-\- Syntax: lua"))
       )
     '';
+
   };
+  */
 
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;

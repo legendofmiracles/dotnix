@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  font = "Cascadia Mono PL";
-  source = fetchTarball {
-    url =
-      "https://github.com/legendofmiracles/dots/archive/c31e5d71b40a42cc2c1db6a26b042131e12412a9.tar.gz";
-    sha256 = "12p04s9ijr0b79aj93kd8ydhmzzsscbf8w728dz3g23xlb7b1dqa";
-  };
+let font = "Cascadia Mono PL";
 in {
   gtk = {
     enable = true;
@@ -17,7 +11,14 @@ in {
     };
   };
   home.file.gtk = {
-    source = "${source}/.themes/oomox-aaa";
+    source = "${
+        pkgs.fetchFromGitHub {
+          owner = "legendofmiracles";
+          repo = "dots";
+          rev = "c31e5d71b40a42cc2c1db6a26b042131e12412a9";
+          sha256 = "sha256-CrewzqJ9iDd+Q+Jw5BbT+v8Km0dtjiRVOgtkGZMm4Io=";
+        }
+      }/.themes/oomox-aaa";
     recursive = true;
     target = ".themes/oomox-aaa";
   };

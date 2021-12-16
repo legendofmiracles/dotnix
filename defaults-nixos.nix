@@ -49,6 +49,7 @@ in {
     sessionVariables = {
       NIXOS_CONFIG = "/home/nix/dotnix";
       fish_greeting = "";
+      DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     };
 
     systemPackages = with pkgs; [ man-pages fup-repl git ];

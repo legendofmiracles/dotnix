@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?final-asf";
+    nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=final-asf";
     #mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -24,6 +24,12 @@
 
     darwin.url = "github:lnl7/nix-darwin";
 
+    nixvim = {
+      #url = github:pta2002/nixvim;
+      url = "/home/nix/programming/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     /* nix-on-droid = {
          url = "github:t184256/nix-on-droid/master";
          inputs = {
@@ -35,7 +41,7 @@
   };
 
   outputs = { self, nixpkgs, home-manager, utils, nur
-    , nixos-hardware, agenix, nix-gaming, darwin }@inputs:
+    , nixos-hardware, agenix, nix-gaming, darwin, nixvim }@inputs:
     utils.lib.mkFlake {
       inherit self inputs;
 
@@ -125,7 +131,7 @@
                 disabledModules = [ "services/games/minecraft-server.nix" ];
 
                 services.archisteamfarm = {
-                  enable = true;
+                  #enable = true;
                   bots = {
                     legendofmiracles = {
                       username = "LegendOfMiracles";
@@ -146,11 +152,6 @@
                   settings = {
                     SteamOwnerID = "76561198815866999";
                   };
-                  web-ui = {
-                    enable = true;
-                    #package = pkgs.web-ui;
-                  };
-                  #package = pkgs.asf;
                 };
 
                 /*services.minecraft-server = {
@@ -189,6 +190,7 @@
                       fish
                       # my config
                       espanso
+                      nixvim.homeManagerModules.nixvim
                       nvim
                       gtk
                       # the module

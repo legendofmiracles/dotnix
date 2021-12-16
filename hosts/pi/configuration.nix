@@ -29,8 +29,14 @@
 
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  # networking.wireless.enable = true;
-  networking.interfaces.eth0.useDHCP = true;
+
+  # connected by lan
+  #networking.wireless.enable = true;
+
+  networking.interfaces.eth0 = {
+    useDHCP = true;
+    ipv4.addresses = [ { address = "192.168.1.69"; prefixLength = 24; } ];
+  };
 
   networking.hostName = "pi";
 
@@ -38,7 +44,7 @@
 
   swapDevices = [{
     device = "/swapfile";
-    size = 1024;
+    size = 2048;
   }];
 
   nix.distributedBuilds = true;
@@ -122,4 +128,37 @@
      };
   */
 
+  services.archisteamfarm = {
+    enable = true;
+    bots = {
+      legendofmiracles = {
+        username = "LegendOfMiracles";
+        passwordFile = "/run/agenix/steam";
+      };
+      hlgr360 = {
+        enabled = false;
+        passwordFile = "/run/agenix/steam-2";
+      };
+      ktya360 = {
+        passwordFile = "/run/agenix/steam-3";
+        settings = {
+          SteamParentalCode = "3952";
+        };
+        enabled = false;
+      };
+    };
+    settings = {
+      SteamOwnerID = "76561198815866999";
+      IPCPassword = "test";
+    };
+    ipcSettings = {
+      Kestrel = {
+          Endpoints = {
+            HTTP = {
+              Url = "http://192.168.1.*:1242";
+            };
+          };
+        };
+    };
+  };
 }
