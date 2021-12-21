@@ -149,6 +149,7 @@
     };
     settings = {
       SteamOwnerID = "76561198815866999";
+      #Debug = true;
       IPCPassword = "test";
     };
     ipcSettings = {

@@ -71,11 +71,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1639644962,
-        "narHash": "sha256-KapSYcM2r0PyQCAKg5J6rrXkXmw4cItR3jEckH/pAfo=",
+        "lastModified": 1639677999,
+        "narHash": "sha256-AGd1Z+MF3buhTrCJc3ZrsEgEqWXDlRW9dSkDlW16m2k=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "42ba7b630437ab04b9d97b0745194cd913481051",
+        "rev": "78aa7cceffe2a48d05694d3ddf7a323d554d9be0",
         "type": "github"
       },
       "original": {
@@ -176,11 +176,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1639666817,
-        "narHash": "sha256-xZezTSjWQ6g3r360iBTOQ7NdCzaH7sTih29KVpssPr0=",
+        "lastModified": 1639679861,
+        "narHash": "sha256-ouNHdlPNC7ZB2AFpOVl5f3pyZ+vekf0ETv7pVJD14AA=",
         "ref": "final-asf",
-        "rev": "28ee7b094d845ddc99de43a5d8dcf13967d3f9d7",
-        "revCount": 338850,
+        "rev": "de9b111203da48c3f11a420e09c549ac7c8185c7",
+        "revCount": 338883,
         "type": "git",
         "url": "file:///home/nix/dotnix/nixpkgs"
       },
@@ -212,11 +212,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1639648072,
-        "narHash": "sha256-hJLknFn5u638J8F4LlaTBimfTj2cwZ57HMFC2qnrp6U=",
+        "lastModified": 1639679832,
+        "narHash": "sha256-A0lLc8q/7msyL6pRDsMShJj6nEfV/EuMp4WnEiJTZUk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "fb6277e18f455fe394333a5cc148d3e7084ec34d",
+        "rev": "3466c0bbd102a7e70e480de4b63248da91fc51d3",
         "type": "github"
       },
       "original": {

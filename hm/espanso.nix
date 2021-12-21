@@ -3,7 +3,6 @@
 {
   services.espanso = {
     enable = true;
-    # package = pkgs.espanso-no-notify;
     settings = {
       enable_passive = true;
       passive_key = "CTRL";
@@ -19,6 +18,22 @@
                 (pkgs.writeShellScript "espanso-script" ''
                   cmd=$(${pkgs.git}/bin/git -C $NIXOS_CONFIG rev-parse origin)
                   printf https://github.com/legendofmiracles/dotnix/blob/ && printf $cmd | ${pkgs.gnused}/bin/sed s/\n// && printf /
+                '')
+              ];
+              debug = true;
+            };
+          }];
+        }
+        {
+          trigger = ":clip";
+          replace = "{{clip}}";
+          vars = [{
+            name = "clip";
+            type = "script";
+            params = {
+              args = [
+                (pkgs.writeShellScript "clipboard" ''
+                  xclip -selection c -o
                 '')
               ];
               debug = true;

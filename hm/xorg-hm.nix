@@ -271,6 +271,8 @@ with import ./colors.nix { }; {
 
       # starts flameshot (a screenshot tool)
       bindsym $mod+q exec flameshot gui
+      
+      bindsym $mod+w exec flameshot gui | 0x0
 
       # start rofi (a program launcher)
       bindsym $mod+d exec "rofi -show combi"

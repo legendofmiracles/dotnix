@@ -13,6 +13,7 @@ final: prev: rec {
   present = prev.callPackage ./present { };
   ab-street = prev.callPackage ./ab-street { };
   gd-launcher = prev.callPackage ./gdlauncher { };
+  junest = prev.callPackage ./junest { };
 
   nix-bisect = prev.callPackage ./nix-bisect { };
 
