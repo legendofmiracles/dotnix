@@ -68,10 +68,6 @@
      '';
   */
 
-  services.firefox.syncserver = {
-    #enable = true;
-  };
-
   # complete git server only with configuring one user
   users = {
     users.git = {
