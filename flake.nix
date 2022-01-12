@@ -25,8 +25,8 @@
     darwin.url = "github:lnl7/nix-darwin";
 
     nixvim = {
-      #url = github:pta2002/nixvim;
-      url = "/home/nix/programming/nixvim";
+      url = github:pta2002/nixvim;
+      #url = "/home/nix/programming/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
