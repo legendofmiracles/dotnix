@@ -4,8 +4,8 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=final-asf";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=final-asf";
     #mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -130,8 +130,8 @@
 
                 disabledModules = [ "services/games/minecraft-server.nix" ];
 
-                services.archisteamfarm = {
-                  #enable = true;
+                /*services.archisteamfarm = {
+                  enable = true;
                   bots = {
                     legendofmiracles = {
                       username = "LegendOfMiracles";
@@ -152,7 +152,7 @@
                   settings = {
                     SteamOwnerID = "76561198815866999";
                   };
-                };
+                };*/
 
                 /*services.minecraft-server = {
                   #enable = true;
@@ -226,6 +226,7 @@
                       nixfmt
                       pavucontrol
                       (multimc.override { msaClientID = "01524508-0110-46fc-b468-362d31ca41e6"; })
+                      copyq
                       qrcp
                       tealdeer
                       nix-index

@@ -13,6 +13,7 @@ with import ./colors.nix { }; {
     # for nvidia optimus
     #${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
     #${pkgs.xorg.xrandr}/bin/xrandr --auto
+    ${pkgs.copyq}/bin/copyq &
   '';
 
   xdg.configFile."herbstluftwm/autostart" = {
