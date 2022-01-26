@@ -5,8 +5,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=final-asf";
-    #mc-local-nixpkgs.url = "git+file:///home/nix/dotnix/nixpkgs?ref=fabric";
+    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=fix-154775-adguardhome-settings";
+    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=minigalaxy-wine";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -130,30 +130,6 @@
 
                 disabledModules = [ "services/games/minecraft-server.nix" ];
 
-                /*services.archisteamfarm = {
-                  enable = true;
-                  bots = {
-                    legendofmiracles = {
-                      username = "LegendOfMiracles";
-                      passwordFile = "/run/agenix/steam";
-                    };
-                    hlgr360 = {
-                      enabled = false;
-                      passwordFile = "/run/agenix/steam-2";
-                    };
-                    ktya360 = {
-                      passwordFile = "/run/agenix/steam-3";
-                      settings = {
-                        SteamParentalCode = "3952";
-                      };
-                      enabled = false;
-                    };
-                  };
-                  settings = {
-                    SteamOwnerID = "76561198815866999";
-                  };
-                };*/
-
                 /*services.minecraft-server = {
                   #enable = true;
                   eula = true;
@@ -162,6 +138,11 @@
                     minecraftVersion = "1.16.5";
                     mods = [ ./tabtps.16.5-1.3.5.jar ];
                   };
+                };*/
+
+                /*programs.minigalaxy = {
+                  enable = true;
+                  withWine = true;
                 };*/
 
                 home-manager.useUserPackages = true;
@@ -213,6 +194,7 @@
                       hstrace
 
                       helvum
+                      hydra-check
                       /* (osu-nix.packages.x86_64-linux.osu-stable.override {
                            verbose = true;
                          })
@@ -225,7 +207,7 @@
                       up
                       nixfmt
                       pavucontrol
-                      (multimc.override { msaClientID = "01524508-0110-46fc-b468-362d31ca41e6"; })
+                      (polymc.override { msaClientID = "01524508-0110-46fc-b468-362d31ca41e6"; })
                       copyq
                       qrcp
                       tealdeer

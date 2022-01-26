@@ -18,17 +18,6 @@ let
     };
   };
 
-  venn = pkgs.vimUtils.buildVimPlugin {
-    pname = "venn";
-    version = "";
-    src = pkgs.fetchFromGitHub {
-      owner = "jbyuki";
-      repo = "venn.nvim";
-      rev = "425c9df332b46d8b13bc4e641646a9fb3db9c0c8";
-      sha256 = "0hf8v4c7y55b54na6yyq32d5192fsx9kq7scpp81b6hhi4rqxa88";
-    };
-  };
-
 in with import ./colors.nix { }; {
   home.sessionVariables = { EDITOR = "nvim"; };
 
@@ -43,7 +32,7 @@ in with import ./colors.nix { }; {
     plugins = {
       undotree.enable = true;
 
-      #nix.enable = true;
+      nix.enable = true;
 
       gitgutter = {
         enable = true;
@@ -67,7 +56,7 @@ in with import ./colors.nix { }; {
       vim-highlightedyank
       # highlights the same words in different places
       nvim-cursorline
-      venn
+      venn-nvim
       registers-nvim
       colorizer
       auto-pairs

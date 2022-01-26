@@ -127,7 +127,7 @@
   services.archisteamfarm = {
     enable = true;
     bots = {
-      legendofmiracles = {
+      lom = {
         username = "LegendOfMiracles";
         passwordFile = "/run/agenix/steam";
       };
@@ -156,6 +156,17 @@
             };
           };
         };
+    };
+  };
+
+  services.adguardhome = {
+    enable = true;
+    settings = {
+      dns = {
+        bind_host = "192.168.1.69";
+        bootstrap_dns = "9.9.9.9";
+        upstream_dns = [ "9.9.9.9" "1.1.1.1" ];
+      };
     };
   };
 }

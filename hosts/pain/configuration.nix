@@ -83,7 +83,11 @@
       quantum = 32;
       rate = 48000;
     };
+    wireplumber.enable = true;
+
+    media-session.enable = false;
   };
+
 
   hardware.pulseaudio.enable = false;
 

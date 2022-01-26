@@ -270,10 +270,7 @@ with import ./colors.nix { }; {
       # kill focused window
       bindsym $mod+Shift+q kill
 
-      # starts flameshot (a screenshot tool)
-      bindsym $mod+q exec flameshot gui
-      
-      bindsym $mod+w exec flameshot gui | 0x0
+      bindsym $mod+q exec flameshot gui -p /tmp/ss.png && 0x0 /tmp/ss.png && ${pkgs.libnotify}/bin/notify-send "uploaded" && rm /tmp/ss.png
 
       # start rofi (a program launcher)
       bindsym $mod+d exec "rofi -show combi"
