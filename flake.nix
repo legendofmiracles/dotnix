@@ -5,7 +5,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=fix-154775-adguardhome-settings";
+    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=unstable";
     #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=minigalaxy-wine";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -194,6 +194,7 @@
                       hstrace
 
                       helvum
+                      tmux   
                       hydra-check
                       /* (osu-nix.packages.x86_64-linux.osu-stable.override {
                            verbose = true;

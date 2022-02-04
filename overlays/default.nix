@@ -4,7 +4,6 @@ final: prev: rec {
      aw-core aw-server-rust aw-qt aw-watcher-afk aw-watcher-window aw-webui;
   */
   activitywatch = prev.callPackage ./activitywatch { };
-  cliscord = prev.callPackage ./cliscord { };
   st-patched = prev.callPackage ./st-patched { };
   keymapviz = prev.callPackage ./keymapviz { };
   mori = prev.callPackage ./mori { };
