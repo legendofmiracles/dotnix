@@ -52,7 +52,7 @@ in {
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     };
 
-    systemPackages = with pkgs; [ man-pages fup-repl git ];
+    systemPackages = with pkgs; [ man-pages git ];
 
     defaultPackages = lib.mkForce [ ];
   };

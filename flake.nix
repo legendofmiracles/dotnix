@@ -4,102 +4,76 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=unstable";
-    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=minigalaxy-wine";
+    nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=asf-update";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
 
     nur = {
       url = "github:nix-community/NUR";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix.url = "github:ryantm/agenix";
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    darwin.url = "github:lnl7/nix-darwin";
-
     nixvim = {
-      url = github:pta2002/nixvim;
+      url = "github:pta2002/nixvim";
       #url = "/home/nix/programming/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    /* nix-on-droid = {
-         url = "github:t184256/nix-on-droid/master";
-         inputs = {
-           nixpkgs.follows = "nixpkgs";
-           home-manager.follows = "home-manager";
-         };
-       };
-    */
   };
 
-  outputs = { self, nixpkgs, home-manager, utils, nur
-    , nixos-hardware, agenix, nix-gaming, darwin, nixvim }@inputs:
-    utils.lib.mkFlake {
+  outputs = { self, ... }@inputs: {
       inherit self inputs;
 
-      nixosModules = utils.lib.exportModules [
-        # the modules
-        ./modules/espanso-m.nix
-        ./modules/discord-message-sender.nix
-        ./modules/cowsay.nix
-        ./modules/minecraft.nix
-        # my config
-        ./xorg.nix
-        ./hm/proton.nix
-        ./hm/xorg-hm.nix
-        ./hm/mangohud.nix
-        ./hm/qt.nix
-        ./hm/espanso.nix
-        ./hm/dunst.nix
-        ./hm/defaults.nix
-        ./hm/git.nix
-        ./hm/gtk.nix
-        ./hm/mpv.nix
-        ./hm/fish.nix
-        ./hm/htop.nix
-        ./hm/nvim.nix
-        ./hm/pass.nix
-        ./hm/shell-scripts.nix
-        ./hm/mori.nix
-        ./hm/neofetch.nix
-        ./hm/alacritty.nix
-        ./defaults-nixos.nix
-        ./hm/firefox.nix
-        ./v4l2.nix
-        ./distributed-build-host.nix
-        ./network.nix
-        ./hm/newsboat.nix
-        ./printer.nix
-        ./fonts.nix
-        ./hm/aw.nix
-      ];
+      nixosModules = {
+        choice = import ./modules inputs;
 
-      hostDefaults = {
-        modules = [
-          agenix.nixosModules.age
-          self.nixosModules.defaults-nixos
-        ];
-        extraArgs = { inherit utils inputs; };
-      };
+        config = {
+          nixos = {
+            xorg = import ./xorg.nix;
+            defaults = import ./defaults-nixos.nix;
+            v4l2 = import ./v4l2;
+            remote-build-host = import ./distributed-build-host.nix;
+            network = import ./network.nix;
+            printer = import ./printer.nix;
+            fonts = import ./fonts.nix;
+          };
 
-      channels = {
-        nixpkgs = {
-          input = nixpkgs;
-          config = { allowUnfree = true; };
+          hm = {
+            proton = import ./hm/proton.nix;
+            xorg = import ./hm/xorg-hm.nix;
+            mangohud = import ./hm/mangohud.nix;
+            qt = import ./hm/qt.nix;
+            espanso = import ./hm/espanso.nix;
+            dunst = import ./hm/dunst.nix;
+            defaults = import ./hm/defaults.nix;
+            git = import ./hm/git.nix;
+            gtk = import ./hm/gtk.nix;
+            mpv = import ./hm/mpv.nix;
+            fish = import ./hm/fish.nix;
+            htop = import ./hm/htop.nix;
+            nvim = import ./hm/nvim.nix;
+            pass = import ./hm/pass.nix;
+            scripts = import ./hm/shell-scripts.nix;
+            mori = import ./hm/mori.nix;
+            neofetch = import ./hm/neofetch.nix;
+            alacritty = import ./hm/alacritty.nix;
+            firefox = import ./hm/firefox.nix;
+            newsboat = import ./hm/newsboat.nix;
+            aw = import ./hm/aw.nix;
+          };
         };
       };
 
-      hosts = {
-        pain = {
-          builder = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem;
+      nixosConfigurations = {
+        pain = inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
           modules = with self.nixosModules; [
             # system wide config
             ./hosts/pain/configuration.nix
@@ -109,7 +83,6 @@
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.common-cpu-intel
             distributed-build-host
-            #asf
             cowsay
             fonts
             network
@@ -121,30 +94,6 @@
                   imports = [ "${i}/nixos/modules/${m}" ];
                 };
               in {
-                # development/testing purposes
-                imports = [
-                  /*(mkDevelopModule mc-local-nixpkgs
-                    "services/games/minecraft-server.nix")
-                  */
-                ];
-
-                disabledModules = [ "services/games/minecraft-server.nix" ];
-
-                /*services.minecraft-server = {
-                  #enable = true;
-                  eula = true;
-                  fabric = {
-                    enable = true;
-                    minecraftVersion = "1.16.5";
-                    mods = [ ./tabtps.16.5-1.3.5.jar ];
-                  };
-                };*/
-
-                /*programs.minigalaxy = {
-                  enable = true;
-                  withWine = true;
-                };*/
-
                 home-manager.useUserPackages = true;
                 home-manager.useGlobalPkgs = true;
                 home-manager.users.nix = { pkgs, lib, ... }:
@@ -194,12 +143,8 @@
                       hstrace
 
                       helvum
-                      tmux   
+                      tmux
                       hydra-check
-                      /* (osu-nix.packages.x86_64-linux.osu-stable.override {
-                           verbose = true;
-                         })
-                      */
                       ffmpeg
                       lutris
                       obs-studio
@@ -208,7 +153,9 @@
                       up
                       nixfmt
                       pavucontrol
-                      (polymc.override { msaClientID = "01524508-0110-46fc-b468-362d31ca41e6"; })
+                      (polymc.override {
+                        msaClientID = "01524508-0110-46fc-b468-362d31ca41e6";
+                      })
                       copyq
                       qrcp
                       tealdeer
@@ -242,53 +189,20 @@
           ];
         };
 
-        pi = {
-          builder = nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem;
+        pi = inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = with self.nixosModules; [
             ./hosts/pi/configuration.nix
-            discord-message-sender
+            choice.discord-message-sender
           ];
-        };
-
-        Holgers-iMac = {
-          builder = args:
-            darwin.lib.darwinSystem (removeAttrs args [ "system" ]);
-          system = "x86_64-darwin";
-          modules = with self.nixosModules; [
-            ./hosts/iMac/configuration.nix
-
-            home-manager.darwinModules.home-manager
-            darwin.darwinModules.simple
-            ({ pkgs, ... }: {
-              home-manager.users.test = { pkgs, ... }:
-                with import ./hm/shell-scripts.nix { inherit pkgs inputs; }; {
-                  imports = [ defaults htop fish nvim git ];
-
-                  home.packages = with pkgs; [
-                    zerox0
-                    store-path
-                    command-not-found
-
-                  ];
-                };
-            })
-          ];
-          output = "darwinConfiguration";
         };
       };
 
-      sharedOverlays = [
-        nur.overlay
-        # neovim-nightly.overlay
-        self.overlay
-      ];
+      /* outputsBuilder = channels: {
+           packages = utils.lib.exportPackages self.overlays channels;
+         };
+      */
 
-      outputsBuilder = channels: {
-        packages = utils.lib.exportPackages self.overlays channels;
-      };
-
-      overlay = import ./overlays;
-      overlays = utils.lib.exportOverlays { inherit (self) pkgs inputs; };
+      overlays.default = import ./overlays;
     };
 }
