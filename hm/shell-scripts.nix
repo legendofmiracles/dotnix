@@ -128,7 +128,7 @@ rec {
 
   '';
   store-path = pkgs.writeShellScriptBin "store-path" ''
-    echo \"\''${$1}/\" | ${pkgs.fup-repl}/bin/repl | tail -n2 | sed s/\"//g
+    echo \"\''${$1}/\" | ${fup-repl}/bin/repl | tail -n2 | sed s/\"//g
   '';
   mute = pkgs.writeShellScriptBin "mute" ''
     sources=$(${pkgs.pamixer}/bin/pamixer --list-sources | grep -v monitor | grep -v Sources | cut -d " " -f 1 )
@@ -192,5 +192,21 @@ rec {
             comment delim "/*" "*/" multiline
           ''} -f esc --style-file=esc.style >&2 ) \
         "''${@}"
+  '';
+  fup-repl = let example = command: desc: ''\n\u001b[33m ${command}\u001b[0m - ${desc}''; in pkgs.writeShellScriptBin "repl" ''
+    case "$1" in
+      "-h"|"--help"|"help")
+        printf "%b\n\e[4mUsage\e[0m: \
+          ${example "repl" "Loads system flake if available."} \
+          ${example "repl /path/to/flake.nix" "Loads specified flake."}\n"
+      ;;
+      *)
+        if [ -z "$1" ]; then
+          nix repl ${./repl.nix}
+        else
+          nix repl --arg flakePath $(${pkgs.coreutils}/bin/readlink -f $1 | ${pkgs.gnused}/bin/sed 's|/flake.nix||') ${./repl.nix}
+        fi
+      ;;
+    esac
   '';
 }

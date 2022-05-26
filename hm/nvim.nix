@@ -26,7 +26,7 @@ in with import ./colors.nix { }; {
 
     colorschemes.base16 = {
       enable = true;
-      colorscheme = "mexico-light";
+      colorscheme = "default-dark";
     };
 
     plugins = {

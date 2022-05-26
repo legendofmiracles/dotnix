@@ -9,7 +9,7 @@
     userEmail = "legendofmiracles@protonmail.com";
     signing = {
       key = "CC50 F82C 985D 2679 0703  AF15 19B0 82B3 DEFE 5451";
-      signByDefault = true;
+      signByDefault = false;
     };
     aliases = {
       "lg" =

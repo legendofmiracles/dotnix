@@ -20,8 +20,8 @@
     nix-direnv = { enable = true; };
   };
 
-  home.username = "nix";
-  home.homeDirectory = "/home/nix";
+  #home.username = "nix";
+  #home.homeDirectory = "/home/nix";
 
   news.display = "silent";
 }
