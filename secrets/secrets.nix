@@ -14,4 +14,5 @@ in {
   "steam.age".publicKeys = users ++ systems;
   "steam-2.age".publicKeys = users ++ systems;
   "steam-3.age".publicKeys = users ++ systems;
+  "syncserver.age".publicKeys = users ++ systems;
 }

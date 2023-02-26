@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
   boot = {
     loader = {
-      rappberryPi = {
+      raspberryPi = {
         enable = true;
         version = 4;
       };

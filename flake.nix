@@ -6,7 +6,7 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=unstable";
-    #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=asf-update";
+    #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
@@ -246,7 +246,18 @@
         system = "aarch64-linux";
         modules = with self.nixosModules; [
           ./hosts/pi/configuration.nix
+          config.nixos.defaults
+          inputs.agenix.nixosModules.default
           choice.discord-message-sender
+        ];
+      };
+
+      pi-kb = inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = with self.nixosModules; [
+          ./hosts/pi-kb/configuration.nix
+          config.nixos.defaults
+          inputs.agenix.nixosModules.default
         ];
       };
     };

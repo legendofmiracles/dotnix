@@ -33,7 +33,7 @@ rec {
 
     curl -F file="@''${1:--}$type" 'http://0x0.st' \
         | tee /dev/stderr \
-        | xclip -r -sel clip
+        #| xclip -r -sel clip
   '';
   giphsh = pkgs.writeShellScriptBin "giph.sh" ''
     if pgrep "ffmpeg" > /dev/null 2>&1; then

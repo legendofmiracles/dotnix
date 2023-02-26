@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   mkCache = name: "https://${name}.cachix.org";
@@ -105,13 +105,13 @@ in {
       "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
     ];
 
-    nixPath = [ "nixpkgs=${pkgs.path}" "home-manager=${inputs.home-manager}" ];
+    nixPath = [ "nixpkgs=${pkgs.path}" /*"home-manager=${inputs.home-manager}"*/ ];
 
     trustedBinaryCaches = caches;
 
-    generateRegistryFromInputs = true;
+    #generateRegistryFromInputs = true;
 
-    linkInputs = true;
+    #linkInputs = true;
   };
 
   programs.command-not-found.enable = false;
