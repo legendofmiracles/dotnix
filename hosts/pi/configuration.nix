@@ -35,7 +35,7 @@
 
   networking.interfaces.eth0 = {
     useDHCP = true;
-    ipv4.addresses = [ { address = "192.168.1.69"; prefixLength = 24; } ];
+    ipv4.addresses = [ { address = "192.168.10.69"; prefixLength = 24; } ];
   };
 
   networking.hostName = "pi";
@@ -44,7 +44,7 @@
 
   swapDevices = [{
     device = "/swapfile";
-    size = 2048;
+    size = 8192;
   }];
 
   nix.distributedBuilds = true;
@@ -145,9 +145,11 @@
     };
     settings = {
       SteamOwnerID = "76561198815866999";
+      IPCPassword = "test1";
+      AutoSteamSaleEvent = true;
       #Debug = true;
-      IPCPassword = "test";
     };
+    #ipcPasswordFile = "/var/lib/ipcpassasf";
     ipcSettings = {
       Kestrel = {
           Endpoints = {
@@ -159,7 +161,7 @@
     };
   };
 
-  services.adguardhome = {
+  /*services.adguardhome = {
     enable = true;
     settings = {
       dns = {
@@ -168,5 +170,45 @@
         upstream_dns = [ "9.9.9.9" "1.1.1.1" ];
       };
     };
+  };*/
+
+  /*services.firefox-syncserver = {
+    enable = true;
+    singleNode = {
+      enable = true;
+      #url = "192.168.10.101";
+      hostname = "192.168.10.101";
+      enableNginx = true;
+    };
+    secrets = "/home/syncserver";
+    logLevel = "trace";
   };
+
+  services.nginx.enable = true;
+
+  services.mysql.package = pkgs.mariadb;*/
+
+  services.photoprism = {
+    enable = true;
+    originalsPath = "/var/lib/private/photoprism/photos";
+    importPath = "/var/lib/private/photoprism/import";
+    address = "192.168.10.109";
+    # change later
+    passwordFile = "/var/lib/ipcpassasf";
+    settings = {
+      PHOTOPRISM_SPONSOR = "true";
+    };
+  };
+
+  # photoprism needs this
+  users = {
+    users.photoprism = {
+      home = "/var/lib/photoprism";
+      isSystemUser = true;
+      group = "photoprism";
+      description = "photoprism service user";
+    };
+    groups.photoprism = { };
+  };
+
 }
