@@ -145,4 +145,36 @@ in {
       "safebrowsing.googleapis.com"
     ];
   };
+
+  systemd.services."notify-email@" = {
+    serviceConfig.Type = "oneshot";
+    path = with pkgs; [ systemd system-sendmail ];
+    scriptArgs = "%I";
+    script = ''
+      UNIT=$(systemd-escape $1)
+      TO="legendofmiracles@protonmail.com"
+      SUBJECT="$UNIT Failed"
+      HEADERS="To:$TO\nFrom:$FROM\nSubject: $SUBJECT\n"
+      BODY=$(systemctl status --no-pager $UNIT || true)
+      echo -e "$HEADERS\n$BODY" | sendmail -t
+    '';
+  };
+
+  programs.msmtp = {
+    enable = true;
+    defaults = {
+      tls = true;
+      port = 587;
+    };
+    accounts = {
+      default = {
+        auth = true;
+        from = "services.lom.nixos@gmail.com";
+        host = "smtp.gmail.com";
+        port = 587;
+        passwordeval = "cat /var/lib/passwd";
+        user = "services.lom.nixos";
+      };
+    };
+  };
 }
