@@ -82,8 +82,6 @@
     };
   };
 
-  #disabledModules = [ "services/web-apps/photoprism.nix" ];
-
   # photoprism needs this
   users = {
     users.photoprism = {
@@ -99,13 +97,22 @@
     };
   };
 
-  /*systemd.timers."update-photos" = {
+  systemd.timers."update-photos" = {
     wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnCalendar = "*-*-* 04:00:00";
+        OnCalendar = "*-*-* 03:00:00";
         Unit = "update-photos.service";
       };
-  };*/
+  };
+
+  systemd.services.photoprism = {
+    wantedBy = lib.mkForce [];
+
+    serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      PrivateDevices = lib.mkForce false;
+    };
+  };
 
   systemd.services."update-photos" = {
     script = ''
@@ -113,36 +120,7 @@
       path=/photos/photoprism/import/*
       chown photoprism:photoprism $path || true
       chmod 770 $path || true
-      ./${pkgs.writers.writePython3 "start-import" {
-        flakeIgnore = [ "E501" ];
-        libraries = [
-          (pkgs.python3Packages.buildPythonPackage rec {
-            pname = "photoprism_client";
-            version = "unstable-22-10-2022";
-            src = pkgs.fetchFromGitHub {
-              owner = "mvlnetdev";
-              repo = "photoprism_client";
-              rev = "d7aed5f210647319fe83c15287198c8ba82a309e";
-              sha256 = "sha256-PlDOzzxwqFVSl5nSQ97En+QJFI7dxmvGbonzgErAhEk=";
-            };
-            doCheck = false;
-            propagatedBuildInputs = [
-              # Specify dependencies
-              pkgs.python3Packages.requests
-            ];
-          })
-        ];
-      }
-      ''
-        from photoprism.Session import Session
-        from photoprism.Photo import Photo
-
-        pp_session = Session("admin", open("/var/lib/passwd", "r").read(), "127.0.0.1:2432")
-        pp_session.create()
-        p = Photo(pp_session)
-        p.start_import(path="import", move=True)
-      ''
-      }
+      ${pkgs.curl}/bin/curl 'http://127.0.0.1:2342/api/v1/import/' --fail-with-body -X POST -H "X-Session-ID: $(cat /var/lib/passwd-session-id)"  --data-raw '{"path":"/","move":true}'
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -151,13 +129,29 @@
     onFailure = [ "notify-email@%n.service" ];
   };
 
+  systemd.paths = {
+    update-photos = {
+      wantedBy = [ "multi-user.target" ];
+      pathConfig = {
+        DirectoryNotEmpty = "/photos/photoprism/import";
+      };
+    };
+    
+    photoprism = {
+      wantedBy = [ "multi-user.target" ];
+      pathConfig = {
+        PathExists = "/photos/photoprism/photos";
+      };
+    };
+  };
+
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
   };
 
   services.nginx = {
-    enable = true;
+    enable = false;
     virtualHosts."photoprism-redirect.com" = {
       root = "/photos/photoprism/serve";
       listenAddresses = [ "0.0.0.0" ];
