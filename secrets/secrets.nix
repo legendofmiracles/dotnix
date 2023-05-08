@@ -1,18 +1,14 @@
 let
   users = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBybp2ZGdW5VTpI0gPDaxVWy0DBEH9DJNqK6bXe4dzfB legendofmiracles@protonmail.com"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt1o+6eRyMK0c+xiwAsDWn/PH+47VzDSzuMmyokSepc"
   ];
 
   systems = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtX31mOmvoI97JCoNGDjo8Nqker9tid14Pkz/LklRIQ"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJeRZ0XZiYk59miA9pOPBqQvHsxRXQUHjlq29qoxINg"
+    # pi-kb
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+pKRYKPQs4WirbvN8j54Q31R6bm+0dXmm9IGlMtocE"
   ];
+
 in {
-  #"wpa_supplicant.conf.age".publicKeys = users ++ systems;
-  "variables.age".publicKeys = users ++ systems;
-  "steam.age".publicKeys = users ++ systems;
-  "steam-2.age".publicKeys = users ++ systems;
-  "steam-3.age".publicKeys = users ++ systems;
-  "syncserver.age".publicKeys = users ++ systems;
+  "photoprism.age".publicKeys = systems ++ users;
+  "steam.age".publicKeys = systems ++ users;
 }

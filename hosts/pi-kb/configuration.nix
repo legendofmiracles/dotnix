@@ -26,16 +26,15 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings.PermitRootLogin = "yes";
   };
 
-  # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
   # normally connected by lan
-  #networking.wireless.enable = true;
+  networking.wireless.enable = false;
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
 
   networking.interfaces.eth0 = {
     useDHCP = true;
@@ -76,14 +75,29 @@
     importPath = "/photos/photoprism/import";
     address = "0.0.0.0";
     # change later
-    passwordFile = "/var/lib/passwd";
+    passwordFile = config.age.secrets.photoprism.path;
     settings = {
       PHOTOPRISM_SPONSOR = "true";
     };
   };
 
-  # photoprism needs this
   users = {
+    # complete git server only with configuring one user
+    users.git = {
+      packages = with pkgs; [ git ];
+      home = "/srv/git";
+      #createHome = true;
+      isSystemUser = true;
+      group = "git";
+      description = "git ssh user";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONNQcvhcUySNuuRKroWNAgSdcfy7aqO3UsezT/C/XAQ legendofmiracles@protonmail.com"
+      ];
+      # needed to not have the account be 'disabled'
+      shell = "${pkgs.git}/bin/git-shell";
+    };
+    groups.git = { };
+    # photoprism needs this
     users.photoprism = {
       home = "/photos/photoprism";
       isSystemUser = true;
@@ -116,11 +130,12 @@
 
   systemd.services."update-photos" = {
     script = ''
-      set -eu
+      set -eux
       path=/photos/photoprism/import/*
+      session_id=$(${pkgs.curl}/bin/curl 'http://127.0.0.1:2342/api/v1/session' --fail-with-body -X POST --data-raw "{\"username\":\"admin\", \"password\":\"$(cat /var/lib/passwd-session-id)\"}" | ${pkgs.jq}/bin/jq -r .id)
       chown photoprism:photoprism $path || true
       chmod 770 $path || true
-      ${pkgs.curl}/bin/curl 'http://127.0.0.1:2342/api/v1/import/' --fail-with-body -X POST -H "X-Session-ID: $(cat /var/lib/passwd-session-id)"  --data-raw '{"path":"/","move":true}'
+      ${pkgs.curl}/bin/curl 'http://127.0.0.1:2342/api/v1/import/' --fail-with-body -X POST -H "X-Session-ID: $session_id"  --data-raw '{"path":"/","move":true}'
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -157,4 +172,33 @@
       listenAddresses = [ "0.0.0.0" ];
     };
   };
+
+  services.archisteamfarm = {
+    enable = true;
+    bots = {
+      lom = {
+        username = "LegendOfMiracles";
+        passwordFile = config.age.secrets.steam.path;
+      };
+    };
+
+    settings = {
+      SteamOwnerID = "76561198815866999";
+      Statistics = false;
+      AutoSteamSaleEvent = true;
+    };
+
+    ipcPasswordFile = config.age.secrets.photoprism.path;
+    ipcSettings = {
+      Kestrel = {
+          Endpoints = {
+            HTTP = {
+              Url = "http://*:1242";
+            };
+          };
+        };
+    };
+  };
+
+  system.stateVersion = "23.05";
 }

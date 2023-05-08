@@ -23,24 +23,16 @@ in {
   };
 
   age.secrets = {
-    variables = {
-      file = ./secrets/variables.age;
-      owner = "nix";
-      mode = "0400";
-    };
     steam = {
       file = ./secrets/steam.age;
       owner = "asf";
       mode = "0440";
     };
-    steam-2 = {
-      file = ./secrets/steam-2.age;
-      owner = "asf";
-      mode = "0440";
-    };
-    steam-3 = {
-      file = ./secrets/steam-3.age;
-      owner = "asf";
+    photoprism = {
+      file = ./secrets/photoprism.age;
+      owner = "photoprism";
+      # since asf also uses this password
+      group = "asf";
       mode = "0440";
     };
   };
@@ -75,8 +67,6 @@ in {
   };
 
   nix = {
-    systemFeatures = [ "recursive-nix" "kvm" "nixos-test" "big-parallel" ];
-
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
@@ -87,7 +77,20 @@ in {
     #useSandbox = false;
 
     package = pkgs.nixUnstable;
-    trustedUsers = [ "root" "nix" ];
+    settings = {
+      trusted-users = [ "root" "nix" ];
+      trusted-substituters = caches;
+      substituters = caches;
+      trusted-public-keys = [
+        "lom.cachix.org-1:R0BYXkgRm24m+gHUlYzrI2DxwNEOKWXF1/VdYSPCXyQ="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        #"neovim-nightly.cachix.org-1:feIoInHRevVEplgdZvQDjhp11kYASYCE2NGY9hNrwxY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
+        "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+      ];
+      system-features = [ "recursive-nix" "kvm" "nixos-test" "big-parallel" ];
+    };
 
     gc = {
       automatic = false;
@@ -95,19 +98,7 @@ in {
       dates = "weekly";
     };
 
-    binaryCaches = caches;
-    binaryCachePublicKeys = [
-      "lom.cachix.org-1:R0BYXkgRm24m+gHUlYzrI2DxwNEOKWXF1/VdYSPCXyQ="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      #"neovim-nightly.cachix.org-1:feIoInHRevVEplgdZvQDjhp11kYASYCE2NGY9hNrwxY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-      "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
-    ];
-
     nixPath = [ "nixpkgs=${pkgs.path}" /*"home-manager=${inputs.home-manager}"*/ ];
-
-    trustedBinaryCaches = caches;
 
     #generateRegistryFromInputs = true;
 
