@@ -252,18 +252,18 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1683510320,
-        "narHash": "sha256-5FQtjGfQipwy7QzU7xGNTEOMhz5TIAAeSu1TQXIblT8=",
-        "ref": "upddate-nodjs-asf",
-        "rev": "ddf530df410dcd3d6087979e7d152589f1770104",
-        "revCount": 482070,
-        "type": "git",
-        "url": "file:///home/lom/nixpkgs"
+        "lastModified": 1684935479,
+        "narHash": "sha256-6QMMsXMr2nhmOPHdti2j3KRHt+bai2zw+LJfdCl97Mk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f91ee3065de91a3531329a674a45ddcb3467a650",
+        "type": "github"
       },
       "original": {
-        "ref": "upddate-nodjs-asf",
-        "type": "git",
-        "url": "file:///home/lom/nixpkgs"
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixvim": {

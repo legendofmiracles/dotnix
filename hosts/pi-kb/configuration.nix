@@ -163,6 +163,12 @@
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
+    extraOptions = {
+      gui = {
+        user = "";
+        password = "";
+      };
+    };
   };
 
   services.nginx = {
@@ -201,4 +207,35 @@
   };
 
   system.stateVersion = "23.05";
+
+  virtualisation.oci-containers.containers = {
+     firefly = {
+       image = "fireflyiii/core:latest";
+       volumes = [
+         "/var/lib/firefly:/var/www/html/storage/upload"
+       ];
+       extraOptions = ["--net=host"];
+       environment = {
+         APP_KEY = "VChSBVJvhWt6OEbuGx6XPAjGEX3fLo3u";
+         DB_HOST = "127.0.0.1";
+         DB_PORT = "3306";
+         DB_CONNECTION = "mysql";
+         DB_DATABASE = "firefly"; 
+         DB_USERNAME = "firefly";
+         DB_PASSWORD = "PASSWORD";
+       };
+     };
+   };
+
+
+   services.mysql = {
+     enable = true;
+     package = pkgs.mariadb;
+     initialScript = pkgs.writeText "init-db.sql" ''
+       CREATE DATABASE firefly;
+       CREATE USER 'firefly'@'localhost' IDENTIFIED BY 'PASSWORD';
+       GRANT ALL PRIVILEGES ON firefly.* TO 'firefly'@'localhost';
+       FLUSH PRIVILEGES;
+     '';
+   };
 }

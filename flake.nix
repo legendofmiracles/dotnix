@@ -4,9 +4,9 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "git+file:///home/nix/nixpkgs?ref=unstable";
-    nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=upddate-nodjs-asf";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=nixos-unstable";
+    #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=upddate-nodjs-asf";
 
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
