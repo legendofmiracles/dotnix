@@ -35,6 +35,21 @@ in {
       group = "asf";
       mode = "0440";
     };
+    mail = {
+      file = ./secrets/mail.age;
+      owner = "nix";
+      mode = "0444";
+    };
+    cert = {
+      file = ./secrets/cert.age;
+      owner = "nginx";
+      mode = "0440";
+    };
+    key = {
+      file = ./secrets/key.age;
+      owner = "nginx";
+      mode = "0440";
+    };
   };
 
   environment = {
@@ -163,7 +178,7 @@ in {
         from = "services.lom.nixos@gmail.com";
         host = "smtp.gmail.com";
         port = 587;
-        passwordeval = "cat /var/lib/passwd";
+        passwordeval = "cat ${config.age.secrets.mail.path}";
         user = "services.lom.nixos";
       };
     };
