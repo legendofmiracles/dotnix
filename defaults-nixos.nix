@@ -28,6 +28,11 @@ in {
       owner = "asf";
       mode = "0440";
     };
+    steam-jonas = {
+      file = ./secrets/steam-jonas.age;
+      owner = "asf";
+      mode = "0440";
+    };
     photoprism = {
       file = ./secrets/photoprism.age;
       owner = "photoprism";

@@ -173,6 +173,10 @@
         username = "LegendOfMiracles";
         passwordFile = config.age.secrets.steam.path;
       };
+      jonas = {
+        username = "KillingLegends";
+        passwordFile = config.age.secrets.steam-jonas.path;
+      };
     };
 
     settings = {
@@ -316,14 +320,31 @@
   };
 
   services.tandoor-recipes = {
-      enable = true;
-      port = 1234;
-      address = "0.0.0.0";
+    enable = true;
+    port = 1234;
+    address = "0.0.0.0";
   };
 
   services.paperless = {
-    enable = true;
+    enable = false;
     passwordFile = config.age.secrets.photoprism.path;
     address = "0.0.0.0";
+  };
+
+  services.adguardhome = {
+    enable = true;
+  };
+
+  virtualisation.oci-containers.containers = {
+    /*
+    watchtower = {
+      image = "containrrr/watchtower";
+      cmd = [ "--cleanup --interval 3600" ];
+    };*/
+    # doesn't run on arm
+    /*archiver = {
+      image = "atdr.meo.ws/archiveteam/urls-grab";
+      cmd = [ "--concurrent 1 lom" ];
+    };*/
   };
 }

@@ -121,6 +121,7 @@ in with import ./colors.nix { }; {
       backspace = "indent,eol,start";
       ttyfast = true;
       ls = 0;
+      foldmethod = "indent";
     };
 
     maps = {

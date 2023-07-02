@@ -69,57 +69,58 @@
       };
     };
 
-    homeConfigurations = {
+    homeConfigurations = let pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    in {
       wsl = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        username = "lom";
-        homeDirectory = "/home/lom";
-        configuration = { pkgs, lib, ... }:
+        inherit pkgs;
+        modules = with self.nixosModules.config.hm; [
+          {
+            home = {
+              stateVersion = "22.05";
+              homeDirectory = "/home/lom";
+              username = "lom";
+              packages = with pkgs;
+                with import ./hm/shell-scripts.nix {
+                  inherit pkgs inputs lib;
+                }; [
+                  zerox0
+                  giphsh
+                  discord-id
+                  rclip
+                  command-not-found
+                  yt
+                  hstrace
 
-          with import ./hm/shell-scripts.nix { inherit pkgs inputs lib; }; {
-            imports = with self.nixosModules.config.hm; [
-              git
-              htop
-              defaults
-              pass
-              neofetch
-              newsboat
-              fish
-              inputs.nixvim.homeManagerModules.nixvim
-              nvim
-              gtk
-            ];
+                  hydra-check
+                  lucky-commit
+                  up
+                  nixfmt
+                  pavucontrol
+                  tealdeer
+                  nix-index
+                  bc
+                  nvd
+                  bat
+                  fzf
+                  jq
+                  nix-review
+                  ouch
+                  tmpmail
 
-            home.packages = with pkgs; [
-              # custom shell script
-              zerox0
-              giphsh
-              discord-id
-              rclip
-              command-not-found
-              yt
-              hstrace
-
-              hydra-check
-              lucky-commit
-              up
-              nixfmt
-              pavucontrol
-              tealdeer
-              nix-index
-              bc
-              nvd
-              bat
-              fzf
-              jq
-              nix-review
-              ouch
-              tmpmail
-
-              keymapviz
-            ];
-          };
-
+                  keymapviz
+                ];
+            };
+          }
+          git
+          htop
+          defaults
+          pass
+          neofetch
+          newsboat
+          fish
+          inputs.nixvim.homeManagerModules.nixvim
+          nvim
+        ];
       };
     };
 
@@ -252,15 +253,17 @@
         ];
       };
 
-      pi-kb = inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = with self.nixosModules; [
-          ./hosts/pi-kb/configuration.nix
-          config.nixos.defaults
-          inputs.agenix.nixosModules.default
-          #choice.photoprism-mod
-        ];
-      };
+      pi-kb =
+        inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = with self.nixosModules; [
+            ({ config, pkgs, ... }: { nixpkgs.overlays = [ self.overlays.default ]; })
+            ./hosts/pi-kb/configuration.nix
+            config.nixos.defaults
+            inputs.agenix.nixosModules.default
+            #choice.photoprism-mod
+          ];
+        };
     };
 
     /* outputsBuilder = channels: {
