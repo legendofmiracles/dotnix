@@ -221,7 +221,6 @@
     firefly = {
       image = "fireflyiii/core:latest";
       volumes = [ "/var/lib/firefly:/var/www/html/storage/upload" ];
-      extraOptions = [ "--net=host" ];
       environment = {
         DB_HOST = "127.0.0.1";
         DB_PORT = "3306";
@@ -231,19 +230,15 @@
         DB_PASSWORD = "PASSWORD";
       };
       environmentFiles = [ config.age.secrets.firefly-env.path ];
-    };
-    # doesn't work
-    /*firefly-bot = {
-      imageFile = pkgs.fetchurl {
-        url = "https://github.com/legendofmiracles/firefly-bot/releases/download/untagged-543bbaa50c952fb083ed/firefly-t";
-        hash = "sha256-d87DP0ZDO+7xmgeJyNQyUmYwJxQHbd75lyjLDVwgD1k=";
-      };
-      image = "localhost/firefly-t:latest";
-      volumes = [ "/var/lib/firefly-bot/:/config" ];
-      environmentFiles = [ config.age.secrets.firefly-env.path ];
       extraOptions = [ "--net=host" ];
+    };
+    firefly-bot = {
+      image = "cyxou/firefly-iii-telegram-bot:latest";
+      volumes = [ "/var/lib/firefly-bot/:/home/node/app/sessions" ];
+      environmentFiles = [ config.age.secrets.firefly-env.path ];
       dependsOn = [ "firefly" ];
-    };*/
+      extraOptions = [ "--arch=arm" "--net=host" ];
+    };
   };
 
   systemd.timers."cron-firefly" = {
