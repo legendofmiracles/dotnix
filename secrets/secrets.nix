@@ -14,6 +14,5 @@ in {
   "steam.age".publicKeys = systems ++ users;
   "steam-jonas.age".publicKeys = systems ++ users;
   "mail.age".publicKeys = systems ++ users;
-  "cert.age".publicKeys = systems ++ users;
-  "key.age".publicKeys = systems ++ users;
+  "firefly-env.age".publicKeys = systems ++ users;
 }

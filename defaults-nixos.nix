@@ -45,14 +45,9 @@ in {
       owner = "nix";
       mode = "0444";
     };
-    cert = {
-      file = ./secrets/cert.age;
-      owner = "nginx";
-      mode = "0440";
-    };
-    key = {
-      file = ./secrets/key.age;
-      owner = "nginx";
+    firefly-env = {
+      file = ./secrets/firefly-env.age;
+      owner = "root";
       mode = "0440";
     };
   };

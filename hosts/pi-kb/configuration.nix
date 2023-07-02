@@ -1,14 +1,9 @@
 { config, pkgs, lib, ... }: {
   boot = {
     loader = {
-      /* raspberryPi = {
-           enable = true;
-           version = 4;
-         };
-      */
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
-    }; # kernelPackages = pkgs.linuxPackages_rpi4;
+    };
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
   };
 
@@ -194,13 +189,6 @@
 
   system.stateVersion = "23.05";
 
-  /* virtualisation.oci-containers.containers = {
-           MAPBOX_API_KEY = "this string doesn't even matter";
-         };
-       };
-     };
-  */
-
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
@@ -212,112 +200,8 @@
     '';
   };
 
-  systemd.timers."cron-firefly" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*-*-* 03:00:00";
-      Unit = "cron-firefly.service";
-    };
-  };
-  systemd.services."cron-firefly" = {
-    script = ''
-      set -eux
-      cd /var/www/html/firefly-iii/
-      ${pkgs.php82}/bin/php artisan firefly-iii:cron
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-    onFailure = [ "notify-email@%n.service" ];
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts."firefly" = {
-      forceSSL = false;
-
-      root = "/var/www/html/firefly-iii/public";
-      locations."/" = { tryFiles = "$uri /index.php$is_args$args"; };
-
-      extraConfig = ''
-        index index.html index.htm index.php;
-      '';
-
-      locations."~ .php$".extraConfig = ''
-        fastcgi_pass  unix:${config.services.phpfpm.pools.firefly-importer.socket};
-        fastcgi_index index.php;
-        fastcgi_read_timeout 240;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include ${pkgs.nginx}/conf/fastcgi_params;
-        fastcgi_split_path_info ^(.+.php)(/.+)$;
-      '';
-    };
-
-    virtualHosts."importer" = {
-      root = "/var/www/html/firefly-importer/public";
-      listen = [{
-        port = 8080;
-        addr = "0.0.0.0";
-      }];
-
-      locations."/" = {
-        tryFiles = "$uri /index.php$is_args$args";
-        extraConfig = ''
-          proxy_buffer_size          128k;
-          proxy_buffers              4 256k;
-          proxy_busy_buffers_size    256k;
-          autoindex on;
-          sendfile off;
-        '';
-      };
-
-      locations."~ .php$".extraConfig = ''
-        fastcgi_pass  unix:${config.services.phpfpm.pools.firefly-importer.socket};
-        fastcgi_index index.php;
-        fastcgi_read_timeout 240;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include ${pkgs.nginx}/conf/fastcgi_params;
-        fastcgi_split_path_info ^(.+.php)(/.+)$;
-        fastcgi_buffers 16 32k;
-        fastcgi_buffer_size 64k;
-        fastcgi_busy_buffers_size 64k;
-      '';
-    };
-  };
-
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "legendofmiracles@protonmail.com";
-
-  services.phpfpm = {
-    phpPackage = pkgs.php82;
-    pools.firefly = {
-      user = "nginx";
-      settings = {
-        pm = "dynamic";
-        "listen.owner" = config.services.nginx.user;
-        "pm.max_children" = 5;
-        "pm.start_servers" = 2;
-        "pm.min_spare_servers" = 1;
-        "pm.max_spare_servers" = 3;
-        "pm.max_requests" = 500;
-      };
-    };
-    pools.firefly-importer = {
-      user = "nginx";
-      phpPackage =
-        pkgs.php82.withExtensions ({ enabled, all }: enabled ++ [ all.bcmath ]);
-      settings = {
-        pm = "dynamic";
-        "listen.owner" = config.services.nginx.user;
-        "pm.max_children" = 5;
-        "pm.start_servers" = 2;
-        "pm.min_spare_servers" = 1;
-        "pm.max_spare_servers" = 3;
-        "pm.max_requests" = 500;
-      };
-    };
-  };
 
   services.tandoor-recipes = {
     enable = true;
@@ -331,20 +215,53 @@
     address = "0.0.0.0";
   };
 
-  services.adguardhome = {
-    enable = true;
-  };
+  services.adguardhome = { enable = true; };
 
   virtualisation.oci-containers.containers = {
-    /*
-    watchtower = {
-      image = "containrrr/watchtower";
-      cmd = [ "--cleanup --interval 3600" ];
+    firefly = {
+      image = "fireflyiii/core:latest";
+      volumes = [ "/var/lib/firefly:/var/www/html/storage/upload" ];
+      extraOptions = [ "--net=host" ];
+      environment = {
+        DB_HOST = "127.0.0.1";
+        DB_PORT = "3306";
+        DB_CONNECTION = "mysql";
+        DB_DATABASE = "firefly";
+        DB_USERNAME = "firefly";
+        DB_PASSWORD = "PASSWORD";
+      };
+      environmentFiles = [ config.age.secrets.firefly-env.path ];
+    };
+    # doesn't work
+    /*firefly-bot = {
+      imageFile = pkgs.fetchurl {
+        url = "https://github.com/legendofmiracles/firefly-bot/releases/download/untagged-543bbaa50c952fb083ed/firefly-t";
+        hash = "sha256-d87DP0ZDO+7xmgeJyNQyUmYwJxQHbd75lyjLDVwgD1k=";
+      };
+      image = "localhost/firefly-t:latest";
+      volumes = [ "/var/lib/firefly-bot/:/config" ];
+      environmentFiles = [ config.age.secrets.firefly-env.path ];
+      extraOptions = [ "--net=host" ];
+      dependsOn = [ "firefly" ];
     };*/
-    # doesn't run on arm
-    /*archiver = {
-      image = "atdr.meo.ws/archiveteam/urls-grab";
-      cmd = [ "--concurrent 1 lom" ];
-    };*/
+  };
+
+  systemd.timers."cron-firefly" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 03:00:00";
+      Unit = "cron-firefly.service";
+    };
+  };
+  systemd.services."cron-firefly" = {
+    script = ''
+      set -eux
+      podman exec firefly /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    onFailure = [ "notify-email@%n.service" ];
   };
 }
