@@ -33,10 +33,6 @@
 
   networking.interfaces.eth0 = {
     useDHCP = true;
-    ipv4.addresses = [{
-      address = "10.0.0.42";
-      prefixLength = 24;
-    }];
   };
 
   networking.hostName = "pikb";
@@ -105,20 +101,20 @@
     users.syncthing = { extraGroups = [ "photoprism" ]; };
   };
 
-  systemd.timers."update-photos" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*-*-* 03:00:00";
-      Unit = "update-photos.service";
-    };
-  };
-
   systemd.services.photoprism = {
     wantedBy = lib.mkForce [ ];
 
     serviceConfig = {
       DynamicUser = lib.mkForce false;
       PrivateDevices = lib.mkForce false;
+    };
+  };
+
+  systemd.timers."update-photos" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 03:00:00";
+      Unit = "update-photos.service";
     };
   };
 
@@ -153,7 +149,7 @@
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
-    extraOptions = {
+    settings = {
       gui = {
         user = "";
         password = "";
@@ -200,11 +196,8 @@
     '';
   };
 
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "legendofmiracles@protonmail.com";
-
   services.tandoor-recipes = {
-    enable = true;
+    enable = false;
     port = 1234;
     address = "0.0.0.0";
   };
@@ -215,7 +208,7 @@
     address = "0.0.0.0";
   };
 
-  services.adguardhome = { enable = true; };
+  # services.adguardhome = { enable = true; };
 
   virtualisation.oci-containers.containers = {
     firefly = {
@@ -229,13 +222,13 @@
         DB_USERNAME = "firefly";
         DB_PASSWORD = "PASSWORD";
       };
-      environmentFiles = [ config.age.secrets.firefly-env.path ];
+      environmentFiles = [ config.age.secrets.services-env.path ];
       extraOptions = [ "--net=host" ];
     };
     firefly-bot = {
       image = "cyxou/firefly-iii-telegram-bot:latest";
       volumes = [ "/var/lib/firefly-bot/:/home/node/app/sessions" ];
-      environmentFiles = [ config.age.secrets.firefly-env.path ];
+      environmentFiles = [ config.age.secrets.services-env.path ];
       dependsOn = [ "firefly" ];
       extraOptions = [ "--arch=arm" "--net=host" ];
     };
@@ -251,7 +244,7 @@
   systemd.services."cron-firefly" = {
     script = ''
       set -eux
-      podman exec firefly /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
+      ${pkgs.podman}/bin/podman exec firefly /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -259,4 +252,117 @@
     };
     onFailure = [ "notify-email@%n.service" ];
   };
+
+
+  /*services.firefox-syncserver = {
+    enable = true;
+    singleNode = {
+      enable = true;
+      enableNginx = true;
+      hostname = "10.0.0.42";
+    };
+    secrets = config.age.secrets.services-env.path;
+  };*/
+
+  services.nginx.enable = true;
+
+  services.nginx.virtualHosts."lomom.party" = {
+    addSSL = true;
+    enableACME = true;
+    root = "/var/www/html";
+  };
+
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "legendofmiracles@protonmail.com";
+
+  networking.wireguard = {
+    enable = true;
+    interfaces."wg0" = {
+      privateKeyFile = "/var/keys/wg0-priv-key";
+      generatePrivateKeyFile = true;
+      ips = [ "10.0.0.1/24" ];
+      listenPort = 51820;
+      peers = [ 
+        {
+          # ipad
+          allowedIPs = [ "10.0.0.2/32" ];
+          publicKey = "wK0pR/h5duC9JFqihJ+7u5GfeP8NfU0SS/eKUvAFKVw=";
+        }
+        {
+
+          #phone
+          allowedIPs = [ "10.0.0.3/32" ];
+          publicKey = "SrIYdkbmwB7CmkdWCCOuKSBMK1LPO0JSByyzBXnKqwQ=";
+        }
+      ];
+    };
+  };
+
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "eth0";
+  networking.nat.internalInterfaces = [ "wg0" ];
+
+  services.borgbackup.jobs."backup" = {
+      paths = [ "/photos/photoprism/photos" ];
+      repo = "ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat ${config.age.secrets.backup-encryption-pass.path}";
+      };
+      user = "photoprism";
+      extraArgs = "--progress";
+      compression = "auto,lzma";
+      startAt = "daily";
+      environment = {
+        BORG_RSH = "ssh -i ${config.age.secrets.backup-ssh-key.path}";
+        BORG_REMOTE_PATH="/mnt/Hoarder/onyx/borg-linux64";
+      };
+  };
+
+  systemd.services."borgbackup-job-backup" = {
+    onFailure = [ "notify-email@%n.service" ];
+    serviceConfig = {
+        Restart = "on-failure";
+    };
+  };
+
+  systemd.timers."update-dns" = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*:0/15";
+        Unit = "update-dns.service";
+        Persistent = true;
+      };
+    };
+  systemd.services."update-dns" = {
+      script = ''
+        set -x
+        source "${config.age.secrets.services-env.path}"
+        #grab wan ip from canhazip and set variable to output
+        output=$(curl http://canhazip.com)
+
+        current=$(dig +short lomom.party)
+
+        if [[ "$current" == "$output" ]]; then
+          echo Same IP
+          exit 0
+        fi
+
+        #display wan ip for troubleshooting
+        echo "$output";
+
+        #update dns ip of sub.domain.com via porkbun api
+        curl \
+        --header "Content-type: application/json" \
+        --request POST \
+        --data '{"secretapikey":"'$SECRET_KEY'","apikey":"'$API_KEY'","content":"'$output'", "type":"A"}' \
+        https://porkbun.com/api/json/v3/dns/edit/lomom.party/346829051
+      '';
+      path = [ pkgs.curl pkgs.dig ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
+      };
+      onFailure = [ "notify-email@%n.service" ];
+    };
 }

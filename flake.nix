@@ -272,5 +272,13 @@
     */
 
     overlays.default = import ./overlays;
+
+    devShells.x86_64-linux.default = inputs.nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        name = "Secrets shell";
+        buildInputs = [
+          inputs.agenix.packages.x86_64-linux.agenix
+        ];
+        EDITOR = "nvim";
+      };
   };
 }

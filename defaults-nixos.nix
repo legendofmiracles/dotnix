@@ -45,10 +45,20 @@ in {
       owner = "nix";
       mode = "0444";
     };
-    firefly-env = {
-      file = ./secrets/firefly-env.age;
+    services-env = {
+      file = ./secrets/services-env.age;
       owner = "root";
       mode = "0440";
+    };
+    backup-ssh-key = {
+      file = ./secrets/backup-ssh-key.age;
+      owner = "photoprism";
+      mode = "0400";
+    };
+    backup-encryption-pass = {
+      file = ./secrets/backup-encryption-pass.age;
+      owner = "photoprism";
+      mode = "0400";
     };
   };
 

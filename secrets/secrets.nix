@@ -11,8 +11,15 @@ let
 in {
   # also used as the general password for basically any other service
   "photoprism.age".publicKeys = systems ++ users;
+
+  # asf
   "steam.age".publicKeys = systems ++ users;
   "steam-jonas.age".publicKeys = systems ++ users;
+
   "mail.age".publicKeys = systems ++ users;
-  "firefly-env.age".publicKeys = systems ++ users;
+  "services-env.age".publicKeys = systems ++ users;
+
+  # duplicity
+  "backup-ssh-key.age".publicKeys = systems ++ users;
+  "backup-encryption-pass.age".publicKeys = systems ++ users;
 }
