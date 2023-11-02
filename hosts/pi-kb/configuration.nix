@@ -41,7 +41,7 @@
 
   swapDevices = [{
     device = "/swapfile";
-    size = 8192;
+    size = 12192;
   }];
 
   nix.distributedBuilds = false; # TEMPORARILY DISABLED
@@ -62,6 +62,8 @@
     man.enable = false;
     dev.enable = false;
   };
+
+  environment.systemPackages = with pkgs; [ tmux iftop ];
 
   services.photoprism = {
     enable = true;
@@ -155,6 +157,8 @@
         password = "";
       };
     };
+    overrideFolders = false;
+    overrideDevices = false;
   };
 
   services.archisteamfarm = {
@@ -223,7 +227,7 @@
         DB_PASSWORD = "PASSWORD";
       };
       environmentFiles = [ config.age.secrets.services-env.path ];
-      extraOptions = [ "--net=host" ];
+      extraOptions = [ "--net=host" "-m=5g"];
     };
     firefly-bot = {
       image = "cyxou/firefly-iii-telegram-bot:latest";
@@ -244,7 +248,7 @@
   systemd.services."cron-firefly" = {
     script = ''
       set -eux
-      ${pkgs.podman}/bin/podman exec firefly /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
+      ${pkgs.podman}/bin/podman exec --user=www-data firefly /usr/local/bin/php /var/www/html/artisan firefly-iii:cron
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -267,7 +271,7 @@
   services.nginx.enable = true;
 
   services.nginx.virtualHosts."lomom.party" = {
-    addSSL = true;
+    forceSSL = true;
     enableACME = true;
     root = "/var/www/html";
   };
@@ -302,28 +306,34 @@
   networking.nat.externalInterface = "eth0";
   networking.nat.internalInterfaces = [ "wg0" ];
 
-  services.borgbackup.jobs."backup" = {
-      paths = [ "/photos/photoprism/photos" ];
-      repo = "ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos";
-      encryption = {
-        mode = "repokey-blake2";
-        passCommand = "cat ${config.age.secrets.backup-encryption-pass.path}";
-      };
-      user = "photoprism";
-      extraArgs = "--progress";
-      compression = "auto,lzma";
-      startAt = "daily";
-      environment = {
-        BORG_RSH = "ssh -i ${config.age.secrets.backup-ssh-key.path}";
-        BORG_REMOTE_PATH="/mnt/Hoarder/onyx/borg-linux64";
-      };
-  };
-
-  systemd.services."borgbackup-job-backup" = {
-    onFailure = [ "notify-email@%n.service" ];
-    serviceConfig = {
-        Restart = "on-failure";
+  systemd.timers."backup-photoprism" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 4:00:00";
+      Unit = "update-dns.service";
+      Persistent = true;
     };
+  };
+  systemd.services."backup-photoprism" = {
+    script = ''
+    set -ex
+
+    export BORG_PASSPHRASE=$(cat ${config.age.secrets.backup-encryption-pass.path})
+    export BORG_REMOTE_PATH="/mnt/Hoarder/onyx/borg-linux64" 
+    export BORG_RSH="ssh -i ${config.age.secrets.backup-ssh-key.path}"  
+
+    borg create --progress --stats --verbose ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos::$(date -I) /photos/photoprism/photos
+
+    borg prune —verbose —stats —keep-last=10 ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
+
+    borg compact —progress ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
+    '';
+      path = [ pkgs.borgbackup ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
+      };
+      onFailure = [ "notify-email@%n.service" ];
   };
 
   systemd.timers."update-dns" = {

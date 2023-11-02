@@ -11,7 +11,7 @@ let
     (mkCache "veloren-nix")
     (mkCache "nix-gaming")
   ];
-  TZ = "America/Guatemala";
+  TZ = "Europe/Berlin";
 in {
   programs.fish = {
     enable = true;
