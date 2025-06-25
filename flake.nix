@@ -4,7 +4,7 @@
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=nixos-unstable";
     #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=upddate-nodjs-asf";
 
@@ -18,12 +18,12 @@
 
     agenix.url = "github:ryantm/agenix";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    #nix-gaming.url = "github:fufexan/nix-gaming";
 
-    nixvim = {
+    /*nixvim = {
       url = "github:pta2002/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+    };*/
   };
 
   outputs = { self, ... }@inputs: {

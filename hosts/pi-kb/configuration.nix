@@ -72,7 +72,7 @@
     address = "0.0.0.0";
     # change later
     passwordFile = config.age.secrets.photoprism.path;
-    settings = { PHOTOPRISM_SPONSOR = "true"; };
+    settings = { PHOTOPRISM_SPONSOR = "true"; PHOTOPRISM_DETECT_NSFW = "false"; PHOTOPRISM_UPLOAD_NSFW = "true"; };
   };
 
   users = {
@@ -139,7 +139,7 @@
   systemd.paths = {
     update-photos = {
       wantedBy = [ "multi-user.target" ];
-      pathConfig = { DirectoryNotEmpty = "/photos/photoprism/import"; };
+      pathConfig = { DirectoryNotEmpty = "/photos/photoprism/import"; RequiresMountsFor = "/photos/"; };
     };
 
     photoprism = {
@@ -175,7 +175,7 @@
     };
 
     settings = {
-      SteamOwnerID = "76561198815866999";
+      SteamOwnerID = 76561198815866999;
       Statistics = false;
       AutoSteamSaleEvent = true;
     };
@@ -189,7 +189,7 @@
 
   system.stateVersion = "23.05";
 
-  services.mysql = {
+  /*services.mysql = {
     enable = true;
     package = pkgs.mariadb;
     initialScript = pkgs.writeText "init-db.sql" ''
@@ -198,7 +198,7 @@
       GRANT ALL PRIVILEGES ON firefly.* TO 'firefly'@'localhost';
       FLUSH PRIVILEGES;
     '';
-  };
+  };*/
 
   services.tandoor-recipes = {
     enable = false;
@@ -215,7 +215,7 @@
   # services.adguardhome = { enable = true; };
 
   virtualisation.oci-containers.containers = {
-    firefly = {
+    /*firefly = {
       image = "fireflyiii/core:latest";
       volumes = [ "/var/lib/firefly:/var/www/html/storage/upload" ];
       environment = {
@@ -235,9 +235,22 @@
       environmentFiles = [ config.age.secrets.services-env.path ];
       dependsOn = [ "firefly" ];
       extraOptions = [ "--arch=arm" "--net=host" ];
+    };*/
+    tgtg = {
+      image = "derhenning/tgtg:latest";
+      environment = {
+        TGTG_USERNAME = "alex_rhdt@protonmail.com";
+        TZ = "Europe/Berlin";
+        LOCALE = "de_DE";
+        DEBUG = "true";
+
+        NTFY = "true";
+        NTFY_TOPIC = "tgtg_alex_yum";
+      };
+      volumes = [ "/var/lib/tgtg:/tokens" ];
     };
   };
-
+  /*
   systemd.timers."cron-firefly" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
@@ -255,7 +268,7 @@
       User = "root";
     };
     onFailure = [ "notify-email@%n.service" ];
-  };
+  };*/
 
 
   /*services.firefox-syncserver = {
@@ -269,12 +282,56 @@
   };*/
 
   services.nginx.enable = true;
+  services.nginx.virtualHosts = {
+    "lomom.party" = {
+        forceSSL = true;
+        enableACME = true;
+        root = "/var/www/html";
 
-  services.nginx.virtualHosts."lomom.party" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "/var/www/html";
+        locations."/" = { };
+        locations."/files" = {
+          basicAuthFile = config.age.secrets.website.path;
+          extraConfig = ''
+              autoindex on;
+          '';
+        };
+
+        locations."/dots" = {
+          extraConfig = ''
+            proxy_pass "https://github.com/legendofmiracles/dotnix"
+          '';
+        };
+        
+        locations."/test".proxyPass = "https://example.com";
+
+        locations."/guatemala" = {
+          root = "/var/www/";
+        };
+      };
+    "photos.lomom.party" = {
+      basicAuthFile = config.age.secrets.website.path;
+      forceSSL = true;
+      enableACME = true;
+
+      locations."/library/login".return = "404";
+      locations."/" = {
+        proxyPass = "http://localhost:2342";
+        extraConfig = ''
+          # proxy_set_header X-Real-IP $remote_addr;
+          # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          # proxy_set_header Host $host;
+
+          proxy_buffering off;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+
+          client_max_body_size 500M;
+        '';
+      };
+    };
   };
+  
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "legendofmiracles@protonmail.com";
@@ -296,7 +353,7 @@
 
           #phone
           allowedIPs = [ "10.0.0.3/32" ];
-          publicKey = "SrIYdkbmwB7CmkdWCCOuKSBMK1LPO0JSByyzBXnKqwQ=";
+          publicKey = "hTHXIdigMDRIEVB8n5ShhsLxwF+76U+vGPxXmmudsTA=";
         }
       ];
     };
@@ -310,7 +367,7 @@
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "*-*-* 4:00:00";
-      Unit = "update-dns.service";
+      Unit = "backup-photoprism.service";
       Persistent = true;
     };
   };
@@ -324,9 +381,9 @@
 
     borg create --progress --stats --verbose ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos::$(date -I) /photos/photoprism/photos
 
-    borg prune —verbose —stats —keep-last=10 ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
+    borg prune -—verbose -—stats -—keep-last=10 ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
 
-    borg compact —progress ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
+    borg compact —-progress ssh://lom@jita.cubox.dev:6969/mnt/Hoarder/lom/photos
     '';
       path = [ pkgs.borgbackup ];
       serviceConfig = {
@@ -366,8 +423,14 @@
         --header "Content-type: application/json" \
         --request POST \
         --data '{"secretapikey":"'$SECRET_KEY'","apikey":"'$API_KEY'","content":"'$output'", "type":"A"}' \
-        https://porkbun.com/api/json/v3/dns/edit/lomom.party/346829051
-      '';
+        https://api.porkbun.com/api/json/v3/dns/edit/lomom.party/346829051
+
+        curl \
+        --header "Content-type: application/json" \
+        --request POST \
+        --data '{"secretapikey":"'$SECRET_KEY'","apikey":"'$API_KEY'","content":"'$output'", "type":"A", "name":"photos"}' \
+        https://api.porkbun.com/api/json/v3/dns/edit/lomom.party/447250763
+        '';
       path = [ pkgs.curl pkgs.dig ];
       serviceConfig = {
         Type = "oneshot";

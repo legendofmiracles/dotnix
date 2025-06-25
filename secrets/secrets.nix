@@ -22,4 +22,7 @@ in {
   # duplicity
   "backup-ssh-key.age".publicKeys = systems ++ users;
   "backup-encryption-pass.age".publicKeys = systems ++ users;
+
+  #website protection
+  "website-pass.age".publicKeys = systems ++ users;
 }

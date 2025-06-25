@@ -9,7 +9,7 @@ let
     #(mkCache "neovim-nightly")
     (mkCache "nix-community")
     (mkCache "veloren-nix")
-    (mkCache "nix-gaming")
+    #(mkCache "nix-gaming")
   ];
   TZ = "Europe/Berlin";
 in {
@@ -26,19 +26,19 @@ in {
     steam = {
       file = ./secrets/steam.age;
       owner = "asf";
-      mode = "0440";
+      mode = "0444";
     };
     steam-jonas = {
       file = ./secrets/steam-jonas.age;
       owner = "asf";
-      mode = "0440";
+      mode = "0444";
     };
     photoprism = {
       file = ./secrets/photoprism.age;
       owner = "photoprism";
       # since asf also uses this password
       group = "asf";
-      mode = "0440";
+      mode = "0444";
     };
     mail = {
       file = ./secrets/mail.age;
@@ -59,6 +59,11 @@ in {
       file = ./secrets/backup-encryption-pass.age;
       owner = "photoprism";
       mode = "0400";
+    };
+    website = {
+      file = ./secrets/website-pass.age;
+      owner = "root";
+      mode = "0444";
     };
   };
 
@@ -101,7 +106,7 @@ in {
     # turn this off later!!!
     #useSandbox = false;
 
-    package = pkgs.nixUnstable;
+    package = pkgs.nix;
     settings = {
       trusted-users = [ "root" "nix" ];
       trusted-substituters = caches;
@@ -112,7 +117,7 @@ in {
         #"neovim-nightly.cachix.org-1:feIoInHRevVEplgdZvQDjhp11kYASYCE2NGY9hNrwxY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-        "nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
+        #"nix-gaming.cachix.org-1:vn/szRSrx1j0IA/oqLAokr/kktKQzsDgDPQzkLFR9Cg="
       ];
       system-features = [ "recursive-nix" "kvm" "nixos-test" "big-parallel" ];
     };
