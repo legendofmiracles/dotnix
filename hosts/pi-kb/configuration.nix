@@ -26,8 +26,7 @@
 
   networking.firewall.enable = false;
 
-  # normally connected by lan
-  networking.wireless.enable = false;
+  networking.wireless.enable = true;
 
   networking.networkmanager.enable = false;
 
