@@ -1,6 +1,6 @@
 let
   users = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEt1o+6eRyMK0c+xiwAsDWn/PH+47VzDSzuMmyokSepc"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILcVcFT+yilQVnbVvNIcU7/Isfb5FLxhISA+C3h4Ljlg"
   ];
 
   systems = [
@@ -25,4 +25,6 @@ in {
 
   #website protection
   "website-pass.age".publicKeys = systems ++ users;
+
+  "tailscale-key.age".publicKeys = systems ++ users;
 }

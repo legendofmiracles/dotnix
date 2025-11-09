@@ -74,6 +74,11 @@
     settings = { PHOTOPRISM_SPONSOR = "true"; PHOTOPRISM_DETECT_NSFW = "false"; PHOTOPRISM_UPLOAD_NSFW = "true"; };
   };
 
+  services.immich = {
+    enable = false;
+    host = "0.0.0.0";
+  };
+
   users = {
     # complete git server only with configuring one user
     users.git = {
@@ -161,7 +166,7 @@
   };
 
   services.archisteamfarm = {
-    enable = true;
+    enable = false;
     bots = {
       lom = {
         username = "LegendOfMiracles";
@@ -235,7 +240,7 @@
       dependsOn = [ "firefly" ];
       extraOptions = [ "--arch=arm" "--net=host" ];
     };*/
-    tgtg = {
+    /*tgtg = {
       image = "derhenning/tgtg:latest";
       environment = {
         TGTG_USERNAME = "alex_rhdt@protonmail.com";
@@ -247,7 +252,7 @@
         NTFY_TOPIC = "tgtg_alex_yum";
       };
       volumes = [ "/var/lib/tgtg:/tokens" ];
-    };
+    };*/
   };
   /*
   systemd.timers."cron-firefly" = {
@@ -280,7 +285,7 @@
     secrets = config.age.secrets.services-env.path;
   };*/
 
-  services.nginx.enable = true;
+  services.nginx.enable = false;
   services.nginx.virtualHosts = {
     "lomom.party" = {
         forceSSL = true;
@@ -297,7 +302,7 @@
 
         locations."/dots" = {
           extraConfig = ''
-            proxy_pass "https://github.com/legendofmiracles/dotnix"
+            proxy_pass "https://github.com/legendofmiracles/dotnix";
           '';
         };
         
@@ -332,11 +337,11 @@
   };
   
 
-  security.acme.acceptTerms = true;
+  security.acme.acceptTerms = false;
   security.acme.defaults.email = "legendofmiracles@protonmail.com";
 
   networking.wireguard = {
-    enable = true;
+    enable = false;
     interfaces."wg0" = {
       privateKeyFile = "/var/keys/wg0-priv-key";
       generatePrivateKeyFile = true;
@@ -358,9 +363,27 @@
     };
   };
 
-  networking.nat.enable = true;
+  networking.nat.enable = false;
   networking.nat.externalInterface = "eth0";
   networking.nat.internalInterfaces = [ "wg0" ];
+
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server"; 
+    #extraDaemonFlags = [ "--advertise-exit-node" ];
+    authKeyFile = config.age.secrets.tailscale.path;
+  };
+
+  services.cloudflared = {
+    enable = false;
+    tunnels = {
+      "81095fd9-7fd8-43c5-a604-fe3798da59f1" = {
+        credentialsFile = "/root/.cloudflared/81095fd9-7fd8-43c5-a604-fe3798da59f1.json";
+        default = "http_status:404";
+      };
+    };
+  };
+
 
   systemd.timers."backup-photoprism" = {
     wantedBy = [ "timers.target" ];
@@ -392,7 +415,7 @@
       onFailure = [ "notify-email@%n.service" ];
   };
 
-  systemd.timers."update-dns" = {
+  /*systemd.timers."update-dns" = {
       wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = "*:0/15";
@@ -436,5 +459,5 @@
         User = "root";
       };
       onFailure = [ "notify-email@%n.service" ];
-    };
+    };*/
 }

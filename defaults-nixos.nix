@@ -65,6 +65,11 @@ in {
       owner = "root";
       mode = "0444";
     };
+    tailscale = {
+      file = ./secrets/tailscale-key.age;
+      owner = "root";
+      mode = "444";
+    };
   };
 
   environment = {

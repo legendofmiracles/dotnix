@@ -8,6 +8,10 @@
     #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=nixos-unstable";
     #nixpkgs.url = "git+file:///home/lom/nixpkgs?ref=upddate-nodjs-asf";
 
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "/home/nix/home-manager";
 
@@ -125,6 +129,10 @@
     };
 
     nixosConfigurations = {
+      wsl = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+	modules = [ inputs.nixos-wsl.nixosModules.default ./hosts/wsl/configuration.nix ];
+      };
       pain = inputs.nixpkgs.lib.makeOverridable inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
